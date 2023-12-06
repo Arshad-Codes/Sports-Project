@@ -8,8 +8,5 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "yarn": "^1.22.21"
-  }
+  "license": "ISC"
 }
