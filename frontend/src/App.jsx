@@ -1,7 +1,9 @@
+import NavBar from './components/Navbar';
+
 function App() {
   return (
     <>
-      <h1>Hi Infas hello</h1>
+      <NavBar />
     </>
   );
 }
