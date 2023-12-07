@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   Navbar,
   Collapse,
@@ -36,56 +37,67 @@ const navListMenuItems = [
     title: 'Cricket',
     description: 'The sound of leather on willow.',
     icon: CricketIcon,
+    link: '/login',
   },
   {
     title: 'Soccer',
     description: 'Get ready for some football action.',
     icon: SoccerIcon,
+    link: '#',
   },
   {
     title: 'Basketball',
     description: 'Enjoy the game on the court.',
     icon: BasketballIcon,
+    link: '#',
   },
   {
     title: 'Volleyball',
     description: 'Bump, set, spike!',
     icon: VolleyballIcon,
+    link: '#',
   },
   {
     title: 'Pool',
     description: 'Dive in and make a splash.',
     icon: PoolIcon,
+    link: '#',
   },
   {
     title: 'Kabaddi',
     description: 'Experience the thrill and strategy of Kabaddi.',
     icon: KabaddiIcon,
+    link: '#',
   },
   {
     title: 'Baseball',
     description: 'Play ball! Baseball time.',
     icon: BaseballIcon,
+    link: '#',
   },
   {
     title: 'Hockey',
     description: 'Fast-paced action on the ice.',
     icon: HockeyIcon,
+    link: '#',
   },
   {
     title: 'Rugby',
     description: 'Hard-hitting rugby action.',
     icon: RugbyIcon,
+    link: '#',
   },
   {
     title: 'Tennis',
     description: 'Grab your racket and hit the court.',
     icon: TennisIcon,
+    link: '#',
   },
   {
     title: 'Martial Arts',
     description: 'Discipline and skill in martial arts.',
     icon: MartialArtsIcon,
+    link: '#',
   },
 ];
 
@@ -93,8 +105,8 @@ function NavListMenu() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
   const renderItems = navListMenuItems.map(
-    ({ icon, title, description }, key) => (
-      <a href="#" key={key}>
+    ({ icon, title, description, link }, key) => (
+      <a href={link} key={key}>
         <MenuItem className="flex items-center gap-3 rounded-lg">
           <div className="flex items-center justify-center rounded-lg !bg-blue-gray-50 p-2 ">
             {' '}
@@ -139,7 +151,7 @@ function NavListMenu() {
               selected={isMenuOpen || isMobileMenuOpen}
               onClick={() => setIsMobileMenuOpen((cur) => !cur)}
             >
-              Resources
+              Sports
               <ChevronDownIcon
                 strokeWidth={2.5}
                 className={`hidden h-3 w-3 transition-transform lg:block ${
@@ -200,7 +212,7 @@ function NavList() {
         className="font-medium"
       >
         <ListItem className="flex items-center gap-2 py-2 pr-4">
-          Contact Us
+          Contact
         </ListItem>
       </Typography>
       <Typography
@@ -244,11 +256,20 @@ function NavBar() {
           <NavList />
         </div>
         <div className="hidden gap-2 lg:flex">
-          <Button variant="text" size="sm" color="blue-gray">
+          <Button
+            onClick={() => (window.location.href = '/login')}
+            variant="text"
+            size="sm"
+            color="blue-gray"
+          >
             Log In
           </Button>
-          <Button variant="gradient" size="sm">
-            Sign In
+          <Button
+            onClick={() => (window.location.href = '/Signup')}
+            variant="gradient"
+            size="sm"
+          >
+            Sign Up
           </Button>
         </div>
         <IconButton
@@ -267,11 +288,22 @@ function NavBar() {
       <Collapse open={openNav}>
         <NavList />
         <div className="flex w-full flex-nowrap items-center gap-2 lg:hidden">
-          <Button variant="outlined" size="sm" color="blue-gray" fullWidth>
+          <Button
+            onClick={() => (window.location.href = '/login')}
+            variant="outlined"
+            size="sm"
+            color="blue-gray"
+            fullWidth
+          >
             Log In
           </Button>
-          <Button variant="gradient" size="sm" fullWidth>
-            Sign In
+          <Button
+            onClick={() => (window.location.href = '/Signup')}
+            variant="gradient"
+            size="sm"
+            fullWidth
+          >
+            Sign Up
           </Button>
         </div>
       </Collapse>
