@@ -32,15 +32,15 @@ import {
   SportsMartialArts as MartialArtsIcon,
 } from '@mui/icons-material';
 
-const navListMenuItems = [
+const navSportList = [
   {
     title: 'Cricket',
     description: 'The sound of leather on willow.',
     icon: CricketIcon,
-    link: '/login',
+    link: '/specific',
   },
   {
-    title: 'Soccer',
+    title: 'Football',
     description: 'Get ready for some football action.',
     icon: SoccerIcon,
     link: '#',
@@ -104,7 +104,7 @@ const navListMenuItems = [
 function NavListMenu() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
-  const renderItems = navListMenuItems.map(
+  const renderItems = navSportList.map(
     ({ icon, title, description, link }, key) => (
       <a href={link} key={key}>
         <MenuItem className="flex items-center gap-3 rounded-lg">
@@ -185,7 +185,7 @@ function NavList() {
     <List className="mt-4 mb-6 p-0 lg:mt-0 lg:mb-0 lg:flex-row lg:p-1">
       <Typography
         as="a"
-        href="#"
+        href="/home"
         variant="small"
         color="blue-gray"
         className="font-medium"
@@ -195,7 +195,7 @@ function NavList() {
       <NavListMenu />
       <Typography
         as="a"
-        href="#"
+        href="/staffs"
         variant="small"
         color="blue-gray"
         className="font-medium"
@@ -265,6 +265,7 @@ function NavBar() {
             Log In
           </Button>
           <Button
+            className="bg-blue-900 text-white "
             onClick={() => (window.location.href = '/Signup')}
             variant="gradient"
             size="sm"
@@ -285,6 +286,7 @@ function NavBar() {
           )}
         </IconButton>
       </div>
+      l
       <Collapse open={openNav}>
         <NavList />
         <div className="flex w-full flex-nowrap items-center gap-2 lg:hidden">

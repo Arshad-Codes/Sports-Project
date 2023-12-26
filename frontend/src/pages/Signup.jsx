@@ -32,33 +32,48 @@ function Signup() {
           </div>
         </button>
       </div>
-      <div className="flex items-center justify-center min-h-screen">
-        <Card color="transparent" shadow={false}>
+      <div className="flex items-center justify-center  h-3/4 mt-5 mr-5 ml-5 mb-5">
+        <Card
+          className="flex border border-gray-400 p-10 mx-auto"
+          color="transparent"
+          shadow={true}
+        >
           <Typography variant="h4" color="blue-gray">
             Sign Up
           </Typography>
           <Typography color="gray" className="mt-1 font-normal">
             Enter your valid details to register.
           </Typography>
-          <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
+          <form className="mt-8 mb-2 w-100 max-w-screen-lg sm:w-96">
             <div className="mb-1 flex flex-col gap-6">
               <Typography variant="h6" color="blue-gray" className="-mb-3">
-                Your Name
+                Username
               </Typography>
               <Input
                 size="lg"
-                placeholder="name@mail.com"
+                placeholder="username"
                 className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
                 labelProps={{
                   className: 'before:content-none after:content-none',
                 }}
               />
               <Typography variant="h6" color="blue-gray" className="-mb-3">
-                Your Email
+                Registration Number
               </Typography>
               <Input
                 size="lg"
-                placeholder="name@mail.com"
+                placeholder="XXXX"
+                className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+                labelProps={{
+                  className: 'before:content-none after:content-none',
+                }}
+              />
+              <Typography variant="h6" color="blue-gray" className="-mb-3">
+                Student Email
+              </Typography>
+              <Input
+                size="lg"
+                placeholder="name@engug.ruh.ac.lk"
                 className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
                 labelProps={{
                   className: 'before:content-none after:content-none',
@@ -82,15 +97,15 @@ function Signup() {
                 <Typography
                   variant="small"
                   color="gray"
-                  className="flex items-center font-normal"
+                  className="flex items-center font-normal mt-2"
                 >
-                  I agree the
-                  <a
+                  I agree the Terms and Conditions
+                  {/* <a
                     href="#"
                     className="font-medium transition-colors hover:text-gray-900"
                   >
                     &nbsp;Terms and Conditions
-                  </a>
+                  </a> */}
                 </Typography>
               }
               containerProps={{ className: '-ml-2.5' }}
