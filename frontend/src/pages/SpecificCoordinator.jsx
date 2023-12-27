@@ -11,9 +11,6 @@ function SpecificCoordinator(){
 
     const coordinator = staffs.find((staff) => staff.position === position);
 
-    console.log("Coordinator Data:", coordinator); // Log coordinator data
-
-
     //also add something idk maybe for not found or somthing
     if (!coordinator) {
         return (
