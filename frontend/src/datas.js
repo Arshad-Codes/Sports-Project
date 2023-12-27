@@ -101,70 +101,70 @@ export const sportCoordinatorsDatas = {
   staffs: [
     {
       name: 'John Doe',
-      position: 'Cricket Coach',
+      position: 'Cricket_Coach',
       urls: '/src/assests/coach_cricket.jpg',
       Description:
         'John Doe is our experienced Cricket Coach. With years of coaching expertise, he leads our cricket team to success and helps players hone their skills.',
     },
     {
       name: 'Jane Smith',
-      position: 'Football Coach',
+      position: 'Football_Coach',
       imageUrl: '/src/assests/coach_football.jpg',
       Description:
         'Jane Smith is our dedicated Football Coach. Passionate about the beautiful game, she guides our football team to victory and fosters a spirit of teamwork.',
     },
     {
       name: 'Alex Johnson',
-      position: 'Badminton Instructor',
+      position: 'Badminton_Instructor',
       imageUrl: '/src/assests/instructor_badminton.jpg',
       Description:
         'Alex Johnson is our skilled Badminton Instructor. Join his classes to improve your badminton techniques and enjoy the thrill of the game.',
     },
     {
       name: 'Emily Davis',
-      position: 'Chess Master',
+      position: 'Chess_Master',
       imageUrl: '/src/assests/master_chess.jpg',
       Description:
         'Emily Davis is our Chess Master, providing strategic guidance to our chess enthusiasts. Join her sessions to enhance your chess skills and tactics.',
     },
     {
       name: 'Ryan Clark',
-      position: 'Hockey Coach',
+      position: 'Hockey_Coach',
       imageUrl: '/src/assests/coach_hockey.jpg',
       Description:
         'Ryan Clark is our energetic Hockey Coach. Under his leadership, our hockey team excels in fast-paced action on the field. Join the team for an adrenaline rush!',
     },
     {
       name: 'Sophie Turner',
-      position: 'Pool Supervisor',
+      position: 'Pool_Supervisor',
       imageUrl: '/src/assests/supervisor_pool.jpg',
       Description:
         'Sophie Turner supervises our Pool area, ensuring a friendly and competitive environment. Join our pool enthusiasts for exciting matches and camaraderie!',
     },
     {
       name: 'Michael Brown',
-      position: 'Rugby Trainer',
+      position: 'Rugby_Trainer',
       imageUrl: '/src/assests/trainer_rugby.jpg',
       Description:
         'Michael Brown is our experienced Rugby Trainer. Join his sessions to experience the rugged and intense sport of rugby and build a sense of camaraderie!',
     },
     {
       name: 'Olivia White',
-      position: 'Scrabble Coordinator',
+      position: 'Scrabble_Coordinator',
       imageUrl: '/src/assests/coordinator_scrabble.jpg',
       Description:
         'Olivia White coordinates our Scrabble events. Join the scrabble club for wordy fun and friendly competition under her expert guidance.',
     },
     {
       name: 'David Lee',
-      position: 'Table Tennis Coach',
+      position: 'Table_Tennis_Coach',
       imageUrl: '/src/assests/coach_table_tennis.jpg',
       Description:
         'David Lee is our Table Tennis Coach. Join his sessions to experience the fast-paced and skillful sport of table tennis and improve your reflexes.',
     },
     {
       name: 'Emma Taylor',
-      position: 'Tennis Instructor',
+      position: 'Tennis_Instructor',
       imageUrl: '/src/assests/instructor_tennis.jpg',
       Description:
         'Emma Taylor is our Tennis Instructor. Join her classes to learn the dynamic and strategic sport of tennis and stay active in a fun way!',

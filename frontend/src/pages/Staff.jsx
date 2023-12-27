@@ -7,9 +7,17 @@ import {
   CardHeader,
   Typography,
 } from '@material-tailwind/react';
+import { Link, useNavigate } from 'react-router-dom';
+
 
 function Staff() {
   const { staffs } = sportCoordinatorsDatas;
+
+  const navigate = useNavigate();
+  
+  const handleStaffClick = (position) => {
+    navigate(`/staffs/${position}`);
+  };
 
   return (
     <>
@@ -20,15 +28,14 @@ function Staff() {
             <Card
               className="transition-transform transform hover:shadow-lg hover:scale-105"
               key={index}
+              onClick={() => handleStaffClick(item.position)}
             >
               <CardHeader color="transparent" className="m-0">
-                <a href="#">
                   <img
                     className="w-full h-64 object-cover"
                     src={item.urls}
                     alt={item.name}
                   />
-                </a>
               </CardHeader>
 
               <CardBody>

@@ -6,6 +6,8 @@ import Cricket from './pages/SpecificSport';
 import Staff from './pages/Staff';
 import Sports from './pages/Sports';
 import SpecificSport from './pages/SpecificSport';
+import SpecificCoordinator from './pages/SpecificCoordinator';
+
 function App() {
   return (
     <BrowserRouter>
@@ -16,6 +18,7 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/cricket" element={<Cricket />} />
         <Route path="/staffs" element={<Staff />} />
+        <Route path="/staffs/:position" element={<SpecificCoordinator />}/>
         <Route path="/sports" element={<Sports />} />
         <Route path="/specific" element={<SpecificSport />} />
       </Routes>
