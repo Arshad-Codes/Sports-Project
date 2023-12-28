@@ -2,15 +2,15 @@ export const homeDatas = {
   carouselData: [
     {
       title: 'Image 1',
-      path: '/src/assests/Home_1.jpg',
+      path: '/src/assests/carousel/Home_1.jpg',
     },
     {
       title: 'Image 2',
-      path: '/src/assests/Home_2.jpg',
+      path: '/src/assests/carousel/Home_2.jpg',
     },
     {
       title: 'Image 3',
-      path: '/src/assests/Home_3.jpg',
+      path: '/src/assests/carousel/Home_3.jpg',
     },
   ],
 };
@@ -20,7 +20,7 @@ export const sportsDatas = {
     {
       name: 'Cricket',
       path: 'cricket',
-      urls: '/src/assests/cricket.webp',
+      urls: '/src/assests/cricket/cricket_3.jpg',
       Description:
         'Cricket is a popular sport at the Faculty of Engineering, University of Ruhuna. We have a vibrant cricket team that participates in various tournaments and events. Join us to be a part of the cricketing spirit!',
     },

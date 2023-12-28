@@ -11,7 +11,7 @@ function Home() {
       <div className="ml-3 mt-5 mr-3">
         <Carousel
           transition={{ duration: 1.5 }}
-          style={{ height: '400px' }}
+          style={{ height: '500px' }}
           className="rounded-xl text-center"
         >
           {carouselData.map((item, index) => (
@@ -19,7 +19,7 @@ function Home() {
               key={index}
               src={item.path}
               alt={item.title}
-              className="h-full w-full object-cover"
+              className="h-full w-full object-fill"
             />
           ))}
 
@@ -45,6 +45,15 @@ function Home() {
           SPORTS
         </Button>
       </div>
+      <Button
+        onClick={() => (window.location.href = '/sports')}
+        variant="text"
+        size="sm"
+        color="blue-gray"
+        className="mt-5"
+      >
+        SPORTS
+      </Button>
     </>
   );
 }
