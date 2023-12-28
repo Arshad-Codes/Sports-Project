@@ -12,7 +12,6 @@ const EmailPopup = ({ isOpen, onClose }) => {
         className="fixed inset-0 z-10 overflow-y-auto"
       >
         <div className="min-h-screen px-4 text-center">
-          {/* Dialog Overlay */}
           <Transition.Child
             as={React.Fragment}
             enter="ease-out duration-300"
@@ -24,8 +23,6 @@ const EmailPopup = ({ isOpen, onClose }) => {
           >
             <Dialog.Overlay className="fixed inset-0 bg-black opacity-30" />
           </Transition.Child>
-
-          {/* Dialog Content */}
           <div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
             <div className="flex items-center justify-between mb-4">
               <Dialog.Title

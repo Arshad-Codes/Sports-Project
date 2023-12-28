@@ -16,7 +16,7 @@ const EnrolledPage = () => {
 
   return (
     <div>
-      <div>EnrolledPage</div>
+      <div>Enrolled Page</div>
       <Button
         onClick={handleEmailButtonClick}
         variant="contained"
