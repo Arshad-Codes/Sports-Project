@@ -1,32 +1,6 @@
-// EnrolledPage.js
-import { useState } from 'react';
-import { Button } from '@mui/material';
-import EmailPopup from './EmailPopup';
 
-const EnrolledPage = () => {
-  const [isEmailPopupOpen, setEmailPopupOpen] = useState(false);
-
-  const handleEmailButtonClick = () => {
-    setEmailPopupOpen(true);
-  };
-
-  const handleEmailPopupClose = () => {
-    setEmailPopupOpen(false);
-  };
-
-  return (
-    <div>
-      <div>Enrolled Page</div>
-      <Button
-        onClick={handleEmailButtonClick}
-        variant="contained"
-        color="primary"
-      >
-        Email
-      </Button>
-      <EmailPopup isOpen={isEmailPopupOpen} onClose={handleEmailPopupClose} />
-    </div>
-  );
-};
+function EnrolledPage() {
+  return <div>EnrolledPage</div>;
+}
 
 export default EnrolledPage;

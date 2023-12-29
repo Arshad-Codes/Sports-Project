@@ -1,9 +1,9 @@
 import { Button, Carousel } from '@material-tailwind/react';
 import NavBar from '../components/Navbar';
-import { homeDatas } from '../datas';
+import { homeData } from '../data';
 
 function Home() {
-  const { carouselData } = homeDatas;
+  const { carouselData } = homeData;
 
   return (
     <>
@@ -34,16 +34,16 @@ function Home() {
             className="h-full w-full object-cover"
           /> */}
         </Carousel>
-
-        <Button
-          onClick={() => (window.location.href = '/sports')}
-          variant="text"
-          size="sm"
-          color="blue-gray"
-          className="mt-5"
-        >
-          SPORTS
-        </Button>
+      </div>
+      <div className="bg-green-300 mt-5">
+        <div className=" ml-3">
+          <h1>ANNOUNCEMENTS</h1>
+          <div className="grid grid-cols-1">
+            <div>
+              <h1></h1>
+            </div>
+          </div>
+        </div>
       </div>
       <Button
         onClick={() => (window.location.href = '/sports')}

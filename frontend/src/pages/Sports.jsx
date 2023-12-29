@@ -1,5 +1,4 @@
-import React from 'react';
-import { sportsDatas } from '../datas';
+import { sportsData } from '../data';
 import NavBar from '../components/Navbar';
 import {
   Card,
@@ -9,7 +8,7 @@ import {
 } from '@material-tailwind/react';
 
 function Sports() {
-  const { sports } = sportsDatas;
+  const { sports } = sportsData;
 
   return (
     <>
