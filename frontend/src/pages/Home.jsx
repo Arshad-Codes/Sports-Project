@@ -1,6 +1,7 @@
 import { Button, Carousel } from '@material-tailwind/react';
 import NavBar from '../components/Navbar';
 import { homeData } from '../data';
+import AnnouncementsCom from '../components/AnnouncemetsCom';
 
 function Home() {
   const { carouselData } = homeData;
@@ -45,12 +46,14 @@ function Home() {
           </div>
         </div>
       </div>
+
+      <AnnouncementsCom />
       <Button
-        onClick={() => (window.location.href = '/sports')}
+        onClick={() => (document.location.href = '/sports')}
         variant="text"
         size="sm"
         color="blue-gray"
-        className="mt-5"
+        className="mt-5 ml-10 mb-96"
       >
         SPORTS
       </Button>

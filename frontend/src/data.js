@@ -102,72 +102,92 @@ export const sportCoordinatorsData = {
     {
       name: 'John Doe',
       position: 'Cricket Coordinator',
-      urls: '/src/assests/Coordinator_cricket.jpg',
+      urls: '/src/assests/profile.jpg',
       Description:
         'John Doe is our experienced Cricket Coordinator. With years of Coordinatoring expertise, he leads our cricket team to success and helps players hone their skills.',
     },
     {
       name: 'Jane Smith',
       position: 'Football Coordinator',
-      imageUrl: '/src/assests/Coordinator_football.jpg',
+      urls: '/src/assests/profile.jpg',
       Description:
         'Jane Smith is our dedicated Football Coordinator. Passionate about the beautiful game, she guides our football team to victory and fosters a spirit of teamwork.',
     },
     {
       name: 'Alex Johnson',
       position: 'Badminton Instructor',
-      imageUrl: '/src/assests/instructor_badminton.jpg',
+      urls: '/src/assests/profile.jpg',
       Description:
         'Alex Johnson is our skilled Badminton Instructor. Join his classes to improve your badminton techniques and enjoy the thrill of the game.',
     },
     {
       name: 'Emily Davis',
       position: 'Chess Master',
-      imageUrl: '/src/assests/master_chess.jpg',
+      urls: '/src/assests/profile.jpg',
       Description:
         'Emily Davis is our Chess Master, providing strategic guidance to our chess enthusiasts. Join her sessions to enhance your chess skills and tactics.',
     },
     {
       name: 'Ryan Clark',
       position: 'Hockey Coordinator',
-      imageUrl: '/src/assests/Coordinator_hockey.jpg',
+      urls: '/src/assests/profile.jpg',
       Description:
         'Ryan Clark is our energetic Hockey Coordinator. Under his leadership, our hockey team excels in fast-paced action on the field. Join the team for an adrenaline rush!',
     },
     {
       name: 'Sophie Turner',
       position: 'Pool Supervisor',
-      imageUrl: '/src/assests/supervisor_pool.jpg',
+      urls: '/src/assests/profile.jpg',
       Description:
         'Sophie Turner supervises our Pool area, ensuring a friendly and competitive environment. Join our pool enthusiasts for exciting matches and camaraderie!',
     },
     {
       name: 'Michael Brown',
       position: 'Rugby Trainer',
-      imageUrl: '/src/assests/trainer_rugby.jpg',
+      urls: '/src/assests/profile.jpg',
       Description:
         'Michael Brown is our experienced Rugby Trainer. Join his sessions to experience the rugged and intense sport of rugby and build a sense of camaraderie!',
     },
     {
       name: 'Olivia White',
       position: 'Scrabble Coordinator',
-      imageUrl: '/src/assests/coordinator_scrabble.jpg',
+      urls: '/src/assests/profile.jpg',
       Description:
         'Olivia White coordinates our Scrabble events. Join the scrabble club for wordy fun and friendly competition under her expert guidance.',
     },
     {
       name: 'David Lee',
       position: 'Table Tennis Coordinator',
-      imageUrl: '/src/assests/Coordinator_table_tennis.jpg',
+      urls: '/src/assests/profile.jpg',
       Description:
         'David Lee is our Table Tennis Coordinator. Join his sessions to experience the fast-paced and skillful sport of table tennis and improve your reflexes.',
     },
     {
       name: 'Emma Taylor',
       position: 'Tennis Instructor',
-      imageUrl: '/src/assests/instructor_tennis.jpg',
+      urls: '/src/assests/profile.jpg',
       Description:
         'Emma Taylor is our Tennis Instructor. Join her classes to learn the dynamic and strategic sport of tennis and stay active in a fun way!',
+    },
+  ],
+};
+
+export const Announcements = {
+  announcementsData: [
+    {
+      heading: 'Important Announcement 1',
+      date: new Date(),
+      details: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ...',
+    },
+    {
+      heading: 'Important Announcement 2',
+      date: new Date(),
+      details: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ...',
+    },
+    {
+      heading: 'Important Announcement 2',
+      date: new Date(),
+      details: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ...',
     },
   ],
 };

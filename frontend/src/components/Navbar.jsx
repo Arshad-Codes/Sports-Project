@@ -250,7 +250,7 @@ function NavBar() {
   }, []);
 
   return (
-    <Navbar className="max-w-full px-4 py-2 rounded-none">
+    <Navbar className="sticky top-0 z-10 shadow-md border border-white/80 bg-opacity-80 max-w-full px-4 py-2 rounded-none backdrop-blur-2xl backdrop-saturate-200">
       <div className="flex items-center justify-between text-blue-gray-900">
         <Typography
           as="a"

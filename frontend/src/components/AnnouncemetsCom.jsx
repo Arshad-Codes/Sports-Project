@@ -1,7 +1,7 @@
-import './EnrolledPage.css';
+import './AnnouncementsCom.css';
 import { Announcements } from '../data';
 
-function EnrolledPage() {
+function AnnouncementsCom() {
   const { announcementsData } = Announcements;
   return (
     <>
@@ -22,4 +22,4 @@ function EnrolledPage() {
   );
 }
 
-export default EnrolledPage;
+export default AnnouncementsCom;

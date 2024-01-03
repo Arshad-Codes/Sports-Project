@@ -9,7 +9,6 @@ import {
 
 function Sports() {
   const { sports } = sportsData;
-
   return (
     <>
       <NavBar />
