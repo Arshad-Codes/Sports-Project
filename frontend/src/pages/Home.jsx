@@ -1,9 +1,10 @@
 import { Button, Carousel } from '@material-tailwind/react';
 import NavBar from '../components/Navbar';
-import { homeDatas } from '../datas';
+import { homeData } from '../data';
+import AnnouncementsCom from '../components/AnnouncemetsCom';
 
 function Home() {
-  const { carouselData } = homeDatas;
+  const { carouselData } = homeData;
 
   return (
     <>
@@ -11,7 +12,7 @@ function Home() {
       <div className="ml-3 mt-5 mr-3">
         <Carousel
           transition={{ duration: 1.5 }}
-          style={{ height: '400px' }}
+          style={{ height: '500px' }}
           className="rounded-xl text-center"
         >
           {carouselData.map((item, index) => (
@@ -19,7 +20,7 @@ function Home() {
               key={index}
               src={item.path}
               alt={item.title}
-              className="h-full w-full object-cover"
+              className="h-full w-full object-fill"
             />
           ))}
 
@@ -34,17 +35,28 @@ function Home() {
             className="h-full w-full object-cover"
           /> */}
         </Carousel>
-
-        <Button
-          onClick={() => (window.location.href = '/sports')}
-          variant="text"
-          size="sm"
-          color="blue-gray"
-          className="mt-5"
-        >
-          SPORTS
-        </Button>
       </div>
+      <div className="bg-green-300 mt-5">
+        <div className=" ml-3">
+          <h1>ANNOUNCEMENTS</h1>
+          <div className="grid grid-cols-1">
+            <div>
+              <h1></h1>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <AnnouncementsCom />
+      <Button
+        onClick={() => (document.location.href = '/sports')}
+        variant="text"
+        size="sm"
+        color="blue-gray"
+        className="mt-5 ml-10 mb-96"
+      >
+        SPORTS
+      </Button>
     </>
   );
 }

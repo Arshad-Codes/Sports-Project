@@ -1,6 +1,16 @@
 import { Button } from '@material-tailwind/react';
 import NavBar from '../components/Navbar';
+import { styled } from '@mui/system';
 
+const CustomButton = styled(Button)({
+  color: 'white',
+  backgroundColor: '#09473F',
+  variant: 'gradient',
+
+  // '&:hover': {
+  //   backgroundColor: 'green',
+  // },
+});
 function SpecificSport() {
   return (
     <>
@@ -13,7 +23,7 @@ function SpecificSport() {
           <div className="basis-1/4">
             <img
               className="h-96 w-full"
-              src="https://wallpaperset.com/w/full/c/c/1/239835.jpg"
+              src="/src/assests/cricket/cricket_3.jpg"
             />
           </div>
           <div className="basis-3/4 flex items-center justify-center">
@@ -24,7 +34,12 @@ function SpecificSport() {
                 elit ut. Sed semper arcu lectus aliquet sed faucibus. Eu massa a
                 tortor nisl rhoncus quam.
               </h1>
-              <Button className="mt-5 w-36">Enrol</Button>
+              <CustomButton
+                onClick={() => (window.location.href = '/enrolled')}
+                className="mt-5 w-36"
+              >
+                Enrol
+              </CustomButton>
             </div>
           </div>
         </div>

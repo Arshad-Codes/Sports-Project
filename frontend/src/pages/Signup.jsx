@@ -5,7 +5,17 @@ import {
   Button,
   Typography,
 } from '@material-tailwind/react';
+import { styled } from '@mui/system';
 
+const CustomButton = styled(Button)({
+  color: 'white',
+  backgroundColor: '#09473F',
+  variant: 'gradient',
+
+  // '&:hover': {
+  //   backgroundColor: 'green',
+  // },
+});
 function Signup() {
   return (
     <div>
@@ -110,9 +120,9 @@ function Signup() {
               }
               containerProps={{ className: '-ml-2.5' }}
             />
-            <Button className="mt-6" fullWidth>
+            <CustomButton className="mt-6" fullWidth>
               sign up
-            </Button>
+            </CustomButton>
             <Typography color="gray" className="mt-4 text-center font-normal">
               Already have an account?{' '}
               <a href="/login" className="font-medium text-gray-900">

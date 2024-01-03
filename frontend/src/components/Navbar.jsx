@@ -31,7 +31,17 @@ import {
   SportsTennis as TennisIcon,
   SportsMartialArts as MartialArtsIcon,
 } from '@mui/icons-material';
+import { styled } from '@mui/system';
 
+const CustomButton = styled(Button)({
+  color: 'white',
+  backgroundColor: '#09473F',
+  variant: 'gradient',
+
+  // '&:hover': {
+  //   backgroundColor: 'green',
+  // },
+});
 const navSportList = [
   {
     title: 'Cricket',
@@ -145,9 +155,9 @@ function NavListMenu() {
         allowHover={true}
       >
         <MenuHandler>
-          <Typography as="div" variant="small" className="font-medium">
+          <Typography as="div" variant="small" className="font-semibold ">
             <ListItem
-              className="flex items-center gap-2 py-2 pr-4 font-medium text-gray-900"
+              className="flex items-center gap-2 py-2 pr-4 font-semiboldm text-gray-900"
               selected={isMenuOpen || isMobileMenuOpen}
               onClick={() => setIsMobileMenuOpen((cur) => !cur)}
             >
@@ -188,7 +198,7 @@ function NavList() {
         href="/home"
         variant="small"
         color="blue-gray"
-        className="font-medium"
+        className="font-semibold"
       >
         <ListItem className="flex items-center gap-2 py-2 pr-4">Home</ListItem>
       </Typography>
@@ -198,7 +208,7 @@ function NavList() {
         href="/staffs"
         variant="small"
         color="blue-gray"
-        className="font-medium"
+        className="font-semibold"
       >
         <ListItem className="flex items-center gap-2 py-2 pr-4">
           Staffs
@@ -209,7 +219,7 @@ function NavList() {
         href="#"
         variant="small"
         color="blue-gray"
-        className="font-medium"
+        className="font-semibold"
       >
         <ListItem className="flex items-center gap-2 py-2 pr-4">
           Contact
@@ -220,7 +230,7 @@ function NavList() {
         href="#"
         variant="small"
         color="blue-gray"
-        className="font-medium"
+        className="font-semibold"
       >
         <ListItem className="flex items-center gap-2 py-2 pr-4">
           About Us
@@ -232,7 +242,6 @@ function NavList() {
 
 function NavBar() {
   const [openNav, setOpenNav] = React.useState(false);
-
   React.useEffect(() => {
     window.addEventListener(
       'resize',
@@ -241,7 +250,7 @@ function NavBar() {
   }, []);
 
   return (
-    <Navbar className="max-w-full px-4 py-2">
+    <Navbar className="sticky top-0 z-10 shadow-md border border-white/80 bg-opacity-80 max-w-full px-4 py-2 rounded-none backdrop-blur-2xl backdrop-saturate-200">
       <div className="flex items-center justify-between text-blue-gray-900">
         <Typography
           as="a"
@@ -264,14 +273,20 @@ function NavBar() {
           >
             Log In
           </Button>
-          <Button
-            className="bg-blue-900 text-white "
+
+          {/* <Button
             onClick={() => (window.location.href = '/Signup')}
             variant="gradient"
             size="sm"
           >
             Sign Up
-          </Button>
+          </Button> */}
+          <CustomButton
+            onClick={() => (window.location.href = '/Signup')}
+            size="sm"
+          >
+            Sign Up
+          </CustomButton>
         </div>
         <IconButton
           variant="text"
@@ -299,14 +314,13 @@ function NavBar() {
           >
             Log In
           </Button>
-          <Button
+          <CustomButton
             onClick={() => (window.location.href = '/Signup')}
-            variant="gradient"
             size="sm"
             fullWidth
           >
             Sign Up
-          </Button>
+          </CustomButton>
         </div>
       </Collapse>
     </Navbar>

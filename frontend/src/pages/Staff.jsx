@@ -1,5 +1,4 @@
-
-import { sportCoordinatorsDatas } from '../datas';
+import { sportCoordinatorsData } from '../data';
 import NavBar from '../components/Navbar';
 import {
   Card,
@@ -9,7 +8,7 @@ import {
 } from '@material-tailwind/react';
 
 function Staff() {
-  const { staffs } = sportCoordinatorsDatas;
+  const { staffs } = sportCoordinatorsData;
 
   return (
     <>
