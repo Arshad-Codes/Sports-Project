@@ -27,7 +27,7 @@ app.use("/api/student",studentRoutes);
 app.use("/api/sportscoordinator",sportsCoordinatorRoutes);
 
 
-app.listen(8800,()=>{
+app.listen(process.env.PORT,()=>{
     connectiondb();
     console.log("backend server running at port 8800")
 })

@@ -3,11 +3,6 @@ import { Schema } from "mongoose";
 
 const studentSchema = new Schema(
   {
-    username: {
-      type: String,
-      required: true,
-      unique: true,
-    },
     password: {
       type: String,
       required: true,
@@ -16,6 +11,9 @@ const studentSchema = new Schema(
       type: String,
       required: true,
       unique: true,
+    },
+    dateofBirth: {
+      type: Date,
     },
     firstName: {
       type: String,
@@ -32,9 +30,17 @@ const studentSchema = new Schema(
     },
     achievements: {
       type: String,
+    },
+    nicNo: {
+      type: String,
       required: true,
-    }
-  },
+      unique: true,
+    },
+    verified: {
+      type: Boolean,
+      default:false,
+    },
+  }, 
   {
     timestamps: true,
   }
