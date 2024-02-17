@@ -2,8 +2,9 @@
 import { useState } from 'react';
 import TopNavigationBar from './TopNavBar';
 import Sidebar from './SideBar';
-import StaffsPage from './Staffs';
-import StudentsPage from './Student';
+import AddStaff from './AdminStaff';
+import StudentsPage from './AdminStudent';
+import Home from '../pages/Home';
 
 function AdminDashBoard() {
   const [currentPage, setCurrentPage] = useState('staffs');
@@ -25,10 +26,16 @@ function AdminDashBoard() {
           isSidebarOpen={isSidebarOpen}
           onPageChange={handlePageChange}
         />
-        <main className="flex-1 overflow-x-hidden overflow-y-auto bg-white p-4">
-          {currentPage === 'staffs' && <StaffsPage />}
+        <main className="flex-1 overflow-x-hidden overflow-y-auto bg-white px-5">
+          <div className="mt-10 mb-5">
+            <p className="text-customGreen font-bold text-3xl pl-10 ">
+              Welcome Admin!
+            </p>
+          </div>
+          {currentPage === 'admin_dashboard' && <AddStaff />}
+          {currentPage === 'sports' && <StudentsPage />}
+          {currentPage === 'staffs' && <AddStaff />}
           {currentPage === 'students' && <StudentsPage />}
-          {/* Other pages go here, conditionally rendered based on user interaction */}
         </main>
       </div>
     </div>
