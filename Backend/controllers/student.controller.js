@@ -38,28 +38,83 @@ export const register = async (req, res) => {
 
     newStudent.save().then((result, res) => {
       const currenturl = `http://localhost:${process.env.PORT}/`;
+      const uniqueString = uuidv4();
 
       const mailOptions = {
         from: process.env.AUTH_EMAIL,
         to: result.email,
         subject: "Verification email for Ruhuna E-Faculty Sports Website",
         html: `<p>Please click here to verify your email address. This link will expire in 2 hours.</p> <p> <a href= ${
-          currenturl + "student/verify/" + result._id + "/"
+          currenturl + "api/student/verify/" + result._id + "/"+ uniqueString
         }> click here to verify </a></p>`,
       };
-      transporter.sendMail(mailOptions,(err,info)=>{
-        if(err){
-          console.log(err);
-        }
-      }).then(()=>{
-        
-      })
+
+
+      const hashedString = bcrypt.hashSync(uniqueString, 7);
+      const newStudentVerification = new StudentVerification({
+        userId: result._id,
+        uniqueString: hashedString,
+        createdAt: new Date(),
+        expiredAt: new Date(Date.now() + 2 * 60 * 60 * 1000),
+      });
+
+
+
+      newStudentVerification.save().then((result) => {
+        transporter.sendMail(mailOptions,(err,info)=>{
+          if(err){
+            return res.status(500).send(err);
+          }else{
+            return res.status(200).send("Email sent to the student for verification.");
+          }
+        });
+      });
+    return res.status(200).send("Student registered successfully. Please check your email for verification.");
+
     });
   } catch (err) {
     console.error(err);
     res.status(500).send("something went wrong.");
   }
 };
+
+export const verify = async (req, res) => {
+  try {
+    const studentId = req.params.studentId;
+    const uniqueString = req.params.uniqueString;
+
+    const student = await StudentVerification.findOne({
+      userId: studentId,
+    });
+
+    if (!student) return res.status(404).send("Student not found!");
+
+    const isCorrect = bcrypt.compareSync(uniqueString, student.uniqueString);
+
+    if (!isCorrect) return res.status(400).send("Invalid URL");
+
+    if (student.expiredAt < new Date()) {
+      return res.status(400).send("Link expired");
+    }
+
+    await StudentVerification.deleteOne({
+      userId: studentId,
+    });
+
+    await Student.updateOne(
+      { _id: studentId },
+      {
+        verified: true,
+      }
+    );
+
+    res.status(200).send("Email verified successfully");
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("something went wrong");
+  }
+};
+
 
 export const login = async (req, res) => {
   try {
