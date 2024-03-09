@@ -57,15 +57,15 @@ function Home() {
       >
         SPORTS
       </Button>
-      <Button
-        onClick={() => (document.location.href = '/abc')}
+      {/* <Button
+        onClick={() => (document.location.href = '/admin/dashboard')}
         variant="text"
         size="sm"
         color="blue-gray"
         className="mt-5 ml-10 mb-96"
       >
         Admin
-      </Button>
+      </Button> */}
     </>
   );
 }
