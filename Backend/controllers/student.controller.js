@@ -63,7 +63,8 @@ export const register = async (req, res) => {
       newStudentVerification.save().then((result) => {
         transporter.sendMail(mailOptions,(err,info)=>{
           if(err){
-            return res.status(500).send(err);
+            // return res.status(500).send(err);
+            return res.status(500).json({error: err.message});
           }else{
             return res.status(200).send("Email sent to the student for verification.");
           }
@@ -154,3 +155,5 @@ export const logout = async (req, res) => {
     .status(200)
     .send("User has been logged out successfuly.");
 };
+
+
