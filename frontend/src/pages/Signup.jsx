@@ -27,7 +27,7 @@ function Signup() {
     firstName: "",
     lastName: "",
     regNo: "",
-    email: "",
+    email: "", 
     password: "",
     dateofBirth: "",
     nicNo: "",
