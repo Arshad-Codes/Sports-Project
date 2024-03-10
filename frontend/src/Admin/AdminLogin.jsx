@@ -1,17 +1,8 @@
-import { Card, Input, Button, Typography } from '@material-tailwind/react';
-import { styled } from '@mui/system';
+import { Card, Input, Typography } from '@material-tailwind/react';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { CustomButton } from '../TailwindCustomComponents/CustomComponents';
 
-const CustomButton = styled(Button)({
-  color: 'white',
-  backgroundColor: '#09473F',
-  variant: 'gradient',
-
-  // '&:hover': {
-  //   backgroundColor: 'green',
-  // },
-});
 function AdminLogin() {
   const navigate = useNavigate();
   const [enteredUsername, setEnteredUsername] = useState('');

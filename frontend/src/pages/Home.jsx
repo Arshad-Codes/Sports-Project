@@ -1,8 +1,17 @@
-import { Button, Carousel } from '@material-tailwind/react';
+import { Button, Carousel, Typography } from '@material-tailwind/react';
 import NavBar from '../components/Navbar';
 import { homeData } from '../data';
 import AnnouncementsCom from '../components/AnnouncemetsCom';
 import CardsWithSeeMore from '../components/CardsWithSeeMore';
+import { Link } from 'react-router-dom';
+import {
+  Details,
+  FormatIndentIncrease,
+  FormatIndentIncreaseOutlined,
+  More,
+} from '@mui/icons-material';
+import UpcomingEvent from './Home/UpcomingEvent';
+import SportsSlider from './Home/SportsSlider';
 
 function Home() {
   const { carouselData } = homeData;
@@ -37,9 +46,7 @@ function Home() {
           /> */}
         </Carousel>
       </div>
-      <div>
-        <CardsWithSeeMore />
-      </div>
+      <UpcomingEvent />
       <div className="bg-green-300 mt-5">
         <div className=" ml-3">
           <h1>ANNOUNCEMENTS</h1>
@@ -52,6 +59,7 @@ function Home() {
       </div>
 
       <AnnouncementsCom />
+      <SportsSlider />
       <Button
         onClick={() => (document.location.href = '/sports')}
         variant="text"

@@ -1,21 +1,6 @@
-import {
-  Card,
-  Input,
-  Checkbox,
-  Button,
-  Typography,
-} from '@material-tailwind/react';
-import { styled } from '@mui/system';
+import { Card, Input, Checkbox, Typography } from '@material-tailwind/react';
+import { CustomButton } from '../TailwindCustomComponents/CustomComponents';
 
-const CustomButton = styled(Button)({
-  color: 'white',
-  backgroundColor: '#09473F',
-  variant: 'gradient',
-
-  // '&:hover': {
-  //   backgroundColor: 'green',
-  // },
-});
 function Login() {
   return (
     <div>

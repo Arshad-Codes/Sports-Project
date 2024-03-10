@@ -6,9 +6,17 @@ import {
   CardHeader,
   Typography,
 } from '@material-tailwind/react';
+import { useEffect } from 'react';
 
 function Sports() {
   const { sports } = sportsData;
+  useEffect(() => {
+    // Scroll to the top when the component mounts
+    window.scrollTo(0, 0);
+
+    // Alternatively, if you want to scroll to a specific position, you can provide different coordinates:
+    // window.scrollTo(0, 200); // Scroll to the Y coordinate of 200 pixels
+  }, []);
   return (
     <>
       <NavBar />

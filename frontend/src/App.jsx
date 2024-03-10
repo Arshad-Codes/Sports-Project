@@ -12,7 +12,7 @@ import AdminLogin from './Admin/AdminLogin';
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
+      <Routes scrollToTop={() => ({ x: 0, y: 0 })}>
         <Route path="/" element={<Navigate to="/home" replace />} />
         <Route path="/home" element={<Home />} />
         <Route path="/login" element={<Login />} />
