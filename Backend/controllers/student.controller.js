@@ -13,11 +13,19 @@ export const register = async (req, res) => {
       password: passHashed,
     });
 
-    const isAvailable = await Student.findOne({
-      email: newStudent.email,
-    });
+    const isEmailAvailable = await Student.findOne({ email: newStudent.email });
+    const isRegNoAvailable = await Student.findOne({ regNo: newStudent.regNo });
+    const isNicNoAvailable = await Student.findOne({ nicNo: newStudent.nicNo });
 
-    if (isAvailable) return res.status(409).send("Student already exists.");
+    if (isEmailAvailable) {
+      return res.status(409).send("Email already exists.");
+    }
+    if (isRegNoAvailable) {
+      return res.status(409).send("Registration number already exists.");
+    }
+    if (isNicNoAvailable) {
+      return res.status(409).send("NIC number already exists.");
+    }
 
     //nodemailer
     const transporter = nodemailer.createTransport({
@@ -36,6 +44,7 @@ export const register = async (req, res) => {
       }
     });
 
+    try {
     newStudent.save().then((result, res) => {
       const currenturl = `http://localhost:${process.env.PORT}/`;
       const uniqueString = uuidv4();
@@ -70,12 +79,14 @@ export const register = async (req, res) => {
           }
         });
       });
-    return res.status(200).send("Student registered successfully. Please check your email for verification.");
-
+      
     });
+    return res.status(200).send("Student registered successfully. Please check your email for verification.");
   } catch (err) {
-    console.error(err);
-    res.status(500).send("something went wrong.");
+    res.status(500).send(err.message);
+  }
+  } catch (err) {
+    res.status(500).send(err.message);
   }
 };
 

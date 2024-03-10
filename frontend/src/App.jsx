@@ -8,7 +8,6 @@ import Sports from './pages/Sports';
 import SpecificSport from './pages/SpecificSport';
 import EnrolledPage from './pages/EnrolledPage';
 import AdminDashBoard from './Admin/AdminDashBoard';
-import AdminLogin from './Admin/AdminLogin';
 function App() {
   return (
     <BrowserRouter>
@@ -22,8 +21,7 @@ function App() {
         <Route path="/sports" element={<Sports />} />
         <Route path="/specific" element={<SpecificSport />} />
         <Route path="/enrolled" element={<EnrolledPage />} />
-        <Route path="/admin/dashboard" element={<AdminDashBoard />} />
-        <Route path="/admin" element={<AdminLogin />} />
+        <Route path="/abc" element={<AdminDashBoard />} />
       </Routes>
     </BrowserRouter>
   );
