@@ -5,6 +5,7 @@ import adminRoutes from "./routes/admin.route.js";
 import studentRoutes from "./routes/student.route.js";
 import sportsCoordinatorRoutes from "./routes/sportsCoordinator.route.js";
 import cookieParser from "cookie-parser";
+import sportsRoutes from "./routes/sports.route.js";
 
 const app = express();
 dotenv.config();
@@ -25,6 +26,7 @@ app.use(cookieParser());
 app.use("/api/admin",adminRoutes);
 app.use("/api/student",studentRoutes);
 app.use("/api/sportscoordinator",sportsCoordinatorRoutes);
+app.use("/api/createsports", sportsRoutes);
 
 
 app.listen(process.env.PORT,()=>{
