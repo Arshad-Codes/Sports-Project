@@ -19,8 +19,6 @@ const CustomButton = styled(Button)({
   // },
 });
 
-
-
 function Signup() {
 
   const [user, setUser] = useState({
@@ -217,6 +215,112 @@ function Signup() {
                 >
                   I agree the Terms and Conditions
                   {/* <a
+        <div className="w-full mx-20">
+          <Card
+            className="flex border border-gray-400 p-10 mx-auto"
+            color="transparent"
+            shadow={true}
+          >
+            <Typography variant="h4" color="blue-gray">
+              Sign Up
+            </Typography>
+            <Typography color="gray" className="mt-1 font-normal">
+              Enter your valid details to register.
+            </Typography>
+            <form className="mt-8 mb-2">
+              <div className="grid md:grid-cols-2 md:gap-10 sm:gap-5">
+                <div className="mb-1 flex flex-col gap-6">
+                  <Typography variant="h6" color="blue-gray" className="-mb-3">
+                    First Name
+                  </Typography>
+                  <Input
+                    size="lg"
+                    placeholder="username"
+                    className="appearance-none relative block w-full !border-t-blue-gray-200 focus:!border-t-gray-900"
+                    labelProps={{
+                      className: 'before:content-none after:content-none',
+                    }}
+                  />
+                  <Typography variant="h6" color="blue-gray" className="-mb-3">
+                    Last Name
+                  </Typography>
+                  <Input
+                    size="lg"
+                    placeholder="XXXX"
+                    className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+                    labelProps={{
+                      className: 'before:content-none after:content-none',
+                    }}
+                  />
+                  <Typography variant="h6" color="blue-gray" className="-mb-3">
+                    Student Email
+                  </Typography>
+                  <Input
+                    size="lg"
+                    placeholder="name@engug.ruh.ac.lk"
+                    className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+                    labelProps={{
+                      className: 'before:content-none after:content-none',
+                    }}
+                  />
+                  <Typography variant="h6" color="blue-gray" className="-mb-3">
+                    Registration Number
+                  </Typography>
+                  <Input
+                    size="lg"
+                    placeholder="EG/XXXX/YYYY"
+                    className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+                    labelProps={{
+                      className: 'before:content-none after:content-none',
+                    }}
+                  />
+                </div>
+                <div className="mb-1 flex flex-col gap-6">
+                  <Typography variant="h6" color="blue-gray" className="-mb-3">
+                    NIC
+                  </Typography>
+                  <Input
+                    size="lg"
+                    className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+                    labelProps={{
+                      className: 'before:content-none after:content-none',
+                    }}
+                  />
+                  <Typography variant="h6" color="blue-gray" className="-mb-3">
+                    Date of Birth
+                  </Typography>
+                  <Input
+                    size="lg"
+                    placeholder="DD/MM/YYYY"
+                    className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+                    labelProps={{
+                      className: 'before:content-none after:content-none',
+                    }}
+                  />
+
+                  <Typography variant="h6" color="blue-gray" className="-mb-3">
+                    Password
+                  </Typography>
+                  <Input
+                    type="password"
+                    size="lg"
+                    placeholder="********"
+                    className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+                    labelProps={{
+                      className: 'before:content-none after:content-none',
+                    }}
+                  />
+                </div>
+              </div>
+              <Checkbox
+                label={
+                  <Typography
+                    variant="small"
+                    color="gray"
+                    className="flex items-center font-normal mt-2"
+                  >
+                    I agree the Terms and Conditions
+                    {/* <a
                     href="#"
                     className="font-medium transition-colors hover:text-gray-900"
                   >
