@@ -1,16 +1,6 @@
-import { Button } from '@material-tailwind/react';
 import NavBar from '../components/Navbar';
-import { styled } from '@mui/system';
+import { CustomButton } from '../TailwindCustomComponents/CustomComponents';
 
-const CustomButton = styled(Button)({
-  color: 'white',
-  backgroundColor: '#09473F',
-  variant: 'gradient',
-
-  // '&:hover': {
-  //   backgroundColor: 'green',
-  // },
-});
 function SpecificSport() {
   return (
     <>

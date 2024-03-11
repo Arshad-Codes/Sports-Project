@@ -4,7 +4,6 @@ import TopNavigationBar from './TopNavBar';
 import Sidebar from './SideBar';
 import AddStaff from './AdminStaff';
 import StudentsPage from './AdminStudent';
-import Home from '../pages/Home';
 
 function AdminDashBoard() {
   const [currentPage, setCurrentPage] = useState('staffs');

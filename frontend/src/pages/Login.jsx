@@ -1,22 +1,32 @@
-import {
-  Card,
-  Input,
-  Checkbox,
-  Button,
-  Typography,
-} from '@material-tailwind/react';
-import { styled } from '@mui/system';
+import { Card, Input, Checkbox, Typography } from '@material-tailwind/react';
+import { CustomButton } from '../TailwindCustomComponents/CustomComponents';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import axios from 'axios';
 
-const CustomButton = styled(Button)({
-  color: 'white',
-  backgroundColor: '#09473F',
-  variant: 'gradient',
-
-  // '&:hover': {
-  //   backgroundColor: 'green',
-  // },
-});
 function Login() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.post('http://localhost:8800/api/student/login', {
+        email,
+        password,
+      });
+      localStorage.setItem('currentUser', JSON.stringify(res.data));
+
+      navigate('/home', { state: { user: res.data } });
+      toast.success('Login successful!');
+    } catch (err) {
+      setError(err.response.data);
+      toast.error('Login failed. Please check your Email and Password.');
+    }
+  };
   return (
     <div>
       <div>
@@ -54,12 +64,18 @@ function Login() {
           <Typography color="gray" className="mt-1 font-normal">
             Welcome back! Enter your valid details to log in.
           </Typography>
-          <form className="mt-8 mb-2 w-100 max-w-screen-lg sm:w-50">
+          <form
+            onSubmit={handleLogin}
+            className="mt-8 mb-2 w-100 max-w-screen-lg sm:w-50"
+          >
             <div className="mb-1 flex flex-col gap-6">
               <Typography variant="h6" color="blue-gray" className="-mb-3">
-                Student Email / Username
+                Student Email
               </Typography>
               <Input
+                type="email"
+                name="email"
+                onChange={(e) => setEmail(e.target.value)}
                 size="lg"
                 placeholder="name@engug/dep.ruh.ac.lk"
                 className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
@@ -73,6 +89,8 @@ function Login() {
               <Input
                 type="password"
                 size="lg"
+                name="password"
+                onChange={(e) => setPassword(e.target.value)}
                 placeholder="*********"
                 className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
                 labelProps={{
@@ -92,7 +110,7 @@ function Login() {
               }
               containerProps={{ className: '-ml-2.5' }}
             />
-            <CustomButton className="mt-6" fullWidth>
+            <CustomButton type="submit" className="mt-6" fullWidth>
               Log In
             </CustomButton>
             <Typography color="gray" className="mt-4 text-center font-normal">
