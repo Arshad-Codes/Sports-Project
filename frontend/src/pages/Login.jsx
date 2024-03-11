@@ -18,13 +18,14 @@ function Login() {
         email,
         password,
       });
-      localStorage.setItem('currentUser', JSON.stringify(res.data));
-
-      navigate('/home', { state: { user: res.data } });
-      toast.success('Login successful!');
+      if (res.status===200){
+        localStorage.setItem('currentUser', JSON.stringify(res.data));
+  
+        navigate('/home', { state: { user: res.data } });
+        toast.success('Login successful!');
+      }
     } catch (err) {
       setError(err.response.data);
-      toast.error('Login failed. Please check your Email and Password.');
     }
   };
   return (
@@ -33,7 +34,7 @@ function Login() {
         <button
           type="button"
           className=" text-black px-10 py-5 hover:text-blue-700 hover:scale-105 transition-transform"
-          onClick={() => (window.location.href = '/home')}
+          onClick={() => (window.location.href = "/home")}
         >
           <div className="flex flex-row align-middle">
             <svg
@@ -80,7 +81,7 @@ function Login() {
                 placeholder="name@engug/dep.ruh.ac.lk"
                 className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
                 labelProps={{
-                  className: 'before:content-none after:content-none',
+                  className: "before:content-none after:content-none",
                 }}
               />
               <Typography variant="h6" color="blue-gray" className="-mb-3">
@@ -94,7 +95,7 @@ function Login() {
                 placeholder="*********"
                 className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
                 labelProps={{
-                  className: 'before:content-none after:content-none',
+                  className: "before:content-none after:content-none",
                 }}
               />
             </div>
@@ -108,13 +109,14 @@ function Login() {
                   Remember me
                 </Typography>
               }
-              containerProps={{ className: '-ml-2.5' }}
+              containerProps={{ className: "-ml-2.5" }}
             />
             <CustomButton type="submit" className="mt-6" fullWidth>
               Log In
             </CustomButton>
+            {error && <Typography color="red">{error}</Typography>}
             <Typography color="gray" className="mt-4 text-center font-normal">
-              Don&apos;t have an account?{' '}
+              Don&apos;t have an account?{" "}
               <a href="/signup" className="font-medium text-gray-900">
                 Sign Up
               </a>
