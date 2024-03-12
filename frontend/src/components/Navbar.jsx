@@ -256,7 +256,7 @@ function NavBar() {
           as="a"
           href="#"
           variant="h6"
-          className="mr-4 cursor-pointer py-1.5 lg:ml-2 text-blue-900 text-xl"
+          className="mr-4 cursor-pointer py-1.5 lg:ml-2 text-customGreen text-xl"
         >
           {/* ℝ𝕦𝕙𝕦𝕟𝕒𝕊𝕡𝕠𝕣𝕥𝕤 */}
           𝕽𝖚𝖍𝖚𝖓𝖆𝕾𝖕𝖔𝖗𝖙𝖘

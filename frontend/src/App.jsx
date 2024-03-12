@@ -8,6 +8,7 @@ import Sports from './pages/Sports';
 import SpecificSport from './pages/SpecificSport';
 import EnrolledPage from './pages/EnrolledPage';
 import Achievement from './Achievementss/Achievement';
+import Event from './Eventspage/Event';
 function App() {
   return (
     <BrowserRouter>
@@ -22,6 +23,7 @@ function App() {
         <Route path="/specific" element={<SpecificSport />} />
         <Route path="/enrolled" element={<EnrolledPage />} />
         <Route path="/achievement" element={<Achievement />} />
+        <Route path="/event" element={<Event />} />
       </Routes>
     </BrowserRouter>
   );
