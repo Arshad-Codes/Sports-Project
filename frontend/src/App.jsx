@@ -9,6 +9,8 @@ import SpecificSport from './pages/SpecificSport';
 import EnrolledPage from './pages/EnrolledPage';
 import AdminDashBoard from './Admin/AdminDashBoard';
 import AdminLogin from './Admin/AdminLogin';
+import SpecificCoordinator from './pages/SpecificCoordinator';
+
 function App() {
   return (
     <BrowserRouter>
@@ -19,6 +21,7 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/cricket" element={<Cricket />} />
         <Route path="/staffs" element={<Staff />} />
+        <Route path="/staffs/:position" element={<SpecificCoordinator />}/>
         <Route path="/sports" element={<Sports />} />
         <Route path="/specific" element={<SpecificSport />} />
         <Route path="/enrolled" element={<EnrolledPage />} />
