@@ -1,4 +1,3 @@
-// AdminDashboard.js
 import { useState } from 'react';
 import TopNavigationBar from './TopNavBar';
 import Sidebar from './SideBar';

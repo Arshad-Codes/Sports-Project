@@ -10,6 +10,8 @@ import EnrolledPage from './pages/EnrolledPage';
 import AdminDashBoard from './Admin/AdminDashBoard';
 import AdminLogin from './Admin/AdminLogin';
 import SpecificCoordinator from './pages/SpecificCoordinator';
+import StaffLogin from './SportsCoordinator/StaffLogin';
+import StaffDashboard from './SportsCoordinator/StaffDashboard';
 
 function App() {
   return (
@@ -21,12 +23,14 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/cricket" element={<Cricket />} />
         <Route path="/staffs" element={<Staff />} />
-        <Route path="/staffs/:position" element={<SpecificCoordinator />}/>
+        <Route path="/staffs/:position" element={<SpecificCoordinator />} />
         <Route path="/sports" element={<Sports />} />
         <Route path="/specific" element={<SpecificSport />} />
         <Route path="/enrolled" element={<EnrolledPage />} />
         <Route path="/admin" element={<AdminLogin />} />
         <Route path="/admin/dashboard" element={<AdminDashBoard />} />
+        <Route path="/staff_login" element={<StaffLogin />} />
+        <Route path="/staff/dashboard" element={<StaffDashboard />} />
       </Routes>
     </BrowserRouter>
   );
