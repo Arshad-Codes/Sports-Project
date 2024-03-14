@@ -31,7 +31,7 @@ function StaffDashboard() {
         <main className="flex-1 overflow-x-hidden overflow-y-auto bg-white px-5">
           <div className="mt-10 mb-5">
             <p className="text-customGreen font-bold text-3xl pl-10 ">
-              Welcome Admin!
+              Welcome Staff!
             </p>
           </div>
           {currentPage === 'staff_dashboard' && <AddStaff />}

@@ -3,6 +3,7 @@ import TopNavigationBar from './TopNavBar';
 import Sidebar from './SideBar';
 import AddStaff from './AdminStaff';
 import StudentsPage from './AdminStudent';
+import AdminSport from './AdminSport';
 
 function AdminDashBoard() {
   const [currentPage, setCurrentPage] = useState('staffs');
@@ -31,7 +32,7 @@ function AdminDashBoard() {
             </p>
           </div>
           {currentPage === 'admin_dashboard' && <AddStaff />}
-          {currentPage === 'sports' && <StudentsPage />}
+          {currentPage === 'sports' && <AdminSport />}
           {currentPage === 'staffs' && <AddStaff />}
           {currentPage === 'students' && <StudentsPage />}
         </main>

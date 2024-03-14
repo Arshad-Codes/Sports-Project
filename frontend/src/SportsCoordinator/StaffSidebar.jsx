@@ -7,11 +7,13 @@ import {
   FaUserAlt,
   FaRegCalendar,
   FaUserEdit,
+  FaBullhorn,
 } from 'react-icons/fa';
 import { useState } from 'react';
 
 const StaffSidebar = ({ isSidebarOpen, onPageChange }) => {
   const [clickedButton, setClickedButton] = useState('staffs');
+  const [showAnnouncementButtons, setShowAnnouncementButtons] = useState(false);
   const handlePageClick = (page) => {
     onPageChange(page);
     setClickedButton(page);
@@ -56,16 +58,43 @@ const StaffSidebar = ({ isSidebarOpen, onPageChange }) => {
           Sports
         </button>
         <button
-          className={`rounded-lg h-10 p-3 flex flex-row gap-5 items-center ${
-            clickedButton === 'staffs'
+          className={`rounded-lg h-10 p-3 mb-3 flex flex-row gap-5 items-center ${
+            clickedButton === 'announcement'
               ? 'bg-customGreen text-white'
               : 'hover:bg-customGreen hover:text-white'
           }`}
-          onClick={() => handlePageClick('staffs')}
+          onClick={() => setShowAnnouncementButtons(!showAnnouncementButtons)}
         >
-          <FaUserAlt size={25} />
-          Sports Coordinator
+          <FaBullhorn size={25} />
+          Announcement
         </button>
+        {showAnnouncementButtons && (
+          <>
+            {/* Enrolled Students button */}
+            <button
+              className={`rounded-lg h-10 ml-10 pl-4 mb-1 flex flex-row items-center ${
+                clickedButton === 'enrolled_students'
+                  ? 'bg-customGreen text-white'
+                  : 'hover:bg-customGreen hover:text-white'
+              }`}
+              onClick={() => handlePageClick('enrolled_student')}
+            >
+              Enrolled Students
+            </button>
+
+            {/* Main Announcement button */}
+            <button
+              className={`rounded-lg h-10 ml-10 pl-4 mb-1 flex flex-row items-center ${
+                clickedButton === 'main_announcement'
+                  ? 'bg-customGreen text-white'
+                  : 'hover:bg-customGreen hover:text-white'
+              }`}
+              onClick={() => handlePageClick('common')}
+            >
+              Common
+            </button>
+          </>
+        )}
         <button
           className={`rounded-lg h-10 p-3 flex flex-row gap-5 items-center ${
             clickedButton === 'students'
