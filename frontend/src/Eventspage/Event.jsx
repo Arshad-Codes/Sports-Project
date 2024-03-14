@@ -7,15 +7,52 @@ import EventImage4 from "./event4.jpg";
 import EventImage5 from "./event5.jpg";
 import EventImage6 from "./event6.jpg";
 import EventImage7 from "./event7.jpg";
+import Profile from "./profile.png";
+import PdfIcon from "./pdf.png"; // Import your PDF icon image
 
 const events = [
-  { id: 1, image: EventImage1, title: "Event 1", caption: "Volleyball Tournament 2024" },
-  { id: 2, image: EventImage2, title: "Event 2", caption: "Chess Tournament 2024" },
-  { id: 3, image: EventImage3, title: "Event 3", caption: "Hockey Tournament 2024" },
-  { id: 4, image: EventImage4, title: "Event 4", caption: "Badminton Tournament 2024" },
-  { id: 5, image: EventImage5, title: "Event 5", caption: "Table Tennis Tournament 2024" },
-  { id: 6, image: EventImage6, title: "Event 6", caption: "CEE Cricket Tournament 2024" },
-  { id: 7, image: EventImage7, title: "Event 7", caption: "Freshers meet 2024" }
+  {
+    id: 1,
+    image: EventImage1,
+    title: "Event 1",
+    caption: "Volleyball Tournament 2024",
+  },
+  {
+    id: 2,
+    image: EventImage2,
+    title: "Event 2",
+    caption: "Chess Tournament 2024",
+  },
+  {
+    id: 3,
+    image: EventImage3,
+    title: "Event 3",
+    caption: "Hockey Tournament 2024",
+  },
+  {
+    id: 4,
+    image: EventImage4,
+    title: "Event 4",
+    caption: "Badminton Tournament 2024",
+  },
+  {
+    id: 5,
+    image: EventImage5,
+    title: "Event 5",
+    caption: "Table Tennis Tournament 2024",
+  },
+  {
+    id: 6,
+    image: EventImage6,
+    title: "Event 6",
+    caption: "CEE Cricket Tournament 2024",
+  },
+  {
+    id: 7,
+    image: EventImage7,
+    title: "Event 7",
+    caption: "Freshers meet 2024",
+  },
 ];
 
 function Event() {
@@ -26,11 +63,12 @@ function Event() {
     const containerWidth = containerRef.current.offsetWidth;
     const imagesWidth = events.length * 320; // Assuming each image has a width of 320px
 
-    
     const maxScroll = imagesWidth - containerWidth;
 
     if (scrollPosition > -maxScroll) {
-      setScrollPosition((prevPosition) => Math.max(prevPosition - 100, -maxScroll));
+      setScrollPosition((prevPosition) =>
+        Math.max(prevPosition - 100, -maxScroll)
+      );
     }
   };
 
@@ -43,13 +81,27 @@ function Event() {
   return (
     <>
       <NavBar />
+      <h1 className="text-left text-customGreen mt-6 text-4xl font-Inika font-bold ml-8">
+        Upcoming Events
+      </h1>
       <div className="mt-10 mx-10">
-        <div className="bg-customGreen p-4 rounded-lg relative" ref={containerRef}>
-          <h2 className="text-xl font-bold text-white mb-4">Upcoming Events...</h2>
-          <div className="flex overflow-x-hidden" style={{ transform: `translateX(${scrollPosition}px)` }}>
+        <div
+          className="bg-customGreen p-4 rounded-lg relative"
+          ref={containerRef}
+        >
+          <h2 className="text-xl font-bold text-white mb-4">
+            Upcoming Events...
+          </h2>
+          <div
+            className="flex overflow-x-hidden"
+            style={{ transform: `translateX(${scrollPosition}px)` }}
+          >
             {events.map((event) => (
               <div key={event.id} className="flex flex-col items-center mr-4">
-                <div className="border-black border p-2 rounded-lg" style={{ width: "320px" }}>
+                <div
+                  className="border-black border p-2 rounded-lg"
+                  style={{ width: "320px" }}
+                >
                   <img
                     src={event.image}
                     alt={event.title}
@@ -64,7 +116,10 @@ function Event() {
           <button
             onClick={handlePrevClick}
             className="absolute top-1/2 left-0 transform -translate-y-1/2 flex items-center justify-center bg-gray-900 bg-opacity-50 text-white px-2 py-1 rounded-md focus:outline-none"
-            style={{ zIndex: "10", display: scrollPosition === 0 ? "none" : "block" }}
+            style={{
+              zIndex: "10",
+              display: scrollPosition === 0 ? "none" : "block",
+            }}
           >
             {"<"}
           </button>
@@ -75,6 +130,89 @@ function Event() {
           >
             {">"}
           </button>
+        </div>
+
+        {/* News Section */}
+        <div className="bg-gray-300 mt-8 p-4 rounded-lg border border-gray-600">
+          <h3 className="text-lg font-bold font-extrabold">NEWS</h3>
+          <div className="mt-4">
+            {/* Sample News Item */}
+            <div className="border border-red-800 p-4 rounded-lg mb-4">
+              <div className="flex items-center mb-2">
+                <img
+                  src={Profile}
+                  alt="Sender"
+                  className="w-12 h-12 rounded-full mr-4"
+                />
+                <h4 className="text-xl font-bold">
+                  SLUG information for all students and staffs
+                </h4>
+              </div>
+              <p className="text-sm text-gray-500 mb-2 mx-16">Date and Time</p>
+              <p className="text-base mx-16">
+                Lorem ipsum dolor sit amet consectetur. Et tortor auctor
+                scelerisque pellentesque neque sit nibh elit elit. Massa vel
+                purus risus velit dignissim eu morbi massa.
+              </p>
+              <div className="flex items-center mx-16">
+                <img src={PdfIcon} alt="PDF Icon" className="w-6 h-6 mr-2" />
+                <a href="#" className="text-blue-600">
+                  PDF Link
+                </a>
+              </div>
+            </div>
+            {/* Repeat the above structure for more news items */}
+
+            <div className="border border-red-800 p-4 rounded-lg mb-4">
+              <div className="flex items-center mb-2">
+                <img
+                  src={Profile}
+                  alt="Sender"
+                  className="w-12 h-12 rounded-full mr-4"
+                />
+                <h4 className="text-xl font-bold">
+                  SLUG information for all students and staffs
+                </h4>
+              </div>
+              <p className="text-sm text-gray-500 mb-2 mx-16">Date and Time</p>
+              <p className="text-base mx-16">
+                Lorem ipsum dolor sit amet consectetur. Et tortor auctor
+                scelerisque pellentesque neque sit nibh elit elit. Massa vel
+                purus risus velit dignissim eu morbi massa.
+              </p>
+              <div className="flex items-center mx-16">
+                <img src={PdfIcon} alt="PDF Icon" className="w-6 h-6 mr-2" />
+                <a href="#" className="text-blue-600">
+                  PDF Link
+                </a>
+              </div>
+            </div>
+
+            <div className="border border-red-800 p-4 rounded-lg mb-4">
+              <div className="flex items-center mb-2">
+                <img
+                  src={Profile}
+                  alt="Sender"
+                  className="w-12 h-12 rounded-full mr-4"
+                />
+                <h4 className="text-xl font-bold">
+                  SLUG information for all students and staffs
+                </h4>
+              </div>
+              <p className="text-sm text-gray-500 mb-2 mx-16">Date and Time</p>
+              <p className="text-base mx-16">
+                Lorem ipsum dolor sit amet consectetur. Et tortor auctor
+                scelerisque pellentesque neque sit nibh elit elit. Massa vel
+                purus risus velit dignissim eu morbi massa.
+              </p>
+              <div className="flex items-center mx-16">
+                <img src={PdfIcon} alt="PDF Icon" className="w-6 h-6 mr-2" />
+                <a href="#" className="text-blue-600 ">
+                  PDF Link
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </>

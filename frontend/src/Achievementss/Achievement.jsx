@@ -76,7 +76,6 @@ function Achievement() {
                 alt="Volleyball tournament"
               />
               <div>
-                
                 <h2 className="text-lg font-semibold mx-10 ">
                   Volleyball tournament 2024 – asjdbjhbdh sjdwhdundn
                   jnsjnjsnnsaj ajsnuw.
@@ -102,9 +101,9 @@ function Achievement() {
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
                   auctor sapien in porta varius.
                 </p>
-                  <button className="bg-customGreen hover:bg-red-800 text-white font-semibold py-1 px-3 rounded-full mt-4 mb-4 mx-10">
-                    See more...
-                  </button>
+                <button className="bg-customGreen hover:bg-red-800 text-white font-semibold py-1 px-3 rounded-full mt-4 mb-4 mx-10">
+                  See more...
+                </button>
               </div>
             </div>
             <br></br>
@@ -135,19 +134,19 @@ function Achievement() {
                     />
                   </svg>
                   <p className="text-sm text-gray-800">March 10, 2024</p>
-                </div> 
+                </div>
 
                 <p className="text-gray-900 mx-10">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
                   auctor sapien in porta varius.
                 </p>
-                    <button className="bg-customGreen hover:bg-red-800 text-white font-semibold py-1 px-3 rounded-full mt-4 mb-4 mx-10">
-                        See more...
-                      </button>
+                <button className="bg-customGreen hover:bg-red-800 text-white font-semibold py-1 px-3 rounded-full mt-4 mb-4 mx-10">
+                  See more...
+                </button>
               </div>
             </div>
             <br></br>
-          
+
             {/* Announcement Box 3 */}
             <div className="border border-gray-600 rounded-xl p-4 flex items-center bg-gray-300 mx-10">
               <img
@@ -156,7 +155,6 @@ function Achievement() {
                 alt="Volleyball tournament"
               />
               <div>
-                
                 <h2 className="text-lg font-semibold mx-10 ">
                   Volleyball tournament 2024 – asjdbjhbdh sjdwhdundn
                   jnsjnjsnnsaj ajsnuw.
@@ -182,18 +180,16 @@ function Achievement() {
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
                   auctor sapien in porta varius.
                 </p>
-                  <button className="bg-customGreen hover:bg-red-800 text-white font-semibold py-1 px-3 rounded-full mt-4 mb-4 mx-10">
-                    See more...
-                  </button>
+                <button className="bg-customGreen hover:bg-red-800 text-white font-semibold py-1 px-3 rounded-full mt-4 mb-4 mx-10">
+                  See more...
+                </button>
               </div>
             </div>
           </div>
           <br></br>
         </div>
       </div>
-
     </>
-    
   );
 }
 
