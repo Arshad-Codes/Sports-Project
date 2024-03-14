@@ -9,13 +9,13 @@ import EventImage6 from "./event6.jpg";
 import EventImage7 from "./event7.jpg";
 
 const events = [
-  { id: 1, image: EventImage1, title: "Event 1" },
-  { id: 2, image: EventImage2, title: "Event 2" },
-  { id: 3, image: EventImage3, title: "Event 3" },
-  { id: 4, image: EventImage4, title: "Event 4" },
-  { id: 5, image: EventImage5, title: "Event 5" },
-  { id: 6, image: EventImage6, title: "Event 6" },
-  { id: 7, image: EventImage7, title: "Event 7" }
+  { id: 1, image: EventImage1, title: "Event 1", caption: "Volleyball Tournament 2024" },
+  { id: 2, image: EventImage2, title: "Event 2", caption: "Chess Tournament 2024" },
+  { id: 3, image: EventImage3, title: "Event 3", caption: "Hockey Tournament 2024" },
+  { id: 4, image: EventImage4, title: "Event 4", caption: "Badminton Tournament 2024" },
+  { id: 5, image: EventImage5, title: "Event 5", caption: "Table Tennis Tournament 2024" },
+  { id: 6, image: EventImage6, title: "Event 6", caption: "CEE Cricket Tournament 2024" },
+  { id: 7, image: EventImage7, title: "Event 7", caption: "Freshers meet 2024" }
 ];
 
 function Event() {
@@ -44,16 +44,18 @@ function Event() {
       <NavBar />
       <div className="mt-10 mx-10">
         <div className="bg-customGreen p-4 rounded-lg relative" ref={containerRef}>
-          <h2 className="text-xl font-bold text-white mb-4">Events</h2>
+          <h2 className="text-xl font-bold text-white mb-4">Upcoming Events...</h2>
           <div className="flex overflow-x-hidden" style={{ transform: `translateX(${scrollPosition}px)` }}>
             {events.map((event) => (
-              <img
-                key={event.id}
-                src={event.image}
-                alt={event.title}
-                className="rounded-xl mr-4"
-                style={{ width: "300px", flex: "0 0 auto" }}
-              />
+              <div key={event.id} className="flex flex-col items-center mr-4">
+                <img
+                  src={event.image}
+                  alt={event.title}
+                  className="rounded-xl mb-2"
+                  style={{ width: "300px", flex: "0 0 auto" }}
+                />
+                <p className="text-center text-white">{event.caption}</p>
+              </div>
             ))}
           </div>
           <button
