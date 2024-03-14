@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 
 function AdminSport() {
   const [file, setFile] = useState(null);
-  //   const [imagePreview, setImagePreview] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
   const [error, setError] = useState(null);
   const [user, setUser] = useState({
     name: '',
@@ -21,6 +21,11 @@ function AdminSport() {
     setUser((prev) => {
       return { ...prev, [e.target.name]: e.target.value };
     });
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      setImagePreview(reader.result);
+    };
   };
 
   const handleCreate = async (e) => {
@@ -121,13 +126,13 @@ function AdminSport() {
                 }}
               />
             </div>
-            {/* {imagePreview && (
+            {imagePreview && (
               <img
                 src={imagePreview}
                 alt="Selected"
                 className="mx-auto mt-4 max-w-48 h-auto"
               />
-            )} */}
+            )}
             <CustomButton className="mt-6" fullWidth type="submit">
               ADD
             </CustomButton>
