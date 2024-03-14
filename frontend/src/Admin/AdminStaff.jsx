@@ -22,28 +22,6 @@ const AdminStaff = () => {
             </h1>
           </div>
           <form className="space-y-5">
-            <div className="grid grid-cols-2 gap-2">
-              <div className="shadow-sm">
-                <label className="sr-only">First Name</label>
-                <input
-                  type="text"
-                  name="first_name"
-                  id="first_name"
-                  placeholder="First Name"
-                  className="appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-1 focus:outline-gray-600"
-                />
-              </div>
-              <div className="shadow-sm">
-                <label className="sr-only">Last Name</label>
-                <input
-                  type="text"
-                  name="last_name"
-                  id="last_name"
-                  placeholder="Last Name"
-                  className="appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-1 focus:outline-gray-600"
-                />
-              </div>
-            </div>
             <div className="shadow-sm">
               <label className="sr-only">Username</label>
               <input
@@ -54,26 +32,7 @@ const AdminStaff = () => {
                 className="appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-1 focus:outline-gray-600"
               />
             </div>
-            <div className="shadow-sm">
-              <label className="sr-only">Email</label>
-              <input
-                type="email"
-                name="email"
-                id="email"
-                placeholder="Email"
-                className="appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-1 focus:outline-gray-600"
-              />
-            </div>
-            <div className="shadow-sm">
-              <label className="sr-only">Contact</label>
-              <input
-                type="text"
-                name="contact"
-                id="contact"
-                placeholder="Contact"
-                className="appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-1 focus:outline-gray-600"
-              />
-            </div>
+
             <div className="shadow-sm">
               <label className="sr-only">Sports</label>
               <select
