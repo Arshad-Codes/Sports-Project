@@ -1,5 +1,5 @@
 import React from 'react';
-
+import Logo from "./uorlogo.jpg"
 import {
   Navbar,
   Collapse,
@@ -252,6 +252,8 @@ function NavBar() {
   return (
     <Navbar className="sticky top-0 z-10 shadow-md border border-white/80 bg-opacity-80 max-w-full px-4 py-2 rounded-none backdrop-blur-2xl backdrop-saturate-200">
       <div className="flex items-center justify-between text-blue-gray-900">
+      <div className="flex items-center">
+      <img src={Logo} alt="Ruhuna Sports Logo" className="w-12 h-12 cursor-pointer" />
         <Typography
           as="a"
           href="#"
@@ -262,6 +264,7 @@ function NavBar() {
           𝕽𝖚𝖍𝖚𝖓𝖆𝕾𝖕𝖔𝖗𝖙𝖘
         </Typography>
         <div className="hidden lg:block">
+          </div>
           <NavList />
         </div>
         <div className="hidden gap-2 lg:flex">
