@@ -26,6 +26,7 @@ function Event() {
     const containerWidth = containerRef.current.offsetWidth;
     const imagesWidth = events.length * 320; // Assuming each image has a width of 320px
 
+    
     const maxScroll = imagesWidth - containerWidth;
 
     if (scrollPosition > -maxScroll) {
@@ -48,13 +49,15 @@ function Event() {
           <div className="flex overflow-x-hidden" style={{ transform: `translateX(${scrollPosition}px)` }}>
             {events.map((event) => (
               <div key={event.id} className="flex flex-col items-center mr-4">
-                <img
-                  src={event.image}
-                  alt={event.title}
-                  className="rounded-xl mb-2"
-                  style={{ width: "300px", flex: "0 0 auto" }}
-                />
-                <p className="text-center text-white">{event.caption}</p>
+                <div className="border-black border p-2 rounded-lg" style={{ width: "320px" }}>
+                  <img
+                    src={event.image}
+                    alt={event.title}
+                    className="rounded-xl mb-2"
+                    style={{ width: "100%" }}
+                  />
+                  <p className="text-center text-white">{event.caption}</p>
+                </div>
               </div>
             ))}
           </div>
