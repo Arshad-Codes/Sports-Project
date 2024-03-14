@@ -2,14 +2,25 @@ import mongoose from "mongoose";
 import { Schema } from "mongoose";
 
 const sportsCoordinatorSchema = new Schema({
-  username: {
+  password: {
+    type: String,
+    required: true,
+  },
+  email: {
     type: String,
     required: true,
     unique: true,
   },
-  password: {
+  fullName: {
+    type: String,
+  },
+  position: {
+    type: String,
+  },
+  sport: {
     type: String,
     required: true,
+    unique: true,
   },
 });
 
