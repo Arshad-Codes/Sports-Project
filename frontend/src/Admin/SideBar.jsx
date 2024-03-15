@@ -34,7 +34,7 @@ const Sidebar = ({ isSidebarOpen, onPageChange }) => {
         </div>
       </div>
       <div className="flex flex-col gap-5 ml-3 mt-5 mr-5">
-        <button
+        {/* <button
           className={`rounded-lg h-10 p-3 flex flex-row gap-5 items-center ${
             clickedButton === 'admin_dashboard'
               ? 'bg-customGreen text-white'
@@ -44,7 +44,7 @@ const Sidebar = ({ isSidebarOpen, onPageChange }) => {
         >
           <FaTachometerAlt size={25} />
           Dashboard
-        </button>
+        </button> */}
         <button
           className={`rounded-lg h-10 p-3 flex flex-row gap-5 items-center ${
             clickedButton === 'sports'

@@ -1,9 +1,9 @@
-import React from "react";
-import NavBar from "../components/Navbar";
-import chess1 from "./chess.jpg";
-import volley1 from "./volley.jpg";
-import { Carousel } from "@material-tailwind/react";
-import { homeData } from "../data";
+import React from 'react';
+import NavBar from '../components/Navbar';
+import chess1 from './chess.jpg';
+import volley1 from './volley.jpg';
+import { Carousel } from '@material-tailwind/react';
+import { homeData } from '../data';
 
 function Achievement() {
   const { achievementData } = homeData;
@@ -21,7 +21,7 @@ function Achievement() {
       <div className="mx-20 mt-5">
         <Carousel
           transition={{ duration: 1.5 }}
-          style={{ height: "600px" }}
+          style={{ height: '600px' }}
           className="rounded-xl text-center"
         >
           {achievementData.map((item, index) => (
@@ -46,7 +46,7 @@ function Achievement() {
         </Carousel>
       </div>
       <br></br>
-      <p className="text-lg mt-4 mb-10 mx-10 max-w-10">
+      <p className="text-lg mt-4 mb-10 mx-10">
         Welcome to the University of Ruhuna's Engineering Faculty Sports
         Achievements page—where we're not just brainy, but also super sporty!
         Our students don't just excel in the classroom; they're also champions
@@ -76,7 +76,6 @@ function Achievement() {
                 alt="Volleyball tournament"
               />
               <div>
-                
                 <h2 className="text-lg font-semibold mx-10 ">
                   Volleyball tournament 2024 – asjdbjhbdh sjdwhdundn
                   jnsjnjsnnsaj ajsnuw.
@@ -102,9 +101,9 @@ function Achievement() {
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
                   auctor sapien in porta varius.
                 </p>
-                  <button className="bg-customGreen hover:bg-red-800 text-white font-semibold py-1 px-3 rounded-full mt-4 mb-4 mx-10">
-                    See more...
-                  </button>
+                <button className="bg-customGreen hover:bg-red-800 text-white font-semibold py-1 px-3 rounded-full mt-4 mb-4 mx-10">
+                  See more...
+                </button>
               </div>
             </div>
             <br></br>
@@ -135,19 +134,19 @@ function Achievement() {
                     />
                   </svg>
                   <p className="text-sm text-gray-800">March 10, 2024</p>
-                </div> 
+                </div>
 
                 <p className="text-gray-900 mx-10">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
                   auctor sapien in porta varius.
                 </p>
-                    <button className="bg-customGreen hover:bg-red-800 text-white font-semibold py-1 px-3 rounded-full mt-4 mb-4 mx-10">
-                        See more...
-                      </button>
+                <button className="bg-customGreen hover:bg-red-800 text-white font-semibold py-1 px-3 rounded-full mt-4 mb-4 mx-10">
+                  See more...
+                </button>
               </div>
             </div>
             <br></br>
-          
+
             {/* Announcement Box 3 */}
             <div className="border border-gray-600 rounded-xl p-4 flex items-center bg-gray-300 mx-10">
               <img
@@ -156,7 +155,6 @@ function Achievement() {
                 alt="Volleyball tournament"
               />
               <div>
-                
                 <h2 className="text-lg font-semibold mx-10 ">
                   Volleyball tournament 2024 – asjdbjhbdh sjdwhdundn
                   jnsjnjsnnsaj ajsnuw.
@@ -182,18 +180,16 @@ function Achievement() {
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
                   auctor sapien in porta varius.
                 </p>
-                  <button className="bg-customGreen hover:bg-red-800 text-white font-semibold py-1 px-3 rounded-full mt-4 mb-4 mx-10">
-                    See more...
-                  </button>
+                <button className="bg-customGreen hover:bg-red-800 text-white font-semibold py-1 px-3 rounded-full mt-4 mb-4 mx-10">
+                  See more...
+                </button>
               </div>
             </div>
           </div>
           <br></br>
         </div>
       </div>
-
     </>
-    
   );
 }
 
