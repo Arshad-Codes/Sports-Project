@@ -13,6 +13,20 @@ export const homeData = {
       path: '/src/assests/carousel/Home_3.jpg',
     },
   ],
+  achievementData: [
+    {
+      title: 'Image 1',
+      path: '/src/Achievementss/pic2.jpg',
+    },
+    {
+      title: 'Image 2',
+      path: '/src/Achievementss/pic1.jpeg',
+    },
+    {
+      title: 'Image 3',
+      path: '/src/assests/carousel/Home_3.jpg',
+    },
+  ],
 };
 
 export const sportsData = {

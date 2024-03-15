@@ -13,6 +13,7 @@ import SpecificCoordinator from './pages/SpecificCoordinator';
 import StaffLogin from './SportsCoordinator/StaffLogin';
 import StaffDashboard from './SportsCoordinator/StaffDashboard';
 
+import Achievement from './Achievementss/Achievement';
 function App() {
   return (
     <BrowserRouter>
@@ -31,6 +32,7 @@ function App() {
         <Route path="/admin/dashboard" element={<AdminDashBoard />} />
         <Route path="/staff" element={<StaffLogin />} />
         <Route path="/staff/dashboard" element={<StaffDashboard />} />
+        <Route path="/achievement" element={<Achievement />} />
       </Routes>
     </BrowserRouter>
   );

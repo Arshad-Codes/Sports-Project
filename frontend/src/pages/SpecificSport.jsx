@@ -43,6 +43,15 @@ function SpecificSport() {
           </div>
         </div>
       </div>
+      <div className="flex justify-center my-20">
+        <CustomButton
+          className="mr-2"
+          onClick={() => (window.location.href = '/achievement')}
+        >
+          Achievement
+        </CustomButton>
+        <CustomButton>Events</CustomButton>
+      </div>
     </>
   );
 }

@@ -7,6 +7,7 @@ import StaffTopBar from './StaffTopBar';
 import StaffSideBar from './StaffSidebar';
 import AddStaff from '../Admin/AdminStaff';
 import StaffSports from './StaffSports';
+import AdminSport from '../Admin/AdminSport';
 
 function StaffDashboard() {
   const [currentPage, setCurrentPage] = useState('staffs');
@@ -35,7 +36,7 @@ function StaffDashboard() {
             </p>
           </div>
           {currentPage === 'staff_dashboard' && <AddStaff />}
-          {currentPage === 'sports' && <StaffSports />}
+          {currentPage === 'sports' && <AdminSport />}
           {currentPage === 'students' && <AdminStudent />}
           {currentPage === 'events' && <Events />}
           {currentPage === 'enrolled_student' && <EnrolledStudent />}
