@@ -1,11 +1,11 @@
-import { Button } from '@material-tailwind/react';
-import NavBar from '../components/Navbar';
-import { styled } from '@mui/system';
+import { Button } from "@material-tailwind/react";
+import NavBar from "../components/Navbar";
+import { styled } from "@mui/system";
 
 const CustomButton = styled(Button)({
-  color: 'white',
-  backgroundColor: '#09473F',
-  variant: 'gradient',
+  color: "white",
+  backgroundColor: "#09473F",
+  variant: "gradient",
 });
 
 function SpecificSport() {
@@ -32,7 +32,7 @@ function SpecificSport() {
                 tortor nisl rhoncus quam.
               </h1>
               <CustomButton
-                onClick={() => (window.location.href = '/enrolled')}
+                onClick={() => (window.location.href = "/enrolled")}
                 className="mt-5 w-36"
               >
                 Enrol

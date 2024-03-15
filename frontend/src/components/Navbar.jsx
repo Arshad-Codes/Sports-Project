@@ -1,5 +1,5 @@
-import React from 'react';
-import Logo from "./uorlogo.jpg"
+import React from "react";
+import Logo from "./uorlogo.jpg";
 import {
   Navbar,
   Collapse,
@@ -12,12 +12,12 @@ import {
   MenuHandler,
   MenuList,
   MenuItem,
-} from '@material-tailwind/react';
+} from "@material-tailwind/react";
 import {
   ChevronDownIcon,
   Bars3Icon,
   XMarkIcon,
-} from '@heroicons/react/24/outline';
+} from "@heroicons/react/24/outline";
 import {
   SportsCricket as CricketIcon,
   SportsSoccer as SoccerIcon,
@@ -30,13 +30,13 @@ import {
   SportsRugby as RugbyIcon,
   SportsTennis as TennisIcon,
   SportsMartialArts as MartialArtsIcon,
-} from '@mui/icons-material';
-import { styled } from '@mui/system';
+} from "@mui/icons-material";
+import { styled } from "@mui/system";
 
 const CustomButton = styled(Button)({
-  color: 'white',
-  backgroundColor: '#09473F',
-  variant: 'gradient',
+  color: "white",
+  backgroundColor: "#09473F",
+  variant: "gradient",
 
   // '&:hover': {
   //   backgroundColor: 'green',
@@ -44,70 +44,70 @@ const CustomButton = styled(Button)({
 });
 const navSportList = [
   {
-    title: 'Cricket',
-    description: 'The sound of leather on willow.',
+    title: "Cricket",
+    description: "The sound of leather on willow.",
     icon: CricketIcon,
-    link: '/specific',
+    link: "/specific",
   },
   {
-    title: 'Football',
-    description: 'Get ready for some football action.',
+    title: "Football",
+    description: "Get ready for some football action.",
     icon: SoccerIcon,
-    link: '#',
+    link: "#",
   },
   {
-    title: 'Basketball',
-    description: 'Enjoy the game on the court.',
+    title: "Basketball",
+    description: "Enjoy the game on the court.",
     icon: BasketballIcon,
-    link: '#',
+    link: "#",
   },
   {
-    title: 'Volleyball',
-    description: 'Bump, set, spike!',
+    title: "Volleyball",
+    description: "Bump, set, spike!",
     icon: VolleyballIcon,
-    link: '#',
+    link: "#",
   },
   {
-    title: 'Pool',
-    description: 'Dive in and make a splash.',
+    title: "Pool",
+    description: "Dive in and make a splash.",
     icon: PoolIcon,
-    link: '#',
+    link: "#",
   },
   {
-    title: 'Kabaddi',
-    description: 'Experience the thrill and strategy of Kabaddi.',
+    title: "Kabaddi",
+    description: "Experience the thrill and strategy of Kabaddi.",
     icon: KabaddiIcon,
-    link: '#',
+    link: "#",
   },
   {
-    title: 'Baseball',
-    description: 'Play ball! Baseball time.',
+    title: "Baseball",
+    description: "Play ball! Baseball time.",
     icon: BaseballIcon,
-    link: '#',
+    link: "#",
   },
   {
-    title: 'Hockey',
-    description: 'Fast-paced action on the ice.',
+    title: "Hockey",
+    description: "Fast-paced action on the ice.",
     icon: HockeyIcon,
-    link: '#',
+    link: "#",
   },
   {
-    title: 'Rugby',
-    description: 'Hard-hitting rugby action.',
+    title: "Rugby",
+    description: "Hard-hitting rugby action.",
     icon: RugbyIcon,
-    link: '#',
+    link: "#",
   },
   {
-    title: 'Tennis',
-    description: 'Grab your racket and hit the court.',
+    title: "Tennis",
+    description: "Grab your racket and hit the court.",
     icon: TennisIcon,
-    link: '#',
+    link: "#",
   },
   {
-    title: 'Martial Arts',
-    description: 'Discipline and skill in martial arts.',
+    title: "Martial Arts",
+    description: "Discipline and skill in martial arts.",
     icon: MartialArtsIcon,
-    link: '#',
+    link: "#",
   },
 ];
 
@@ -119,10 +119,10 @@ function NavListMenu() {
       <a href={link} key={key}>
         <MenuItem className="flex items-center gap-3 rounded-lg">
           <div className="flex items-center justify-center rounded-lg !bg-blue-gray-50 p-2 ">
-            {' '}
+            {" "}
             {React.createElement(icon, {
               strokeWidth: 2,
-              className: 'h-6 w-6 text-gray-900',
+              className: "h-6 w-6 text-gray-900",
             })}
           </div>
           <div>
@@ -165,13 +165,13 @@ function NavListMenu() {
               <ChevronDownIcon
                 strokeWidth={2.5}
                 className={`hidden h-3 w-3 transition-transform lg:block ${
-                  isMenuOpen ? 'rotate-180' : ''
+                  isMenuOpen ? "rotate-180" : ""
                 }`}
               />
               <ChevronDownIcon
                 strokeWidth={2.5}
                 className={`block h-3 w-3 transition-transform lg:hidden ${
-                  isMobileMenuOpen ? 'rotate-180' : ''
+                  isMobileMenuOpen ? "rotate-180" : ""
                 }`}
               />
             </ListItem>
@@ -244,7 +244,7 @@ function NavBar() {
   const [openNav, setOpenNav] = React.useState(false);
   React.useEffect(() => {
     window.addEventListener(
-      'resize',
+      "resize",
       () => window.innerWidth >= 960 && setOpenNav(false)
     );
   }, []);
@@ -252,24 +252,27 @@ function NavBar() {
   return (
     <Navbar className="sticky top-0 z-10 shadow-md border border-white/80 bg-opacity-80 max-w-full px-4 py-2 rounded-none backdrop-blur-2xl backdrop-saturate-200">
       <div className="flex items-center justify-between text-blue-gray-900">
-      <div className="flex items-center">
-      <img src={Logo} alt="Ruhuna Sports Logo" className="w-12 h-12 cursor-pointer" />
-        <Typography
-          as="a"
-          href="#"
-          variant="h6"
-          className="mr-4 cursor-pointer py-1.5 lg:ml-2 text-customGreen text-xl"
-        >
-          {/* ℝ𝕦𝕙𝕦𝕟𝕒𝕊𝕡𝕠𝕣𝕥𝕤 */}
-          𝕽𝖚𝖍𝖚𝖓𝖆𝕾𝖕𝖔𝖗𝖙𝖘
-        </Typography>
-        <div className="hidden lg:block">
-          </div>
+        <div className="flex items-center">
+          <img
+            src={Logo}
+            alt="Ruhuna Sports Logo"
+            className="w-12 h-12 cursor-pointer"
+          />
+          <Typography
+            as="a"
+            href="#"
+            variant="h6"
+            className="mr-4 cursor-pointer py-1.5 lg:ml-2 text-customGreen text-xl"
+          >
+            {/* ℝ𝕦𝕙𝕦𝕟𝕒𝕊𝕡𝕠𝕣𝕥𝕤 */}
+            𝕽𝖚𝖍𝖚𝖓𝖆𝕾𝖕𝖔𝖗𝖙𝖘
+          </Typography>
+          <div className="hidden lg:block"></div>
           <NavList />
         </div>
         <div className="hidden gap-2 lg:flex">
           <Button
-            onClick={() => (window.location.href = '/login')}
+            onClick={() => (window.location.href = "/login")}
             variant="text"
             size="sm"
             color="blue-gray"
@@ -285,7 +288,7 @@ function NavBar() {
             Sign Up
           </Button> */}
           <CustomButton
-            onClick={() => (window.location.href = '/Signup')}
+            onClick={() => (window.location.href = "/Signup")}
             size="sm"
           >
             Sign Up
@@ -309,7 +312,7 @@ function NavBar() {
         <NavList />
         <div className="flex w-full flex-nowrap items-center gap-2 lg:hidden">
           <Button
-            onClick={() => (window.location.href = '/login')}
+            onClick={() => (window.location.href = "/login")}
             variant="outlined"
             size="sm"
             color="blue-gray"
@@ -318,7 +321,7 @@ function NavBar() {
             Log In
           </Button>
           <CustomButton
-            onClick={() => (window.location.href = '/Signup')}
+            onClick={() => (window.location.href = "/Signup")}
             size="sm"
             fullWidth
           >
