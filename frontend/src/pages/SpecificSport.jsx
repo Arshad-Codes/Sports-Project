@@ -6,11 +6,8 @@ const CustomButton = styled(Button)({
   color: 'white',
   backgroundColor: '#09473F',
   variant: 'gradient',
-
-  // '&:hover': {
-  //   backgroundColor: 'green',
-  // },
 });
+
 function SpecificSport() {
   return (
     <>
@@ -45,14 +42,33 @@ function SpecificSport() {
         </div>
       </div>
       <div className="bg-customGreen mt-10">
-        <h1 className="text-white">Faculty Team</h1>
-        <div>
-          <div className="grid grid-cols-2">
-            <h1>Hiii</h1>
-            <h1>Hiii</h1>
+        <h1 className="text-white ml-4 font-bold">Faculty Team</h1>
+        <div className="grid grid-cols-2 mt-4">
+          {/* Left Box for Boys Team Members */}
+          <div className="p-3 border-black border rounded-lg">
+            <h2 className="text-xl font-semibold mb-3">Boys Team Members</h2>
+            <hr></hr>
+            <ul className="mt-4">
+              <li>Player 1</li>
+              <li>Player 2</li>
+              <li>Player 3</li>
+              {/* Add more players as needed */}
+            </ul>
+          </div>
+          {/* Right Box for Girls Team Members */}
+          <div className="p-3 border-black border rounded-lg">
+            <h2 className="text-xl font-semibold mb-3">Girls Team Members</h2>
+            <hr></hr>
+            <ul className="mt-4">
+              <li>Player 1</li>
+              <li>Player 2</li>
+              <li>Player 3</li>
+              {/* Add more players as needed */}
+            </ul>
           </div>
         </div>
       </div>
+      <br></br>
     </>
   );
 }
