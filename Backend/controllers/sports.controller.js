@@ -14,3 +14,12 @@ export const createsport = async (req, res) => {
     res.status(500).send(error.message);
   }
 };
+
+export const getSports = async (req, res) => {
+  try {
+    const sports_list = await Sports.find({});
+    res.status(200).send(sports_list);
+  } catch (error) {
+    res.status(500).send('Something went wrong');
+  }
+};
