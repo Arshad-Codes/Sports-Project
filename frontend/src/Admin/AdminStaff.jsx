@@ -6,11 +6,30 @@ import PropTypes from 'prop-types';
 
 const AdminStaff = () => {
   const [sports, setSports] = useState('');
+  const [user, setUser] = useState({
+    title: '',
+    description: '',
+    imgUrl: '',
+  });
+  const [error, setError] = useState('');
   const sportsRef = useRef();
 
   useEffect(() => {
     sportsRef.current.focus();
   }, []);
+
+  function handleChange(e) {
+    setUser((prev) => {
+      return { ...prev, [e.target.name]: e.target.value };
+    });
+  }
+
+  // async function handleCreate(e) {
+  //   e.preventDefault();
+  //   try {
+  //     await axios.post('http://localhost:8800/api/student/register')
+  //   }
+  // }
 
   return (
     <div>

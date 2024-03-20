@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
-import { Schema } from "mongoose";
+import mongoose from 'mongoose';
+import { Schema } from 'mongoose';
 
 const sportsCoordinatorSchema = new Schema({
   password: {
@@ -24,4 +24,4 @@ const sportsCoordinatorSchema = new Schema({
   },
 });
 
-export default mongoose.model("SportsCoordinator", sportsCoordinatorSchema);
+export default mongoose.model('SportsCoordinator', sportsCoordinatorSchema);

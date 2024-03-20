@@ -181,13 +181,13 @@ function AdminSport() {
       <div className="container mx-auto p-4">
         <h2 className="text-2xl font-bold mb-4">Sports List</h2>
         {loading ? (
-          <p>Loading...</p>
+          <p className="text-gray-600">Loading...</p>
         ) : (
           <div className="grid grid-cols-1 gap-4">
             {sportsData.map((sport) => (
               <div
                 key={sport._id}
-                className="bg-white rounded-lg shadow-md overflow-hidden flex"
+                className="bg-white rounded-lg shadow-md overflow-hidden flex h-72"
               >
                 <img
                   src={sport.imageUrl}
