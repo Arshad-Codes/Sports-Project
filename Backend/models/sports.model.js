@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import { Schema } from 'mongoose';
 
-const sportsSchema = new Schema({
+const sportSchema = new Schema({
   name: {
     type: String,
     required: true,
@@ -17,4 +17,4 @@ const sportsSchema = new Schema({
   },
 });
 
-export const Sports = mongoose.model('Sports', sportsSchema);
+export const Sports = mongoose.model('Sport', sportSchema);
