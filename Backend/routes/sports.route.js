@@ -1,13 +1,14 @@
 import express from 'express';
-import { createsport, getSports } from '../controllers/sports.controller.js';
+import { createsport, getSports,deleteSport } from '../controllers/sports.controller.js';
+import { verifyTokenAdmin } from '../middleware.js';
 
-// router.post("/createsport",createsport);
 
 const router = express.Router();
 
 // imageurl for uploding image in clodinary
 // cloudinary media librayla you can see tha uploded picture
-router.post('/createsport', createsport);
+router.post('/createsport',verifyTokenAdmin, createsport);
 router.get('/getSports', getSports);
+router.delete('/deleteSport/:id',verifyTokenAdmin, deleteSport);
 
 export default router;
