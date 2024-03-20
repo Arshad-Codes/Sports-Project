@@ -149,7 +149,7 @@ export const login = async (req, res) => {
 
     const { password, ...info } = student._doc;
     res
-      .cookie('accessToken', webtoken, { httpOnly: true })
+      .cookie('accessTokenStudent', webtoken, { httpOnly: true })
       .status(200)
       .send(info);
   } catch (err) {
@@ -160,7 +160,7 @@ export const login = async (req, res) => {
 
 export const logout = async (req, res) => {
   res
-    .clearCookie('accessToken', {
+    .clearCookie('accessTokenStudent', {
       sameSite: 'none',
       secure: true,
     })

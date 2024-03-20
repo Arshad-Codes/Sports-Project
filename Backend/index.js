@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import adminRoutes from './routes/admin.route.js';
 import studentRoutes from './routes/student.route.js';
 import sportsCoordinatorRoutes from './routes/sportsCoordinator.route.js';
+import achievementRoutes from './routes/achievements.route.js';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import sportsRoutes from './routes/sports.route.js';
@@ -33,6 +34,7 @@ app.use('/api/admin', adminRoutes);
 app.use('/api/student', studentRoutes);
 app.use('/api/sportscoordinator', sportsCoordinatorRoutes);
 app.use('/api/sport', sportsRoutes);
+app.use('/api/achievement', achievementRoutes);
 
 app.listen(process.env.PORT, () => {
   connectiondb();
