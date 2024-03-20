@@ -1,7 +1,7 @@
-import Achievements from "../models/achievements.model";
-import jwt from "jsonwebtoken";
+import Achievements from "../models/achievements.model.js";
 
 export const createAchievement = async (req, res) => {
+    if(req.role !== "admin") return res.status(403).send("Unautorized Access. You are not a admin");
     const newachievement = new Achievements({
         ...req.body
     })
@@ -16,7 +16,7 @@ export const createAchievement = async (req, res) => {
 
 export const deleteAchievement = async (req, res) => {
     try {
-        const achievement = await Achievements.findByIdAndDelete(req.params.id);
+        const achievement = await Achievements.findOneAndDelete({title: req.params.title});
         if (!achievement) {
             return res.status(404).json({ message: "Achievement not found" });
         }
@@ -49,9 +49,11 @@ export const getAchievement = async (req, res) => {
 
 export const updateAchievement = async (req, res) => {
     try {
-        const achievement = await Achievements.findByIdAndUpdate(req.params.id, {
-            $set: req.body,
-        });
+        const achievement = await Achievements.findOneAndUpdate(
+          { title: req.params.title },
+          { $set: req.body },
+          { new: true } 
+        );
         if (!achievement) {
             return res.status(404).json({ message: "Achievement not found" });
         }
