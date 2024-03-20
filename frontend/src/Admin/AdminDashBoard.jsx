@@ -4,9 +4,10 @@ import Sidebar from './SideBar';
 import AddStaff from './AdminStaff';
 import StudentsPage from './AdminStudent';
 import AdminSport from './AdminSport';
+import MyAccount from './MyAccount';
 
 function AdminDashBoard() {
-  const [currentPage, setCurrentPage] = useState('staffs');
+  const [currentPage, setCurrentPage] = useState('sports');
   const [isSidebarOpen, setSidebarOpen] = useState(true);
 
   const toggleSidebar = () => {
@@ -35,6 +36,7 @@ function AdminDashBoard() {
           {currentPage === 'sports' && <AdminSport />}
           {currentPage === 'staffs' && <AddStaff />}
           {currentPage === 'students' && <StudentsPage />}
+          {currentPage === 'my_account' && <MyAccount />}
         </main>
       </div>
     </div>
