@@ -67,3 +67,22 @@ export const getAdmin = async (req, res) => {
     res.status(500).send('Something went wrong');
   }
 };
+
+export const updateAdmin = async (req, res) => {
+  const _id = req.params.adminId;
+  const updatedAdminData = req.body;
+  try {
+    const updatedAdmin = await Admin.findByIdAndUpdate(_id, updatedAdminData, {
+      new: true,
+    });
+
+    if (!updatedAdmin) {
+      return res.status(404).send('Admin not found!');
+    }
+
+    res.json(updatedAdmin);
+    res.status(200).send(info);
+  } catch (error) {
+    res.status(500).send('Something went wrong');
+  }
+};

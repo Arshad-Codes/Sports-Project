@@ -2,21 +2,30 @@ import { Card, Input, Typography } from '@material-tailwind/react';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { CustomButton } from '../TailwindCustomComponents/CustomComponents';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 function AdminLogin() {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const [enteredUsername, setEnteredUsername] = useState('');
-  const [enteredPassword, setEnteredPassword] = useState('');
 
-  // We should connect with the mongoDB and check the credentials.
-  const handleLogin = () => {
-    const username = 'admin';
-    const password = 'admin123';
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.post('http://localhost:8800/api/admin/login', {
+        username,
+        password,
+      });
+      if (res.status === 200) {
+        localStorage.setItem('currentUser', JSON.stringify(res.data));
 
-    if (enteredUsername === username && enteredPassword === password) {
-      navigate('/admin/dashboard');
-    } else {
-      console.log('Invalid credentials');
+        navigate('/admin/dashboard', { state: { user: res.data } });
+        toast.success('Login successful!');
+      }
+    } catch (err) {
+      setError(err.response.data);
     }
   };
 
@@ -59,10 +68,7 @@ function AdminLogin() {
           </Typography>
           <form
             className="mt-8 mb-2 w-100 max-w-screen-lg sm:w-50"
-            onSubmit={(e) => {
-              e.preventDefault();
-              handleLogin();
-            }}
+            onSubmit={handleLogin}
           >
             <div className="mb-1 flex flex-col gap-6">
               <Typography variant="h6" color="blue-gray" className="-mb-3">
@@ -71,8 +77,7 @@ function AdminLogin() {
               <Input
                 size="lg"
                 placeholder="username"
-                value={enteredUsername}
-                onChange={(e) => setEnteredUsername(e.target.value)}
+                onChange={(e) => setUsername(e.target.value)}
                 className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
                 labelProps={{
                   className: 'before:content-none after:content-none',
@@ -84,8 +89,7 @@ function AdminLogin() {
               <Input
                 type="password"
                 size="lg"
-                value={enteredPassword}
-                onChange={(e) => setEnteredPassword(e.target.value)}
+                onChange={(e) => setPassword(e.target.value)}
                 placeholder="*********"
                 className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
                 labelProps={{
@@ -93,11 +97,11 @@ function AdminLogin() {
                 }}
               />
             </div>
-            {/*If admin enter the correct information, the AdminDashboard as the landing page*/}
 
             <CustomButton className="mt-6" fullWidth type="submit">
               Log In
             </CustomButton>
+            {error && <Typography color="red">{error}</Typography>}
           </form>
         </Card>
       </div>
