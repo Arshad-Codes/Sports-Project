@@ -1,6 +1,6 @@
 import { Card, Input, Typography } from '@material-tailwind/react';
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { CustomButton } from '../TailwindCustomComponents/CustomComponents';
 import axios from 'axios';
 import { toast } from 'react-toastify';
@@ -17,9 +17,10 @@ function AdminLogin() {
       const res = await axios.post('http://localhost:8800/api/admin/login', {
         username,
         password,
-      });
+      },{withCredentials:true});
       if (res.status === 200) {
         localStorage.setItem('currentUser', JSON.stringify(res.data));
+      
 
         navigate('/admin/dashboard', { state: { user: res.data } });
         toast.success('Login successful!');
