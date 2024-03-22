@@ -15,6 +15,9 @@ const sportSchema = new Schema({
     type: String,
     required: true,
   },
+  team:{
+    type: [String],
+  },
 });
 
 export const Sports = mongoose.model('Sport', sportSchema);
