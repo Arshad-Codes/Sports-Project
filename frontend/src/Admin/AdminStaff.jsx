@@ -3,19 +3,30 @@ import { useState } from 'react';
 import { useRef } from 'react';
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 
 const AdminStaff = () => {
-  const [sports, setSports] = useState('');
+  const [sportsList, setSportsList] = useState([]);
   const [user, setUser] = useState({
-    title: '',
-    description: '',
-    imgUrl: '',
+    email: '',
+    sport: '',
+    password: '',
   });
   const [error, setError] = useState('');
-  const sportsRef = useRef();
-
+  //const sportsRef = useRef();
   useEffect(() => {
-    sportsRef.current.focus();
+    async function fetchData() {
+      try {
+        const response = await axios.get(
+          'http://localhost:8800/api/sport/getSports'
+        );
+        setSportsList(response.data);
+        //console.log(sportsList);
+      } catch (error) {
+        console.error('Error fetching Sportscoordinator', error);
+      }
+    }
+    fetchData();
   }, []);
 
   function handleChange(e) {
@@ -24,12 +35,18 @@ const AdminStaff = () => {
     });
   }
 
-  // async function handleCreate(e) {
-  //   e.preventDefault();
-  //   try {
-  //     await axios.post('http://localhost:8800/api/student/register')
-  //   }
-  // }
+  async function handleCreate(e) {
+    e.preventDefault();
+    try {
+      //console.log(user);
+      await axios.post(
+        'http://localhost:8800/api/sportscoordinator/registercoordinator',
+        user
+      );
+    } catch (err) {
+      setError(err.response.data);
+    }
+  }
 
   return (
     <div>
@@ -40,14 +57,15 @@ const AdminStaff = () => {
               Add a Sports Coordinator
             </h1>
           </div>
-          <form className="space-y-5">
+          <form className="space-y-5" onSubmit={handleCreate}>
             <div className="shadow-sm">
               <label className="sr-only">Username</label>
               <input
                 type="text"
-                name="username"
-                id="username"
-                placeholder="Username"
+                name="email"
+                onChange={handleChange}
+                id="email"
+                placeholder="Email"
                 className="appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-1 focus:outline-gray-600"
               />
             </div>
@@ -55,14 +73,17 @@ const AdminStaff = () => {
             <div className="shadow-sm">
               <label className="sr-only">Sports</label>
               <select
-                ref={sportsRef}
-                onChange={(e) => setSports(e.target.value)}
+                //ref={sportsRef}
+                name="sport"
+                onChange={handleChange}
                 className="appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-1 focus:outline-gray-600"
               >
                 <option value="">Select Sport</option>
-                <option value="cricket">Cricket</option>
-                <option value="football">Football</option>
-                <option value="basketball">Basketball</option>
+                {sportsList.map((sport) => (
+                  <option key={sport._id} value={sport._id}>
+                    {sport.name}
+                  </option>
+                ))}
               </select>
             </div>
             <div className="shadow-sm">
@@ -70,6 +91,7 @@ const AdminStaff = () => {
               <input
                 type="password"
                 name="password"
+                onChange={handleChange}
                 id="password"
                 placeholder="Password"
                 className="appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-1 focus:outline-gray-600"
