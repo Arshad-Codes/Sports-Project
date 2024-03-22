@@ -11,6 +11,8 @@ const AdminStaff = () => {
     email: '',
     sport: '',
     password: '',
+    fullName: '',
+    position: '',
   });
   const [error, setError] = useState('');
   //const sportsRef = useRef();
@@ -66,6 +68,28 @@ const AdminStaff = () => {
                 onChange={handleChange}
                 id="email"
                 placeholder="Email"
+                className="appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-1 focus:outline-gray-600"
+              />
+            </div>
+            <div className="shadow-sm">
+              <label className="sr-only">Full Name</label>
+              <input
+                type="text"
+                name="fullName"
+                onChange={handleChange}
+                id="fullName"
+                placeholder="Enter the full name"
+                className="appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-1 focus:outline-gray-600"
+              />
+            </div>
+            <div className="shadow-sm">
+              <label className="sr-only">Position</label>
+              <input
+                type="text"
+                name="position"
+                onChange={handleChange}
+                id="position"
+                placeholder="Enter the Position"
                 className="appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-1 focus:outline-gray-600"
               />
             </div>
