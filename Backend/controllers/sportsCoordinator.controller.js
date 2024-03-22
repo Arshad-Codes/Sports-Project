@@ -1,4 +1,5 @@
 import sportsCoordinator from "../models/sportsCoordinator.model.js";
+import bcrypt from "bcrypt";
 
 export const createCoordinator = async (req, res) => {
   try {
