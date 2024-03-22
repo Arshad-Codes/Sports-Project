@@ -40,8 +40,8 @@ const AdminStaff = () => {
     try {
       //console.log(user);
       await axios.post(
-        'http://localhost:8800/api/sportscoordinator/registercoordinator',
-        user
+        'http://localhost:8800/api/sportscoordinator/registercoordinator',{ 
+        user},{withCredentials:true}
       );
     } catch (err) {
       setError(err.response.data);
