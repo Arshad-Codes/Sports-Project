@@ -10,7 +10,7 @@ export const homeData = {
     },
     {
       title: 'Image 3',
-      path: '/src/assests/carousel/Home_3.jpg',
+      path: '/src/assests/carousel/Home_2.jpg',
     },
   ],
   achievementData: [

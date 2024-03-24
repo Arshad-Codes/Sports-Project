@@ -2,16 +2,10 @@ import { Button, Carousel, Typography } from '@material-tailwind/react';
 import NavBar from '../components/Navbar';
 import { homeData } from '../data';
 import AnnouncementsCom from '../components/AnnouncemetsCom';
-import CardsWithSeeMore from '../components/CardsWithSeeMore';
-import { Link } from 'react-router-dom';
-import {
-  Details,
-  FormatIndentIncrease,
-  FormatIndentIncreaseOutlined,
-  More,
-} from '@mui/icons-material';
 import UpcomingEvent from './Home/UpcomingEvent';
 import SportsSlider from './Home/SportsSlider';
+import Typewriter from 'typewriter-effect';
+import { useEffect, useState } from 'react';
 
 function Home() {
   const { carouselData } = homeData;
@@ -19,11 +13,27 @@ function Home() {
   return (
     <>
       <NavBar />
-      <div className="ml-3 mt-5 mr-3">
+      <div className="flex ml-3 mt-5 mr-3">
         <Carousel
           transition={{ duration: 1.5 }}
-          style={{ height: '500px' }}
-          className="rounded-xl text-center"
+          navigation={({ setActiveIndex, activeIndex, length }) => (
+            <div className="absolute bottom-4 left-2/4 z-20 flex -translate-x-2/4 gap-2">
+              {new Array(length).fill('').map((_, i) => (
+                <span
+                  key={i}
+                  className={`block h-1 cursor-pointer rounded-2xl transition-all content-[''] ${
+                    activeIndex === i ? 'w-8 bg-white' : 'w-4 bg-white/50'
+                  }`}
+                  onClick={() => setActiveIndex(i)}
+                />
+              ))}
+            </div>
+          )}
+          style={{ height: '350px' }}
+          className="rounded-xl text-center w-1/2"
+          autoplay
+          autoplayDelay={5000}
+          loop={true}
         >
           {carouselData.map((item, index) => (
             <img
@@ -33,18 +43,49 @@ function Home() {
               className="h-full w-full object-fill"
             />
           ))}
-
-          {/* <img
-            src="https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80"
-            alt="image 2"
-            className="h-full w-full object-cover"
-          />
-          <img
-            src="https://images.unsplash.com/photo-1518623489648-a173ef7824f3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2762&q=80"
-            alt="image 3"
-            className="h-full w-full object-cover"
-          /> */}
         </Carousel>
+        <div className="flex w-1/2 items-top justify-center">
+          <div className=" m-5 text-3xl text-customGreen font-bold font-serif ">
+            <div>
+              <span>Welcome to </span>
+              <div className="ml-28">
+                <Typewriter
+                  options={{
+                    loop: true,
+                    cursor: '|',
+                    deleteSpeed: 0.3,
+                  }}
+                  onInit={(typewriter) => {
+                    typewriter
+                      .typeString('RuhunaSports!')
+                      .pauseFor(3000)
+                      .deleteAll()
+                      .start();
+                  }}
+                />
+              </div>
+            </div>
+            {/* <div>
+            <div className="flex gap-2">
+              <span>Welcome to </span>
+              <Typewriter
+                options={{
+                  loop: true,
+                  cursor: '|',
+                  deleteSpeed: 0.3,
+                }}
+                onInit={(typewriter) => {
+                  typewriter
+                    .typeString('RuhunaSports!')
+                    .pauseFor(2000)
+                    .deleteAll()
+                    .start();
+                }}
+              />
+            </div>
+          </div> */}
+          </div>
+        </div>
       </div>
       <UpcomingEvent />
       <div className="bg-green-300 mt-5">

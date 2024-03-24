@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import {
   Navbar,
@@ -32,6 +32,7 @@ import {
   SportsMartialArts as MartialArtsIcon,
 } from '@mui/icons-material';
 import { styled } from '@mui/system';
+import LoginPopup from '../pages/Home/LoginPopup';
 
 const CustomButton = styled(Button)({
   color: 'white',
@@ -248,9 +249,18 @@ function NavBar() {
       () => window.innerWidth >= 960 && setOpenNav(false)
     );
   }, []);
+  const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
+
+  const openLoginPopup = () => {
+    setIsLoginPopupOpen(true);
+  };
+
+  const closeLoginPopup = () => {
+    setIsLoginPopupOpen(false);
+  };
 
   return (
-    <Navbar className="sticky top-0 z-10 shadow-md border border-white/80 bg-opacity-80 max-w-full px-4 py-2 rounded-none backdrop-blur-2xl backdrop-saturate-200">
+    <Navbar className="sticky top-0 z-50 shadow-md border border-white/80 bg-opacity-80 max-w-full px-4 py-2 rounded-none backdrop-blur-2xl backdrop-saturate-200">
       <div className="flex items-center justify-between text-blue-gray-900">
         <Typography
           as="a"
@@ -266,21 +276,15 @@ function NavBar() {
         </div>
         <div className="hidden gap-2 lg:flex">
           <Button
-            onClick={() => (window.location.href = '/login')}
+            onClick={openLoginPopup}
             variant="text"
             size="sm"
             color="blue-gray"
           >
             Log In
           </Button>
+          {isLoginPopupOpen && <LoginPopup onClose={closeLoginPopup} />}
 
-          {/* <Button
-            onClick={() => (window.location.href = '/Signup')}
-            variant="gradient"
-            size="sm"
-          >
-            Sign Up
-          </Button> */}
           <CustomButton
             onClick={() => (window.location.href = '/Signup')}
             size="sm"
@@ -306,7 +310,7 @@ function NavBar() {
         <NavList />
         <div className="flex w-full flex-nowrap items-center gap-2 lg:hidden">
           <Button
-            onClick={() => (window.location.href = '/login')}
+            onClick={openLoginPopup}
             variant="outlined"
             size="sm"
             color="blue-gray"
@@ -314,6 +318,7 @@ function NavBar() {
           >
             Log In
           </Button>
+          {isLoginPopupOpen && <LoginPopup onClose={closeLoginPopup} />}
           <CustomButton
             onClick={() => (window.location.href = '/Signup')}
             size="sm"
