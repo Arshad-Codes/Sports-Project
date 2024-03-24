@@ -1,23 +1,40 @@
 // Sidebar.js
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   FaUserGraduate,
   FaSignOutAlt,
-  FaTachometerAlt,
   FaFutbol,
   FaUserAlt,
   FaRegCalendar,
   FaUserEdit,
 } from 'react-icons/fa';
 import { useState } from 'react';
+import axios from 'axios';
 
 const Sidebar = ({ isSidebarOpen, onPageChange }) => {
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
   const [clickedButton, setClickedButton] = useState('sports');
   const handlePageClick = (page) => {
     onPageChange(page);
     setClickedButton(page);
   };
 
+  const handleLogout = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.post(
+        'http://localhost:8800/api/admin/logout',
+        {}
+      );
+      if (res.status === 200) {
+        localStorage.removeItem('currentUser');
+        navigate('/admin');
+      }
+    } catch (err) {
+      setError(err.response.data);
+    }
+  };
   return (
     <nav
       className={`bg-white text-gray-700 w-64 min-h-screen border-r-2  ${
@@ -104,6 +121,7 @@ const Sidebar = ({ isSidebarOpen, onPageChange }) => {
           <Link
             to="/home"
             className="rounded-lg h-10 p-3 flex flex-row gap-5 items-center hover:bg-customGreen hover:text-white"
+            onClick={handleLogout}
           >
             <FaSignOutAlt size={25} />
             Logout

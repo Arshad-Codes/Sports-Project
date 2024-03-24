@@ -8,7 +8,7 @@ import { sportsData } from '../../data';
 function UpcomingEvent() {
   const { sports } = sportsData;
   return (
-    <div className="bg-customGreen mt-5 text-white">
+    <div className="bg-customGreen mt-10 text-white">
       <Typography className="mx-3 pt-2">UPCOMING EVENTS</Typography>
       <CardsWithSeeMore data={sports} />
       <div className="py-3 text-right pr-5">
