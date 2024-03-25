@@ -29,7 +29,7 @@ export const login = async (req, res) => {
     if (!admin) return res.status(404).send('Admin not found!');
     const isCorrect = bcrypt.compareSync(req.body.password, admin.password);
 
-    if (!isCorrect) return res.status(400).send('Wrong Password or Username');
+    if (!isCorrect) return res.status(400).send('Wrong Username or Password');
 
     const webtoken = jwt.sign(
       {

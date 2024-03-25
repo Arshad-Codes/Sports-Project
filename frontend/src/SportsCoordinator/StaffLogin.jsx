@@ -8,7 +8,6 @@ function StaffLogin() {
   const [enteredUsername, setEnteredUsername] = useState('');
   const [enteredPassword, setEnteredPassword] = useState('');
 
-  // We should connect with the mongoDB and check the credentials.
   const handleLogin = () => {
     const username = 'staff';
     const password = 'staff123';

@@ -138,7 +138,7 @@ export const login = async (req, res) => {
     if (!student) return res.status(404).send('Student not found!');
     const isCorrect = bcrypt.compareSync(req.body.password, student.password);
 
-    if (!isCorrect) return res.status(400).send('Wrong Password or Username');
+    if (!isCorrect) return res.status(400).send('Wrong Username or Password');
 
     const webtoken = jwt.sign(
       {

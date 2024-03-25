@@ -28,7 +28,7 @@ function App() {
         <Route path="/sports" element={<Sports />} />
         <Route path="/specific" element={<SpecificSport />} />
         <Route path="/enrolled" element={<EnrolledPage />} />
-        <Route path="/admin" element={<AdminLogin />} />
+        {/* <Route path="/admin" element={<AdminLogin />} /> */}
         <Route path="/admin/dashboard" element={<AdminDashBoard />} />
         <Route path="/staff" element={<StaffLogin />} />
         <Route path="/staff/dashboard" element={<StaffDashboard />} />

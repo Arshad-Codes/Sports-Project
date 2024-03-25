@@ -45,10 +45,10 @@ function Home() {
           ))}
         </Carousel>
         <div className="flex w-1/2 items-top justify-center">
-          <div className=" m-5 text-3xl text-customGreen font-bold font-serif ">
-            <div>
+          <div className="flex m-5 text-4xl text-customGreen font-bold font-serif ">
+            <div className="flex items-center">
               <span>Welcome to </span>
-              <div className="ml-28">
+              <div className="ml-3">
                 <Typewriter
                   options={{
                     loop: true,
