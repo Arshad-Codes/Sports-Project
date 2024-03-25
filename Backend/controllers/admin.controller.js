@@ -39,10 +39,11 @@ export const login = async (req, res) => {
     );
 
     const { password, ...info } = admin._doc;
+    const info2 = { ...info, role: 'admin'};
     res
       .cookie('accessToken', webtoken, { httpOnly: true })
       .status(200)
-      .send(info);
+      .send(info2);
   } catch (err) {
     res.status(500).send('something went wrong');
     //console.log(err);
