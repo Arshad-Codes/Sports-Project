@@ -33,6 +33,7 @@ import {
 } from '@mui/icons-material';
 import { styled } from '@mui/system';
 import LoginPopup from '../pages/Home/LoginPopup';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const CustomButton = styled(Button)({
   color: 'white',
@@ -243,13 +244,14 @@ function NavList() {
 
 function NavBar() {
   const [openNav, setOpenNav] = React.useState(false);
+  const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
+  const location = useLocation();
   React.useEffect(() => {
     window.addEventListener(
       'resize',
       () => window.innerWidth >= 960 && setOpenNav(false)
     );
   }, []);
-  const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
 
   const openLoginPopup = () => {
     setIsLoginPopupOpen(true);

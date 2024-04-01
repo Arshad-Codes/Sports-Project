@@ -47,11 +47,12 @@ function Login() {
         localStorage.setItem('currentUser', JSON.stringify(res.data));
 
         if (role === 'Student') {
-          navigate('/home', { state: { user: res.data } });
+          console.log(role);
+          navigate('/home', { state: role });
         } else if (role === 'Admin') {
-          navigate('/admin/dashboard', { state: { user: res.data } });
+          navigate('/admin/dashboard', role);
         } else if (role === 'Sport Coordinator') {
-          navigate('/staff/dashboard', { state: { user: res.data } });
+          navigate('/staff/dashboard', role);
         }
 
         toast.success('Login successful!');

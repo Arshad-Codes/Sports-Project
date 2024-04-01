@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 function LoginPopup({ onClose }) {
   const navigate = useNavigate();
   const handleButtonClick = (role) => {
-    console.log(`Clicked ${role}`);
+    //console.log(`Clicked ${role}`);
     onClose();
     navigate('/login', { state: { role } });
   };

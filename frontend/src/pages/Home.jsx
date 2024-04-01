@@ -9,7 +9,6 @@ import { useEffect, useState } from 'react';
 
 function Home() {
   const { carouselData } = homeData;
-
   return (
     <>
       <NavBar />
@@ -65,25 +64,6 @@ function Home() {
                 />
               </div>
             </div>
-            {/* <div>
-            <div className="flex gap-2">
-              <span>Welcome to </span>
-              <Typewriter
-                options={{
-                  loop: true,
-                  cursor: '|',
-                  deleteSpeed: 0.3,
-                }}
-                onInit={(typewriter) => {
-                  typewriter
-                    .typeString('RuhunaSports!')
-                    .pauseFor(2000)
-                    .deleteAll()
-                    .start();
-                }}
-              />
-            </div>
-          </div> */}
           </div>
         </div>
       </div>

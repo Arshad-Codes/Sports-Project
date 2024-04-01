@@ -30,7 +30,7 @@ function App() {
         <Route path="/enrolled" element={<EnrolledPage />} />
         {/* <Route path="/admin" element={<AdminLogin />} /> */}
         <Route path="/admin/dashboard" element={<AdminDashBoard />} />
-        <Route path="/staff" element={<StaffLogin />} />
+        {/* <Route path="/staff" element={<StaffLogin />} /> */}
         <Route path="/staff/dashboard" element={<StaffDashboard />} />
         <Route path="/achievement" element={<Achievement />} />
       </Routes>
