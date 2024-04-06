@@ -13,7 +13,9 @@ function Login() {
   const navigate = useNavigate();
   const location = useLocation();
   const role = location.state?.role || '';
-
+  const handleButtonClick = (role) => {
+    navigate('/signup', { state: { role } });
+  };
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
@@ -47,8 +49,7 @@ function Login() {
         localStorage.setItem('currentUser', JSON.stringify(res.data));
 
         if (role === 'Student') {
-          console.log(role);
-          navigate('/home', { state: role });
+          navigate('/home', { state: { role } });
         } else if (role === 'Admin') {
           navigate('/admin/dashboard', role);
         } else if (role === 'Sport Coordinator') {
@@ -173,12 +174,17 @@ function Login() {
               Log In
             </CustomButton>
             {error && <Typography color="red">{error}</Typography>}
-            <Typography color="gray" className="mt-4 text-center font-normal">
-              Don&apos;t have an account?{' '}
-              <a href="/signup" className="font-medium text-gray-900">
-                Sign Up
-              </a>
-            </Typography>
+            {role === 'Student' ? (
+              <Typography color="gray" className="mt-4 text-center font-normal">
+                Don&apos;t have an account?{' '}
+                <button
+                  onClick={() => handleButtonClick('Student')}
+                  className="font-medium text-gray-900"
+                >
+                  Sign Up
+                </button>
+              </Typography>
+            ) : null}
           </form>
         </Card>
       </div>

@@ -167,3 +167,12 @@ export const logout = async (req, res) => {
     .status(200)
     .send('User has been logged out successfuly.');
 };
+
+export const getStudents = async (req, res) => {
+  try {
+    const student_list = await Student.find({});
+    res.status(200).send(student_list);
+  } catch (error) {
+    res.status(500).send('Something went wrong');
+  }
+};
