@@ -83,11 +83,11 @@ function AdminSport() {
         imageUrl: imgUrl,
       });
 
-      const response = await axios.get(
-        'http://localhost:8800/api/sport/getSports'
-      );
-      setSportsData(response.data);
-      //navigate('/');
+      // const response = await axios.get(
+      //   'http://localhost:8800/api/sport/getSports'
+      // );
+      // setSportsData(response.data);
+      // //navigate('/');
       setUser({
         name: '',
         description: '',

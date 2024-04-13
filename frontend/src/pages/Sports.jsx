@@ -1,4 +1,3 @@
-import { sportsData } from '../data';
 import NavBar from '../components/Navbar';
 import {
   Card,
@@ -6,35 +5,49 @@ import {
   CardHeader,
   Typography,
 } from '@material-tailwind/react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function Sports() {
-  const { sports } = sportsData;
-  useEffect(() => {
-    // Scroll to the top when the component mounts
-    window.scrollTo(0, 0);
+  const navigate = useNavigate();
+  const [sportsData, setSportsData] = useState([]);
 
-    // Alternatively, if you want to scroll to a specific position, you can provide different coordinates:
-    // window.scrollTo(0, 200); // Scroll to the Y coordinate of 200 pixels
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    async function fetchSports() {
+      try {
+        const response = await axios.get(
+          'http://localhost:8800/api/sport/getSports'
+        );
+        setSportsData(response.data);
+      } catch (error) {
+        console.error('Error fetching sports:', error);
+      }
+    }
+    fetchSports();
   }, []);
+
+  const handleSportClick = (name) => {
+    navigate(`/sports/${name}`);
+  };
   return (
     <>
       <NavBar />
       <div className="mx-5 my-5">
         <div className="grid grid-cols-1 gap-4 xl:grid-cols-5 md:grid-cols-4 sm:grid-cols-3">
-          {sports.map((item, index) => (
+          {sportsData.map((item, index) => (
             <Card
               className="transition-transform transform hover:shadow-lg hover:scale-105"
               key={index}
+              onClick={() => handleSportClick(item.name)}
             >
               <CardHeader color="transparent" className="m-0">
-                <a href="#">
-                  <img
-                    className="w-full h-64 object-cover"
-                    src={item.urls}
-                    alt={item.name}
-                  />
-                </a>
+                <img
+                  className="w-full h-64 object-cover"
+                  src={item.imageUrl}
+                  alt={item.name}
+                />
               </CardHeader>
 
               <CardBody>

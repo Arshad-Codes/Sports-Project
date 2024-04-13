@@ -25,6 +25,7 @@ function App() {
         <Route path="/cricket" element={<Cricket />} />
         <Route path="/staffs" element={<Staff />} />
         <Route path="/staffs/:position" element={<SpecificCoordinator />} />
+        <Route path="/sports/:name" element={<SpecificSport />} />
         <Route path="/sports" element={<Sports />} />
         <Route path="/specific" element={<SpecificSport />} />
         <Route path="/enrolled" element={<EnrolledPage />} />

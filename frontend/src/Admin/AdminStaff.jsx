@@ -7,6 +7,7 @@ import axios from 'axios';
 
 const AdminStaff = () => {
   const [sportsList, setSportsList] = useState([]);
+  const [staffList, setStaffList] = useState([]);
   const [user, setUser] = useState({
     email: '',
     sport: '',
@@ -15,17 +16,24 @@ const AdminStaff = () => {
     position: '',
   });
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(true);
   //const sportsRef = useRef();
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await axios.get(
+        const Sportsresponse = await axios.get(
           'http://localhost:8800/api/sport/getSports'
         );
-        setSportsList(response.data);
+        const Staffsresponse = await axios.get(
+          'http://localhost:8800/api/sportscoordinator/getcoordinators'
+        );
+        setSportsList(Sportsresponse.data);
+        setStaffList(Staffsresponse.data);
+        setLoading(false);
         //console.log(sportsList);
       } catch (error) {
         console.error('Error fetching Sportscoordinator', error);
+        setLoading(false);
       }
     }
     fetchData();
@@ -40,11 +48,35 @@ const AdminStaff = () => {
   async function handleCreate(e) {
     e.preventDefault();
     try {
-      //console.log(user);
-      await axios.post(
-        'http://localhost:8800/api/sportscoordinator/registercoordinator',{ 
-        user},{withCredentials:true}
+      const selectedSport = sportsList.find(
+        (sport1) => sport1._id === user.sport
       );
+      if (!selectedSport) {
+        setError('Please select a valid sport.');
+        return;
+      }
+
+      const userData = {
+        ...user,
+        sport: selectedSport.name, // Send the name of the sport instead of its ID
+      };
+
+      await axios.post(
+        'http://localhost:8800/api/sportscoordinator/registercoordinator',
+        userData,
+        { withCredentials: true }
+      );
+
+      // Clear form fields after successful submission
+      setUser({
+        email: '',
+        sport: '',
+        password: '',
+        fullName: '',
+        position: '',
+      });
+
+      setError(''); // Clear any previous errors
     } catch (err) {
       setError(err.response.data);
     }
@@ -131,137 +163,37 @@ const AdminStaff = () => {
             </div>
           </form>
         </div>
-        <AppN />
+        {/* <AppN /> */}
+      </div>
+      <div className="container mx-auto p-4">
+        <h2 className="text-2xl font-bold mb-4">Sports Coordinators List</h2>
+        {loading ? (
+          <p className="text-gray-600">Loading...</p>
+        ) : (
+          <div className="grid grid-cols-1 gap-4">
+            {staffList.map((staff) => (
+              <div
+                key={staff._id}
+                className="bg-white rounded-lg shadow-md overflow-hidden flex h-72"
+              >
+                <img
+                  src={staff.imageUrl}
+                  alt={staff.name}
+                  className="w-1/3 h-auto object-cover"
+                />
+                <div className="p-4 w-2/3">
+                  <h3 className="text-xl font-bold mb-2">{staff.fullName}</h3>
+                  <p className="text-gray-600">{staff.position}</p>
+                  <p className="text-gray-600">{staff.email}</p>
+                  <p className="text-gray-600">{staff.sport}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
 };
 
 export default AdminStaff;
-
-const coordinators = [
-  {
-    id: 1,
-    name: 'John Doe',
-    sport: 'Football',
-    phone: '(555) 555-1234',
-    email: 'john.doe@example.com',
-  },
-  {
-    id: 2,
-    name: 'Jane Smith',
-    sport: 'Basketball',
-    phone: '(555) 555-5678',
-    email: 'jane.smith@example.com',
-  },
-  {
-    id: 3,
-    name: 'Michael Brown',
-    sport: 'Baseball',
-    phone: '(555) 555-9012',
-    email: 'michael.brown@example.com',
-  },
-  {
-    id: 4,
-    name: 'Ashley Williams',
-    sport: 'Volleyball',
-    phone: '(555) 555-3456',
-    email: 'ashley.williams@example.com',
-  },
-  {
-    id: 5,
-    name: 'David Miller',
-    sport: 'Tennis',
-    phone: '(555) 555-7890',
-    email: 'david.miller@example.com',
-  },
-];
-
-function AppN() {
-  return (
-    <div className="py-10 px-14 w-full border border-gray-300 border-t-0 shadow-lg rounded-lg ml-15 mb-10">
-      <div className="flex flex-row">
-        <h1 className="text-2xl font-bold mb-4 text-gray-900">
-          Sports Coordinators
-        </h1>
-        <SearchBar />
-      </div>
-      <CoordinatorList coordinators={coordinators} />
-      {/* Pagination component here if needed */}
-    </div>
-  );
-}
-
-function CoordinatorList({ coordinators }) {
-  const handleEdit = (coordinator) => {
-    console.log('Edit clicked for:', coordinator);
-  };
-
-  const handleDelete = (coordinator) => {
-    console.log('Delete clicked for:', coordinator);
-  };
-  return (
-    <ul className="list-disc space-y-4">
-      {coordinators.map((coordinator) => (
-        <CoordinatorItem
-          key={coordinator.id}
-          coordinator={coordinator}
-          onEdit={handleEdit}
-          onDelete={handleDelete}
-        />
-      ))}
-    </ul>
-  );
-}
-
-CoordinatorList.propTypes = {
-  coordinators: PropTypes.array.isRequired,
-};
-
-function CoordinatorItem({ coordinator, onEdit, onDelete }) {
-  return (
-    <li className="flex items-center justify-between border rounded p-2">
-      <div className="flex space-x-4">
-        <span className="font-bold">{coordinator.name}</span>
-        <span className="text-gray-500">{coordinator.sport}</span>
-      </div>
-      <div className="flex items-center">
-        <a href={`tel:${coordinator.phone}`} className="mr-2 text-blue-500">
-          {coordinator.phone}
-        </a>
-        <a href={`mailto:${coordinator.email}`} className="text-blue-500">
-          {coordinator.email}
-        </a>
-        <button
-          className="ml-2 px-2 py-1 rounded text-blue-500 hover:bg-blue-100"
-          onClick={() => onEdit(coordinator)}
-        >
-          Edit
-        </button>
-        <button
-          className="px-2 py-1 rounded text-red-500 hover:bg-red-100"
-          onClick={() => onDelete(coordinator)}
-        >
-          Delete
-        </button>
-      </div>
-    </li>
-  );
-}
-CoordinatorItem.propTypes = {
-  coordinator: PropTypes.object.isRequired, // Validate coordinator object
-  onEdit: PropTypes.func.isRequired, // Validate onEdit function
-  onDelete: PropTypes.func.isRequired, // Validate onDelete function
-};
-
-function SearchBar() {
-  return (
-    <div className="mb-4">
-      <input
-        type="text"
-        placeholder="Search by name or sport"
-        className="border rounded px-2 py-1 w-full"
-      />
-    </div>
-  );
-}

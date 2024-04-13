@@ -1,16 +1,29 @@
 import { Typography } from '@material-tailwind/react';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import CardsWithSeeMore from '../../components/CardsWithSeeMore';
 import { Link } from 'react-router-dom';
 import { FormatIndentIncreaseOutlined } from '@mui/icons-material';
-import { sportsData } from '../../data';
+import axios from 'axios';
 
 function UpcomingEvent() {
-  const { sports } = sportsData;
+  const [sportsData, setSportsData] = useState([]);
+  useEffect(() => {
+    async function fetchSports() {
+      try {
+        const response = await axios.get(
+          'http://localhost:8800/api/sport/getSports'
+        );
+        setSportsData(response.data);
+      } catch (error) {
+        console.error('Error fetching sports:', error);
+      }
+    }
+    fetchSports();
+  }, []);
   return (
     <div className="bg-customGreen mt-10 text-white">
       <Typography className="mx-3 pt-2">UPCOMING EVENTS</Typography>
-      <CardsWithSeeMore data={sports} />
+      <CardsWithSeeMore data={sportsData} />
       <div className="py-3 text-right pr-5">
         <Link className="mr-3">
           SEE MORE

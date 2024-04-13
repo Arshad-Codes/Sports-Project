@@ -267,9 +267,8 @@ function NavBar({ role, logout }) {
   };
 
   const handleLogout = () => {
-    // Call the logout function passed from the parent component
     logout();
-    // Redirect to the home page or login page after logout
+    // Redirect to the home page after logout
     navigate('/');
   };
   return (
