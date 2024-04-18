@@ -15,7 +15,7 @@ const AdminStaff = () => {
     fullName: '',
     position: '',
   });
-  const [error, setError] = useState('');
+  const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   //const sportsRef = useRef();
   useEffect(() => {
@@ -48,35 +48,14 @@ const AdminStaff = () => {
   async function handleCreate(e) {
     e.preventDefault();
     try {
-      const selectedSport = sportsList.find(
-        (sport1) => sport1._id === user.sport
-      );
-      if (!selectedSport) {
-        setError('Please select a valid sport.');
-        return;
-      }
-
-      const userData = {
-        ...user,
-        sport: selectedSport.name, // Send the name of the sport instead of its ID
-      };
-
+      //console.log(user);
       await axios.post(
         'http://localhost:8800/api/sportscoordinator/registercoordinator',
-        userData,
+        {
+          user,
+        },
         { withCredentials: true }
       );
-
-      // Clear form fields after successful submission
-      setUser({
-        email: '',
-        sport: '',
-        password: '',
-        fullName: '',
-        position: '',
-      });
-
-      setError(''); // Clear any previous errors
     } catch (err) {
       setError(err.response.data);
     }
@@ -136,7 +115,7 @@ const AdminStaff = () => {
               >
                 <option value="">Select Sport</option>
                 {sportsList.map((sport) => (
-                  <option key={sport._id} value={sport._id}>
+                  <option key={sport._id} value={sport.name}>
                     {sport.name}
                   </option>
                 ))}
