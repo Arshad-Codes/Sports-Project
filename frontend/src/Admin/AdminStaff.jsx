@@ -1,8 +1,5 @@
-import React from 'react';
 import { useState } from 'react';
-import { useRef } from 'react';
 import { useEffect } from 'react';
-import PropTypes from 'prop-types';
 import axios from 'axios';
 
 const AdminStaff = () => {

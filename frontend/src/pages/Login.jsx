@@ -1,6 +1,6 @@
-import { Card, Input, Checkbox, Typography } from '@material-tailwind/react';
+import { Card, Input, Typography } from '@material-tailwind/react';
 import { CustomButton } from '../TailwindCustomComponents/CustomComponents';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import axios from 'axios';

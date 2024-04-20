@@ -1,10 +1,7 @@
-import React, { useEffect, useState } from 'react';
 import { CustomButton } from '../TailwindCustomComponents/CustomComponents';
 import { Card, Input, Typography } from '@material-tailwind/react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import SportsList from './Tables/SportsList';
 
 function AdminSport() {
   const [file, setFile] = useState(null);

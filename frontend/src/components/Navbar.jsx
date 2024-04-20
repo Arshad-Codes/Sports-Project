@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import {
   Navbar,
   Collapse,
@@ -33,7 +32,7 @@ import {
 } from '@mui/icons-material';
 import { styled } from '@mui/system';
 import LoginPopup from '../pages/Home/LoginPopup';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const CustomButton = styled(Button)({
   color: 'white',

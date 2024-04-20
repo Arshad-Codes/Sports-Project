@@ -8,11 +8,8 @@ import Sports from './pages/Sports';
 import SpecificSport from './pages/SpecificSport';
 import EnrolledPage from './pages/EnrolledPage';
 import AdminDashBoard from './Admin/AdminDashBoard';
-import AdminLogin from './Admin/AdminLogin';
 import SpecificCoordinator from './pages/SpecificCoordinator';
-import StaffLogin from './SportsCoordinator/StaffLogin';
 import StaffDashboard from './SportsCoordinator/StaffDashboard';
-import { isAdmin } from './auth';
 import Achievement from './Achievementss/Achievement';
 function App() {
   return (

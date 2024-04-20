@@ -1,5 +1,5 @@
 import { Typography } from '@material-tailwind/react';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import CardsWithSeeMore from '../../components/CardsWithSeeMore';
 import { Link } from 'react-router-dom';
 import { FormatIndentIncreaseOutlined } from '@mui/icons-material';
