@@ -1,4 +1,4 @@
-import { Button, Carousel, Typography } from '@material-tailwind/react';
+import { Button, Carousel } from '@material-tailwind/react';
 import NavBar from '../components/Navbar';
 import { homeData } from '../data';
 import AnnouncementsCom from '../components/AnnouncemetsCom';
@@ -22,7 +22,6 @@ function Home() {
       <NavBar role={role} logout={handleLogout} />
       <div className="flex flex-col md:flex-row ml-3 mt-5 mr-3">
         {' '}
-        {/* Change flex direction based on screen size */}
         <Carousel
           transition={{ duration: 1.5 }}
           navigation={({ setActiveIndex, activeIndex, length }) => (
