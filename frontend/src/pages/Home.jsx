@@ -54,7 +54,6 @@ function Home() {
         </Carousel>
         <div className="flex flex-col justify-center items-center md:w-1/2">
           {' '}
-          {/* Change flex direction and alignment based on screen size */}
           <div className="flex m-5 text-4xl text-customGreen font-bold font-serif ">
             <div className="flex items-center">
               <span>Welcome to </span>
