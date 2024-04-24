@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import {
   Navbar,
   Collapse,
@@ -33,6 +32,7 @@ import {
 } from '@mui/icons-material';
 import { styled } from '@mui/system';
 import LoginPopup from '../pages/Home/LoginPopup';
+import { useNavigate } from 'react-router-dom';
 
 const CustomButton = styled(Button)({
   color: 'white',
@@ -241,15 +241,17 @@ function NavList() {
   );
 }
 
-function NavBar() {
+function NavBar({ role, logout }) {
   const [openNav, setOpenNav] = React.useState(false);
+  const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
+  const navigate = useNavigate();
   React.useEffect(() => {
+    //console.log({ role });
     window.addEventListener(
       'resize',
       () => window.innerWidth >= 960 && setOpenNav(false)
     );
   }, []);
-  const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
 
   const openLoginPopup = () => {
     setIsLoginPopupOpen(true);
@@ -259,6 +261,15 @@ function NavBar() {
     setIsLoginPopupOpen(false);
   };
 
+  const handleButtonClick = () => {
+    navigate('/signup');
+  };
+
+  const handleLogout = () => {
+    logout();
+    // Redirect to the home page after logout
+    navigate('/');
+  };
   return (
     <Navbar className="sticky top-0 z-50 shadow-md border border-white/80 bg-opacity-80 max-w-full px-4 py-2 rounded-none backdrop-blur-2xl backdrop-saturate-200">
       <div className="flex items-center justify-between text-blue-gray-900">
@@ -274,24 +285,34 @@ function NavBar() {
         <div className="hidden lg:block">
           <NavList />
         </div>
-        <div className="hidden gap-2 lg:flex">
-          <Button
-            onClick={openLoginPopup}
-            variant="text"
-            size="sm"
-            color="blue-gray"
-          >
-            Log In
-          </Button>
-          {isLoginPopupOpen && <LoginPopup onClose={closeLoginPopup} />}
+        {role === 'Student' ? (
+          <>
+            <Typography variant="h6" className="hidden lg:block">
+              Hi
+            </Typography>
+            {role && (
+              <Button color="red" onClick={handleLogout}>
+                Logout
+              </Button>
+            )}
+          </>
+        ) : (
+          <div className="hidden gap-2 lg:flex">
+            <Button
+              onClick={openLoginPopup}
+              variant="text"
+              size="sm"
+              color="blue-gray"
+            >
+              Log In
+            </Button>
+            {isLoginPopupOpen && <LoginPopup onClose={closeLoginPopup} />}
 
-          <CustomButton
-            onClick={() => (window.location.href = '/Signup')}
-            size="sm"
-          >
-            Sign Up
-          </CustomButton>
-        </div>
+            <CustomButton onClick={() => handleButtonClick()} size="sm">
+              Sign Up
+            </CustomButton>
+          </div>
+        )}
         <IconButton
           variant="text"
           color="blue-gray"
@@ -305,28 +326,39 @@ function NavBar() {
           )}
         </IconButton>
       </div>
-      l
       <Collapse open={openNav}>
         <NavList />
-        <div className="flex w-full flex-nowrap items-center gap-2 lg:hidden">
-          <Button
-            onClick={openLoginPopup}
-            variant="outlined"
-            size="sm"
-            color="blue-gray"
-            fullWidth
-          >
-            Log In
-          </Button>
-          {isLoginPopupOpen && <LoginPopup onClose={closeLoginPopup} />}
-          <CustomButton
-            onClick={() => (window.location.href = '/Signup')}
-            size="sm"
-            fullWidth
-          >
-            Sign Up
-          </CustomButton>
-        </div>
+        {role !== 'Student' ? (
+          <div className="flex w-full flex-nowrap items-center gap-2 lg:hidden">
+            <Button
+              onClick={openLoginPopup}
+              variant="outlined"
+              size="sm"
+              color="blue-gray"
+              fullWidth
+            >
+              Log In
+            </Button>
+            {isLoginPopupOpen && <LoginPopup onClose={closeLoginPopup} />}
+            <CustomButton
+              onClick={() => handleButtonClick()}
+              size="sm"
+              fullWidth
+            >
+              Sign Up
+            </CustomButton>
+          </div>
+        ) : (
+          <div className="flex w-full flex-nowrap items-center lg:hidden">
+            <CustomButton
+              onClick={() => handleButtonClick()}
+              size="sm"
+              fullWidth
+            >
+              Profile
+            </CustomButton>
+          </div>
+        )}
       </Collapse>
     </Navbar>
   );

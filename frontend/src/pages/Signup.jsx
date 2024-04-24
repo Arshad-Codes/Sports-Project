@@ -2,6 +2,7 @@ import { Card, Input, Checkbox, Typography } from '@material-tailwind/react';
 import axios from 'axios';
 import { useState } from 'react';
 import { CustomButton } from '../TailwindCustomComponents/CustomComponents';
+import { useNavigate } from 'react-router-dom';
 
 function Signup() {
   const [user, setUser] = useState({
@@ -15,6 +16,7 @@ function Signup() {
     achievements: '',
   });
   const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   function handleChange(e) {
     setUser((prev) => {
@@ -22,7 +24,11 @@ function Signup() {
     });
   }
 
-  async function handleRegister(e) {
+  const handleButtonClick = (role) => {
+    navigate('/login', { state: { role } });
+  };
+
+  async function handleRegister(e, role) {
     e.preventDefault();
     try {
       await axios
@@ -30,7 +36,7 @@ function Signup() {
         .then((res) => {
           if (res.status === 200) {
             alert('Registration Successful! Please verify your email.');
-            window.location.href = '/login';
+            navigate('/login', { state: role });
           }
         });
     } catch (err) {
@@ -76,7 +82,7 @@ function Signup() {
           </Typography>
           <form
             className="mt-8 mb-2 w-100 max-w-screen-lg sm:w-96"
-            onSubmit={handleRegister}
+            onSubmit={() => handleRegister('Student')}
           >
             <div className="mb-1 flex flex-col gap-6">
               <Typography variant="h6" color="blue-gray" className="-mb-3">
@@ -212,9 +218,12 @@ function Signup() {
             {error && <Typography color="red">{error}</Typography>}
             <Typography color="gray" className="mt-4 text-center font-normal">
               Already have an account?{' '}
-              <a href="/login" className="font-medium text-gray-900">
+              <button
+                onClick={() => handleButtonClick('Student')}
+                className="font-medium text-gray-900"
+              >
                 Log In
-              </a>
+              </button>
             </Typography>
           </form>
         </Card>

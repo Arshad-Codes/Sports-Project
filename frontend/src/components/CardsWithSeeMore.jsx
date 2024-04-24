@@ -1,6 +1,4 @@
-import { Typography } from '@material-tailwind/react';
 import { useRef, useState } from 'react';
-import { sportsData } from '../data';
 import { Link } from 'react-router-dom';
 
 function CardsWithSeeMore({ data }) {
@@ -56,7 +54,7 @@ function CardsWithSeeMore({ data }) {
                   <div className="w-64 h-64 max-w-xs overflow-hidden rounded-lg rounded-b-none shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out">
                     <img
                       className="w-full h-64"
-                      src={item.urls}
+                      src={item.imageUrl}
                       alt={item.name}
                     />
                   </div>

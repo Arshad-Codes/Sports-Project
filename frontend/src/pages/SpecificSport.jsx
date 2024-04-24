@@ -1,29 +1,50 @@
+import { useParams } from 'react-router-dom';
 import NavBar from '../components/Navbar';
 import { CustomButton } from '../TailwindCustomComponents/CustomComponents';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 function SpecificSport() {
+  const { name } = useParams();
+  //console.log(name);
+  const [sportsData, setSportsData] = useState([]);
+
+  useEffect(() => {
+    async function fetchSports() {
+      try {
+        const response = await axios.get(
+          'http://localhost:8800/api/sport/getSports'
+        );
+        setSportsData(response.data);
+      } catch (error) {
+        console.error('Error fetching sports:', error);
+      }
+    }
+    fetchSports();
+  }, []);
+
+  const sports = sportsData.find((sport) => sport.name.trim() === name.trim());
+  if (!sports) {
+    return <div>Loading....</div>;
+  }
   return (
     <>
       <NavBar />
       <div>
         <div className="mt-5 bg-customGreen">
-          <h1 className="text-white p-2 text-2xl">CRICKET</h1>
+          <h1 className="text-white p-2 text-2xl">{sports.name}</h1>
         </div>
         <div className="flex flex-row mt-5 bg-blue-gray-100">
           <div className="basis-1/4">
             <img
               className="h-96 w-full"
-              src="/src/assests/cricket/cricket_3.jpg"
+              src={sports.imageUrl}
+              alt={sports.name}
             />
           </div>
           <div className="basis-3/4 flex items-center justify-center">
             <div className="text-center">
-              <h1 className="p-10 font-medium">
-                Lorem ipsum dolor sit amet consectetur. Egestas aliquam nibh in
-                in neque nisl elit risus suspendisse. Est sit mi odio quis urna
-                elit ut. Sed semper arcu lectus aliquet sed faucibus. Eu massa a
-                tortor nisl rhoncus quam.
-              </h1>
+              <h1 className="p-10 font-medium">{sports.description}</h1>
               <CustomButton
                 onClick={() => (window.location.href = '/enrolled')}
                 className="mt-5 w-36"

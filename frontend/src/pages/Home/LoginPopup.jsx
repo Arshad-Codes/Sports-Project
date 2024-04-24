@@ -1,11 +1,12 @@
-import React from 'react';
-import { Button } from '@material-tailwind/react';
 import { CustomButton } from '../../TailwindCustomComponents/CustomComponents';
+import { useNavigate } from 'react-router-dom';
 
 function LoginPopup({ onClose }) {
+  const navigate = useNavigate();
   const handleButtonClick = (role) => {
-    console.log(`Clicked ${role}`);
+    //console.log(`Clicked ${role}`);
     onClose();
+    navigate('/login', { state: { role } });
   };
 
   return (

@@ -6,7 +6,6 @@ import Common from './Announcement/Common';
 import StaffTopBar from './StaffTopBar';
 import StaffSideBar from './StaffSidebar';
 import AddStaff from '../Admin/AdminStaff';
-import StaffSports from './StaffSports';
 import AdminSport from '../Admin/AdminSport';
 
 function StaffDashboard() {

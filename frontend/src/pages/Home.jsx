@@ -1,19 +1,27 @@
-import { Button, Carousel, Typography } from '@material-tailwind/react';
+import { Button, Carousel } from '@material-tailwind/react';
 import NavBar from '../components/Navbar';
 import { homeData } from '../data';
 import AnnouncementsCom from '../components/AnnouncemetsCom';
 import UpcomingEvent from './Home/UpcomingEvent';
 import SportsSlider from './Home/SportsSlider';
 import Typewriter from 'typewriter-effect';
-import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import { useState } from 'react';
 
 function Home() {
+  const location = useLocation();
+  const [role, setRole] = useState(location.state?.role || '');
   const { carouselData } = homeData;
+
+  const handleLogout = () => {
+    setRole('');
+  };
 
   return (
     <>
-      <NavBar />
-      <div className="flex ml-3 mt-5 mr-3">
+      <NavBar role={role} logout={handleLogout} />
+      <div className="flex flex-col md:flex-row ml-3 mt-5 mr-3">
+        {' '}
         <Carousel
           transition={{ duration: 1.5 }}
           navigation={({ setActiveIndex, activeIndex, length }) => (
@@ -30,7 +38,7 @@ function Home() {
             </div>
           )}
           style={{ height: '350px' }}
-          className="rounded-xl text-center w-1/2"
+          className="rounded-xl text-center w-full md:w-1/2"
           autoplay
           autoplayDelay={5000}
           loop={true}
@@ -44,11 +52,12 @@ function Home() {
             />
           ))}
         </Carousel>
-        <div className="flex w-1/2 items-top justify-center">
-          <div className=" m-5 text-3xl text-customGreen font-bold font-serif ">
-            <div>
+        <div className="flex flex-col justify-center items-center md:w-1/2">
+          {' '}
+          <div className="flex m-5 text-4xl text-customGreen font-bold font-serif ">
+            <div className="flex items-center">
               <span>Welcome to </span>
-              <div className="ml-28">
+              <div className="ml-3">
                 <Typewriter
                   options={{
                     loop: true,
@@ -65,25 +74,6 @@ function Home() {
                 />
               </div>
             </div>
-            {/* <div>
-            <div className="flex gap-2">
-              <span>Welcome to </span>
-              <Typewriter
-                options={{
-                  loop: true,
-                  cursor: '|',
-                  deleteSpeed: 0.3,
-                }}
-                onInit={(typewriter) => {
-                  typewriter
-                    .typeString('RuhunaSports!')
-                    .pauseFor(2000)
-                    .deleteAll()
-                    .start();
-                }}
-              />
-            </div>
-          </div> */}
           </div>
         </div>
       </div>

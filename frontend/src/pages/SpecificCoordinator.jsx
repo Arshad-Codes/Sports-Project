@@ -1,11 +1,9 @@
-import React from 'react';
 import NavBar from '../components/Navbar';
 import { sportCoordinatorsData } from '../data';
 import { useParams } from 'react-router-dom';
 import {
   Card,
   CardBody,
-  CardHeader,
   Typography,
 } from '@material-tailwind/react';
 

@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from 'react';
 import { CustomButton } from '../TailwindCustomComponents/CustomComponents';
 import { Card, Input, Typography } from '@material-tailwind/react';
 import axios from 'axios';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import SportsList from './Tables/SportsList';
 
 function AdminSport() {
   const [file, setFile] = useState(null);
@@ -83,11 +81,11 @@ function AdminSport() {
         imageUrl: imgUrl,
       });
 
-      const response = await axios.get(
-        'http://localhost:8800/api/sport/getSports'
-      );
-      setSportsData(response.data);
-      //navigate('/');
+      // const response = await axios.get(
+      //   'http://localhost:8800/api/sport/getSports'
+      // );
+      // setSportsData(response.data);
+      // //navigate('/');
       setUser({
         name: '',
         description: '',

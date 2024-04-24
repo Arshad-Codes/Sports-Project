@@ -138,7 +138,7 @@ export const login = async (req, res) => {
     if (!student) return res.status(404).send('Student not found!');
     const isCorrect = bcrypt.compareSync(req.body.password, student.password);
 
-    if (!isCorrect) return res.status(400).send('Wrong Password or Username');
+    if (!isCorrect) return res.status(400).send('Wrong Username or Password');
 
     const webtoken = jwt.sign(
       {
@@ -166,4 +166,13 @@ export const logout = async (req, res) => {
     })
     .status(200)
     .send('User has been logged out successfuly.');
+};
+
+export const getStudents = async (req, res) => {
+  try {
+    const student_list = await Student.find({});
+    res.status(200).send(student_list);
+  } catch (error) {
+    res.status(500).send('Something went wrong');
+  }
 };
