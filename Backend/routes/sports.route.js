@@ -1,17 +1,14 @@
-import express from "express";
-import { createsport } from "../controllers/sports.controller.js";
-import multer from 'multer';
+import express from 'express';
+import { createsport, getSports,deleteSport } from '../controllers/sports.controller.js';
+import { verifyTokenAdmin } from '../middleware.js';
 
-
-
-// router.post("/createsport",createsport);
 
 const router = express.Router();
 
-const upload = multer({ dest: 'uploads/' }); 
-
 // imageurl for uploding image in clodinary
 // cloudinary media librayla you can see tha uploded picture
-router.post("/createsport", upload.single('imageUrl'), createsport);
+router.post('/createsport',verifyTokenAdmin, createsport);
+router.get('/getSports', getSports);
+router.delete('/deleteSport/:id',verifyTokenAdmin, deleteSport);
 
 export default router;

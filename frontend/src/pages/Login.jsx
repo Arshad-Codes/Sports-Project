@@ -1,12 +1,68 @@
-import {
-  Card,
-  Input,
-  Checkbox,
-  Button,
-  Typography,
-} from '@material-tailwind/react';
+import { Card, Input, Typography } from '@material-tailwind/react';
+import { CustomButton } from '../TailwindCustomComponents/CustomComponents';
+import { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import axios from 'axios';
 
 function Login() {
+  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const role = location.state?.role || '';
+  const handleButtonClick = (role) => {
+    navigate('/signup', { state: { role } });
+  };
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      let res;
+      if (role === 'Student') {
+        res = await axios.post('http://localhost:8800/api/student/login', {
+          email,
+          password,
+        });
+      } else if (role === 'Admin') {
+        res = await axios.post(
+          'http://localhost:8800/api/admin/login',
+          {
+            username,
+            password,
+          },
+          { withCredentials: true }
+        );
+      } else if (role === 'Sport Coordinator') {
+        res = await axios.post(
+          'http://localhost:8800/api/Staff/login',
+          {
+            username,
+            password,
+          },
+          { withCredentials: true }
+        );
+      }
+
+      if (res.status === 200) {
+        localStorage.setItem('currentUser', JSON.stringify(res.data));
+
+        if (role === 'Student') {
+          navigate('/home', { state: { role } });
+        } else if (role === 'Admin') {
+          navigate('/admin/dashboard', role);
+        } else if (role === 'Sport Coordinator') {
+          navigate('/staff/dashboard', role);
+        }
+
+        toast.success('Login successful!');
+      }
+    } catch (err) {
+      setError(err.response.data);
+    }
+  };
+
   return (
     <div>
       <div>
@@ -39,30 +95,61 @@ function Login() {
           shadow={true}
         >
           <Typography variant="h4" color="blue-gray">
-            Log In
+            {role === 'Admin'
+              ? 'Admin Login'
+              : role === 'Sport Coordinator'
+              ? 'Sports Coordinator Login'
+              : 'Student Login'}
           </Typography>
           <Typography color="gray" className="mt-1 font-normal">
             Welcome back! Enter your valid details to log in.
           </Typography>
-          <form className="mt-8 mb-2 w-100 max-w-screen-lg sm:w-50">
+          <form
+            onSubmit={handleLogin}
+            className="mt-8 mb-2 w-100 max-w-screen-lg sm:w-50"
+          >
             <div className="mb-1 flex flex-col gap-6">
-              <Typography variant="h6" color="blue-gray" className="-mb-3">
-                Student Email / Username
-              </Typography>
-              <Input
-                size="lg"
-                placeholder="name@engug/dep.ruh.ac.lk"
-                className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-                labelProps={{
-                  className: 'before:content-none after:content-none',
-                }}
-              />
+              {role === 'Student' ? (
+                <>
+                  <Typography variant="h6" color="blue-gray" className="-mb-3">
+                    Student Email
+                  </Typography>
+                  <Input
+                    type="email"
+                    name="email"
+                    onChange={(e) => setEmail(e.target.value)}
+                    size="lg"
+                    placeholder="name@engug/dep.ruh.ac.lk"
+                    className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+                    labelProps={{
+                      className: 'before:content-none after:content-none',
+                    }}
+                  />
+                </>
+              ) : (
+                <>
+                  <Typography variant="h6" color="blue-gray" className="-mb-3">
+                    Username
+                  </Typography>
+                  <Input
+                    size="lg"
+                    placeholder="username"
+                    onChange={(e) => setUsername(e.target.value)}
+                    className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+                    labelProps={{
+                      className: 'before:content-none after:content-none',
+                    }}
+                  />
+                </>
+              )}
               <Typography variant="h6" color="blue-gray" className="-mb-3">
                 Password
               </Typography>
               <Input
                 type="password"
                 size="lg"
+                name="password"
+                onChange={(e) => setPassword(e.target.value)}
                 placeholder="*********"
                 className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
                 labelProps={{
@@ -70,7 +157,8 @@ function Login() {
                 }}
               />
             </div>
-            <Checkbox
+
+            {/* <Checkbox
               label={
                 <Typography
                   variant="small"
@@ -81,16 +169,22 @@ function Login() {
                 </Typography>
               }
               containerProps={{ className: '-ml-2.5' }}
-            />
-            <Button className="mt-6" fullWidth>
+            /> */}
+            <CustomButton type="submit" className="mt-6" fullWidth>
               Log In
-            </Button>
-            <Typography color="gray" className="mt-4 text-center font-normal">
-              Don&apos;t have an account?{' '}
-              <a href="/signup" className="font-medium text-gray-900">
-                Sign Up
-              </a>
-            </Typography>
+            </CustomButton>
+            {error && <Typography color="red">{error}</Typography>}
+            {role === 'Student' ? (
+              <Typography color="gray" className="mt-4 text-center font-normal">
+                Don&apos;t have an account?{' '}
+                <button
+                  onClick={() => handleButtonClick('Student')}
+                  className="font-medium text-gray-900"
+                >
+                  Sign Up
+                </button>
+              </Typography>
+            ) : null}
           </form>
         </Card>
       </div>

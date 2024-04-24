@@ -1,5 +1,4 @@
-import React from 'react';
-
+import React, { useState } from 'react';
 import {
   Navbar,
   Collapse,
@@ -31,7 +30,19 @@ import {
   SportsTennis as TennisIcon,
   SportsMartialArts as MartialArtsIcon,
 } from '@mui/icons-material';
+import { styled } from '@mui/system';
+import LoginPopup from '../pages/Home/LoginPopup';
+import { useNavigate } from 'react-router-dom';
 
+const CustomButton = styled(Button)({
+  color: 'white',
+  backgroundColor: '#09473F',
+  variant: 'gradient',
+
+  // '&:hover': {
+  //   backgroundColor: 'green',
+  // },
+});
 const navSportList = [
   {
     title: 'Cricket',
@@ -145,9 +156,9 @@ function NavListMenu() {
         allowHover={true}
       >
         <MenuHandler>
-          <Typography as="div" variant="small" className="font-medium">
+          <Typography as="div" variant="small" className="font-semibold ">
             <ListItem
-              className="flex items-center gap-2 py-2 pr-4 font-medium text-gray-900"
+              className="flex items-center gap-2 py-2 pr-4 font-semiboldm text-gray-900"
               selected={isMenuOpen || isMobileMenuOpen}
               onClick={() => setIsMobileMenuOpen((cur) => !cur)}
             >
@@ -188,7 +199,7 @@ function NavList() {
         href="/home"
         variant="small"
         color="blue-gray"
-        className="font-medium"
+        className="font-semibold"
       >
         <ListItem className="flex items-center gap-2 py-2 pr-4">Home</ListItem>
       </Typography>
@@ -198,7 +209,7 @@ function NavList() {
         href="/staffs"
         variant="small"
         color="blue-gray"
-        className="font-medium"
+        className="font-semibold"
       >
         <ListItem className="flex items-center gap-2 py-2 pr-4">
           Staffs
@@ -209,7 +220,7 @@ function NavList() {
         href="#"
         variant="small"
         color="blue-gray"
-        className="font-medium"
+        className="font-semibold"
       >
         <ListItem className="flex items-center gap-2 py-2 pr-4">
           Contact
@@ -220,7 +231,7 @@ function NavList() {
         href="#"
         variant="small"
         color="blue-gray"
-        className="font-medium"
+        className="font-semibold"
       >
         <ListItem className="flex items-center gap-2 py-2 pr-4">
           About Us
@@ -230,18 +241,37 @@ function NavList() {
   );
 }
 
-function NavBar() {
+function NavBar({ role, logout }) {
   const [openNav, setOpenNav] = React.useState(false);
-
+  const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
+  const navigate = useNavigate();
   React.useEffect(() => {
+    //console.log({ role });
     window.addEventListener(
       'resize',
       () => window.innerWidth >= 960 && setOpenNav(false)
     );
   }, []);
 
+  const openLoginPopup = () => {
+    setIsLoginPopupOpen(true);
+  };
+
+  const closeLoginPopup = () => {
+    setIsLoginPopupOpen(false);
+  };
+
+  const handleButtonClick = () => {
+    navigate('/signup');
+  };
+
+  const handleLogout = () => {
+    logout();
+    // Redirect to the home page after logout
+    navigate('/');
+  };
   return (
-    <Navbar className="max-w-full px-4 py-2">
+    <Navbar className="sticky top-0 z-50 shadow-md border border-white/80 bg-opacity-80 max-w-full px-4 py-2 rounded-none backdrop-blur-2xl backdrop-saturate-200">
       <div className="flex items-center justify-between text-blue-gray-900">
         <Typography
           as="a"
@@ -255,24 +285,34 @@ function NavBar() {
         <div className="hidden lg:block">
           <NavList />
         </div>
-        <div className="hidden gap-2 lg:flex">
-          <Button
-            onClick={() => (window.location.href = '/login')}
-            variant="text"
-            size="sm"
-            color="blue-gray"
-          >
-            Log In
-          </Button>
-          <Button
-            className="bg-blue-900 text-white "
-            onClick={() => (window.location.href = '/Signup')}
-            variant="gradient"
-            size="sm"
-          >
-            Sign Up
-          </Button>
-        </div>
+        {role === 'Student' ? (
+          <>
+            <Typography variant="h6" className="hidden lg:block">
+              Hi
+            </Typography>
+            {role && (
+              <Button color="red" onClick={handleLogout}>
+                Logout
+              </Button>
+            )}
+          </>
+        ) : (
+          <div className="hidden gap-2 lg:flex">
+            <Button
+              onClick={openLoginPopup}
+              variant="text"
+              size="sm"
+              color="blue-gray"
+            >
+              Log In
+            </Button>
+            {isLoginPopupOpen && <LoginPopup onClose={closeLoginPopup} />}
+
+            <CustomButton onClick={() => handleButtonClick()} size="sm">
+              Sign Up
+            </CustomButton>
+          </div>
+        )}
         <IconButton
           variant="text"
           color="blue-gray"
@@ -286,28 +326,39 @@ function NavBar() {
           )}
         </IconButton>
       </div>
-      l
       <Collapse open={openNav}>
         <NavList />
-        <div className="flex w-full flex-nowrap items-center gap-2 lg:hidden">
-          <Button
-            onClick={() => (window.location.href = '/login')}
-            variant="outlined"
-            size="sm"
-            color="blue-gray"
-            fullWidth
-          >
-            Log In
-          </Button>
-          <Button
-            onClick={() => (window.location.href = '/Signup')}
-            variant="gradient"
-            size="sm"
-            fullWidth
-          >
-            Sign Up
-          </Button>
-        </div>
+        {role !== 'Student' ? (
+          <div className="flex w-full flex-nowrap items-center gap-2 lg:hidden">
+            <Button
+              onClick={openLoginPopup}
+              variant="outlined"
+              size="sm"
+              color="blue-gray"
+              fullWidth
+            >
+              Log In
+            </Button>
+            {isLoginPopupOpen && <LoginPopup onClose={closeLoginPopup} />}
+            <CustomButton
+              onClick={() => handleButtonClick()}
+              size="sm"
+              fullWidth
+            >
+              Sign Up
+            </CustomButton>
+          </div>
+        ) : (
+          <div className="flex w-full flex-nowrap items-center lg:hidden">
+            <CustomButton
+              onClick={() => handleButtonClick()}
+              size="sm"
+              fullWidth
+            >
+              Profile
+            </CustomButton>
+          </div>
+        )}
       </Collapse>
     </Navbar>
   );
