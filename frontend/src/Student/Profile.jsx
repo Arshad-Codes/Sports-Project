@@ -13,9 +13,10 @@ import {
   ChevronDownIcon,
   InboxArrowDownIcon,
   PowerIcon,
-  BellAlertIcon,
+  EnvelopeIcon,
 } from '@heroicons/react/24/solid';
 import { useNavigate } from 'react-router-dom';
+
 // profile menu component
 const profileMenuItems = [
   {
@@ -29,9 +30,9 @@ const profileMenuItems = [
     path: '/edit-profile',
   },
   {
-    label: 'Notification',
-    icon: BellAlertIcon,
-    path: '/inbox',
+    label: 'Email',
+    icon: EnvelopeIcon,
+    path: '/email',
   },
   {
     label: 'Logout',
@@ -43,6 +44,7 @@ const profileMenuItems = [
 function Profile({ logout }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
+  const role = location.state?.role || '';
 
   const closeMenu = () => setIsMenuOpen(false);
 
@@ -50,7 +52,7 @@ function Profile({ logout }) {
     if (menuItem.isLogout) {
       logout();
     } else {
-      navigate(menuItem.path);
+      navigate(menuItem.path, { state: { role } });
     }
     closeMenu();
   };
@@ -84,13 +86,13 @@ function Profile({ logout }) {
             <MenuItem
               key={label}
               onClick={() => handleMenuItemClick({ path, isLogout })}
-              className="flex items-center gap-2 rounded hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
+              className="flex items-center gap-2 rounded focus:bg-gray-200 active:bg-gray-500"
             >
               {React.createElement(icon, {
                 className: 'h-4 w-4',
                 strokeWidth: 2,
               })}
-              <Typography as="span" variant="small" className="font-normal">
+              <Typography as="span" variant="small" className="font-semibold ">
                 {label}
               </Typography>
             </MenuItem>

@@ -33,7 +33,7 @@ import {
 import { styled } from '@mui/system';
 import LoginPopup from '../pages/Home/LoginPopup';
 import { useNavigate } from 'react-router-dom';
-import Profile from './Profile';
+import Profile from '../Student/Profile';
 
 const CustomButton = styled(Button)({
   color: 'white',
@@ -286,15 +286,12 @@ function NavBar({ role }) {
           <NavList />
         </div>
         {role === 'Student' && (
-          <div className="hidden gap-2 lg:flex">
+          <div className="hidden lg:flex">
             <Profile logout={handleLogout} />
-            {/* <Button color="red" onClick={handleLogout}>
-              Logout
-            </Button> */}
           </div>
         )}
         {role !== 'Student' && (
-          <div className="hidden gap-2 lg:flex">
+          <div className="hidden lg:flex">
             <Button
               onClick={openLoginPopup}
               variant="text"
@@ -310,51 +307,48 @@ function NavBar({ role }) {
             </CustomButton>
           </div>
         )}
-
-        <IconButton
-          variant="text"
-          color="blue-gray"
-          className="lg:hidden"
-          onClick={() => setOpenNav(!openNav)}
-        >
-          {openNav ? (
-            <XMarkIcon className="h-6 w-6" strokeWidth={2} />
-          ) : (
-            <Bars3Icon className="h-6 w-6" strokeWidth={2} />
-          )}
-        </IconButton>
+        <div className="flex gap-2 lg:hidden">
+          <div>
+            <Profile logout={handleLogout} />
+          </div>
+          <IconButton
+            variant="text"
+            color="blue-gray"
+            className="lg:hidden"
+            onClick={() => setOpenNav(!openNav)}
+          >
+            {openNav ? (
+              <XMarkIcon className="h-6 w-6" strokeWidth={2} />
+            ) : (
+              <Bars3Icon className="h-6 w-6" strokeWidth={2} />
+            )}
+          </IconButton>
+        </div>
       </div>
       <Collapse open={openNav}>
         <NavList />
-        {
-          role !== 'Student' ? (
-            <div className="flex w-full flex-nowrap items-center gap-2 lg:hidden">
-              <Button
-                onClick={openLoginPopup}
-                variant="outlined"
-                size="sm"
-                color="blue-gray"
-                fullWidth
-              >
-                Log In
-              </Button>
-              {isLoginPopupOpen && <LoginPopup onClose={closeLoginPopup} />}
-              <CustomButton
-                onClick={() => handleButtonClick()}
-                size="sm"
-                fullWidth
-              >
-                Sign Up
-              </CustomButton>
-            </div>
-          ) : null
-          // <div className="flex w-full flex-nowrap items-center lg:hidden">
-          //   <Profile logout={handleLogout} />
-          //   {/* <Button color="red" onClick={handleLogout}>
-          //     Logout
-          //   </Button> */}
-          // </div>
-        }
+
+        {role !== 'Student' ? (
+          <div className="flex w-full flex-nowrap items-center gap-2 lg:hidden">
+            <Button
+              onClick={openLoginPopup}
+              variant="outlined"
+              size="sm"
+              color="blue-gray"
+              fullWidth
+            >
+              Log In
+            </Button>
+            {isLoginPopupOpen && <LoginPopup onClose={closeLoginPopup} />}
+            <CustomButton
+              onClick={() => handleButtonClick()}
+              size="sm"
+              fullWidth
+            >
+              Sign Up
+            </CustomButton>
+          </div>
+        ) : null}
       </Collapse>
     </Navbar>
   );

@@ -7,7 +7,7 @@ import SportsSlider from './Home/SportsSlider';
 import Typewriter from 'typewriter-effect';
 import { useLocation } from 'react-router-dom';
 import { useState } from 'react';
-import Profile from '../components/Profile';
+import Profile from '../Student/Profile';
 
 function Home() {
   const location = useLocation();
@@ -20,7 +20,7 @@ function Home() {
 
   return (
     <>
-      <NavBar role={role} logout={handleLogout} />
+      <NavBar role={role} />
       <div className="flex flex-col md:flex-row ml-3 mt-5 mr-3">
         {' '}
         <Carousel

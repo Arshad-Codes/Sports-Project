@@ -11,6 +11,7 @@ import AdminDashBoard from './Admin/AdminDashBoard';
 import SpecificCoordinator from './pages/SpecificCoordinator';
 import StaffDashboard from './SportsCoordinator/StaffDashboard';
 import Achievement from './Achievementss/Achievement';
+import EmailPage from './Student/EmailPage';
 function App() {
   return (
     <BrowserRouter>
@@ -31,6 +32,7 @@ function App() {
         {/* <Route path="/staff" element={<StaffLogin />} /> */}
         <Route path="/staff/dashboard" element={<StaffDashboard />} />
         <Route path="/achievement" element={<Achievement />} />
+        <Route path="/email" element={<EmailPage />} />
       </Routes>
     </BrowserRouter>
   );
