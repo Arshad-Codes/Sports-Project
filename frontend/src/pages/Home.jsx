@@ -7,6 +7,7 @@ import SportsSlider from './Home/SportsSlider';
 import Typewriter from 'typewriter-effect';
 import { useLocation } from 'react-router-dom';
 import { useState } from 'react';
+import Profile from '../components/Profile';
 
 function Home() {
   const location = useLocation();
@@ -91,6 +92,7 @@ function Home() {
 
       <AnnouncementsCom />
       <SportsSlider />
+      <Profile />
       <Button
         onClick={() => (document.location.href = '/sports')}
         variant="text"
@@ -100,6 +102,7 @@ function Home() {
       >
         SPORTS
       </Button>
+
       {/* <Button
         onClick={() => (document.location.href = '/abc')}
         variant="text"
