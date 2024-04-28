@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const ProfilePage = () => {
+const StudentProfile = () => {
 
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
@@ -23,10 +23,7 @@ const ProfilePage = () => {
   //no design at all
   return (
     <div className="profile-container bg-gray-100 min-h-screen py-8 px-4 sm:px-6 lg:px-8">
-      <h1 className="text-3xl font-bold mb-8 text-center">Student Name</h1>
-      {/* <img class="block mx-auto h-40 rounded-full sm:mx-0 sm:shrink-0" 
-      src="https://kumartrade.com/wp-content/uploads/2024/01/dadf7517032563.562b4c0cf0c1c.png" 
-      alt="Man's Face" /> */}
+      <h1 className="text-3xl font-bold mb-8 text-center">{currentUser.firstName +" "+ currentUser.lastName}</h1>
       <div className="profile-details bg-white shadow-md rounded-lg p-6">
       <img class="block mx-auto h-40 rounded-full sm:mx-0 sm:shrink-0" 
       src="https://kumartrade.com/wp-content/uploads/2024/01/dadf7517032563.562b4c0cf0c1c.png" 
@@ -34,25 +31,25 @@ const ProfilePage = () => {
       <div className="mb-4 text-lg">
           <strong>First Name:</strong> {currentUser.firstName}
         </div>
-        <div className="mb-4">
+        <div className="mb-4 text-lg">
           <strong>Last Name:</strong> {currentUser.lastName}
         </div>
-        <div className="mb-4">
+        <div className="mb-4 text-lg">
           <strong>Email:</strong> {currentUser.email}
         </div>
-        <div className="mb-4">
+        <div className="mb-4 text-lg">
           <strong>Date of Birth:</strong> {Dateformat(currentUser.dateofBirth)}
         </div>
-        <div className="mb-4">
+        <div className="mb-4 text-lg">
           <strong>Registration Number:</strong> {currentUser.regNo}
         </div>
-        <div className="mb-4">
+        <div className="mb-4 text-lg">
           <strong>Achievements:</strong> {currentUser.achievements}
         </div>
-        <div className="mb-4">
+        <div className="mb-4 text-lg">
           <strong>NIC Number:</strong> {currentUser.nicNo}
         </div>
-        <div className="mb-4">
+        <div className="mb-4 text-lg">
           <strong>Created At:</strong> {Dateformat(currentUser.createdAt)}
         </div>
       </div>
@@ -60,4 +57,4 @@ const ProfilePage = () => {
   );
 };
 
-export default ProfilePage;
+export default StudentProfile;
