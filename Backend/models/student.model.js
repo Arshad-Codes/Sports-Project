@@ -40,6 +40,9 @@ const studentSchema = new Schema(
       type: Boolean,
       default:false,
     },
+    enrolledSports: {
+      type: [String],
+    },
   }, 
   {
     timestamps: true,

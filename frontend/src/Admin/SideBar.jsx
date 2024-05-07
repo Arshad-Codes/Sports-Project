@@ -25,11 +25,11 @@ const Sidebar = ({ isSidebarOpen, onPageChange }) => {
     try {
       const res = await axios.post(
         'http://localhost:8800/api/admin/logout',
-        {}
+        {withCredentials:true}
       );
       if (res.status === 200) {
         localStorage.removeItem('currentUser');
-        navigate('/admin');
+        navigate('/login',{state:{role:'Admin'}});
       }
     } catch (err) {
       setError(err.response.data);

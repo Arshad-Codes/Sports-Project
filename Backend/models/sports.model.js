@@ -18,6 +18,9 @@ const sportSchema = new Schema({
   team:{
     type: [String],
   },
+  enrolledStudents: {
+    type: [String],
+  },
 });
 
-export const Sports = mongoose.model('Sport', sportSchema);
+export default mongoose.model('Sport', sportSchema);
