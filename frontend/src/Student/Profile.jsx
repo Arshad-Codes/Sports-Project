@@ -27,7 +27,7 @@ const profileMenuItems = [
   {
     label: 'Enrolled Sports',
     icon: InboxArrowDownIcon,
-    path: '/edit-profile',
+    path: '/enrolled',
   },
   {
     label: 'Email',
