@@ -28,7 +28,7 @@ function Signup() {
     navigate('/login', { state: { role } });
   };
 
-  async function handleRegister(e, role) {
+  async function handleRegister(e) {
     e.preventDefault();
     try {
       await axios
@@ -36,7 +36,7 @@ function Signup() {
         .then((res) => {
           if (res.status === 200) {
             alert('Registration Successful! Please verify your email.');
-            navigate('/login', { state: role });
+            navigate('/login');
           }
         });
     } catch (err) {
@@ -82,7 +82,7 @@ function Signup() {
           </Typography>
           <form
             className="mt-8 mb-2 w-100 max-w-screen-lg sm:w-96"
-            onSubmit={() => handleRegister('Student')}
+            onSubmit={handleRegister}
           >
             <div className="mb-1 flex flex-col gap-6">
               <Typography variant="h6" color="blue-gray" className="-mb-3">

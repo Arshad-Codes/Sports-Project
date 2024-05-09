@@ -33,6 +33,7 @@ import {
 import { styled } from '@mui/system';
 import LoginPopup from '../pages/Home/LoginPopup';
 import { useNavigate } from 'react-router-dom';
+import Profile from '../Student/Profile';
 
 const CustomButton = styled(Button)({
   color: 'white',
@@ -241,7 +242,7 @@ function NavList() {
   );
 }
 
-function NavBar({ role, logout }) {
+function NavBar({ role }) {
   const [openNav, setOpenNav] = React.useState(false);
   const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
   const navigate = useNavigate();
@@ -266,7 +267,6 @@ function NavBar({ role, logout }) {
   };
 
   const handleLogout = () => {
-    logout();
     // Redirect to the home page after logout
     navigate('/');
   };
@@ -285,19 +285,13 @@ function NavBar({ role, logout }) {
         <div className="hidden lg:block">
           <NavList />
         </div>
-        {role === 'Student' ? (
-          <>
-            <Typography variant="h6" className="hidden lg:block">
-              Hi
-            </Typography>
-            {role && (
-              <Button color="red" onClick={handleLogout}>
-                Logout
-              </Button>
-            )}
-          </>
-        ) : (
-          <div className="hidden gap-2 lg:flex">
+        {role === 'Student' && (
+          <div className="hidden lg:flex">
+            <Profile logout={handleLogout} />
+          </div>
+        )}
+        {role !== 'Student' && (
+          <div className="hidden lg:flex">
             <Button
               onClick={openLoginPopup}
               variant="text"
@@ -313,21 +307,27 @@ function NavBar({ role, logout }) {
             </CustomButton>
           </div>
         )}
-        <IconButton
-          variant="text"
-          color="blue-gray"
-          className="lg:hidden"
-          onClick={() => setOpenNav(!openNav)}
-        >
-          {openNav ? (
-            <XMarkIcon className="h-6 w-6" strokeWidth={2} />
-          ) : (
-            <Bars3Icon className="h-6 w-6" strokeWidth={2} />
-          )}
-        </IconButton>
+        <div className="flex gap-2 lg:hidden">
+          <div>
+            <Profile logout={handleLogout} />
+          </div>
+          <IconButton
+            variant="text"
+            color="blue-gray"
+            className="lg:hidden"
+            onClick={() => setOpenNav(!openNav)}
+          >
+            {openNav ? (
+              <XMarkIcon className="h-6 w-6" strokeWidth={2} />
+            ) : (
+              <Bars3Icon className="h-6 w-6" strokeWidth={2} />
+            )}
+          </IconButton>
+        </div>
       </div>
       <Collapse open={openNav}>
         <NavList />
+
         {role !== 'Student' ? (
           <div className="flex w-full flex-nowrap items-center gap-2 lg:hidden">
             <Button
@@ -348,17 +348,7 @@ function NavBar({ role, logout }) {
               Sign Up
             </CustomButton>
           </div>
-        ) : (
-          <div className="flex w-full flex-nowrap items-center lg:hidden">
-            <CustomButton
-              onClick={() => handleButtonClick()}
-              size="sm"
-              fullWidth
-            >
-              Profile
-            </CustomButton>
-          </div>
-        )}
+        ) : null}
       </Collapse>
     </Navbar>
   );
