@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { CustomButton } from '../TailwindCustomComponents/CustomComponents';
 
 const AdminStaff = () => {
   const [sportsList, setSportsList] = useState([]);
@@ -16,7 +17,7 @@ const AdminStaff = () => {
   });
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
-  
+
   useEffect(() => {
     async function fetchData() {
       try {
@@ -57,13 +58,25 @@ const AdminStaff = () => {
       );
 
       toast.success('Sports coordinator added successfully!', {
-        position: 'top-center',
+        position: 'bottom-right',
         autoClose: 3000,
-        hideProgressBar: true,
+        hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
+        style: {
+          background: '#4CAF50',
+          color: '#FFFFFF',
+          borderRadius: '8px',
+          boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.1)',
+          padding: '16px',
+          fontSize: '16px',
+        },
+        iconTheme: {
+          primary: '#FFFFFF',
+          secondary: '#4CAF50',
+        },
       });
       //clear the fields
       setUser({
@@ -75,6 +88,27 @@ const AdminStaff = () => {
       });
     } catch (err) {
       setError(err.response.data);
+      toast.error('Failed to add sports coordinator. Please try again later.', {
+        position: 'bottom-right',
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        style: {
+          background: '#FF5252',
+          color: '#FFFFFF',
+          borderRadius: '8px',
+          boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.1)',
+          padding: '16px',
+          fontSize: '16px',
+        },
+        iconTheme: {
+          primary: '#FFFFFF',
+          secondary: '#FF5252',
+        },
+      });
     }
   }
 
@@ -149,12 +183,9 @@ const AdminStaff = () => {
               />
             </div>
             <div className="flex items-center justify-center">
-              <button
-                type="submit"
-                className="group relative w-36 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-3xl text-white bg-customGreen hover:shadow-2xl focus:bg-gray-600 focus:font-bold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
-              >
+              <CustomButton className="mt-6" fullWidth type="submit">
                 ADD
-              </button>
+              </CustomButton>
             </div>
           </form>
         </div>
@@ -186,7 +217,17 @@ const AdminStaff = () => {
           </div>
         )}
       </div>
-      <ToastContainer />
+      <ToastContainer
+        position="bottom-right"
+        autoClose={4000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   );
 };

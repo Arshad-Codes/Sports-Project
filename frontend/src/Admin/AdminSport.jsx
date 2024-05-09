@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Loader from 'react-loader-spinner';
 
 function AdminSport() {
   const [file, setFile] = useState(null);
@@ -30,7 +31,7 @@ function AdminSport() {
       }
     }
     fetchSports();
-  }, []);
+  }, [sportsData]);
   const handleChange = (e) => {
     setUser((prev) => {
       return { ...prev, [e.target.name]: e.target.value };
@@ -86,11 +87,27 @@ function AdminSport() {
         }
       );
 
-      // const response = await axios.get(
-      //   'http://localhost:8800/api/sport/getSports'
-      // );
-      // setSportsData(response.data);
-      // //navigate('/');
+      toast.success('Sport added successfully!', {
+        position: 'bottom-right',
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        style: {
+          background: '#4CAF50',
+          color: '#FFFFFF',
+          borderRadius: '8px',
+          boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.1)',
+          padding: '16px',
+          fontSize: '16px',
+        },
+        iconTheme: {
+          primary: '#FFFFFF',
+          secondary: '#4CAF50',
+        },
+      });
       setUser({
         name: '',
         description: '',
@@ -101,13 +118,25 @@ function AdminSport() {
     } catch (err) {
       console.log(err);
       toast.error('Failed to add sport. Please try again later.', {
-        position: 'top-center',
-        autoClose: 3000,
-        hideProgressBar: true,
+        position: 'bottom-right',
+        autoClose: 4000,
+        hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
+        style: {
+          background: '#FF5252',
+          color: '#FFFFFF',
+          borderRadius: '8px',
+          boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.1)',
+          padding: '16px',
+          fontSize: '16px',
+        },
+        iconTheme: {
+          primary: '#FFFFFF',
+          secondary: '#FF5252',
+        },
       });
     }
   };
@@ -214,7 +243,17 @@ function AdminSport() {
           </div>
         )}
       </div>
-      <ToastContainer />
+      <ToastContainer
+        position="bottom-right"
+        autoClose={4000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   );
 }
