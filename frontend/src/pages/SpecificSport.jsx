@@ -27,6 +27,28 @@ function SpecificSport() {
   if (!sports) {
     return <div>Loading....</div>;
   }
+
+  const handleEnroll = async () => {
+    const currentUser = localStorage.getItem('currentUser');
+    if (!currentUser) {
+      return alert('Please login to enroll');
+    }else if(currentUser.role !== 'student'){
+      return alert('Only students can enroll');
+    }
+    try {
+      const response = await axios.post(
+        'http://localhost:8800/api/student/enroll',
+        {
+          sportId: sports._id,
+          studentId: currentUser._id,
+        },
+        { withCredentials: true}
+      );
+      console.log(response);
+    } catch (error) {
+      console.error('Error enrolling:', error);
+  }
+}
   return (
     <>
       <NavBar />
@@ -45,10 +67,7 @@ function SpecificSport() {
           <div className="basis-3/4 flex items-center justify-center">
             <div className="text-center">
               <h1 className="p-10 font-medium">{sports.description}</h1>
-              <CustomButton
-                onClick={() => (window.location.href = '/enrolled')}
-                className="mt-5 w-36"
-              >
+              <CustomButton onClick={handleEnroll} className="mt-5 w-36">
                 Enrol
               </CustomButton>
             </div>
@@ -67,7 +86,7 @@ function SpecificSport() {
       <div className="flex justify-center my-20">
         <CustomButton
           className="mr-2"
-          onClick={() => (window.location.href = '/achievement')}
+          onClick={() => (window.location.href = "/achievement")}
         >
           Achievement
         </CustomButton>

@@ -1,4 +1,5 @@
 import Student from '../models/student.model.js';
+import Sport from '../models/sports.model.js';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import StudentVerification from '../models/studentVerification.model.js';
@@ -148,10 +149,11 @@ export const login = async (req, res) => {
     );
 
     const { password, ...info } = student._doc;
+    const info2 = { ...info, role: "student" };
     res
       .cookie('accessTokenStudent', webtoken, { httpOnly: true })
       .status(200)
-      .send(info);
+      .send(info2);
   } catch (err) {
     res.status(500).send('something went wrong');
     //console.log(err);
@@ -176,3 +178,28 @@ export const getStudents = async (req, res) => {
     res.status(500).send('Something went wrong');
   }
 };
+
+export const enrollToSport = async (req, res) => {
+  try {
+    const studentId = req.body.studentId;
+    const sportId = req.body.sportId;
+
+    const student = await Student.findOne({
+      _id: studentId,
+    });
+    if(!student) return res.status(404).send('Student not found!');
+    student.enrolledSports.push(sportId);
+    await student.save();
+    await Sport.updateOne(
+      { _id: sportId },
+      {
+        $push: { enrolledStudents: studentId },
+      }
+    );
+    
+    res.status(200).send('Enrolled successfully');
+  } catch (error) {
+    res.status(500).send('Something went wrong');
+  }
+
+}

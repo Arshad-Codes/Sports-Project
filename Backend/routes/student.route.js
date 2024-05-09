@@ -5,6 +5,7 @@ import {
   logout,
   verify,
   getStudents,
+  enrollToSport,
 } from '../controllers/student.controller.js';
 
 const router = express.Router();
@@ -14,5 +15,6 @@ router.post('/login', login);
 router.post('/logout', logout);
 router.get('/getStudents', getStudents);
 router.get('/verify/:studentId/:uniqueString', verify);
+router.post('/enroll',enrollToSport);
 
 export default router;
