@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Navbar,
   Collapse,
@@ -34,91 +34,89 @@ import { styled } from '@mui/system';
 import LoginPopup from '../pages/Home/LoginPopup';
 import { useNavigate } from 'react-router-dom';
 import Profile from '../Student/Profile';
+import axios from 'axios';
 
 const CustomButton = styled(Button)({
   color: 'white',
   backgroundColor: '#09473F',
   variant: 'gradient',
-
-  // '&:hover': {
-  //   backgroundColor: 'green',
-  // },
 });
 const navSportList = [
   {
     title: 'Cricket',
+    slag: 'Cricket',
     description: 'The sound of leather on willow.',
     icon: CricketIcon,
-    link: '/specific',
   },
   {
     title: 'Football',
+    slag: 'Football',
     description: 'Get ready for some football action.',
     icon: SoccerIcon,
-    link: '#',
   },
   {
     title: 'Basketball',
+    slag: 'Basketball',
     description: 'Enjoy the game on the court.',
     icon: BasketballIcon,
-    link: '#',
   },
   {
     title: 'Volleyball',
+    slag: 'Volleyball',
     description: 'Bump, set, spike!',
     icon: VolleyballIcon,
-    link: '#',
   },
   {
     title: 'Pool',
+    slag: 'Pool',
     description: 'Dive in and make a splash.',
     icon: PoolIcon,
-    link: '#',
   },
   {
     title: 'Kabaddi',
+    slag: 'Kabaddi',
     description: 'Experience the thrill and strategy of Kabaddi.',
     icon: KabaddiIcon,
-    link: '#',
   },
   {
     title: 'Baseball',
+    slag: 'Baseball',
     description: 'Play ball! Baseball time.',
     icon: BaseballIcon,
-    link: '#',
   },
   {
     title: 'Hockey',
+    slag: 'Hockey',
     description: 'Fast-paced action on the ice.',
     icon: HockeyIcon,
-    link: '#',
   },
   {
     title: 'Rugby',
+    slag: 'Rugby',
     description: 'Hard-hitting rugby action.',
     icon: RugbyIcon,
-    link: '#',
   },
   {
     title: 'Tennis',
+    slag: 'Tennis',
     description: 'Grab your racket and hit the court.',
     icon: TennisIcon,
-    link: '#',
   },
   {
     title: 'Martial Arts',
+    slag: 'Martial Arts',
     description: 'Discipline and skill in martial arts.',
     icon: MartialArtsIcon,
-    link: '#',
   },
 ];
 
 function NavListMenu() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
+
   const renderItems = navSportList.map(
-    ({ icon, title, description, link }, key) => (
-      <a href={link} key={key}>
+    ({ icon, title, description, slag }, key) => (
+      <a href={`/sports/${slag}`} key={key}>
         <MenuItem className="flex items-center gap-3 rounded-lg">
           <div className="flex items-center justify-center rounded-lg !bg-blue-gray-50 p-2 ">
             {' '}

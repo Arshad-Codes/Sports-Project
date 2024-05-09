@@ -38,7 +38,7 @@ function Home() {
               ))}
             </div>
           )}
-          style={{ height: '350px' }}
+          style={{ height: '400px' }}
           className="rounded-xl text-center w-full md:w-1/2"
           autoplay
           autoplayDelay={5000}
@@ -92,26 +92,6 @@ function Home() {
 
       <AnnouncementsCom />
       <SportsSlider />
-      <Profile />
-      <Button
-        onClick={() => (document.location.href = '/sports')}
-        variant="text"
-        size="sm"
-        color="blue-gray"
-        className="mt-5 ml-10 mb-96"
-      >
-        SPORTS
-      </Button>
-
-      {/* <Button
-        onClick={() => (document.location.href = '/abc')}
-        variant="text"
-        size="sm"
-        color="blue-gray"
-        className="mt-5 ml-10 mb-96"
-      >
-        Admin
-      </Button> */}
     </>
   );
 }

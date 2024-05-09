@@ -2,11 +2,11 @@ import { CustomButton } from '../TailwindCustomComponents/CustomComponents';
 import { Card, Input, Typography } from '@material-tailwind/react';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function AdminSport() {
   const [file, setFile] = useState(null);
-  const [error, setError] = useState(null);
   const [user, setUser] = useState({
     name: '',
     description: '',
@@ -15,7 +15,6 @@ function AdminSport() {
   const [previewImageUrl, setPreviewImageUrl] = useState(null);
   const [sportsData, setSportsData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchSports() {
@@ -80,7 +79,16 @@ function AdminSport() {
         ...user,
         imageUrl: imgUrl,
       });
-
+      // Display success message
+      toast.success('Sport added successfully!', {
+        position: 'top-center',
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
       // const response = await axios.get(
       //   'http://localhost:8800/api/sport/getSports'
       // );
@@ -95,7 +103,15 @@ function AdminSport() {
       setPreviewImageUrl(null);
     } catch (err) {
       console.log(err);
-      setError(err.response.data);
+      toast.error('Failed to add sport. Please try again later.', {
+        position: 'top-center',
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
   };
 
@@ -201,6 +217,7 @@ function AdminSport() {
           </div>
         )}
       </div>
+      <ToastContainer />
     </div>
   );
 }

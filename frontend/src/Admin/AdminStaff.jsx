@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useEffect } from 'react';
 import axios from 'axios';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const AdminStaff = () => {
   const [sportsList, setSportsList] = useState([]);
@@ -14,7 +16,7 @@ const AdminStaff = () => {
   });
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
-  //const sportsRef = useRef();
+  
   useEffect(() => {
     async function fetchData() {
       try {
@@ -34,7 +36,7 @@ const AdminStaff = () => {
       }
     }
     fetchData();
-  }, []);
+  }, [staffList]);
 
   function handleChange(e) {
     setUser((prev) => {
@@ -53,6 +55,24 @@ const AdminStaff = () => {
         },
         { withCredentials: true }
       );
+
+      toast.success('Sports coordinator added successfully!', {
+        position: 'top-center',
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      //clear the fields
+      setUser({
+        email: '',
+        sport: '',
+        password: '',
+        fullName: '',
+        position: '',
+      });
     } catch (err) {
       setError(err.response.data);
     }
@@ -61,7 +81,7 @@ const AdminStaff = () => {
   return (
     <div>
       <div className="flex flex-col items-center justify-start min-h-screen min-w-full bg-white mt-3 px-10">
-        <div className="py-10 px-14 w-full border border-gray-300 border-t-0 shadow-lg rounded-lg ml-15 mb-10">
+        <div className="py-10 px-14 w-full border border-gray-300 border-t-0 shadow-lg rounded-lg ml-15 mb-5">
           <div className="text-center mb-10">
             <h1 className="text-2xl font-bold text-black">
               Add a Sports Coordinator
@@ -69,7 +89,7 @@ const AdminStaff = () => {
           </div>
           <form className="space-y-5" onSubmit={handleCreate}>
             <div className="shadow-sm">
-              <label className="sr-only">Username</label>
+              <label className="sr-only">Email</label>
               <input
                 type="text"
                 name="email"
@@ -105,7 +125,6 @@ const AdminStaff = () => {
             <div className="shadow-sm">
               <label className="sr-only">Sports</label>
               <select
-                //ref={sportsRef}
                 name="sport"
                 onChange={handleChange}
                 className="appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-1 focus:outline-gray-600"
@@ -139,7 +158,6 @@ const AdminStaff = () => {
             </div>
           </form>
         </div>
-        {/* <AppN /> */}
       </div>
       <div className="container mx-auto p-4">
         <h2 className="text-2xl font-bold mb-4">Sports Coordinators List</h2>
@@ -168,6 +186,7 @@ const AdminStaff = () => {
           </div>
         )}
       </div>
+      <ToastContainer />
     </div>
   );
 };
