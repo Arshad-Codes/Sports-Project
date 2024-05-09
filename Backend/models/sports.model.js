@@ -21,6 +21,10 @@ const sportSchema = new Schema({
   enrolledStudents: {
     type: [String],
   },
-});
+  announcements:{
+    type: [String],
+  },
+  }
+);
 
 export default mongoose.model('Sport', sportSchema);

@@ -1,18 +1,14 @@
 import mongoose from "mongoose";
 import { Schema } from "mongoose";
 
-const achievementSchema = new Schema(
+const announcementSchema = new Schema(
   {
-    title: {
+    content: {
       type: String,
       required: true,
       unique: true,
     },
-    description: {
-      type: String,
-      required: true,
-    },
-    imgUrl: {
+    sport: {
       type: String,
       required: true,
     },
@@ -22,4 +18,4 @@ const achievementSchema = new Schema(
   }
 );
 
-export default mongoose.model("Achievements", achievementSchema);
+export default mongoose.model("Announcement", announcementSchema);

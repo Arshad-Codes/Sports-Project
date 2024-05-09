@@ -179,6 +179,44 @@ export const getStudents = async (req, res) => {
   }
 };
 
+export const editDetails = async (req,res)=>{
+  try {
+    const student = await Student.findOne({
+      _id: req.params.studentId,
+    });
+
+    if (!student) {
+      return res.status(404).send('Student not found!');
+    }
+    const isRegNoAvailable = await Student.findOne({ regNo: student.regNo });
+    const isNicNoAvailable = await Student.findOne({ nicNo: student.nicNo });
+
+    if (isEmailAvailable) {
+      return res.status(409).send("Email already exists.");
+    }
+    if (isRegNoAvailable) {
+      return res.status(409).send("Registration number already exists.");
+    }
+    if (isNicNoAvailable) {
+      return res.status(409).send("NIC number already exists.");
+    }
+
+    student.firstName = req.body.firstName || student.firstName;
+    student.lastName = req.bodylastName || student.lastName;
+    student.dateofBirth = req.body.dateofBirth || student.dateofBirth;
+    student.achievements = req.body.achievements || student.achievements;
+    student.regNo = req.body.regNo || student.regNo;
+    student.nicNo = req.body.nicNo || student.nicNo;
+
+    await student.save();
+
+    res.status(200).send('Student details updated successfully');
+  } catch (error) {
+    
+  }
+}
+
+
 export const enrollToSport = async (req, res) => {
   try {
     const studentId = req.body.studentId;
@@ -203,3 +241,20 @@ export const enrollToSport = async (req, res) => {
   }
 
 }
+
+export const getEnrolledSports = async (req, res) => {
+  try {
+    const studentId = req.params.studentId;
+    const student = await Student.findOne({
+      _id: studentId});
+    if(!student) return res.status(404).send('Student not found!');
+    const sports = await Sport.find({
+      _id: { $in: student.enrolledSports }
+    });
+    res.status(200).send(sports);
+  }
+  catch (error) {
+    res.status(500).send('Something went wrong');
+  }
+}
+

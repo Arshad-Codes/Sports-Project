@@ -79,7 +79,10 @@ function AdminSport() {
       await axios.post('http://localhost:8800/api/sport/createsport', {
         ...user,
         imageUrl: imgUrl,
-      });
+      },
+    {
+      withCredentials: true
+    });
 
       // const response = await axios.get(
       //   'http://localhost:8800/api/sport/getSports'
