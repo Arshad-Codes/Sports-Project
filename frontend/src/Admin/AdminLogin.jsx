@@ -14,13 +14,16 @@ function AdminLogin() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:8800/api/admin/login', {
-        username,
-        password,
-      },{withCredentials:true});
+      const res = await axios.post(
+        'https://ruhunasports.onrender.com/api/admin/login',
+        {
+          username,
+          password,
+        },
+        { withCredentials: true }
+      );
       if (res.status === 200) {
         localStorage.setItem('currentUser', JSON.stringify(res.data));
-      
 
         navigate('/admin/dashboard', { state: { user: res.data } });
         toast.success('Login successful!');

@@ -13,7 +13,7 @@ function SpecificSport() {
     async function fetchSports() {
       try {
         const response = await axios.get(
-          'http://localhost:8800/api/sport/getSports'
+          'https://ruhunasports.onrender.com/api/sport/getSports'
         );
         setSportsData(response.data);
       } catch (error) {
@@ -32,23 +32,23 @@ function SpecificSport() {
     const currentUser = localStorage.getItem('currentUser');
     if (!currentUser) {
       return alert('Please login to enroll');
-    }else if(currentUser.role !== 'student'){
+    } else if (currentUser.role !== 'student') {
       return alert('Only students can enroll');
     }
     try {
       const response = await axios.post(
-        'http://localhost:8800/api/student/enroll',
+        'https://ruhunasports.onrender.com/api/student/enroll',
         {
           sportId: sports._id,
           studentId: currentUser._id,
         },
-        { withCredentials: true}
+        { withCredentials: true }
       );
       console.log(response);
     } catch (error) {
       console.error('Error enrolling:', error);
-  }
-}
+    }
+  };
   return (
     <>
       <NavBar />
@@ -86,7 +86,7 @@ function SpecificSport() {
       <div className="flex justify-center my-20">
         <CustomButton
           className="mr-2"
-          onClick={() => (window.location.href = "/achievement")}
+          onClick={() => (window.location.href = '/achievement')}
         >
           Achievement
         </CustomButton>

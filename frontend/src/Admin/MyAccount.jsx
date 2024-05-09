@@ -23,7 +23,7 @@ function MyAccount() {
   //   const fetchAdminDetails = async () => {
   //     try {
   //       const response = await axios.get(
-  //         'http://localhost:8800/api/admin/getAdmin'
+  //         'https://ruhunasports.onrender.com/api/admin/getAdmin'
   //       );
   //       setAdminDetails(response.data);
   //     } catch (error) {
@@ -43,7 +43,7 @@ function MyAccount() {
     console.log(adminDetails);
     try {
       await axios.put(
-        'http://localhost:8800/api/admin/updateAdmin',
+        'https://ruhunasports.onrender.com/api/admin/updateAdmin',
         adminDetails
       );
       setIsEditing(false);

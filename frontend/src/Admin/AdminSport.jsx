@@ -4,7 +4,6 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Loader from 'react-loader-spinner';
 
 function AdminSport() {
   const [file, setFile] = useState(null);
@@ -21,7 +20,7 @@ function AdminSport() {
     async function fetchSports() {
       try {
         const response = await axios.get(
-          'http://localhost:8800/api/sport/getSports'
+          'https://ruhunasports.onrender.com/api/sport/getSports'
         );
         setSportsData(response.data);
         setLoading(false);
@@ -77,7 +76,7 @@ function AdminSport() {
 
     try {
       await axios.post(
-        'http://localhost:8800/api/sport/createsport',
+        'https://ruhunasports.onrender.com/api/sport/createsport',
         {
           ...user,
           imageUrl: imgUrl,
