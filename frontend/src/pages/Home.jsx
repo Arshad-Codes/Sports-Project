@@ -13,10 +13,6 @@ function Home() {
   const [role, setRole] = useState(location.state?.role || '');
   const { carouselData } = homeData;
 
-  const handleLogout = () => {
-    setRole('');
-  };
-
   return (
     <>
       <NavBar role={role} />
