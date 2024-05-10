@@ -1,35 +1,40 @@
 import React from "react";
 import { useState } from "react";
-
 import {
   Input,
   Popover,
   PopoverHandler,
   PopoverContent,
 } from "@material-tailwind/react";
-import { format } from "date-fns";
 import { DayPicker } from "react-day-picker";
 import { ChevronRightIcon, ChevronLeftIcon } from "@heroicons/react/24/outline";
  
-export default function DatePicker() {
-  const [date, setDate] = useState(null);
- 
+export default function DatePicker({ value, onChange }) {
+  const [date, setDate] = useState(value);
+
+  const handleDateChange = (newDate) => {
+    setDate(newDate);
+    onChange(newDate);
+  };
+
   return (
     <div className="p-5">
       <Popover placement="bottom">
         <PopoverHandler>
           <Input
+            // label="Select a Date"
+            // onChange={(e) => setDate(e.target.value)}
+            // value={date}
             label="Select a Date"
-            onChange={(e) => setDate(e.target.value)}
-            //onChange={() => null}
-            value={date ? format(date, "PPP") : ""}
+            value={date}
+            readOnly
           />
         </PopoverHandler>
         <PopoverContent>
           <DayPicker
             mode="single"
             selected={date}
-            onSelect={setDate}
+            onSelect={handleDateChange}
             showOutsideDays
             className="border-0"
             classNames={{

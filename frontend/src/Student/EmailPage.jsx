@@ -9,6 +9,7 @@ import NavBar from '../components/Navbar';
 import DatePicker from '../components/DatePicker';
 
 function EmailPage() {
+
   const [role, setRole] = useState(location.state?.role || '');
   const [selectedOptions, setSelectedOptions] = useState({
     option1: '',
@@ -16,6 +17,8 @@ function EmailPage() {
     option3: '',
     option4: '',
   });
+
+  const [selectedDate, setSelectedDate] = useState('');
 
   const handleOptionChange = (e) => {
     const { name, value } = e.target;
@@ -25,17 +28,25 @@ function EmailPage() {
     }));
   };
 
+  const handleDateChange = (newDate) => {
+    setSelectedDate(newDate);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Logic to handle form submission
+    // check the data comes after clicking the submit button
     console.log('Form submitted:', selectedOptions);
-    // Reset selected options
+    console.log('Date: ', selectedDate);
+
+
+    //reset
     setSelectedOptions({
       option1: '',
       option2: '',
       option3: '',
       option4: '',
     });
+    setSelectedDate('');
   };
 
   return (
@@ -46,7 +57,7 @@ function EmailPage() {
           <CardBody>
             <form onSubmit={handleSubmit}>
 
-            <Typography>To</Typography>
+              <Typography>To</Typography>
               <select
                 name="option4"
                 className="block w-full px-4 py-2 mb-4 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500"
@@ -98,10 +109,9 @@ function EmailPage() {
                 <option value="Reason 3">Reason 3</option>
               </select>
 
-              <Typography>Date</Typography>
-              <DatePicker 
-                setDate={setSelectedOptions} 
-                date={selectedOptions.date} />
+               <Typography>Date</Typography>
+              
+               <DatePicker value={selectedDate} onChange={handleDateChange} />
 
               <Button type="submit" color="blue">
                 Submit
