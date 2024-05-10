@@ -53,6 +53,7 @@ function AdminDashBoard() {
           {currentPage === 'sports' && <AdminSport />}
           {currentPage === 'staffs' && <AddStaff />}
           {currentPage === 'students' && <StudentsPage />}
+          {currentPage === 'announcement' && <StudentsPage />}
           {currentPage === 'my_account' && <MyAccount />}
         </main>
       </div>

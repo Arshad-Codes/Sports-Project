@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
   Navbar,
   Collapse,
@@ -34,7 +34,6 @@ import { styled } from '@mui/system';
 import LoginPopup from '../pages/Home/LoginPopup';
 import { useNavigate } from 'react-router-dom';
 import Profile from '../Student/Profile';
-import axios from 'axios';
 
 const CustomButton = styled(Button)({
   color: 'white',

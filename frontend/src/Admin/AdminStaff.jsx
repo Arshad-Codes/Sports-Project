@@ -4,6 +4,7 @@ import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { CustomButton } from '../TailwindCustomComponents/CustomComponents';
+import StaffsTable from './Tables/StaffsTable';
 
 const AdminStaff = () => {
   const [sportsList, setSportsList] = useState([]);
@@ -195,26 +196,27 @@ const AdminStaff = () => {
         {loading ? (
           <p className="text-gray-600">Loading...</p>
         ) : (
-          <div className="grid grid-cols-1 gap-4">
-            {staffList.map((staff) => (
-              <div
-                key={staff._id}
-                className="bg-white rounded-lg shadow-md overflow-hidden flex h-72"
-              >
-                <img
-                  src={staff.imageUrl}
-                  alt={staff.name}
-                  className="w-1/3 h-auto object-cover"
-                />
-                <div className="p-4 w-2/3">
-                  <h3 className="text-xl font-bold mb-2">{staff.fullName}</h3>
-                  <p className="text-gray-600">{staff.position}</p>
-                  <p className="text-gray-600">{staff.email}</p>
-                  <p className="text-gray-600">{staff.sport}</p>
-                </div>
-              </div>
-            ))}
-          </div>
+          // <div className="grid grid-cols-1 gap-4">
+          //   {staffList.map((staff) => (
+          //     <div
+          //       key={staff._id}
+          //       className="bg-white rounded-lg shadow-md overflow-hidden flex h-72"
+          //     >
+          //       <img
+          //         src={staff.imageUrl}
+          //         alt={staff.name}
+          //         className="w-1/3 h-auto object-cover"
+          //       />
+          //       <div className="p-4 w-2/3">
+          //         <h3 className="text-xl font-bold mb-2">{staff.fullName}</h3>
+          //         <p className="text-gray-600">{staff.position}</p>
+          //         <p className="text-gray-600">{staff.email}</p>
+          //         <p className="text-gray-600">{staff.sport}</p>
+          //       </div>
+          //     </div>
+          //   ))}
+          // </div>
+          <StaffsTable />
         )}
       </div>
       <ToastContainer
