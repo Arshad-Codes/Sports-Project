@@ -1,11 +1,7 @@
 import NavBar from '../components/Navbar';
 import { sportCoordinatorsData } from '../data';
 import { useParams } from 'react-router-dom';
-import {
-  Card,
-  CardBody,
-  Typography,
-} from '@material-tailwind/react';
+import { Card, CardBody, Typography } from '@material-tailwind/react';
 
 function SpecificCoordinator() {
   const { staffs } = sportCoordinatorsData;
