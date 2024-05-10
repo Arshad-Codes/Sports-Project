@@ -81,7 +81,6 @@ function AdminAnnouncement() {
               </Typography>
               <Input
                 size="lg"
-                type="text"
                 id="title"
                 name="title"
                 onChange={handleChange}
@@ -96,7 +95,6 @@ function AdminAnnouncement() {
                 Content
               </Typography>
               <Textarea
-                id="content"
                 name="content"
                 onChange={handleChange}
                 className=" !border-t-blue-gray-200 focus:!border-t-gray-900"

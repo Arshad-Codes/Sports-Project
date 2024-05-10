@@ -6,13 +6,13 @@ export const createAnnouncement = async (req, res) => {
     const newAnnouncement = new Announcement(req.body);
     await newAnnouncement.save();
     await Sport.updateOne(
-      { _id: newAnnouncement.sport },
+      { name: newAnnouncement.sport },
       { $push: { announcements: newAnnouncement._id } }
     );
     res.status(201).send('Announcement has been created.');
   } catch (err) {
     console.error(err);
-    res.status(500).send('something went wrong');
+    res.status(500).send(err.message);
   }
 };
 

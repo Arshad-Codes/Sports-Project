@@ -10,7 +10,6 @@ const announcementSchema = new Schema(
     content: {
       type: String,
       required: true,
-      unique: true,
     },
     sport: {
       type: String,
