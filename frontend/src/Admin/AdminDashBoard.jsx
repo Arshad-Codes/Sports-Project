@@ -25,7 +25,7 @@ function AdminDashBoard() {
     const currentUser = localStorage.getItem("currentUser");
     if (!currentUser) {
       // Redirect to login if user data is not found in localStorage
-      navigate("/admin");
+      navigate("/login", {state: {role: 'Admin'}});
     } else {
       const user = JSON.parse(currentUser);
       if (user.role !== "admin") {

@@ -1,5 +1,5 @@
-import mongoose from 'mongoose';
-import { Schema } from 'mongoose';
+import mongoose from "mongoose";
+import { Schema } from "mongoose";
 
 const achievementSchema = new Schema(
   {
@@ -22,4 +22,4 @@ const achievementSchema = new Schema(
   }
 );
 
-export default mongoose.model('Achievements', achievementSchema);
+export default mongoose.model("Achievements", achievementSchema);
