@@ -73,7 +73,7 @@ function Login() {
         <button
           type="button"
           className=" text-black px-10 py-5 hover:text-blue-700 hover:scale-105 transition-transform"
-          onClick={() => (window.location.href = '/home')}
+          onClick={() => (window.location.href = '/')}
         >
           <div className="flex flex-row align-middle">
             <svg

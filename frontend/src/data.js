@@ -1,16 +1,18 @@
+import imgHome_1 from './assests/carousel/Home_1.jpg';
+import imgHome_2 from './assests/carousel/Home_2.jpg';
 export const homeData = {
   carouselData: [
     {
       title: 'Image 1',
-      path: '/src/assests/carousel/Home_1.jpg',
+      path: imgHome_1,
     },
     {
       title: 'Image 2',
-      path: '/src/assests/carousel/Home_2.jpg',
+      path: imgHome_2,
     },
     {
       title: 'Image 3',
-      path: '/src/assests/carousel/Home_2.jpg',
+      path: imgHome_2,
     },
   ],
   achievementData: [

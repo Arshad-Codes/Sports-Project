@@ -190,11 +190,15 @@ function NavListMenu() {
 }
 
 function NavList() {
+  const navigate = useNavigate();
+  const handleStaffClick = () => {
+    navigate('/staffs');
+  };
   return (
     <List className="mt-4 mb-6 p-0 lg:mt-0 lg:mb-0 lg:flex-row lg:p-1">
       <Typography
         as="a"
-        href="/home"
+        href="/"
         variant="small"
         color="blue-gray"
         className="font-semibold"
@@ -204,7 +208,7 @@ function NavList() {
       <NavListMenu />
       <Typography
         as="a"
-        href="/staffs"
+        onClick={() => handleStaffClick()}
         variant="small"
         color="blue-gray"
         className="font-semibold"
@@ -215,7 +219,7 @@ function NavList() {
       </Typography>
       <Typography
         as="a"
-        href="#"
+        onClick={() => handleStaffClick()}
         variant="small"
         color="blue-gray"
         className="font-semibold"
@@ -259,7 +263,7 @@ function NavBar({ role }) {
     setIsLoginPopupOpen(false);
   };
 
-  const handleButtonClick = () => {
+  const handleSignupClick = () => {
     navigate('/signup');
   };
 
@@ -272,7 +276,7 @@ function NavBar({ role }) {
       <div className="flex items-center justify-between text-blue-gray-900">
         <Typography
           as="a"
-          href="#"
+          href="/"
           variant="h6"
           className="mr-4 cursor-pointer py-1.5 lg:ml-2 text-blue-900 text-xl"
         >
@@ -299,7 +303,7 @@ function NavBar({ role }) {
             </Button>
             {isLoginPopupOpen && <LoginPopup onClose={closeLoginPopup} />}
 
-            <CustomButton onClick={() => handleButtonClick()} size="sm">
+            <CustomButton onClick={() => handleSignupClick()} size="sm">
               Sign Up
             </CustomButton>
           </div>
@@ -338,7 +342,7 @@ function NavBar({ role }) {
             </Button>
             {isLoginPopupOpen && <LoginPopup onClose={closeLoginPopup} />}
             <CustomButton
-              onClick={() => handleButtonClick()}
+              onClick={() => handleSignupClick()}
               size="sm"
               fullWidth
             >

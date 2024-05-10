@@ -10,18 +10,18 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 function Staff() {
-  //const { staffs } = sportCoordinatorsData;
   const [staffList, setStaffList] = useState([]);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
+
   useEffect(() => {
+    window.scrollTo(0, 0);
     async function fetchSports() {
       try {
         const response = await axios.get(
           'https://ruhunasports.onrender.com/api/sportscoordinator/getcoordinators'
         );
         setStaffList(response.data);
-        console.log(staffList);
         setLoading(false);
       } catch (error) {
         console.error('Error fetching sports:', error);
@@ -30,6 +30,7 @@ function Staff() {
     }
     fetchSports();
   }, []);
+
   const handleStaffClick = (position) => {
     navigate(`/staffs/${position}`);
   };
