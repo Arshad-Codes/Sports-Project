@@ -1,8 +1,12 @@
-import mongoose from "mongoose";
-import { Schema } from "mongoose";
+import mongoose from 'mongoose';
+import { Schema } from 'mongoose';
 
 const announcementSchema = new Schema(
   {
+    title: {
+      type: String,
+      required: true,
+    },
     content: {
       type: String,
       required: true,
@@ -18,4 +22,4 @@ const announcementSchema = new Schema(
   }
 );
 
-export default mongoose.model("Announcement", announcementSchema);
+export default mongoose.model('Announcement', announcementSchema);

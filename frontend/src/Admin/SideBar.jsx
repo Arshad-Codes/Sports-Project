@@ -100,7 +100,7 @@ const Sidebar = ({ isSidebarOpen, onPageChange }) => {
               ? 'bg-customGreen text-white'
               : 'hover:bg-customGreen hover:text-white'
           }`}
-          onClick={() => handlePageClick('events')}
+          onClick={() => handlePageClick('announcement')}
         >
           <FaRegCalendar size={25} />
           Announcement
