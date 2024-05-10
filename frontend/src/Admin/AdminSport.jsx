@@ -1,5 +1,5 @@
 import { CustomButton } from '../TailwindCustomComponents/CustomComponents';
-import { Card, Input, Typography } from '@material-tailwind/react';
+import { Card, Input, Textarea, Typography } from '@material-tailwind/react';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
@@ -142,9 +142,9 @@ function AdminSport() {
 
   return (
     <div>
-      <div className="flex items-center justify-center h-3/4 mt-10 mr-5 ml-5 mb-10">
+      <div className="flex items-center justify-center h-3/4 my-10 mx-5">
         <Card
-          className="flex border border-gray-400 w-96 p-10 mx-auto"
+          className="py-10 px-14 flex w-full mx-auto border border-gray-300 border-t-0 shadow-lg rounded-lg"
           color="transparent"
           shadow={true}
         >
@@ -165,8 +165,7 @@ function AdminSport() {
               </Typography>
               <Input
                 size="lg"
-                placeholder="name of the sport"
-                name="name" // Changed name to 'name'
+                name="name"
                 onChange={handleChange}
                 className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
                 labelProps={{
@@ -178,16 +177,14 @@ function AdminSport() {
               <Typography variant="h6" color="blue-gray" className="-mb-3">
                 Description
               </Typography>
-              <Input
-                size="lg"
-                placeholder="description of the sport"
+              <Textarea
                 name="description"
                 onChange={handleChange}
                 className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
                 labelProps={{
                   className: 'before:content-none after:content-none',
                 }}
-              />
+              ></Textarea>
             </div>
             <div className="mb-1 flex flex-col gap-6">
               <Typography variant="h6" color="blue-gray" className="-mb-3">
@@ -212,7 +209,7 @@ function AdminSport() {
               />
             )}
             <CustomButton className="mt-6" fullWidth type="submit">
-              ADD
+              Create Sport
             </CustomButton>
           </form>
         </Card>
