@@ -19,11 +19,11 @@ function AdminAnnouncement() {
     async function fetchData() {
       try {
         const response = await axios.get(
-          'http://localhost:8800/api/announcement/getAnnouncement'
+          'https://ruhunasports.onrender.com/api/announcement/getAnnouncement'
         );
         setAnnouncementsList(response.data);
         const Sportsresponse = await axios.get(
-          'http://localhost:8800/api/sport/getSports'
+          'https://ruhunasports.onrender.com/api/sport/getSports'
         );
         setSportsList(Sportsresponse.data);
         setLoading(false);
@@ -45,7 +45,7 @@ function AdminAnnouncement() {
     e.preventDefault();
     try {
       await axios.post(
-        'http://localhost:8800/api/announcement/createAnnouncement',
+        'https://ruhunasports.onrender.com/api/announcement/createAnnouncement',
         {
           ...announcement,
         },
