@@ -1,5 +1,5 @@
 import { CustomButton } from '../TailwindCustomComponents/CustomComponents';
-import { Card, Input, Typography } from '@material-tailwind/react';
+import { Card, Input, Textarea, Typography } from '@material-tailwind/react';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
@@ -15,7 +15,6 @@ function AdminSport() {
   const [previewImageUrl, setPreviewImageUrl] = useState(null);
   const [sportsData, setSportsData] = useState([]);
   const [loading, setLoading] = useState(true);
-
   useEffect(() => {
     async function fetchSports() {
       try {
@@ -52,7 +51,6 @@ function AdminSport() {
 
   const handleCreate = async (e) => {
     e.preventDefault();
-
     const upload = async (file) => {
       const data = new FormData();
       data.append('file', file);
@@ -85,7 +83,13 @@ function AdminSport() {
           withCredentials: true,
         }
       );
-
+      setUser({
+        name: '',
+        description: '',
+        imageUrl: '',
+      });
+      setFile(null);
+      setPreviewImageUrl(null);
       toast.success('Sport added successfully!', {
         position: 'bottom-right',
         autoClose: 4000,
@@ -95,8 +99,6 @@ function AdminSport() {
         draggable: true,
         progress: undefined,
         style: {
-          background: '#4CAF50',
-          color: '#FFFFFF',
           borderRadius: '8px',
           boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.1)',
           padding: '16px',
@@ -107,16 +109,9 @@ function AdminSport() {
           secondary: '#4CAF50',
         },
       });
-      setUser({
-        name: '',
-        description: '',
-        imageUrl: '',
-      });
-      setFile(null);
-      setPreviewImageUrl(null);
     } catch (err) {
       console.log(err);
-      toast.error('Failed to add sport. Please try again later.', {
+      toast.error('Failed to add sport. Please try again', {
         position: 'bottom-right',
         autoClose: 4000,
         hideProgressBar: false,
@@ -125,8 +120,6 @@ function AdminSport() {
         draggable: true,
         progress: undefined,
         style: {
-          background: '#FF5252',
-          color: '#FFFFFF',
           borderRadius: '8px',
           boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.1)',
           padding: '16px',
@@ -142,9 +135,9 @@ function AdminSport() {
 
   return (
     <div>
-      <div className="flex items-center justify-center h-3/4 mt-10 mr-5 ml-5 mb-10">
+      <div className="flex items-center justify-center h-3/4 my-10 mx-5">
         <Card
-          className="flex border border-gray-400 w-96 p-10 mx-auto"
+          className="py-10 px-14 flex w-full mx-auto border border-gray-300 border-t-0 shadow-lg rounded-lg"
           color="transparent"
           shadow={true}
         >
@@ -165,9 +158,9 @@ function AdminSport() {
               </Typography>
               <Input
                 size="lg"
-                placeholder="name of the sport"
-                name="name" // Changed name to 'name'
+                name="name"
                 onChange={handleChange}
+                value={user.name}
                 className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
                 labelProps={{
                   className: 'before:content-none after:content-none',
@@ -178,16 +171,15 @@ function AdminSport() {
               <Typography variant="h6" color="blue-gray" className="-mb-3">
                 Description
               </Typography>
-              <Input
-                size="lg"
-                placeholder="description of the sport"
+              <Textarea
                 name="description"
                 onChange={handleChange}
+                value={user.description}
                 className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
                 labelProps={{
                   className: 'before:content-none after:content-none',
                 }}
-              />
+              ></Textarea>
             </div>
             <div className="mb-1 flex flex-col gap-6">
               <Typography variant="h6" color="blue-gray" className="-mb-3">
@@ -198,6 +190,7 @@ function AdminSport() {
                 name="image"
                 type="file"
                 onChange={handleFileChange}
+                value={user.imageUrl}
                 className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
                 labelProps={{
                   className: 'before:content-none after:content-none',
@@ -212,7 +205,7 @@ function AdminSport() {
               />
             )}
             <CustomButton className="mt-6" fullWidth type="submit">
-              ADD
+              Create Sport
             </CustomButton>
           </form>
         </Card>

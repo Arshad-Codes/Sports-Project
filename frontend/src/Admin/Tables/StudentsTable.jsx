@@ -42,7 +42,7 @@ function StudentsTable() {
       }
     }
     fetchStudents();
-  }, []);
+  }, [studentList]);
   return (
     <Card className="h-full w-full mb-5 border border-gray-300 border-t-0 shadow-lg rounded-lg">
       <CardHeader floated={false} shadow={false} className="rounded-none">

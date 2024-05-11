@@ -4,6 +4,8 @@ import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { CustomButton } from '../TailwindCustomComponents/CustomComponents';
+import StaffsTable from './Tables/StaffsTable';
+import { Input, Typography } from '@material-tailwind/react';
 
 const AdminStaff = () => {
   const [sportsList, setSportsList] = useState([]);
@@ -66,8 +68,6 @@ const AdminStaff = () => {
         draggable: true,
         progress: undefined,
         style: {
-          background: '#4CAF50',
-          color: '#FFFFFF',
           borderRadius: '8px',
           boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.1)',
           padding: '16px',
@@ -97,8 +97,6 @@ const AdminStaff = () => {
         draggable: true,
         progress: undefined,
         style: {
-          background: '#FF5252',
-          color: '#FFFFFF',
           borderRadius: '8px',
           boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.1)',
           padding: '16px',
@@ -114,56 +112,82 @@ const AdminStaff = () => {
 
   return (
     <div>
-      <div className="flex flex-col items-center justify-start min-h-screen min-w-full bg-white mt-3 px-10">
+      <div className="flex flex-col items-center justify-center bg-white my-10 mx-5">
         <div className="py-10 px-14 w-full border border-gray-300 border-t-0 shadow-lg rounded-lg ml-15 mb-5">
-          <div className="text-center mb-10">
-            <h1 className="text-2xl font-bold text-black">
-              Add a Sports Coordinator
-            </h1>
-          </div>
-          <form className="space-y-5" onSubmit={handleCreate}>
-            <div className="shadow-sm">
-              <label className="sr-only">Email</label>
-              <input
+          <Typography
+            className="flex mb-10 justify-center"
+            variant="h4"
+            color="blue-gray"
+          >
+            Add a Sports Coordinator
+          </Typography>
+          <form
+            className="mt-8 mb-2 w-100 max-w-screen-lg sm:w-50"
+            onSubmit={handleCreate}
+          >
+            <div className="mb-1 flex flex-col gap-6">
+              <Typography variant="h6" color="blue-gray" className="-mb-3">
+                Email
+              </Typography>
+              <Input
+                size="lg"
                 type="text"
                 name="email"
                 onChange={handleChange}
+                value={user.email}
                 id="email"
-                placeholder="Email"
-                className="appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-1 focus:outline-gray-600"
+                className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+                labelProps={{
+                  className: 'before:content-none after:content-none',
+                }}
               />
             </div>
-            <div className="shadow-sm">
-              <label className="sr-only">Full Name</label>
-              <input
+            <div className="mb-1 flex flex-col gap-6">
+              <Typography variant="h6" color="blue-gray" className="-mb-3">
+                Full Name
+              </Typography>
+              <Input
+                size="lg"
                 type="text"
                 name="fullName"
                 onChange={handleChange}
+                value={user.fullName}
                 id="fullName"
-                placeholder="Enter the full name"
-                className="appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-1 focus:outline-gray-600"
+                className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+                labelProps={{
+                  className: 'before:content-none after:content-none',
+                }}
               />
             </div>
-            <div className="shadow-sm">
-              <label className="sr-only">Position</label>
-              <input
+            <div className="mb-1 flex flex-col gap-6">
+              <Typography variant="h6" color="blue-gray" className="-mb-3">
+                Position
+              </Typography>
+              <Input
+                size="lg"
                 type="text"
                 name="position"
                 onChange={handleChange}
+                value={user.position}
                 id="position"
-                placeholder="Enter the Position"
-                className="appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-1 focus:outline-gray-600"
+                className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+                labelProps={{
+                  className: 'before:content-none after:content-none',
+                }}
               />
             </div>
 
-            <div className="shadow-sm">
-              <label className="sr-only">Sports</label>
+            <div className="mb-1 flex flex-col gap-6">
+              <Typography variant="h6" color="blue-gray" className="-mb-3">
+                Sports
+              </Typography>
               <select
                 name="sport"
                 onChange={handleChange}
-                className="appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-1 focus:outline-gray-600"
+                value={user.sport}
+                className="appearance-none rounded-lg relative block w-full px-3 py-2 border !border-t-blue-gray-200 focus:!border-t-gray-900 placeholder-gray-500 text-gray-900 focus:outline-1 focus:outline-gray-600"
               >
-                <option value="">Select Sport</option>
+                {!user.sport && <option value="">Select Sport</option>}
                 {sportsList.map((sport) => (
                   <option key={sport._id} value={sport.name}>
                     {sport.name}
@@ -171,20 +195,26 @@ const AdminStaff = () => {
                 ))}
               </select>
             </div>
-            <div className="shadow-sm">
-              <label className="sr-only">Password</label>
-              <input
+            <div className="mb-1 flex flex-col gap-6">
+              <Typography variant="h6" color="blue-gray" className="-mb-3">
+                Password
+              </Typography>
+              <Input
+                size="lg"
                 type="password"
                 name="password"
                 onChange={handleChange}
+                value={user.password}
                 id="password"
-                placeholder="Password"
-                className="appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-1 focus:outline-gray-600"
+                className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+                labelProps={{
+                  className: 'before:content-none after:content-none',
+                }}
               />
             </div>
             <div className="flex items-center justify-center">
               <CustomButton className="mt-6" fullWidth type="submit">
-                ADD
+                Create Sports Coordinator
               </CustomButton>
             </div>
           </form>
@@ -195,26 +225,27 @@ const AdminStaff = () => {
         {loading ? (
           <p className="text-gray-600">Loading...</p>
         ) : (
-          <div className="grid grid-cols-1 gap-4">
-            {staffList.map((staff) => (
-              <div
-                key={staff._id}
-                className="bg-white rounded-lg shadow-md overflow-hidden flex h-72"
-              >
-                <img
-                  src={staff.imageUrl}
-                  alt={staff.name}
-                  className="w-1/3 h-auto object-cover"
-                />
-                <div className="p-4 w-2/3">
-                  <h3 className="text-xl font-bold mb-2">{staff.fullName}</h3>
-                  <p className="text-gray-600">{staff.position}</p>
-                  <p className="text-gray-600">{staff.email}</p>
-                  <p className="text-gray-600">{staff.sport}</p>
-                </div>
-              </div>
-            ))}
-          </div>
+          // <div className="grid grid-cols-1 gap-4">
+          //   {staffList.map((staff) => (
+          //     <div
+          //       key={staff._id}
+          //       className="bg-white rounded-lg shadow-md overflow-hidden flex h-72"
+          //     >
+          //       <img
+          //         src={staff.imageUrl}
+          //         alt={staff.name}
+          //         className="w-1/3 h-auto object-cover"
+          //       />
+          //       <div className="p-4 w-2/3">
+          //         <h3 className="text-xl font-bold mb-2">{staff.fullName}</h3>
+          //         <p className="text-gray-600">{staff.position}</p>
+          //         <p className="text-gray-600">{staff.email}</p>
+          //         <p className="text-gray-600">{staff.sport}</p>
+          //       </div>
+          //     </div>
+          //   ))}
+          // </div>
+          <StaffsTable />
         )}
       </div>
       <ToastContainer
