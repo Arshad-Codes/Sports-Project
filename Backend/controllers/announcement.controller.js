@@ -26,3 +26,13 @@ export const getAnnouncementsforSport = async (req, res) => {
     res.status(500).send('Something went wrong');
   }
 };
+
+export const getAnnouncements = async (req, res) => {
+  try {
+    const announcements = await Announcement.find();
+    res.status(200).send(announcements);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Something went wrong');
+  }
+};

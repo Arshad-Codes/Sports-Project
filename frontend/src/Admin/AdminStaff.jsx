@@ -68,8 +68,6 @@ const AdminStaff = () => {
         draggable: true,
         progress: undefined,
         style: {
-          background: '#4CAF50',
-          color: '#FFFFFF',
           borderRadius: '8px',
           boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.1)',
           padding: '16px',
@@ -99,8 +97,6 @@ const AdminStaff = () => {
         draggable: true,
         progress: undefined,
         style: {
-          background: '#FF5252',
-          color: '#FFFFFF',
           borderRadius: '8px',
           boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.1)',
           padding: '16px',
@@ -138,6 +134,7 @@ const AdminStaff = () => {
                 type="text"
                 name="email"
                 onChange={handleChange}
+                value={user.email}
                 id="email"
                 className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
                 labelProps={{
@@ -154,6 +151,7 @@ const AdminStaff = () => {
                 type="text"
                 name="fullName"
                 onChange={handleChange}
+                value={user.fullName}
                 id="fullName"
                 className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
                 labelProps={{
@@ -170,6 +168,7 @@ const AdminStaff = () => {
                 type="text"
                 name="position"
                 onChange={handleChange}
+                value={user.position}
                 id="position"
                 className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
                 labelProps={{
@@ -185,9 +184,10 @@ const AdminStaff = () => {
               <select
                 name="sport"
                 onChange={handleChange}
+                value={user.sport}
                 className="appearance-none rounded-lg relative block w-full px-3 py-2 border !border-t-blue-gray-200 focus:!border-t-gray-900 placeholder-gray-500 text-gray-900 focus:outline-1 focus:outline-gray-600"
               >
-                <option value="">Select Sport</option>
+                {!user.sport && <option value="">Select Sport</option>}
                 {sportsList.map((sport) => (
                   <option key={sport._id} value={sport.name}>
                     {sport.name}
@@ -204,6 +204,7 @@ const AdminStaff = () => {
                 type="password"
                 name="password"
                 onChange={handleChange}
+                value={user.password}
                 id="password"
                 className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
                 labelProps={{

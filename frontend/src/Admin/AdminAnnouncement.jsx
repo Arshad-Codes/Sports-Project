@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { CustomButton } from '../TailwindCustomComponents/CustomComponents';
 import { Input, Textarea, Typography } from '@material-tailwind/react';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function AdminAnnouncement() {
   const [sportsList, setSportsList] = useState([]);
@@ -45,10 +47,29 @@ function AdminAnnouncement() {
       await axios.post(
         'http://localhost:8800/api/announcement/createAnnouncement',
         {
-          announcement,
+          ...announcement,
         },
         { withCredentials: true }
       );
+      toast.success('Announcement added successfully!', {
+        position: 'bottom-right',
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        style: {
+          borderRadius: '8px',
+          boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.1)',
+          padding: '16px',
+          fontSize: '16px',
+        },
+        iconTheme: {
+          primary: '#FFFFFF',
+          secondary: '#4CAF50',
+        },
+      });
       //clear the fields
       setAnnouncement({
         title: '',
@@ -56,7 +77,26 @@ function AdminAnnouncement() {
         sport: '',
       });
     } catch (error) {
-      console.error('Error creating announcement:', error);
+      console.error(error);
+      toast.error('Failed to add announcement. Please try again.', {
+        position: 'bottom-right',
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        style: {
+          borderRadius: '8px',
+          boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.1)',
+          padding: '16px',
+          fontSize: '16px',
+        },
+        iconTheme: {
+          primary: '#FFFFFF',
+          secondary: '#FF5252',
+        },
+      });
     }
   };
 
@@ -81,9 +121,9 @@ function AdminAnnouncement() {
               </Typography>
               <Input
                 size="lg"
-                id="title"
                 name="title"
                 onChange={handleChange}
+                value={announcement.title}
                 className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
                 labelProps={{
                   className: 'before:content-none after:content-none',
@@ -97,6 +137,7 @@ function AdminAnnouncement() {
               <Textarea
                 name="content"
                 onChange={handleChange}
+                value={announcement.content}
                 className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
                 labelProps={{
                   className: 'before:content-none after:content-none',
@@ -110,9 +151,10 @@ function AdminAnnouncement() {
               <select
                 name="sport"
                 onChange={handleChange}
+                value={announcement.sport}
                 className="appearance-none rounded-lg relative block w-full px-3 py-2 border !border-t-blue-gray-200 focus:!border-t-gray-900 placeholder-gray-500 text-gray-900 focus:outline-1 focus:outline-gray-600"
               >
-                <option value="">Select Sport</option>
+                {!announcement.sport && <option value="">Select Sport</option>}
                 {sportsList.map((sport) => (
                   <option key={sport._id} value={sport.name}>
                     {sport.name}
@@ -126,7 +168,7 @@ function AdminAnnouncement() {
           </form>
         </div>
       </div>
-      <div>
+      <div className="mx-5 py-5">
         <h2 className="text-2xl font-bold mb-4">Announcements List</h2>
         {loading ? (
           <p className="text-gray-600">Loading...</p>
@@ -142,13 +184,23 @@ function AdminAnnouncement() {
                     {announcement.title}
                   </h3>
                   <p className="text-gray-600">{announcement.content}</p>
-                  <p className="text-gray-600">Sport: {announcement.sport}</p>
                 </div>
               </div>
             ))}
           </div>
         )}
       </div>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={4000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   );
 }

@@ -15,7 +15,6 @@ function AdminSport() {
   const [previewImageUrl, setPreviewImageUrl] = useState(null);
   const [sportsData, setSportsData] = useState([]);
   const [loading, setLoading] = useState(true);
-
   useEffect(() => {
     async function fetchSports() {
       try {
@@ -52,7 +51,6 @@ function AdminSport() {
 
   const handleCreate = async (e) => {
     e.preventDefault();
-
     const upload = async (file) => {
       const data = new FormData();
       data.append('file', file);
@@ -85,7 +83,13 @@ function AdminSport() {
           withCredentials: true,
         }
       );
-
+      setUser({
+        name: '',
+        description: '',
+        imageUrl: '',
+      });
+      setFile(null);
+      setPreviewImageUrl(null);
       toast.success('Sport added successfully!', {
         position: 'bottom-right',
         autoClose: 4000,
@@ -95,8 +99,6 @@ function AdminSport() {
         draggable: true,
         progress: undefined,
         style: {
-          background: '#4CAF50',
-          color: '#FFFFFF',
           borderRadius: '8px',
           boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.1)',
           padding: '16px',
@@ -107,16 +109,9 @@ function AdminSport() {
           secondary: '#4CAF50',
         },
       });
-      setUser({
-        name: '',
-        description: '',
-        imageUrl: '',
-      });
-      setFile(null);
-      setPreviewImageUrl(null);
     } catch (err) {
       console.log(err);
-      toast.error('Failed to add sport. Please try again later.', {
+      toast.error('Failed to add sport. Please try again', {
         position: 'bottom-right',
         autoClose: 4000,
         hideProgressBar: false,
@@ -125,8 +120,6 @@ function AdminSport() {
         draggable: true,
         progress: undefined,
         style: {
-          background: '#FF5252',
-          color: '#FFFFFF',
           borderRadius: '8px',
           boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.1)',
           padding: '16px',
@@ -167,6 +160,7 @@ function AdminSport() {
                 size="lg"
                 name="name"
                 onChange={handleChange}
+                value={user.name}
                 className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
                 labelProps={{
                   className: 'before:content-none after:content-none',
@@ -180,6 +174,7 @@ function AdminSport() {
               <Textarea
                 name="description"
                 onChange={handleChange}
+                value={user.description}
                 className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
                 labelProps={{
                   className: 'before:content-none after:content-none',
@@ -195,6 +190,7 @@ function AdminSport() {
                 name="image"
                 type="file"
                 onChange={handleFileChange}
+                value={user.imageUrl}
                 className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
                 labelProps={{
                   className: 'before:content-none after:content-none',
