@@ -105,7 +105,7 @@ const Sidebar = ({ isSidebarOpen, onPageChange }) => {
           <FaRegCalendar size={25} />
           Announcement
         </button>
-        <button
+        {/* <button
           className={`rounded-lg h-10 p-3 flex flex-row gap-5 items-center ${
             clickedButton === 'my_account'
               ? 'bg-customGreen text-white'
@@ -115,7 +115,7 @@ const Sidebar = ({ isSidebarOpen, onPageChange }) => {
         >
           <FaUserEdit size={25} />
           My Account
-        </button>
+        </button> */}
         <button>
           <Link
             to="/home"
