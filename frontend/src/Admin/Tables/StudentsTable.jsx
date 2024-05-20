@@ -13,110 +13,36 @@ import {
   Avatar,
 } from '@material-tailwind/react';
 import { DeleteForever } from '@mui/icons-material';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 
 const TABLE_HEAD = [
-  'Name',
-  'Batch',
-  'Email',
-  'Phone Number',
+  'First Name',
+  'Registration No',
+  'NIC',
   'Delete',
   'More Details',
 ];
 
-const TABLE_ROWS = [
-  {
-    img: 'https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-3.jpg',
-    name: 'John Michael',
-    email: 'john@creative-tim.com',
-    batch: 22,
-    org: 'Organization',
-    online: true,
-    phonenumber: '+94771234567',
-  },
-  {
-    img: 'https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-2.jpg',
-    name: 'Alexa Liras',
-    email: 'alexa@creative-tim.com',
-    batch: 22,
-    org: 'Developer',
-    online: false,
-    phonenumber: '+94771234567',
-  },
-  {
-    img: 'https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-1.jpg',
-    name: 'Laurent Perrier',
-    email: 'laurent@creative-tim.com',
-    batch: 22,
-    org: 'Projects',
-    online: false,
-    phonenumber: '+94771234567',
-  },
-  {
-    img: 'https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-4.jpg',
-    name: 'Michael Levi',
-    email: 'michael@creative-tim.com',
-    batch: 22,
-    org: 'Developer',
-    online: true,
-    phonenumber: '+94771234567',
-  },
-  {
-    img: 'https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-5.jpg',
-    name: 'Richard Gran',
-    email: 'richard@creative-tim.com',
-    batch: 22,
-    org: 'Executive',
-    online: false,
-    phonenumber: '+94771234567',
-  },
-  {
-    img: 'https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-3.jpg',
-    name: 'John Michael',
-    email: 'john@creative-tim.com',
-    batch: 22,
-    org: 'Organization',
-    online: true,
-    phonenumber: '+94771234567',
-  },
-  {
-    img: 'https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-2.jpg',
-    name: 'Alexa Liras',
-    email: 'alexa@creative-tim.com',
-    batch: 22,
-    org: 'Developer',
-    online: false,
-    phonenumber: '+94771234567',
-  },
-  {
-    img: 'https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-1.jpg',
-    name: 'Laurent Perrier',
-    email: 'laurent@creative-tim.com',
-    batch: 22,
-    org: 'Projects',
-    online: false,
-    phonenumber: '+94771234567',
-  },
-  {
-    img: 'https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-4.jpg',
-    name: 'Michael Levi',
-    email: 'michael@creative-tim.com',
-    batch: 22,
-    org: 'Developer',
-    online: true,
-    phonenumber: '+94771234567',
-  },
-  {
-    img: 'https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-5.jpg',
-    name: 'Richard Gran',
-    email: 'richard@creative-tim.com',
-    batch: 22,
-    org: 'Executive',
-    online: false,
-    phonenumber: '+94771234567',
-  },
-];
-
 function StudentsTable() {
+  const [studentList, setStudentList] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchStudents() {
+      try {
+        const response = await axios.get(
+          'http://localhost:8800/api/student/getStudents'
+        );
+        setStudentList(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching students', error);
+        setLoading(false);
+      }
+    }
+    fetchStudents();
+  }, [studentList]);
   return (
     <Card className="h-full w-full mb-5 border border-gray-300 border-t-0 shadow-lg rounded-lg">
       <CardHeader floated={false} shadow={false} className="rounded-none">
@@ -149,7 +75,7 @@ function StudentsTable() {
                     className="flex items-center justify-between gap-2 font-normal leading-none opacity-70"
                   >
                     {head}{' '}
-                    {index == TABLE_HEAD.length - 5 && (
+                    {index == TABLE_HEAD.length - 4 && (
                       <ChevronUpDownIcon strokeWidth={2} className="h-4 w-4" />
                     )}
                   </Typography>
@@ -158,74 +84,62 @@ function StudentsTable() {
             </tr>
           </thead>
           <tbody>
-            {TABLE_ROWS.map(
-              ({ img, name, email, batch, phonenumber }, index) => {
-                const isLast = index === TABLE_ROWS.length - 1;
-                const classes = isLast
-                  ? 'p-4'
-                  : 'p-4 border-b border-blue-gray-50';
+            {studentList.map(({ firstName, regNo, nicNo }, index) => {
+              const isLast = index === studentList.length - 1;
+              const classes = isLast
+                ? 'p-4'
+                : 'p-4 border-b border-blue-gray-50';
 
-                return (
-                  <tr key={name}>
-                    <td className={classes}>
-                      <div className="flex items-center gap-3">
-                        <Avatar src={img} alt={name} size="sm" />
-                        <div className="flex flex-col">
-                          <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="font-normal"
-                          >
-                            {name}
-                          </Typography>
-                        </div>
-                      </div>
-                    </td>
-                    <td className={classes}>
+              return (
+                <tr key={nicNo}>
+                  <td className={classes}>
+                    <div className="flex items-center gap-3">
+                      <Avatar src={''} alt={''} size="sm" />
                       <div className="flex flex-col">
                         <Typography
                           variant="small"
                           color="blue-gray"
                           className="font-normal"
                         >
-                          {batch}
+                          {firstName}
                         </Typography>
                       </div>
-                    </td>
-                    <td className={classes}>
-                      <div className="w-max">
-                        <Typography
-                          variant="small"
-                          color="blue-gray"
-                          className="font-normal"
-                        >
-                          {email}
-                        </Typography>
-                      </div>
-                    </td>
-                    <td className={classes}>
+                    </div>
+                  </td>
+
+                  <td className={classes}>
+                    <div className="w-max">
                       <Typography
                         variant="small"
                         color="blue-gray"
                         className="font-normal"
                       >
-                        {phonenumber}
+                        {regNo}
                       </Typography>
-                    </td>
-                    <td className={classes}>
-                      <Button className="bg-customRed2 border-customRed border-2">
-                        <DeleteForever className="h-4 w-4 text-black" />
-                      </Button>
-                    </td>
-                    <td className={classes}>
-                      <Button className="text-customGreen1 font-bold bg-customGreen3 border-customGreen2 border-2">
-                        See More..
-                      </Button>
-                    </td>
-                  </tr>
-                );
-              }
-            )}
+                    </div>
+                  </td>
+                  <td className={classes}>
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="font-normal"
+                    >
+                      {nicNo}
+                    </Typography>
+                  </td>
+                  <td className={classes}>
+                    <Button className="bg-customRed2 border-customRed border-2">
+                      <DeleteForever className="h-4 w-4 text-black" />
+                    </Button>
+                  </td>
+                  <td className={classes}>
+                    <Button className="text-customGreen1 font-bold bg-customGreen3 border-customGreen2 border-2">
+                      See More..
+                    </Button>
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </CardBody>

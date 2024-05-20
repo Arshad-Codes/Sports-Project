@@ -23,13 +23,12 @@ const Sidebar = ({ isSidebarOpen, onPageChange }) => {
   const handleLogout = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(
-        'http://localhost:8800/api/admin/logout',
-        {withCredentials:true}
-      );
+      const res = await axios.post('http://localhost:8800/api/admin/logout', {
+        withCredentials: true,
+      });
       if (res.status === 200) {
         localStorage.removeItem('currentUser');
-        navigate('/login',{state:{role:'Admin'}});
+        navigate('/login', { state: { role: 'Admin' } });
       }
     } catch (err) {
       setError(err.response.data);
@@ -97,16 +96,16 @@ const Sidebar = ({ isSidebarOpen, onPageChange }) => {
         </button>
         <button
           className={`rounded-lg h-10 p-3 flex flex-row gap-5 items-center ${
-            clickedButton === 'events'
+            clickedButton === 'announcement'
               ? 'bg-customGreen text-white'
               : 'hover:bg-customGreen hover:text-white'
           }`}
-          onClick={() => handlePageClick('events')}
+          onClick={() => handlePageClick('announcement')}
         >
           <FaRegCalendar size={25} />
-          Events
+          Announcement
         </button>
-        <button
+        {/* <button
           className={`rounded-lg h-10 p-3 flex flex-row gap-5 items-center ${
             clickedButton === 'my_account'
               ? 'bg-customGreen text-white'
@@ -116,7 +115,7 @@ const Sidebar = ({ isSidebarOpen, onPageChange }) => {
         >
           <FaUserEdit size={25} />
           My Account
-        </button>
+        </button> */}
         <button>
           <Link
             to="/home"
