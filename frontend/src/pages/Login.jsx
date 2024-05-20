@@ -21,10 +21,14 @@ function Login() {
     try {
       let res;
       if (role === 'Student') {
-        res = await axios.post('http://localhost:8800/api/student/login', {
-          email,
-          password,
-        },{ withCredentials: true });
+        res = await axios.post(
+          'http://localhost:8800/api/student/login',
+          {
+            email,
+            password,
+          },
+          { withCredentials: true }
+        );
       } else if (role === 'Admin') {
         res = await axios.post(
           'http://localhost:8800/api/admin/login',
