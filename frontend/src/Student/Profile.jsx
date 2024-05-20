@@ -22,12 +22,12 @@ const profileMenuItems = [
   {
     label: 'My Profile',
     icon: UserCircleIcon,
-    path: '/my-profile',
+    path: '/myprofile',
   },
   {
     label: 'Enrolled Sports',
     icon: InboxArrowDownIcon,
-    path: '/edit-profile',
+    path: '/enrolled',
   },
   {
     label: 'Email',
