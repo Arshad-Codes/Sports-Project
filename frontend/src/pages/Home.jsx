@@ -92,7 +92,6 @@ function Home() {
 
       <AnnouncementsCom />
       <SportsSlider />
-      <Profile />
       <Button
         onClick={() => (document.location.href = '/sports')}
         variant="text"
