@@ -40,7 +40,7 @@ function Login() {
         );
       } else if (role === 'Sport Coordinator') {
         res = await axios.post(
-          'http://localhost:8800/api/Staff/login',
+          'http://localhost:8800/api/sportscoordinator/logincoordinator',
           {
             email,
             password,
