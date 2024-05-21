@@ -1,13 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Button } from '@material-tailwind/react';
+import { useNavigate } from 'react-router-dom';
 
 const StudentProfile = () => {
+
+  const navigate = useNavigate();
 
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
   if (!currentUser) {
     return <div>Loading...</div>;
   }
+
+    const Handleclick = ()=>{
+      navigate('/myprofile/edit');
+    };
+
 
     // Function to format the date
    const Dateformat = (dateString) => {
@@ -98,6 +107,11 @@ const StudentProfile = () => {
               </dl>
             </div>
           </div>
+          </div>
+          <div>
+            <Button onClick={Handleclick}>
+              Edit Details
+            </Button>
           </div>
           </div>
           </section>
