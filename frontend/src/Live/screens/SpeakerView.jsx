@@ -14,6 +14,7 @@ function SpeakerView() {
         return participant.mode === Constants.modes.CONFERENCE;
       }
     );
+    
     return speakerParticipants;
   }, [participants]);
   return (

@@ -13,17 +13,13 @@ import Footer from '../components/Footer';
 import AboutUs from '../components/AboutUs';
 
 function Home() {
-  const location = useLocation();
-  const [role, setRole] = useState(location.state?.role || '');
+  // const location = useLocation();
+  // const [role, setRole] = useState(location.state?.role || '');
   const { carouselData } = homeData;
-
-  const handleLogout = () => {
-    setRole('');
-  };
 
   return (
     <>
-      <NavBar role={role} />
+      <NavBar />
       <div className="flex flex-col md:flex-row ml-3 mt-5 mr-3">
         {' '}
         <Carousel

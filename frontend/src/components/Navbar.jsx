@@ -237,12 +237,13 @@ function NavList() {
   );
 }
 
-function NavBar({ role }) {
+function NavBar() {
   const [openNav, setOpenNav] = React.useState(false);
   const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
+  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+  const role = currentUser?.role || '';
   const navigate = useNavigate();
   React.useEffect(() => {
-    //console.log({ role });
     window.addEventListener(
       'resize',
       () => window.innerWidth >= 960 && setOpenNav(false)
@@ -262,7 +263,8 @@ function NavBar({ role }) {
   };
 
   const handleLogout = () => {
-    // Redirect to the home page after logout
+    localStorage.removeItem('currentUser');
+    //localStorage.removeItem('token');
     navigate('/');
   };
   return (
@@ -280,12 +282,12 @@ function NavBar({ role }) {
         <div className="hidden lg:block">
           <NavList />
         </div>
-        {role === 'Student' && (
+        {role?.toLowerCase() === 'student' && (
           <div className="hidden lg:flex">
             <Profile logout={handleLogout} />
           </div>
         )}
-        {role !== 'Student' && (
+        {role?.toLowerCase() !== 'student' && (
           <div className="hidden lg:flex">
             <Button
               onClick={openLoginPopup}
@@ -303,9 +305,9 @@ function NavBar({ role }) {
           </div>
         )}
         <div className="flex gap-2 lg:hidden">
-          <div>
+          {/* <div>
             <Profile logout={handleLogout} />
-          </div>
+          </div> */}
           <IconButton
             variant="text"
             color="blue-gray"
@@ -323,7 +325,7 @@ function NavBar({ role }) {
       <Collapse open={openNav}>
         <NavList />
 
-        {role !== 'Student' ? (
+        {role?.toLowerCase() !== 'student' ? (
           <div className="flex w-full flex-nowrap items-center gap-2 lg:hidden">
             <Button
               onClick={openLoginPopup}

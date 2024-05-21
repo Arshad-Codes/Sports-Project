@@ -1,16 +1,18 @@
 import { useState } from 'react';
 
-function JoinScreen({ getMeetingAndToken, setMode }) {
+function HostJoinScreen({ getMeetingAndToken, setMode }) {
   const [meetingId, setMeetingId] = useState(null);
   //Set the mode of joining participant and set the meeting id or generate new one
   const onClick = async (mode) => {
     setMode(mode);
     await getMeetingAndToken(meetingId);
   };
-  
+
   return (
     <div className="container">
-      <button onClick={() => onClick('CONFERENCE')}>Create Meeting</button>
+      <button onClick={() => onClick('CONFERENCE')}>
+        Create Live Streaming
+      </button>
       <br />
       <br />
       {' or '}
@@ -32,4 +34,4 @@ function JoinScreen({ getMeetingAndToken, setMode }) {
   );
 }
 
-export default JoinScreen;
+export default HostJoinScreen;
