@@ -16,13 +16,7 @@ import { DeleteForever } from '@mui/icons-material';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
-const TABLE_HEAD = [
-  'First Name',
-  'Registration No',
-  'NIC',
-  'Delete',
-  'More Details',
-];
+const TABLE_HEAD = ['First Name', 'Registration No', 'NIC', 'Delete'];
 
 function StudentsTable() {
   const [studentList, setStudentList] = useState([]);
@@ -75,7 +69,7 @@ function StudentsTable() {
                     className="flex items-center justify-between gap-2 font-normal leading-none opacity-70"
                   >
                     {head}{' '}
-                    {index == TABLE_HEAD.length - 4 && (
+                    {index == TABLE_HEAD.length - 3 && (
                       <ChevronUpDownIcon strokeWidth={2} className="h-4 w-4" />
                     )}
                   </Typography>
@@ -132,11 +126,11 @@ function StudentsTable() {
                       <DeleteForever className="h-4 w-4 text-black" />
                     </Button>
                   </td>
-                  <td className={classes}>
+                  {/* <td className={classes}>
                     <Button className="text-customGreen1 font-bold bg-customGreen3 border-customGreen2 border-2">
                       See More..
                     </Button>
-                  </td>
+                  </td> */}
                 </tr>
               );
             })}

@@ -7,7 +7,6 @@ function JoinScreen({ getMeetingAndToken, setMode }) {
     setMode(mode);
     await getMeetingAndToken(meetingId);
   };
-  
   return (
     <div className="container">
       <button onClick={() => onClick('CONFERENCE')}>Create Meeting</button>

@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import NavBar from '../components/Navbar';
 import { CustomButton } from '../TailwindCustomComponents/CustomComponents';
 import { useEffect, useState } from 'react';
@@ -8,6 +8,7 @@ function SpecificSport() {
   const { name } = useParams();
   //console.log(name);
   const [sportsData, setSportsData] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchSports() {
@@ -29,10 +30,10 @@ function SpecificSport() {
   }
 
   const handleEnroll = async () => {
-    const currentUser = localStorage.getItem('currentUser');
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     if (!currentUser) {
       return alert('Please login to enroll');
-    }else if(currentUser.role !== 'student'){
+    } else if (currentUser.role !== 'student') {
       return alert('Only students can enroll');
     }
     try {
@@ -42,13 +43,15 @@ function SpecificSport() {
           sportId: sports._id,
           studentId: currentUser._id,
         },
-        { withCredentials: true}
+        { withCredentials: true }
       );
       console.log(response);
+      alert('Enrolled successfully');
+      navigate('/');
     } catch (error) {
       console.error('Error enrolling:', error);
-  }
-}
+    }
+  };
   return (
     <>
       <NavBar />
@@ -83,7 +86,7 @@ function SpecificSport() {
           </div>
         </div>
       </div>
-      <div className="flex justify-center my-20">
+      {/* <div className="flex justify-center my-20">
         <CustomButton
           className="mr-2"
           onClick={() => (window.location.href = "/achievement")}
@@ -91,7 +94,7 @@ function SpecificSport() {
           Achievement
         </CustomButton>
         <CustomButton>Events</CustomButton>
-      </div>
+      </div> */}
     </>
   );
 }

@@ -113,10 +113,10 @@ function Login() {
             className="mt-8 mb-2 w-100 max-w-screen-lg sm:w-50"
           >
             <div className="mb-1 flex flex-col gap-6">
-              {role === 'Student' ? (
+              {role === 'Student' || role === 'Sport Coordinator' ? (
                 <>
                   <Typography variant="h6" color="blue-gray" className="-mb-3">
-                    Student Email
+                    Email
                   </Typography>
                   <Input
                     type="email"

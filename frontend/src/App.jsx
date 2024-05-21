@@ -14,6 +14,8 @@ import Achievement from './Achievementss/Achievement';
 import EmailPage from './Student/EmailPage';
 import ProfilePage from './Student/StudentProfile';
 import LiveMainPage from './Live/LiveMainPage';
+import Live from './Live/Live';
+import LiveCopy from './Live/LiveCopy';
 
 function App() {
   return (
@@ -37,7 +39,9 @@ function App() {
         <Route path="/achievement" element={<Achievement />} />
         <Route path="/email" element={<EmailPage />} />
         <Route path="/myprofile" element={<ProfilePage />} />
-        <Route path="/live" element={<LiveMainPage />} />
+        <Route path="/liveMain" element={<LiveMainPage />} />
+        <Route path="/live" element={<Live />} />
+        <Route path="/liveNew" element={<LiveCopy />} />
       </Routes>
     </BrowserRouter>
   );

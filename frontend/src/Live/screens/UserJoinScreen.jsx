@@ -24,8 +24,8 @@ function UserJoinScreen({ getMeetingAndToken, setMode }) {
       />
       <br />
       <br /> */}
-      <button onClick={() => onClick('CONFERENCE')}>Join as Host</button>
-      {' | '}
+      {/* <button onClick={() => onClick('CONFERENCE')}>Join as Host</button>
+      {' | '} */}
       <button onClick={() => onClick('VIEWER')}>Join as Viewer</button>
     </div>
   );

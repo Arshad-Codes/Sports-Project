@@ -16,13 +16,7 @@ import { DeleteForever } from '@mui/icons-material';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
-const TABLE_HEAD = [
-  'First Name',
-  'Registration No',
-  'NIC',
-  'Delete',
-  'More Details',
-];
+const TABLE_HEAD = ['First Name', 'Registration No', 'NIC', 'Delete'];
 
 function EnrolledStudent() {
   const [studentList, setStudentList] = useState([]);
@@ -132,11 +126,11 @@ function EnrolledStudent() {
                       <DeleteForever className="h-4 w-4 text-black" />
                     </Button>
                   </td>
-                  <td className={classes}>
+                  {/* <td className={classes}>
                     <Button className="text-customGreen1 font-bold bg-customGreen3 border-customGreen2 border-2">
                       See More..
                     </Button>
-                  </td>
+                  </td> */}
                 </tr>
               );
             })}

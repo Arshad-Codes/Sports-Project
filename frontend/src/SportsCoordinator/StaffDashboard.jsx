@@ -9,6 +9,7 @@ import AddStaff from '../Admin/AdminStaff';
 import AdminSport from '../Admin/AdminSport';
 import AdminAnnouncement from '../Admin/AdminAnnouncement';
 import EnrolledStudents from './EnrolledStudents';
+import StaffAnnouncement from './StaffAnnouncement';
 
 function StaffDashboard() {
   const [currentPage, setCurrentPage] = useState('students');
@@ -39,7 +40,7 @@ function StaffDashboard() {
           {/* {currentPage === 'staff_dashboard' && <AddStaff />} */}
           {/* {currentPage === 'sports' && <AdminSport />} */}
           {currentPage === 'students' && <AdminStudent />}
-          {currentPage === 'announcement' && <AdminAnnouncement />}
+          {currentPage === 'announcement' && <StaffAnnouncement />}
           {currentPage === 'enrolled_students' && <EnrolledStudents />}
           {/* {currentPage === 'events' && <Events />} */}
           {/* {currentPage === 'enrolled_student' && <EnrolledStudent />} */}

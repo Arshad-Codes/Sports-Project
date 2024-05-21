@@ -1,5 +1,6 @@
 import sportsCoordinator from '../models/sportsCoordinator.model.js';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 export const createCoordinator = async (req, res) => {
   try {

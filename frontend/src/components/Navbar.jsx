@@ -215,18 +215,18 @@ function NavList() {
       </Typography>
       <Typography
         as="a"
-        href="#"
+        href="/achievement"
         variant="small"
         color="blue-gray"
         className="font-semibold"
       >
         <ListItem className="flex items-center gap-2 py-2 pr-4">
-          Contact
+          Achievements
         </ListItem>
       </Typography>
       <Typography
         as="a"
-        href="/live"
+        href="/liveMain"
         variant="small"
         color="blue-gray"
         className="font-semibold"
