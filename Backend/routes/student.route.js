@@ -19,6 +19,6 @@ router.get('/getStudents', getStudents);
 router.get('/verify/:studentId/:uniqueString', verify);
 router.post('/enroll',enrollToSport);
 router.post('/sendEmail',sendEmail);
-router.get('/getEnrolledSports', getEnrolledSports);
+router.post('/getEnrolledSports', getEnrolledSports);
 
 export default router;

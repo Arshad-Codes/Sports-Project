@@ -267,11 +267,12 @@ export const getEnrolledSports = async (req, res) => {
 export const sendEmail = async (req, res) => {
   try {
     const studentId = req.body.studentId;
+    console.log(req.body);
     const student = await Student.findOne({
       _id: studentId,     
     });
     if(!student) return res.status(404).send('Student not found!');
-    const sportName = req.params.sportName;
+    const sportName = req.body.sportName;
     const sport = await Sport.findOne({
       name: sportName,
     });

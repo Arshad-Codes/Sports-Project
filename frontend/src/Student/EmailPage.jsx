@@ -1,36 +1,28 @@
-import React, { useState,useEffect } from 'react';
-import { 
-  Button, 
-  Card, 
-  CardBody, 
-  Typography 
-} from '@material-tailwind/react';
-import NavBar from '../components/Navbar';
-import DatePicker from '../components/DatePicker';
-import axios from 'axios';  
-
+import React, { useState, useEffect } from "react";
+import { Button, Card, CardBody, Typography } from "@material-tailwind/react";
+import NavBar from "../components/Navbar";
+import DatePicker from "../components/DatePicker";
+import axios from "axios";
 
 function EmailPage() {
-
-  const [role, setRole] = useState(location.state?.role || '');
-  const [currentUser, setCurrentUser] = useState(localStorage.getItem('currentUser') || '');
+  const [role, setRole] = useState(location.state?.role || "");
+  const [currentUser, setCurrentUser] = useState(
+    JSON.parse(localStorage.getItem("currentUser") || "{}")
+  );
   const [selectedOptions, setSelectedOptions] = useState({
-    option: '',
+    option: "",
+    option4: "",
   });
-
-  const [selectedDate, setSelectedDate] = useState('');
+  const [selectedDate, setSelectedDate] = useState("");
   const [sports, setSports] = useState([]);
-
-
 
   useEffect(() => {
     const fetchSports = async () => {
       try {
-        console.log(currentUser);
-        const response = await axios.get(
+        const response = await axios.post(
           "http://localhost:8800/api/student/getEnrolledSports",
           {
-            studentId: currentUser.id,
+            studentId: currentUser._id,
           }
         );
         setSports(response.data);
@@ -40,8 +32,7 @@ function EmailPage() {
     };
 
     fetchSports();
-  }, []);
-
+  }, [currentUser._id]);
 
   const handleOptionChange = (e) => {
     const { name, value } = e.target;
@@ -55,18 +46,33 @@ function EmailPage() {
     setSelectedDate(newDate);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // check the data comes after clicking the submit button
-    console.log('Form submitted:', selectedOptions);
-    console.log('Date: ', selectedDate);
+    try {
+      const res = await axios.post(
+        "http://localhost:8800/api/student/sendEmail",
+        {
+          studentId: currentUser._id,
+          reciever: selectedOptions.option,
+          sportName: selectedOptions.option4,
+          subject: e.target.Subject.value,
+          reason: e.target.Reason.value,
+          date: selectedDate,
+        }
+      );
+      if (res.status === 200) {
+        alert("Your Request sent successfully!");
+      }
+    } catch (error) {
+      console.error("Failed to send email", error);
+    }
 
-
-    //reset
+    // Reset form
     setSelectedOptions({
-      option: ''
+      option: "",
+      option4: "",
     });
-    setSelectedDate('');
+    setSelectedDate("");
   };
 
   return (
@@ -80,7 +86,7 @@ function EmailPage() {
               <select
                 name="option"
                 className="block w-full px-4 py-2 mb-4 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500"
-                value={selectedOptions.option4}
+                value={selectedOptions.option}
                 onChange={handleOptionChange}
               >
                 <option value="Male Hostel Warden">Male Hostel Warden</option>
@@ -91,12 +97,10 @@ function EmailPage() {
 
               <Typography>Sports</Typography>
               <select
-                onChange={(e) =>
-                  setSelectedOptions({
-                    ...selectedOptions,
-                    option4: e.target.value,
-                  })
-                }
+                name="option4"
+                className="block w-full px-4 py-2 mb-4 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500"
+                value={selectedOptions.option4}
+                onChange={handleOptionChange}
               >
                 {sports.map((sport) => (
                   <option key={sport._id} value={sport.name}>
@@ -107,7 +111,7 @@ function EmailPage() {
 
               <Typography>Subject</Typography>
               <input
-                name = "Subject"
+                name="Subject"
                 type="text"
                 className="w-full px-4 py-2 mb-4 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500"
                 placeholder="Subject"
@@ -115,14 +119,16 @@ function EmailPage() {
 
               <Typography>Reason</Typography>
               <textarea
-                name = "Reason"
+                name="Reason"
                 className="w-full h-24 px-4 py-2 mb-4 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500"
                 placeholder="Reason"
-                />
+              />
 
               <Typography>Date</Typography>
-
-              <DatePicker value={selectedDate} onChange={handleDateChange} />
+              <DatePicker
+                value={selectedDate}
+                onChange={handleDateChange}
+              />
 
               <Button type="submit" color="blue">
                 Submit
