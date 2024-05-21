@@ -77,6 +77,7 @@ function Home() {
           </div>
         </div>
       </div>
+      <WhyRuhunaSport />
       <SportsSlider />
 
       {/* <div className="bg-green-300 mt-5">
@@ -91,9 +92,8 @@ function Home() {
       </div> */}
 
       {/* <AnnouncementsCom /> */}
-      <WhyRuhunaSport />
 
-      <UpcomingEvent />
+      {/* <UpcomingEvent /> */}
       <AboutUs />
       <Footer />
     </>

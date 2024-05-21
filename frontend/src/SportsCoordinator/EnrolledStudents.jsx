@@ -16,7 +16,7 @@ import { DeleteForever } from '@mui/icons-material';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
-const TABLE_HEAD = ['First Name', 'Registration No', 'NIC', 'Delete'];
+const TABLE_HEAD = ['First Name', 'Registration No', 'NIC', 'Email'];
 
 function EnrolledStudent() {
   const [studentList, setStudentList] = useState([]);
@@ -78,7 +78,7 @@ function EnrolledStudent() {
             </tr>
           </thead>
           <tbody>
-            {studentList.map(({ firstName, regNo, nicNo }, index) => {
+            {studentList.map(({ firstName, regNo, nicNo, email }, index) => {
               const isLast = index === studentList.length - 1;
               const classes = isLast
                 ? 'p-4'
@@ -122,10 +122,19 @@ function EnrolledStudent() {
                     </Typography>
                   </td>
                   <td className={classes}>
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="font-normal"
+                    >
+                      {email}
+                    </Typography>
+                  </td>
+                  {/* <td className={classes}>
                     <Button className="bg-customRed2 border-customRed border-2">
                       <DeleteForever className="h-4 w-4 text-black" />
                     </Button>
-                  </td>
+                  </td> */}
                   {/* <td className={classes}>
                     <Button className="text-customGreen1 font-bold bg-customGreen3 border-customGreen2 border-2">
                       See More..

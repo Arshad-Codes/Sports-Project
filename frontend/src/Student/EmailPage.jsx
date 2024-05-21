@@ -1,15 +1,9 @@
 import React, { useState } from 'react';
-import { 
-  Button, 
-  Card, 
-  CardBody, 
-  Typography 
-} from '@material-tailwind/react';
+import { Button, Card, CardBody, Typography } from '@material-tailwind/react';
 import NavBar from '../components/Navbar';
 import DatePicker from '../components/DatePicker';
 
 function EmailPage() {
-
   const [role, setRole] = useState(location.state?.role || '');
   const [selectedOptions, setSelectedOptions] = useState({
     option1: '',
@@ -38,7 +32,6 @@ function EmailPage() {
     console.log('Form submitted:', selectedOptions);
     console.log('Date: ', selectedDate);
 
-
     //reset
     setSelectedOptions({
       option1: '',
@@ -56,7 +49,6 @@ function EmailPage() {
         <Card>
           <CardBody>
             <form onSubmit={handleSubmit}>
-
               <Typography>To</Typography>
               <select
                 name="option4"
@@ -109,9 +101,9 @@ function EmailPage() {
                 <option value="Reason 3">Reason 3</option>
               </select>
 
-               <Typography>Date</Typography>
-              
-               <DatePicker value={selectedDate} onChange={handleDateChange} />
+              <Typography>Date</Typography>
+
+              <DatePicker value={selectedDate} onChange={handleDateChange} />
 
               <Button type="submit" color="blue">
                 Submit
