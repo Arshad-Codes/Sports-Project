@@ -29,10 +29,10 @@ function SpecificSport() {
   }
 
   const handleEnroll = async () => {
-    const currentUser = localStorage.getItem('currentUser');
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     if (!currentUser) {
       return alert('Please login to enroll');
-    }else if(currentUser.role !== 'student'){
+    }else if(currentUser.role !== "student"){
       return alert('Only students can enroll');
     }
     try {

@@ -1,5 +1,6 @@
 import sportsCoordinator from "../models/sportsCoordinator.model.js";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 export const createCoordinator = async (req, res) => {
   try {
@@ -84,6 +85,6 @@ export const loginCoordinator = async (req, res) => {
     }
   }
   catch (error) {
-    res.status(500).send("Something went wrong");
+    res.status(500).send(error.message);
   }
 }

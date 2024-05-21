@@ -3,6 +3,7 @@ import {
   createCoordinator,
   deleteCoordinator,
   getCoordinators,
+  loginCoordinator,
 } from '../controllers/sportsCoordinator.controller.js';
 import { verifyTokenAdmin } from '../middleware.js';
 
