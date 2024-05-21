@@ -2,26 +2,42 @@ import React from "react";
 import { Card, Input, Checkbox, Typography } from '@material-tailwind/react';
 import { CustomButton } from "../TailwindCustomComponents/CustomComponents";
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 
 
 const EditProfile = ()=>{
 
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+        //const {id} = useParams();
+        const userID = currentUser._id;
+
         const [userData, setUserData] = useState({
             firstName: '',
             lastName: '',
             dateOfBirth: '',
-            email: '',
             regNo: '',
             nicNo: '',
             achievements: '',
           });
         
+        //   useEffect(() => {
+        //     if (currentUser) {
+        //       setUserData(currentUser);
+        //     }
+        //   }, []); 
+
           useEffect(() => {
-            if (currentUser) {
-              setUserData(currentUser);
-            }
-          }, []); 
+            axios.get(`http://localhost:8800/api/student/${userID}`)
+            .then(response => {
+                setUserData({
+                  ...response.data,
+                });
+                console.log(userID);
+              })
+              .catch(error => console.log(error));
+          }, [userID]);
 
           const handleChange = (event) => {
             const { name, value } = event.target;
@@ -31,9 +47,16 @@ const EditProfile = ()=>{
             });
           };
 
-          const HandleClick = () => {
-            console.log("Submitted");
-          };
+    const HandleClick = (event) => {
+        event.preventDefault();
+        axios.put(`http://localhost:8800/api/student/${userID}`, userData)
+            .then(response => {
+                console.log(response.data);
+                localStorage.setItem('currentUser', JSON.stringify(response.data));
+                alert('Profile Updated');
+            })
+            .catch(error => console.log(error));
+    };
 
     return (
         <div>
@@ -114,20 +137,6 @@ const EditProfile = ()=>{
                     name="regNo"
                     value={userData.regNo}
                     placeholder="EG/YYYY/XXXX"
-                    className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-                    labelProps={{
-                      className: 'before:content-none after:content-none',
-                    }}
-                  />
-                  <Typography variant="h6" color="blue-gray" className="-mb-3">
-                    Student Email
-                  </Typography>
-                  <Input
-                    size="lg"
-                    placeholder="name@engug.ruh.ac.lk"
-                    onChange={handleChange}
-                    name="email"
-                    value={userData.email}
                     className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
                     labelProps={{
                       className: 'before:content-none after:content-none',
