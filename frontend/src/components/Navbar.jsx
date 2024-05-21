@@ -226,14 +226,12 @@ function NavList() {
       </Typography>
       <Typography
         as="a"
-        href="#"
+        href="/live"
         variant="small"
         color="blue-gray"
         className="font-semibold"
       >
-        <ListItem className="flex items-center gap-2 py-2 pr-4">
-          About Us
-        </ListItem>
+        <ListItem className="flex items-center gap-2 py-2 pr-4">Live</ListItem>
       </Typography>
     </List>
   );

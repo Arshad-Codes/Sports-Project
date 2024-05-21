@@ -13,7 +13,7 @@ import StaffDashboard from './SportsCoordinator/StaffDashboard';
 import Achievement from './Achievementss/Achievement';
 import EmailPage from './Student/EmailPage';
 import ProfilePage from './Student/StudentProfile';
-
+import Live from './Live/Live';
 
 function App() {
   return (
@@ -36,7 +36,8 @@ function App() {
         <Route path="/staff/dashboard" element={<StaffDashboard />} />
         <Route path="/achievement" element={<Achievement />} />
         <Route path="/email" element={<EmailPage />} />
-        <Route path="/myprofile" element={<ProfilePage/>}/>
+        <Route path="/myprofile" element={<ProfilePage />} />
+        <Route path="/live" element={<Live />} />
       </Routes>
     </BrowserRouter>
   );

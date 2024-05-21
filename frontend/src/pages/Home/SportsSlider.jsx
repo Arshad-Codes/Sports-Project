@@ -21,7 +21,7 @@ function SportsSlider() {
     fetchSports();
   }, []);
   return (
-    <div className="bg-customGreen mt-5 text-white">
+    <div className="bg-customGreen mt-10 text-white">
       <Typography className="mx-3 pt-2">SPORTS</Typography>
       <CardsWithSeeMore data={sportsData} />
       <div className="py-3 text-right pr-5">
