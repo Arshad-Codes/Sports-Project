@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
-import { Schema } from "mongoose";
+import mongoose from 'mongoose';
+import { Schema } from 'mongoose';
 
 const studentSchema = new Schema(
   {
@@ -38,12 +38,15 @@ const studentSchema = new Schema(
     },
     verified: {
       type: Boolean,
-      default:false,
+      default: false,
     },
-  }, 
+    enrolledSports: {
+      type: [String],
+    },
+  },
   {
     timestamps: true,
   }
 );
 
-export default mongoose.model("Student", studentSchema);
+export default mongoose.model('Student', studentSchema);

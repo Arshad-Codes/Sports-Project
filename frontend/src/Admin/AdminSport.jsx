@@ -1,12 +1,12 @@
 import { CustomButton } from '../TailwindCustomComponents/CustomComponents';
-import { Card, Input, Typography } from '@material-tailwind/react';
+import { Card, Input, Textarea, Typography } from '@material-tailwind/react';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function AdminSport() {
   const [file, setFile] = useState(null);
-  const [error, setError] = useState(null);
   const [user, setUser] = useState({
     name: '',
     description: '',
@@ -15,8 +15,6 @@ function AdminSport() {
   const [previewImageUrl, setPreviewImageUrl] = useState(null);
   const [sportsData, setSportsData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
-
   useEffect(() => {
     async function fetchSports() {
       try {
@@ -31,7 +29,7 @@ function AdminSport() {
       }
     }
     fetchSports();
-  }, []);
+  }, [sportsData]);
   const handleChange = (e) => {
     setUser((prev) => {
       return { ...prev, [e.target.name]: e.target.value };
@@ -53,7 +51,6 @@ function AdminSport() {
 
   const handleCreate = async (e) => {
     e.preventDefault();
-
     const upload = async (file) => {
       const data = new FormData();
       data.append('file', file);
@@ -76,16 +73,16 @@ function AdminSport() {
     const imgUrl = await upload(file);
 
     try {
-      await axios.post('http://localhost:8800/api/sport/createsport', {
-        ...user,
-        imageUrl: imgUrl,
-      });
-
-      // const response = await axios.get(
-      //   'http://localhost:8800/api/sport/getSports'
-      // );
-      // setSportsData(response.data);
-      // //navigate('/');
+      await axios.post(
+        'http://localhost:8800/api/sport/createsport',
+        {
+          ...user,
+          imageUrl: imgUrl,
+        },
+        {
+          withCredentials: true,
+        }
+      );
       setUser({
         name: '',
         description: '',
@@ -93,17 +90,54 @@ function AdminSport() {
       });
       setFile(null);
       setPreviewImageUrl(null);
+      toast.success('Sport added successfully!', {
+        position: 'bottom-right',
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        style: {
+          borderRadius: '8px',
+          boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.1)',
+          padding: '16px',
+          fontSize: '16px',
+        },
+        iconTheme: {
+          primary: '#FFFFFF',
+          secondary: '#4CAF50',
+        },
+      });
     } catch (err) {
       console.log(err);
-      setError(err.response.data);
+      toast.error('Failed to add sport. Please try again', {
+        position: 'bottom-right',
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        style: {
+          borderRadius: '8px',
+          boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.1)',
+          padding: '16px',
+          fontSize: '16px',
+        },
+        iconTheme: {
+          primary: '#FFFFFF',
+          secondary: '#FF5252',
+        },
+      });
     }
   };
 
   return (
     <div>
-      <div className="flex items-center justify-center h-3/4 mt-10 mr-5 ml-5 mb-10">
+      <div className="flex items-center justify-center h-3/4 my-10 mx-5">
         <Card
-          className="flex border border-gray-400 w-96 p-10 mx-auto"
+          className="py-10 px-14 flex w-full mx-auto border border-gray-300 border-t-0 shadow-lg rounded-lg"
           color="transparent"
           shadow={true}
         >
@@ -124,9 +158,9 @@ function AdminSport() {
               </Typography>
               <Input
                 size="lg"
-                placeholder="name of the sport"
-                name="name" // Changed name to 'name'
+                name="name"
                 onChange={handleChange}
+                value={user.name}
                 className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
                 labelProps={{
                   className: 'before:content-none after:content-none',
@@ -137,16 +171,15 @@ function AdminSport() {
               <Typography variant="h6" color="blue-gray" className="-mb-3">
                 Description
               </Typography>
-              <Input
-                size="lg"
-                placeholder="description of the sport"
+              <Textarea
                 name="description"
                 onChange={handleChange}
+                value={user.description}
                 className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
                 labelProps={{
                   className: 'before:content-none after:content-none',
                 }}
-              />
+              ></Textarea>
             </div>
             <div className="mb-1 flex flex-col gap-6">
               <Typography variant="h6" color="blue-gray" className="-mb-3">
@@ -157,6 +190,7 @@ function AdminSport() {
                 name="image"
                 type="file"
                 onChange={handleFileChange}
+                value={user.imageUrl}
                 className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
                 labelProps={{
                   className: 'before:content-none after:content-none',
@@ -171,7 +205,7 @@ function AdminSport() {
               />
             )}
             <CustomButton className="mt-6" fullWidth type="submit">
-              ADD
+              Create Sport
             </CustomButton>
           </form>
         </Card>
@@ -201,6 +235,17 @@ function AdminSport() {
           </div>
         )}
       </div>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={4000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   );
 }

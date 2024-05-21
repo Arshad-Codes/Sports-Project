@@ -55,3 +55,35 @@ export const getCoordinators = async (req, res) => {
     res.status(500).send("Something went wrong");
   }
 };
+
+export const loginCoordinator = async (req, res) => { 
+  try {
+    const { email, password } = req.body;
+    const coordinator = await sportsCoordinator.findOne({ email: email });
+    if (!coordinator) {
+      return res.status(404).send("Coordinator not found!");
+    } else {
+      if (bcrypt.compareSync(password, coordinator.password)) {
+         const webtoken = jwt.sign(
+           {
+             id: coordinator._id,
+           },
+           process.env.TOKEN_KEY
+         );
+
+         const { password, ...info } = coordinator._doc;
+         const info2 = { ...info, role: "sportsCoordinator" };
+         res
+           .cookie("accessTokenCoodinator", webtoken, { httpOnly: true })
+           .status(200)
+           .send(info2);
+      } else {
+        res.status(401).send("Invalid credentials");
+      }
+
+    }
+  }
+  catch (error) {
+    res.status(500).send("Something went wrong");
+  }
+}

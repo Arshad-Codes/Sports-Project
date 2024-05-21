@@ -13,7 +13,7 @@ export const register = async (req, res) => {
     await newAdmin.save();
     res.status(201).send('Admin has been created.');
   } catch (err) {
-    console.error(err);
+    
     res
       .status(500)
       .send('something went wrong. try again with valid username, password ');
@@ -87,3 +87,4 @@ export const updateAdmin = async (req, res) => {
     res.status(500).send('Something went wrong');
   }
 };
+

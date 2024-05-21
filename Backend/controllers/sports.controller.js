@@ -1,4 +1,4 @@
-import { Sports } from '../models/sports.model.js';
+import Sport from '../models/sports.model.js';
 
 export const createsport = async (req, res) => {
   try {
@@ -20,7 +20,7 @@ export const createsport = async (req, res) => {
 
 export const getSports = async (req, res) => {
   try {
-    const sports_list = await Sports.find({});
+    const sports_list = await Sport.find({});
     res.status(200).send(sports_list);
   } catch (error) {
     res.status(500).send('Something went wrong');
