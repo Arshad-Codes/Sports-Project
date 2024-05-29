@@ -7,6 +7,7 @@ import AdminSport from './AdminSport';
 import MyAccount from './MyAccount';
 import { useNavigate } from 'react-router-dom';
 import AdminAnnouncement from './AdminAnnouncement';
+import AdminApprove from './AdminApprove';
 
 function AdminDashBoard() {
   const [currentPage, setCurrentPage] = useState('sports');
@@ -48,6 +49,7 @@ function AdminDashBoard() {
           {currentPage === 'students' && <StudentsPage />}
           {currentPage === 'announcement' && <AdminAnnouncement />}
           {currentPage === 'my_account' && <MyAccount />}
+          {currentPage === 'adminapprove'  && <AdminApprove/>}
         </main>
       </div>
     </div>
