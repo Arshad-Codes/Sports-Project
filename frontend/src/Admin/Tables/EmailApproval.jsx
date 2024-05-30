@@ -1,6 +1,8 @@
 import React from "react";
 import {
   MagnifyingGlassIcon,
+  CheckIcon,
+  XMarkIcon,
 } from '@heroicons/react/24/outline';
 import {
   Card,
@@ -19,6 +21,14 @@ const emails = [
 ];
 
 function EmailApproval() {
+  const handleApprove = (id) => {
+    console.log(`Email ${id} approved.`);
+  };
+
+  const handleDisapprove = (id) => {
+    console.log(`Email ${id} disapproved.`);
+  };
+
   return (
     <Card className="h-full w-full mb-5 border border-gray-300 border-t-0 shadow-lg rounded-lg">
       <CardHeader floated={false} shadow={false} className="rounded-none">
@@ -41,6 +51,7 @@ function EmailApproval() {
               <th className="border-b border-blue-gray-100 p-4 pb-3 text-left">Sender</th>
               <th className="border-b border-blue-gray-100 p-4 pb-3 text-left">Subject</th>
               <th className="border-b border-blue-gray-100 p-4 pb-3 text-left">Date</th>
+              <th className="border-b border-blue-gray-100 p-4 pb-3 text-left">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -49,6 +60,16 @@ function EmailApproval() {
                 <td className="border-b border-blue-gray-50 p-4">{email.sender}</td>
                 <td className="border-b border-blue-gray-50 p-4">{email.subject}</td>
                 <td className="border-b border-blue-gray-50 p-4">{email.date}</td>
+                <td className="border-b border-blue-gray-50 p-4">
+                  <div className="flex space-x-2">
+                    <Button color="green" size="sm" onClick={() => handleApprove(email.id)}>
+                      <CheckIcon className="h-5 w-5" />
+                    </Button>
+                    <Button color="red" size="sm" onClick={() => handleDisapprove(email.id)}>
+                      <XMarkIcon className="h-5 w-5" />
+                    </Button>
+                  </div>
+                </td>
               </tr>
             ))}
           </tbody>
