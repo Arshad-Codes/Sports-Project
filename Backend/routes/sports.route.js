@@ -12,6 +12,6 @@ const router = express.Router();
 // cloudinary media librayla you can see tha uploded picture
 router.post('/createsport', verifyTokenAdmin, createsport);
 router.get('/getSports', getSports);
-router.delete('/deleteSport/:email', verifyTokenAdmin, deleteSport);
+router.delete('/deleteSport/:id', verifyTokenAdmin, deleteSport);
 
 export default router;

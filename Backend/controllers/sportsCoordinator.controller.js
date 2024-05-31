@@ -36,8 +36,8 @@ export const deleteCoordinator = async (req, res) => {
   try {
     if (req.role !== 'admin')
       return res.status(403).send('Unautorized Access. You are not a admin');
-    const coordinator = await sportsCoordinator.findOneAndDelete(
-      {email: req.params.email},
+    const coordinator = await sportsCoordinator.findByIdAndDelete(
+      req.params.id
     );
     if (!coordinator) {
       return res.status(404).json({ message: 'Coordinator not found' });
