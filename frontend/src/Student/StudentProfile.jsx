@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Button } from '@material-tailwind/react';
 import { useNavigate } from 'react-router-dom';
+import { FaUserEdit } from "react-icons/fa";
 
 const StudentProfile = () => {
 
@@ -29,10 +30,21 @@ const StudentProfile = () => {
       return `${year}-${month}-${day}`;
     };
   return (
-    <section>
+    <section className="relative">
+      {/* Edit Button */}
+      <div className="absolute top-4 right-4">
+        <button
+          type="button"
+          className="text-black hover:text-blue-700 transition-colors"
+          onClick={Handleclick}
+        >
+          <FaUserEdit className="w-10 h-10"/>
+        </button>
+      </div>
+
       {/* Cover Image */}
       <img
-        src="https://wallpapercave.com/wp/wp4041617.jpg"
+        src="https://img.freepik.com/premium-photo/sport-collage-professional-athletes-players-isolated-white-wall-flyer_489646-1099.jpg?w=2000"
         alt="User Cover"
         className="w-full xl:h-[20rem] lg:h-[18rem] md:h-[16rem] sm:h-[14rem] xs:h-[11rem]"
       />
@@ -109,9 +121,6 @@ const StudentProfile = () => {
           </div>
           </div>
           <div>
-            <Button onClick={Handleclick}>
-              Edit Details
-            </Button>
           </div>
           </div>
           </section>

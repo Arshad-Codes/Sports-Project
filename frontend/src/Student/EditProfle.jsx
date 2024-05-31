@@ -9,24 +9,17 @@ import axios from "axios";
 const EditProfile = ()=>{
 
         const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-
         //const {id} = useParams();
         const userID = currentUser._id;
 
         const [userData, setUserData] = useState({
             firstName: '',
             lastName: '',
-            dateOfBirth: '',
+            dateofBirth: '',
             regNo: '',
             nicNo: '',
             achievements: '',
           });
-        
-        //   useEffect(() => {
-        //     if (currentUser) {
-        //       setUserData(currentUser);
-        //     }
-        //   }, []); 
 
           useEffect(() => {
             axios.get(`http://localhost:8800/api/student/${userID}`)
@@ -151,7 +144,7 @@ const EditProfile = ()=>{
                     type="date"
                     onChange={handleChange}
                     name="dateofBirth"
-                    value={userData.dateOfBirth}
+                    value={userData.dateofBirth}
                     className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
                     labelProps={{
                       className: 'before:content-none after:content-none',
