@@ -15,6 +15,7 @@ import {
 import { DeleteForever } from '@mui/icons-material';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { toast, ToastContainer } from "react-toastify";
 
 const TABLE_HEAD = [
   'First Name',
@@ -43,6 +44,43 @@ function StudentsTable() {
     }
     fetchStudents();
   }, [studentList]);
+
+const handleDelete = (email) => async () => {
+    try {
+       await axios.delete(
+        `http://localhost:8800/api/student/deleteStudent/${email}`
+        , {
+          withCredentials: true,
+        }
+      );
+      toast.success('Student Deleted successfully!', {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        style: {
+          borderRadius: '8px',
+          boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.1)',
+          padding: '16px',
+          fontSize: '16px',
+        },
+        iconTheme: {
+          primary: '#FFFFFF',
+          secondary: '#4CAF50',
+        },
+      });
+
+      
+      
+      
+    } catch (error) {
+      console.error('Error deleting student', error);
+    }
+  };
+
   return (
     <Card className="h-full w-full mb-5 border border-gray-300 border-t-0 shadow-lg rounded-lg">
       <CardHeader floated={false} shadow={false} className="rounded-none">
@@ -84,7 +122,7 @@ function StudentsTable() {
             </tr>
           </thead>
           <tbody>
-            {studentList.map(({ firstName, regNo, nicNo }, index) => {
+            {studentList.map(({ firstName, email, regNo, nicNo }, index) => {
               const isLast = index === studentList.length - 1;
               const classes = isLast
                 ? 'p-4'
@@ -128,7 +166,7 @@ function StudentsTable() {
                     </Typography>
                   </td>
                   <td className={classes}>
-                    <Button className="bg-customRed2 border-customRed border-2">
+                    <Button onClick={handleDelete(email)} className="bg-customRed2 border-customRed border-2">
                       <DeleteForever className="h-4 w-4 text-black" />
                     </Button>
                   </td>

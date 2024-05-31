@@ -7,8 +7,10 @@ import {
   getStudents,
   enrollToSport,
   sendEmail,
-  getEnrolledSports
+  getEnrolledSports,
+  deleteStudent,
 } from '../controllers/student.controller.js';
+import { verifyTokenAdmin } from "../middleware.js";
 
 const router = express.Router();
 
@@ -20,5 +22,6 @@ router.get('/verify/:studentId/:uniqueString', verify);
 router.post('/enroll',enrollToSport);
 router.post('/sendEmail',sendEmail);
 router.post('/getEnrolledSports', getEnrolledSports);
+router.delete('/deleteStudent/:email',verifyTokenAdmin, deleteStudent);
 
 export default router;

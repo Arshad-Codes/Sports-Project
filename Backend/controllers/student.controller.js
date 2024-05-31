@@ -293,3 +293,22 @@ export const sendEmail = async (req, res) => {
     res.status(500).send('Something went wrong');
   }
 }
+
+export const deleteStudent = async (req, res) => {
+  try {
+    const studentemail = req.params.email;
+    const student = await Student.findOne({
+      email: studentemail,
+    });
+    if (!student) {
+      return res.status(404).send('Student not found!');
+    }
+    await Student.deleteOne({ email: studentemail });
+    res.status(200).send('Student deleted successfully');
+  }
+  catch (error) {
+    res.status(500).send('Something went wrong');
+  }
+}
+
+    
