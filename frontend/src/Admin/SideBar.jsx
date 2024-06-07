@@ -106,6 +106,20 @@ const Sidebar = ({ isSidebarOpen, onPageChange }) => {
           <FaRegCalendar size={25} />
           Announcement
         </button>
+
+
+        <button
+          className={`rounded-lg h-10 p-3 flex flex-row gap-5 items-center ${
+            clickedButton === 'adminaddteams'
+              ? 'bg-customGreen text-white'
+              : 'hover:bg-customGreen hover:text-white'
+          }`}
+          onClick={() => handlePageClick('adminaddteams')}
+        >
+          <FaRegCalendar size={25} />
+          Add Teams
+        </button>
+
         {/* <button
           className={`rounded-lg h-10 p-3 flex flex-row gap-5 items-center ${
             clickedButton === 'my_account'
