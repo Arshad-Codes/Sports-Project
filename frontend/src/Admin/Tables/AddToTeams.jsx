@@ -28,7 +28,7 @@ import {
     const [sportsData, setSportsData] = useState([]);
     const [selectedSport, setSelectedSport] = useState(null);
     const [selectedStudent, setSelectedStudent] = useState(null);
-    const [teams, setTeams] = useState([]);
+    const [teams, setTeams] = useState({});
   
     useEffect(() => {
       async function fetchStudents() {
@@ -72,7 +72,14 @@ import {
   
     const handleAddToTeam = () => {
       if (selectedStudent && selectedSport) {
-        setTeams([...teams, { ...selectedStudent, sport: selectedSport }]);
+        setTeams((prevTeams) => {
+          const newTeams = { ...prevTeams };
+          if (!newTeams[selectedSport]) {
+            newTeams[selectedSport] = [];
+          }
+          newTeams[selectedSport].push(selectedStudent);
+          return newTeams;
+        });
         setSelectedStudent(null);
         setSelectedSport(null);
       }
@@ -216,70 +223,54 @@ import {
           </div>
         )}
   
-        <Card className="h-full w-full mb-5 border border-gray-300 border-t-0 shadow-lg rounded-lg">
-          <CardHeader floated={false} shadow={false} className="rounded-none">
-            <Typography variant="h5" color="blue-gray">
-              Teams
-            </Typography>
-          </CardHeader>
-          <CardBody className="overflow-scroll mt-3 pl-0 pr-3 pb-3 pt-0">
-            <table className="mt-2 w-full min-w-max table-auto text-left">
-              <thead>
-                <tr>
-                  <th className="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50">
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="flex items-center justify-between gap-2 font-normal leading-none opacity-70"
-                    >
-                      Student Name
-                    </Typography>
-                  </th>
-                  <th className="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50">
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="flex items-center justify-between gap-2 font-normal leading-none opacity-70"
-                    >
-                      Sport
-                    </Typography>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {teams.map((team, index) => {
-                  const isLast = index === teams.length - 1;
-                  const classes = isLast
-                    ? 'p-4'
-                    : 'p-4 border-b border-blue-gray-50';
+        {Object.keys(teams).map((sport) => (
+          <Card key={sport} className="h-full w-full mb-5 border border-gray-300 border-t-0 shadow-lg rounded-lg">
+            <CardHeader floated={false} shadow={false} className="rounded-none">
+              <Typography variant="h5" color="blue-gray">
+                {sport} Team
+              </Typography>
+            </CardHeader>
+            <CardBody className="overflow-scroll mt-3 pl-0 pr-3 pb-3 pt-0">
+              <table className="mt-2 w-full min-w-max table-auto text-left">
+                <thead>
+                  <tr>
+                    <th className="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50">
+                      <Typography
+                        variant="small"
+                        color="blue-gray"
+                        className="flex items-center justify-between gap-2 font-normal leading-none opacity-70"
+                      >
+                        Student Name
+                      </Typography>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {teams[sport].map((student, index) => {
+                    const isLast = index === teams[sport].length - 1;
+                    const classes = isLast
+                      ? 'p-4'
+                      : 'p-4 border-b border-blue-gray-50';
   
-                  return (
-                    <tr key={index}>
-                      <td className={classes}>
-                        <Typography
-                          variant="small"
-                          color="blue-gray"
-                          className="font-normal"
-                        >
-                          {team.firstName}
-                        </Typography>
-                      </td>
-                      <td className={classes}>
-                        <Typography
-                          variant="small"
-                          color="blue-gray"
-                          className="font-normal"
-                        >
-                          {team.sport}
-                        </Typography>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </CardBody>
-        </Card>
+                    return (
+                      <tr key={student.nicNo}>
+                        <td className={classes}>
+                          <Typography
+                            variant="small"
+                            color="blue-gray"
+                            className="font-normal"
+                          >
+                            {student.firstName}
+                          </Typography>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </CardBody>
+          </Card>
+        ))}
       </div>
     );
   }
