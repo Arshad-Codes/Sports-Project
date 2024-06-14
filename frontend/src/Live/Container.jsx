@@ -5,28 +5,22 @@ import SpeakerView from './screens/SpeakerView';
 
 function Container(props) {
   const [joined, setJoined] = useState(null);
-  //Get the method which will be used to join the meeting.
   const { join } = useMeeting();
   const mMeeting = useMeeting({
-    //callback for when a meeting is joined successfully
     onMeetingJoined: () => {
       if (mMeetingRef.current.localParticipant.mode === 'CONFERENCE') {
         mMeetingRef.current.localParticipant.pin();
       }
       setJoined('JOINED');
     },
-    //callback for when a meeting is left
     onMeetingLeft: () => {
       props.onMeetingLeave();
     },
-    //callback for when there is an error in a meeting
     onError: (error) => {
       alert(error.message);
     },
   });
 
-  //Create a ref to meeting object so that when used inside the
-  //Callback functions, meeting state is maintained
   const mMeetingRef = useRef(mMeeting);
   useEffect(() => {
     mMeetingRef.current = mMeeting;

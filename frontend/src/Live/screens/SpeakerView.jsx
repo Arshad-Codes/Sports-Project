@@ -4,10 +4,8 @@ import Controls from '../Controls';
 import ParticipantView from './ParticipantView';
 
 function SpeakerView() {
-  //Get the participants and HLS State from useMeeting
   const { participants, hlsState } = useMeeting();
 
-  //Filtering the host/speakers from all the participants
   const speakers = useMemo(() => {
     const speakerParticipants = [...participants.values()].filter(
       (participant) => {
@@ -20,10 +18,8 @@ function SpeakerView() {
   return (
     <div>
       <p>Current HLS State: {hlsState}</p>
-      {/* Controls for the meeting */}
       <Controls />
 
-      {/* Rendring all the HOST participants */}
       {speakers.map((participant) => (
         <ParticipantView participantId={participant.id} key={participant.id} />
       ))}

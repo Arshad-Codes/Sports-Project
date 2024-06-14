@@ -11,8 +11,6 @@ function Controls() {
       &emsp;|&emsp;
       <button
         onClick={() => {
-          //Start the HLS in SPOTLIGHT mode and PIN as
-          //priority so only speakers are visible in the HLS stream
           startHls({
             layout: {
               type: 'SPOTLIGHT',

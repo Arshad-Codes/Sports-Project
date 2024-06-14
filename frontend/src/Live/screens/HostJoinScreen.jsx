@@ -2,7 +2,6 @@ import { useState } from 'react';
 
 function HostJoinScreen({ getMeetingAndToken, setMode }) {
   const [meetingId, setMeetingId] = useState(null);
-  //Set the mode of joining participant and set the meeting id or generate new one
   const onClick = async (mode) => {
     setMode(mode);
     await getMeetingAndToken(meetingId);
