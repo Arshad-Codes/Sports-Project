@@ -7,7 +7,9 @@ import {
   FaUserAlt,
   FaRegCalendar,
   FaUserEdit,
-  FaMailBulk
+  FaMailBulk,
+  FaPeopleArrows
+  
 } from 'react-icons/fa';
 import { useState } from 'react';
 import axios from 'axios';
@@ -116,7 +118,7 @@ const Sidebar = ({ isSidebarOpen, onPageChange }) => {
           }`}
           onClick={() => handlePageClick('adminaddteams')}
         >
-          <FaRegCalendar size={25} />
+          <FaPeopleArrows size={25} />
           Add Teams
         </button>
 
