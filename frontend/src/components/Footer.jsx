@@ -19,7 +19,9 @@ const Footer = () => {
         <p className="text-gray-900 mt-4">
           &copy; {new Date().getFullYear()} RuhunaSports. All rights reserved.
         </p>
-        <p className="text-gray-900">Ruhuna University, Matara, Sri Lanka.</p>
+        <p className="text-gray-900">
+          Faculty of Engineering, University of Ruhuna, Galle, Sri Lanka.
+        </p>
       </div>
     </footer>
   );

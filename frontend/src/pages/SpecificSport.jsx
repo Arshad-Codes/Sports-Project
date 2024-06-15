@@ -24,11 +24,6 @@ function SpecificSport() {
     fetchSports();
   }, []);
 
-  const sports = sportsData.find((sport) => sport.name.trim() === name.trim());
-  if (!sports) {
-    return <div>Loading....</div>;
-  }
-
   const handleEnroll = async () => {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     if (!currentUser) {
@@ -52,41 +47,53 @@ function SpecificSport() {
       console.error('Error enrolling:', error);
     }
   };
-  return (
-    <>
-      <NavBar />
-      <div>
-        <div className="mt-5 bg-customGreen">
-          <h1 className="text-white p-2 text-2xl">{sports.name}</h1>
+
+  const sports = sportsData.find((sport) => sport.name.trim() === name.trim());
+  if (!sports) {
+    return (
+      <>
+        <NavBar />
+        <div>
+          <h1>Loading....</h1>
         </div>
-        <div className="flex flex-row mt-5 bg-blue-gray-100">
-          <div className="basis-1/4">
-            <img
-              className="h-96 w-full"
-              src={sports.imageUrl}
-              alt={sports.name}
-            />
+      </>
+    );
+  } else {
+    return (
+      <>
+        <NavBar />
+        <div>
+          <div className="mt-5 bg-customGreen">
+            <h1 className="text-white p-2 text-2xl">{sports.name}</h1>
           </div>
-          <div className="basis-3/4 flex items-center justify-center">
-            <div className="text-center">
-              <h1 className="p-10 font-medium">{sports.description}</h1>
-              <CustomButton onClick={handleEnroll} className="mt-5 w-36">
-                Enrol
-              </CustomButton>
+          <div className="flex flex-row mt-5 bg-blue-gray-100">
+            <div className="basis-1/4">
+              <img
+                className="h-96 w-full"
+                src={sports.imageUrl}
+                alt={sports.name}
+              />
+            </div>
+            <div className="basis-3/4 flex items-center justify-center">
+              <div className="text-center">
+                <h1 className="p-10 font-medium">{sports.description}</h1>
+                <CustomButton onClick={handleEnroll} className="mt-5 w-36">
+                  Enrol
+                </CustomButton>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div className="bg-customGreen mt-10">
-        <h1 className="text-white">Faculty Team</h1>
-        <div>
-          <div className="grid grid-cols-2">
-            <h1>Hiii</h1>
-            <h1>Hiii</h1>
+        <div className="bg-customGreen mt-10">
+          <h1 className="text-white">Faculty Team</h1>
+          <div>
+            <div className="grid grid-cols-2">
+              <h1>Hiii</h1>
+              <h1>Hiii</h1>
+            </div>
           </div>
         </div>
-      </div>
-      {/* <div className="flex justify-center my-20">
+        {/* <div className="flex justify-center my-20">
         <CustomButton
           className="mr-2"
           onClick={() => (window.location.href = "/achievement")}
@@ -95,8 +102,9 @@ function SpecificSport() {
         </CustomButton>
         <CustomButton>Events</CustomButton>
       </div> */}
-    </>
-  );
+      </>
+    );
+  }
 }
 
 export default SpecificSport;

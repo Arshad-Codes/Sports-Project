@@ -23,12 +23,9 @@ import {
   SportsBasketball as BasketballIcon,
   SportsVolleyball as VolleyballIcon,
   Pool as PoolIcon,
-  SportsKabaddi as KabaddiIcon,
   SportsBaseball as BaseballIcon,
   SportsHockey as HockeyIcon,
-  SportsRugby as RugbyIcon,
   SportsTennis as TennisIcon,
-  SportsMartialArts as MartialArtsIcon,
 } from '@mui/icons-material';
 import { styled } from '@mui/system';
 import LoginPopup from '../pages/Home/LoginPopup';
@@ -60,22 +57,16 @@ const navSportList = [
     icon: BasketballIcon,
   },
   {
-    title: 'Volleyball',
-    slag: 'Volleyball',
-    description: 'Bump, set, spike!',
-    icon: VolleyballIcon,
-  },
-  {
-    title: 'Pool',
-    slag: 'Pool',
+    title: 'Swimming',
+    slag: 'Swimming',
     description: 'Dive in and make a splash.',
     icon: PoolIcon,
   },
   {
-    title: 'Kabaddi',
-    slag: 'Kabaddi',
-    description: 'Experience the thrill and strategy of Kabaddi.',
-    icon: KabaddiIcon,
+    title: 'Volleyball',
+    slag: 'Volleyball',
+    description: 'Bump, set, spike!',
+    icon: VolleyballIcon,
   },
   {
     title: 'Baseball',
@@ -90,22 +81,17 @@ const navSportList = [
     icon: HockeyIcon,
   },
   {
-    title: 'Rugby',
-    slag: 'Rugby',
-    description: 'Hard-hitting rugby action.',
-    icon: RugbyIcon,
-  },
-  {
     title: 'Tennis',
     slag: 'Tennis',
     description: 'Grab your racket and hit the court.',
     icon: TennisIcon,
   },
+
   {
-    title: 'Martial Arts',
-    slag: 'Martial Arts',
-    description: 'Discipline and skill in martial arts.',
-    icon: MartialArtsIcon,
+    title: 'See More',
+    slag: '',
+    description: '',
+    icon: Bars3Icon,
   },
 ];
 

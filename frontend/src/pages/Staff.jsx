@@ -8,6 +8,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import profile from '../assests/Profile.jpg';
 
 function Staff() {
   //const { staffs } = sportCoordinatorsData;
@@ -21,7 +22,7 @@ function Staff() {
           'http://localhost:8800/api/sportscoordinator/getcoordinators'
         );
         setStaffList(response.data);
-        console.log(staffList);
+        // console.log(staffList);
         setLoading(false);
       } catch (error) {
         console.error('Error fetching sports:', error);
@@ -46,9 +47,16 @@ function Staff() {
               onClick={() => handleStaffClick(item.position)}
             >
               <CardHeader color="transparent" className="m-0">
+                {item.urls && (
+                  <img
+                    className="w-full h-64 object-cover"
+                    src={item.urls}
+                    alt={item.fullName}
+                  />
+                )}
                 <img
                   className="w-full h-64 object-cover"
-                  src={item.urls}
+                  src={profile}
                   alt={item.fullName}
                 />
               </CardHeader>

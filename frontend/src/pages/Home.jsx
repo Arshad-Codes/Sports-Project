@@ -1,13 +1,8 @@
-import { Button, Carousel } from '@material-tailwind/react';
+import { Carousel } from '@material-tailwind/react';
 import NavBar from '../components/Navbar';
 import { homeData } from '../data';
-import AnnouncementsCom from '../components/AnnouncemetsCom';
-import UpcomingEvent from './Home/UpcomingEvent';
 import SportsSlider from './Home/SportsSlider';
 import Typewriter from 'typewriter-effect';
-import { useLocation } from 'react-router-dom';
-import { useState } from 'react';
-import Profile from '../Student/Profile';
 import WhyRuhunaSport from '../components/WhyRuhunaSport';
 import Footer from '../components/Footer';
 import AboutUs from '../components/AboutUs';
