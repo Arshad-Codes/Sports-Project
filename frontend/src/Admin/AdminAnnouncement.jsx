@@ -195,12 +195,24 @@ function AdminAnnouncement() {
                   </h3>
                   <p className="text-gray-600">{announcement.content}</p>
                 </div>
-                <Button color="green" size="sm" onClick={() => handleEdit()}>
-                      <Edit className="h-5 w-5" />
-                    </Button>
-                    <Button color="red" size="sm" onClick={() => handleDelete()}>
-                      <DeleteForever className="h-5 w-5" />
-                </Button>
+           <div className="flex items-center space-x-2 p-4">
+              <Button 
+                color="green" 
+                size="sm" 
+                className="!min-h-[30px] !py-1 !px-3 flex items-center justify-center"
+                onClick={handleEdit}
+              >
+                <Edit className="h-4 w-4" />
+              </Button>
+              <Button 
+                color="red" 
+                size="sm" 
+                className="!min-h-[30px] !py-1 !px-3 flex items-center justify-center"
+                onClick={handleDelete}
+              >
+                <DeleteForever className="h-4 w-4" />
+              </Button>
+            </div>
               </div>
             ))}
           </div>
