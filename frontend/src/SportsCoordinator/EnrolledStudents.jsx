@@ -18,7 +18,7 @@ import { useEffect, useState } from 'react';
 
 const TABLE_HEAD = ['First Name', 'Registration No', 'NIC', 'Email'];
 
-function StudentsTable() {
+function EnrolledStudent() {
   const [studentList, setStudentList] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -26,7 +26,7 @@ function StudentsTable() {
     async function fetchStudents() {
       try {
         const response = await axios.get(
-          'https://ruhunasports.onrender.com/api/student/getStudents'
+          'http://localhost:8800/api/student/getStudents'
         );
         setStudentList(response.data);
         setLoading(false);
@@ -69,7 +69,7 @@ function StudentsTable() {
                     className="flex items-center justify-between gap-2 font-normal leading-none opacity-70"
                   >
                     {head}{' '}
-                    {index == TABLE_HEAD.length - 3 && (
+                    {index == TABLE_HEAD.length - 4 && (
                       <ChevronUpDownIcon strokeWidth={2} className="h-4 w-4" />
                     )}
                   </Typography>
@@ -162,4 +162,4 @@ function StudentsTable() {
     </Card>
   );
 }
-export default StudentsTable;
+export default EnrolledStudent;

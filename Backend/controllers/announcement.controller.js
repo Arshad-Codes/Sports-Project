@@ -17,9 +17,10 @@ export const createAnnouncement = async (req, res) => {
 };
 
 export const getAnnouncementsforSport = async (req, res) => {
+  //console.log(req.body);
   try {
     const announcement_list = await Announcement.find({
-      sport: req.params.sportId,
+      sport: req.params.sport,
     });
     res.status(200).send(announcement_list);
   } catch (error) {

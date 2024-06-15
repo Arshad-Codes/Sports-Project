@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   FaUserGraduate,
   FaSignOutAlt,
@@ -12,11 +12,18 @@ import {
 import { useState } from 'react';
 
 const StaffSidebar = ({ isSidebarOpen, onPageChange }) => {
-  const [clickedButton, setClickedButton] = useState('staffs');
+  const [clickedButton, setClickedButton] = useState('students');
+  const navigate = useNavigate();
   const [showAnnouncementButtons, setShowAnnouncementButtons] = useState(false);
   const handlePageClick = (page) => {
     onPageChange(page);
     setClickedButton(page);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('currentUser');
+    //localStorage.removeItem('token');
+    navigate('/');
   };
 
   return (
@@ -46,7 +53,7 @@ const StaffSidebar = ({ isSidebarOpen, onPageChange }) => {
           <FaTachometerAlt size={25} />
           Dashboard
         </button> */}
-        <button
+        {/* <button
           className={`rounded-lg h-10 p-3 flex flex-row gap-5 items-center ${
             clickedButton === 'sports'
               ? 'bg-customGreen text-white'
@@ -56,8 +63,8 @@ const StaffSidebar = ({ isSidebarOpen, onPageChange }) => {
         >
           <FaFutbol size={25} />
           Sports
-        </button>
-        <button
+        </button> */}
+        {/* <button
           className={`rounded-lg h-10 p-3 mb-3 flex flex-row gap-5 items-center ${
             clickedButton === 'announcement'
               ? 'bg-customGreen text-white'
@@ -67,7 +74,7 @@ const StaffSidebar = ({ isSidebarOpen, onPageChange }) => {
         >
           <FaBullhorn size={25} />
           Announcement
-        </button>
+        </button> */}
         {showAnnouncementButtons && (
           <>
             {/* Enrolled Students button */}
@@ -108,29 +115,30 @@ const StaffSidebar = ({ isSidebarOpen, onPageChange }) => {
         </button>
         <button
           className={`rounded-lg h-10 p-3 flex flex-row gap-5 items-center ${
-            clickedButton === 'events'
+            clickedButton === 'announcement'
               ? 'bg-customGreen text-white'
               : 'hover:bg-customGreen hover:text-white'
           }`}
-          onClick={() => handlePageClick('events')}
+          onClick={() => handlePageClick('announcement')}
         >
           <FaRegCalendar size={25} />
-          Events
+          Announcement
         </button>
         <button
           className={`rounded-lg h-10 p-3 flex flex-row gap-5 items-center ${
-            clickedButton === 'my_account'
+            clickedButton === 'enrolled_students'
               ? 'bg-customGreen text-white'
               : 'hover:bg-customGreen hover:text-white'
           }`}
-          onClick={() => handlePageClick('my_account')}
+          onClick={() => handlePageClick('enrolled_students')}
         >
           <FaUserEdit size={25} />
-          My Account
+          Enrolled Students
         </button>
         <button>
           <Link
-            to="/home"
+            to="/"
+            onClick={handleLogout}
             className="rounded-lg h-10 p-3 flex flex-row gap-5 items-center hover:bg-customGreen hover:text-white"
           >
             <FaSignOutAlt size={25} />

@@ -1,3 +1,4 @@
+import { Typography } from '@material-tailwind/react';
 import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -50,7 +51,7 @@ function CardsWithSeeMore({ data }) {
           <div className="flex flex-nowrap">
             {data.map((item, index) => (
               <div key={index} className="inline-block pr-10">
-                <Link>
+                <Link to={`/sports/${item.name}`}>
                   <div className="w-64 h-64 max-w-xs overflow-hidden rounded-lg rounded-b-none shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out">
                     <img
                       className="w-full h-64"
@@ -59,8 +60,10 @@ function CardsWithSeeMore({ data }) {
                     />
                   </div>
                   <div>
-                    <div className="h-10 bg-white text-black text-start rounded-b-lg">
-                      {item.name}
+                    <div className="flex items-center justify-center h-10 bg-white text-black text-center rounded-b-lg">
+                      <Typography className="font-semibold text-lg">
+                        {item.name}
+                      </Typography>
                     </div>
                   </div>
                 </Link>

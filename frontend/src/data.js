@@ -169,7 +169,12 @@ export const Announcements = {
       details: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ...',
     },
     {
-      heading: 'Important Announcement 2',
+      heading: 'Important Announcement 3',
+      date: new Date(),
+      details: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ...',
+    },
+    {
+      heading: 'Important Announcement 4',
       date: new Date(),
       details: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ...',
     },
