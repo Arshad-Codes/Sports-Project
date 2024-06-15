@@ -47,7 +47,7 @@ export const register = async (req, res) => {
 
     try {
       newStudent.save().then((result, res) => {
-        const currenturl = `http://localhost:${process.env.PORT}/`;
+        const currenturl = `https://ruhunasports.onrender.com/`;
         const uniqueString = uuidv4();
 
         const mailOptions = {
