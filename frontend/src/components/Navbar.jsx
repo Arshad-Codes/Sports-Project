@@ -177,8 +177,14 @@ function NavListMenu() {
 
 function NavList() {
   const navigate = useNavigate();
-  const handleStaffClick = () => {
-    navigate('/staffs');
+  const handleClick = (name) => {
+    if (name === 'staffs') {
+      navigate('/staffs');
+    } else if (name === 'achievement') {
+      navigate('/achievement');
+    } else if (name === 'live') {
+      navigate('/liveMain');
+    }
   };
   return (
     <List className="mt-4 mb-6 p-0 lg:mt-0 lg:mb-0 lg:flex-row lg:p-1">
@@ -194,7 +200,7 @@ function NavList() {
       <NavListMenu />
       <Typography
         as="a"
-        onClick={() => handleStaffClick()}
+        onClick={() => handleClick('staffs')}
         variant="small"
         color="blue-gray"
         className="font-semibold"
@@ -205,7 +211,7 @@ function NavList() {
       </Typography>
       <Typography
         as="a"
-        href="/achievement"
+        onClick={() => handleClick('achievement')}
         variant="small"
         color="blue-gray"
         className="font-semibold"
@@ -216,7 +222,7 @@ function NavList() {
       </Typography>
       <Typography
         as="a"
-        href="/liveMain"
+        onClick={() => handleClick('live')}
         variant="small"
         color="blue-gray"
         className="font-semibold"
@@ -273,7 +279,7 @@ function NavBar() {
           <NavList />
         </div>
         {role?.toLowerCase() === 'student' && (
-          <div className="hidden lg:flex">
+          <div className="lg:flex">
             <Profile logout={handleLogout} />
           </div>
         )}
