@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { CustomButton } from '../TailwindCustomComponents/CustomComponents';
-import { Input, Textarea, Typography } from '@material-tailwind/react';
+import { Input, Textarea, Typography, Button } from '@material-tailwind/react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { DeleteForever , Edit} from '@mui/icons-material';
+
 
 function AdminAnnouncement() {
   const [sportsList, setSportsList] = useState([]);
@@ -40,6 +42,14 @@ function AdminAnnouncement() {
       return { ...prev, [e.target.name]: e.target.value };
     });
   };
+
+  const handleEdit = () => {
+
+  };
+
+  const handleDelete = () => {
+
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -185,6 +195,24 @@ function AdminAnnouncement() {
                   </h3>
                   <p className="text-gray-600">{announcement.content}</p>
                 </div>
+           <div className="flex items-center space-x-2 p-4">
+              <Button 
+                color="green" 
+                size="sm" 
+                className="!min-h-[30px] !py-1 !px-3 flex items-center justify-center"
+                onClick={handleEdit}
+              >
+                <Edit className="h-4 w-4" />
+              </Button>
+              <Button 
+                color="red" 
+                size="sm" 
+                className="!min-h-[30px] !py-1 !px-3 flex items-center justify-center"
+                onClick={handleDelete}
+              >
+                <DeleteForever className="h-4 w-4" />
+              </Button>
+            </div>
               </div>
             ))}
           </div>

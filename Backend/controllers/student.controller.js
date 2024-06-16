@@ -179,40 +179,59 @@ export const getStudents = async (req, res) => {
   }
 };
 
-export const editDetails = async (req, res) => {
+export const updateStudent = async (req, res) => {
   try {
-    const student = await Student.findOne({
-      _id: req.params.studentId,
-    });
-
+    const student = await Student.findById(req.params.studentId);
     if (!student) {
-      return res.status(404).send('Student not found!');
-    }
-    const isRegNoAvailable = await Student.findOne({ regNo: student.regNo });
-    const isNicNoAvailable = await Student.findOne({ nicNo: student.nicNo });
-
-    if (isEmailAvailable) {
-      return res.status(409).send('Email already exists.');
-    }
-    if (isRegNoAvailable) {
-      return res.status(409).send('Registration number already exists.');
-    }
-    if (isNicNoAvailable) {
-      return res.status(409).send('NIC number already exists.');
+      return res.status(404).json({ message: 'Student not found' });
     }
 
-    student.firstName = req.body.firstName || student.firstName;
-    student.lastName = req.bodylastName || student.lastName;
-    student.dateofBirth = req.body.dateofBirth || student.dateofBirth;
-    student.achievements = req.body.achievements || student.achievements;
-    student.regNo = req.body.regNo || student.regNo;
-    student.nicNo = req.body.nicNo || student.nicNo;
+    const { firstName, lastName, dateOfBirth, regNo, nicNo, achievements } =
+      req.body;
+
+    student.firstName = firstName || student.firstName;
+    student.lastName = lastName || student.lastName;
+    student.dateofBirth = dateOfBirth || student.dateofBirth;
+    student.regNo = regNo || student.regNo;
+    student.nicNo = nicNo || student.nicNo;
+    student.achievements = achievements || student.achievements;
 
     await student.save();
-
-    res.status(200).send('Student details updated successfully');
-  } catch (error) {}
+    // res.status(200).json({ message: 'Student details updated successfully' });
+    res.status(200).send(student);
+  } catch (error) {
+    res.status(500).json({ message: 'Server error', error });
+  }
 };
+
+// export const editDetails = async (req, res) => {
+//   try {
+//     const student = await Student.findOne({
+//       _id: req.params.studentId,
+//     });
+
+//     if (isEmailAvailable) {
+//       return res.status(409).send('Email already exists.');
+//     }
+//     if (isRegNoAvailable) {
+//       return res.status(409).send('Registration number already exists.');
+//     }
+//     if (isNicNoAvailable) {
+//       return res.status(409).send('NIC number already exists.');
+//     }
+
+//         const { firstName, lastName, dateOfBirth, regNo, nicNo, achievements } = req.body;
+
+//         student.firstName = firstName || student.firstName;
+//         student.lastName = lastName || student.lastName;
+//         student.dateofBirth = dateOfBirth || student.dateofBirth;
+//         student.regNo = regNo || student.regNo;
+//         student.nicNo = nicNo || student.nicNo;
+//         student.achievements = achievements || student.achievements;
+
+//     res.status(200).send('Student details updated successfully');
+//   } catch (error) {}
+// };
 
 export const enrollToSport = async (req, res) => {
   try {
@@ -251,5 +270,18 @@ export const getEnrolledSports = async (req, res) => {
     res.status(200).send(sports);
   } catch (error) {
     res.status(500).send('Something went wrong');
+  }
+};
+
+// get a student by ID
+export const getStudentById = async (req, res) => {
+  try {
+    const student = await Student.findById(req.params.studentId);
+    if (!student) {
+      return res.status(404).json({ message: 'Student not found' });
+    }
+    res.status(200).json(student);
+  } catch (error) {
+    res.status(500).json({ message: 'Server error', error });
   }
 };
