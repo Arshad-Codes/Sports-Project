@@ -278,44 +278,46 @@ function NavBar() {
         <div className="hidden lg:block">
           <NavList />
         </div>
-        {role?.toLowerCase() === 'student' && (
-          <div className="lg:flex">
-            <Profile logout={handleLogout} />
-          </div>
-        )}
-        {role?.toLowerCase() !== 'student' && (
-          <div className="hidden lg:flex">
-            <Button
-              onClick={openLoginPopup}
-              variant="text"
-              size="sm"
-              color="blue-gray"
-            >
-              Log In
-            </Button>
-            {isLoginPopupOpen && <LoginPopup onClose={closeLoginPopup} />}
+        <div className="flex">
+          {role?.toLowerCase() === 'student' && (
+            <div className="mr-5 lg:mr-0 lg:flex">
+              <Profile logout={handleLogout} />
+            </div>
+          )}
+          {role?.toLowerCase() !== 'student' && (
+            <div className="hidden lg:flex">
+              <Button
+                onClick={openLoginPopup}
+                variant="text"
+                size="sm"
+                color="blue-gray"
+              >
+                Log In
+              </Button>
+              {isLoginPopupOpen && <LoginPopup onClose={closeLoginPopup} />}
 
-            <CustomButton onClick={() => handleSignupClick()} size="sm">
-              Sign Up
-            </CustomButton>
-          </div>
-        )}
-        <div className="flex gap-2 lg:hidden">
-          {/* <div>
+              <CustomButton onClick={() => handleSignupClick()} size="sm">
+                Sign Up
+              </CustomButton>
+            </div>
+          )}
+          <div className="flex gap-2 lg:hidden">
+            {/* <div>
             <Profile logout={handleLogout} />
           </div> */}
-          <IconButton
-            variant="text"
-            color="blue-gray"
-            className="lg:hidden"
-            onClick={() => setOpenNav(!openNav)}
-          >
-            {openNav ? (
-              <XMarkIcon className="h-6 w-6" strokeWidth={2} />
-            ) : (
-              <Bars3Icon className="h-6 w-6" strokeWidth={2} />
-            )}
-          </IconButton>
+            <IconButton
+              variant="text"
+              color="blue-gray"
+              className="lg:hidden"
+              onClick={() => setOpenNav(!openNav)}
+            >
+              {openNav ? (
+                <XMarkIcon className="h-6 w-6" strokeWidth={2} />
+              ) : (
+                <Bars3Icon className="h-6 w-6" strokeWidth={2} />
+              )}
+            </IconButton>
+          </div>
         </div>
       </div>
       <Collapse open={openNav}>

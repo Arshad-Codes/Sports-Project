@@ -1,12 +1,13 @@
 import NavBar from '../components/Navbar';
 import { useParams } from 'react-router-dom';
-import { Card, CardBody, Typography } from '@material-tailwind/react';
+import { Card, CardBody, Spinner, Typography } from '@material-tailwind/react';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 function SpecificCoordinator() {
   const [staffList, setStaffList] = useState([]);
   const { position } = useParams();
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     async function fetchSports() {
       try {
@@ -14,6 +15,7 @@ function SpecificCoordinator() {
           'https://ruhunasports.onrender.com/api/sportscoordinator/getcoordinators'
         );
         setStaffList(response.data);
+        setLoading(false);
         // console.log(staffList);
       } catch (error) {
         console.error('Error fetching sports:', error);
@@ -26,12 +28,12 @@ function SpecificCoordinator() {
   );
 
   //also add something idk maybe for not found or something
-  if (!coordinator) {
+  if (!coordinator || loading) {
     return (
       <>
         <NavBar />
-        <div>
-          <h1>Loading.....</h1>
+        <div className="mt-5 flex justify-center items-center h-">
+          <Spinner className="h-14 w-14" color="green" />
         </div>
       </>
     );

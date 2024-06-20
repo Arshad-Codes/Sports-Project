@@ -3,12 +3,14 @@ import NavBar from '../components/Navbar';
 import { CustomButton } from '../TailwindCustomComponents/CustomComponents';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Spinner } from '@material-tailwind/react';
 
 function SpecificSport() {
   const { name } = useParams();
   //console.log(name);
   const [sportsData, setSportsData] = useState([]);
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchSports() {
@@ -17,6 +19,7 @@ function SpecificSport() {
           'https://ruhunasports.onrender.com/api/sport/getSports'
         );
         setSportsData(response.data);
+        setLoading(false);
       } catch (error) {
         console.error('Error fetching sports:', error);
       }
@@ -49,12 +52,12 @@ function SpecificSport() {
   };
 
   const sports = sportsData.find((sport) => sport.name.trim() === name.trim());
-  if (!sports) {
+  if (!sports || loading) {
     return (
       <>
         <NavBar />
-        <div>
-          <h1>Loading....</h1>
+        <div className="mt-5 flex justify-center items-center h-">
+          <Spinner className="h-14 w-14" color="green" />
         </div>
       </>
     );
