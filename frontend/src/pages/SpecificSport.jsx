@@ -16,7 +16,7 @@ function SpecificSport() {
     async function fetchSports() {
       try {
         const response = await axios.get(
-          'https://ruhunasports.onrender.com/api/sport/getSports'
+          'http://localhost:8800/api/sport/getSports'
         );
         setSportsData(response.data);
         setLoading(false);
@@ -36,7 +36,7 @@ function SpecificSport() {
     }
     try {
       const response = await axios.post(
-        'https://ruhunasports.onrender.com/api/student/enroll',
+        'http://localhost:8800/api/student/enroll',
         {
           sportId: sports._id,
           studentId: currentUser._id,

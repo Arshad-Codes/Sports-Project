@@ -24,10 +24,10 @@ const AdminStaff = () => {
     async function fetchData() {
       try {
         const Sportsresponse = await axios.get(
-          'https://ruhunasports.onrender.com/api/sport/getSports'
+          'http://localhost:8800/api/sport/getSports'
         );
         const Staffsresponse = await axios.get(
-          'https://ruhunasports.onrender.com/api/sportscoordinator/getcoordinators'
+          'http://localhost:8800/api/sportscoordinator/getcoordinators'
         );
         setSportsList(Sportsresponse.data);
         setStaffList(Staffsresponse.data);
@@ -52,7 +52,7 @@ const AdminStaff = () => {
     try {
       //console.log(user);
       await axios.post(
-        'https://ruhunasports.onrender.com/api/sportscoordinator/registercoordinator',
+        'http://localhost:8800/api/sportscoordinator/registercoordinator',
         {
           user,
         },
@@ -222,31 +222,8 @@ const AdminStaff = () => {
       </div>
       <div className="container mx-auto p-4">
         <h2 className="text-2xl font-bold mb-4">Sports Coordinators List</h2>
-        {loading ? (
-          <p className="text-gray-600">Loading...</p>
-        ) : (
-          // <div className="grid grid-cols-1 gap-4">
-          //   {staffList.map((staff) => (
-          //     <div
-          //       key={staff._id}
-          //       className="bg-white rounded-lg shadow-md overflow-hidden flex h-72"
-          //     >
-          //       <img
-          //         src={staff.imageUrl}
-          //         alt={staff.name}
-          //         className="w-1/3 h-auto object-cover"
-          //       />
-          //       <div className="p-4 w-2/3">
-          //         <h3 className="text-xl font-bold mb-2">{staff.fullName}</h3>
-          //         <p className="text-gray-600">{staff.position}</p>
-          //         <p className="text-gray-600">{staff.email}</p>
-          //         <p className="text-gray-600">{staff.sport}</p>
-          //       </div>
-          //     </div>
-          //   ))}
-          // </div>
-          <StaffsTable />
-        )}
+
+        <StaffsTable />
       </div>
       <ToastContainer
         position="bottom-right"

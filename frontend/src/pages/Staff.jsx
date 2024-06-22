@@ -22,7 +22,7 @@ function Staff() {
     async function fetchSports() {
       try {
         const response = await axios.get(
-          'https://ruhunasports.onrender.com/api/sportscoordinator/getcoordinators'
+          'http://localhost:8800/api/sportscoordinator/getcoordinators'
         );
         setStaffList(response.data);
         // console.log(staffList);
@@ -39,11 +39,11 @@ function Staff() {
   };
 
   return (
-    <>
+    <div className="flex flex-col min-h-screen">
       <NavBar />
-      <div className="mx-5 my-5">
+      <div className="flex-grow mx-5 my-5">
         {loading ? (
-          <div className="flex justify-center items-center h-">
+          <div className="flex justify-center items-center">
             <Spinner className="h-14 w-14" color="green" />
           </div>
         ) : (
@@ -87,7 +87,7 @@ function Staff() {
         )}
       </div>
       <Footer />
-    </>
+    </div>
   );
 }
 

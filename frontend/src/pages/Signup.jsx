@@ -1,4 +1,4 @@
-import { Card, Input, Checkbox, Typography } from '@material-tailwind/react';
+import { Card, Input, Typography, Textarea } from '@material-tailwind/react';
 import axios from 'axios';
 import { useState } from 'react';
 import { CustomButton } from '../TailwindCustomComponents/CustomComponents';
@@ -32,7 +32,7 @@ function Signup() {
     e.preventDefault();
     try {
       await axios
-        .post('https://ruhunasports.onrender.com/api/student/register', user)
+        .post('http://localhost:8800/api/student/register', user)
         .then((res) => {
           if (res.status === 200) {
             alert('Registration Successful! Please verify your email.');
@@ -182,7 +182,7 @@ function Signup() {
               <Typography variant="h6" color="blue-gray" className="-mb-3">
                 Achievements
               </Typography>
-              <Input
+              <Textarea
                 size="lg"
                 onChange={handleChange}
                 name="achievements"
@@ -194,24 +194,6 @@ function Signup() {
                 }}
               />
             </div>
-            <Checkbox
-              label={
-                <Typography
-                  variant="small"
-                  color="gray"
-                  className="flex items-center font-normal mt-2"
-                >
-                  I agree the Terms and Conditions
-                  {/* <a
-                    href="#"
-                    className="font-medium transition-colors hover:text-gray-900"
-                  >
-                    &nbsp;Terms and Conditions
-                  </a> */}
-                </Typography>
-              }
-              containerProps={{ className: '-ml-2.5' }}
-            />
             <CustomButton className="mt-6" fullWidth type="submit">
               sign up
             </CustomButton>

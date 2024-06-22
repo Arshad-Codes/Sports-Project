@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import ReactDatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import { Input } from "@material-tailwind/react";
-import { format } from "date-fns";
+import { useState } from 'react';
+import ReactDatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import { Input } from '@material-tailwind/react';
+import { format } from 'date-fns';
 
 export default function DatePicker({ value, onChange }) {
   const [date, setDate] = useState(value);
@@ -17,7 +17,13 @@ export default function DatePicker({ value, onChange }) {
       <ReactDatePicker
         selected={date}
         onChange={handleDateChange}
-        customInput={<Input label="Select a Date" value={date ? format(date, "MM/dd/yyyy") : ""} readOnly />}
+        customInput={
+          <Input
+            label="Select a Date"
+            value={date ? format(date, 'MM/dd/yyyy') : ''}
+            readOnly
+          />
+        }
         className="w-full"
         dateFormat="MM/dd/yyyy"
         popperClassName="shadow-lg"

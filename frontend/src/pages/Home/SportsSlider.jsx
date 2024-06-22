@@ -13,7 +13,7 @@ function SportsSlider() {
     async function fetchSports() {
       try {
         const response = await axios.get(
-          'https://ruhunasports.onrender.com/api/sport/getSports'
+          'http://localhost:8800/api/sport/getSports'
         );
         setSportsData(response.data);
         setLoading(false);
@@ -28,7 +28,7 @@ function SportsSlider() {
       <Typography className="mx-3 pt-2">SPORTS</Typography>
       {loading ? (
         <div className="flex justify-center">
-          <Spinner className="h-16 w-16 text-white" />{' '}
+          <Spinner className="h-16 w-16 text-white" />
         </div>
       ) : (
         <CardsWithSeeMore data={sportsData} />

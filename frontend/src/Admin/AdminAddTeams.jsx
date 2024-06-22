@@ -1,12 +1,11 @@
-import React from "react";
-import AddToTeams from "./Tables/AddToTeams";
+import AddToTeams from './Tables/AddToTeams';
 
-function AdminAddTeams(){
-    return(
-        <div>
-            <AddToTeams/>
-        </div>
-    );
+function AdminAddTeams() {
+  return (
+    <div>
+      <AddToTeams />
+    </div>
+  );
 }
 
 export default AdminAddTeams;

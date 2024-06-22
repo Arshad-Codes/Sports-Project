@@ -21,7 +21,7 @@ function Sports() {
     async function fetchSports() {
       try {
         const response = await axios.get(
-          'https://ruhunasports.onrender.com/api/sport/getSports'
+          'http://localhost:8800/api/sport/getSports'
         );
         setSportsData(response.data);
         setLoading(false);
@@ -36,11 +36,11 @@ function Sports() {
     navigate(`/sports/${name}`);
   };
   return (
-    <>
+    <div className="flex flex-col min-h-screen">
       <NavBar />
-      <div className="mx-5 my-5">
+      <div className="flex-grow mx-5 my-5">
         {loading ? (
-          <div className="flex justify-center items-center h-">
+          <div className="flex justify-center items-center">
             <Spinner className="h-14 w-14" color="green" />
           </div>
         ) : (
@@ -74,7 +74,7 @@ function Sports() {
         )}
       </div>
       <Footer />
-    </>
+    </div>
   );
 }
 

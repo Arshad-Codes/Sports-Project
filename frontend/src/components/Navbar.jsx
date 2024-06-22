@@ -280,7 +280,7 @@ function NavBar() {
         </div>
         <div className="flex">
           {role?.toLowerCase() === 'student' && (
-            <div className="mr-5 lg:mr-0 lg:flex">
+            <div className="lg:flex">
               <Profile logout={handleLogout} />
             </div>
           )}

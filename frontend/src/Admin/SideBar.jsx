@@ -8,8 +8,7 @@ import {
   FaRegCalendar,
   FaUserEdit,
   FaMailBulk,
-  FaPeopleArrows
-  
+  FaPeopleArrows,
 } from 'react-icons/fa';
 import { useState } from 'react';
 import axios from 'axios';
@@ -26,10 +25,9 @@ const Sidebar = ({ isSidebarOpen, onPageChange }) => {
   const handleLogout = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(
-        'https://ruhunasports.onrender.com/api/admin/logout',
-        { withCredentials: true }
-      );
+      const res = await axios.post('http://localhost:8800/api/admin/logout', {
+        withCredentials: true,
+      });
       if (res.status === 200) {
         localStorage.removeItem('currentUser');
         navigate('/login', { state: { role: 'Admin' } });
@@ -110,7 +108,6 @@ const Sidebar = ({ isSidebarOpen, onPageChange }) => {
           Announcement
         </button>
 
-
         <button
           className={`rounded-lg h-10 p-3 flex flex-row gap-5 items-center ${
             clickedButton === 'adminaddteams'
@@ -135,7 +132,6 @@ const Sidebar = ({ isSidebarOpen, onPageChange }) => {
           My Account
         </button> */}
 
-      
         <button
           // requests from students
 

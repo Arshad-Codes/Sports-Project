@@ -10,21 +10,21 @@ function EmailPage() {
     sports: '',
     subject: '',
     reason: '',
-    date: ''
+    date: '',
   });
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const handleDateChange = (newDate) => {
     setFormData((prevData) => ({
       ...prevData,
-      date: newDate
+      date: newDate,
     }));
   };
 
@@ -36,7 +36,7 @@ function EmailPage() {
       sports: '',
       subject: '',
       reason: '',
-      date: ''
+      date: '',
     });
   };
 
@@ -101,7 +101,11 @@ function EmailPage() {
               </div>
 
               <div className="flex justify-end">
-                <Button type="submit" color="blue" className="px-8 py-3 text-base">
+                <Button
+                  type="submit"
+                  color="blue"
+                  className="px-8 py-3 text-base"
+                >
                   Submit
                 </Button>
               </div>
