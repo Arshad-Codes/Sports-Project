@@ -27,7 +27,7 @@ function AdminSport() {
     async function fetchSports() {
       try {
         const response = await axios.get(
-          'http://localhost:8800/api/sport/getSports'
+          'https://ruhunasports.onrender.com/api/sport/getSports'
         );
         setSportsData(response.data);
         setLoading(false);
@@ -82,7 +82,7 @@ function AdminSport() {
 
     try {
       await axios.post(
-        'http://localhost:8800/api/sport/createsport',
+        'https://ruhunasports.onrender.com/api/sport/createsport',
         {
           ...user,
           imageUrl: imgUrl,
@@ -144,7 +144,7 @@ function AdminSport() {
   const handleDelete = (sport) => async () => {
     try {
       await axios.delete(
-        `http://localhost:8800/api/sport/deleteSport/${sport._id}`,
+        `https://ruhunasports.onrender.com/api/sport/deleteSport/${sport._id}`,
 
         { withCredentials: true }
       );

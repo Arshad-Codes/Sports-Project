@@ -12,7 +12,7 @@ function SpecificCoordinator() {
     async function fetchSports() {
       try {
         const response = await axios.get(
-          'http://localhost:8800/api/sportscoordinator/getcoordinators'
+          'https://ruhunasports.onrender.com/api/sportscoordinator/getcoordinators'
         );
         setStaffList(response.data);
         setLoading(false);

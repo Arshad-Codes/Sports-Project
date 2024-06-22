@@ -29,7 +29,7 @@ function StaffsTable() {
     async function fetchStaffs() {
       try {
         const response = await axios.get(
-          'http://localhost:8800/api/sportscoordinator/getcoordinators'
+          'https://ruhunasports.onrender.com/api/sportscoordinator/getcoordinators'
         );
         setStaffsList(response.data);
         setLoading(false);
@@ -43,7 +43,7 @@ function StaffsTable() {
   const handleDelete = (email) => async () => {
     try {
       await axios.delete(
-        `http://localhost:8800/api/sportscoordinator/deletecoordinator/${email}`,
+        `https://ruhunasports.onrender.com/api/sportscoordinator/deletecoordinator/${email}`,
         { withCredentials: true }
       );
 

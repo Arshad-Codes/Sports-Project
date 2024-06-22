@@ -25,9 +25,12 @@ const Sidebar = ({ isSidebarOpen, onPageChange }) => {
   const handleLogout = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:8800/api/admin/logout', {
-        withCredentials: true,
-      });
+      const res = await axios.post(
+        'https://ruhunasports.onrender.com/api/admin/logout',
+        {
+          withCredentials: true,
+        }
+      );
       if (res.status === 200) {
         localStorage.removeItem('currentUser');
         navigate('/login', { state: { role: 'Admin' } });

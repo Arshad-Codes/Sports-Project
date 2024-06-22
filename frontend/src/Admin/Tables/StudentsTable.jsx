@@ -36,7 +36,7 @@ function StudentsTable() {
     async function fetchStudents() {
       try {
         const response = await axios.get(
-          'http://localhost:8800/api/student/getStudents'
+          'https://ruhunasports.onrender.com/api/student/getStudents'
         );
         setStudentList(response.data);
         setLoading(false);
@@ -50,7 +50,7 @@ function StudentsTable() {
   const handleDelete = (email) => async () => {
     try {
       await axios.delete(
-        `http://localhost:8800/api/student/deleteStudent/${email}`,
+        `https://ruhunasports.onrender.com/api/student/deleteStudent/${email}`,
         {
           withCredentials: true,
         }

@@ -32,7 +32,7 @@ function Signup() {
     e.preventDefault();
     try {
       await axios
-        .post('http://localhost:8800/api/student/register', user)
+        .post('https://ruhunasports.onrender.com/api/student/register', user)
         .then((res) => {
           if (res.status === 200) {
             alert('Registration Successful! Please verify your email.');
