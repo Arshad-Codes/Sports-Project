@@ -37,7 +37,6 @@ export default function DatePicker({ value, onChange }) {
             onSelect={handleDateChange}
             showOutsideDays
             className="border-0"
-            fromDate={new Date()}
             classNames={{
               caption: "flex justify-center py-2 mb-4 relative items-center",
               caption_label: "text-sm font-medium text-gray-900",

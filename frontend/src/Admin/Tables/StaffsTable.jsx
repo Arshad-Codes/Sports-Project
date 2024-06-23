@@ -15,7 +15,6 @@ import {
 import { DeleteForever } from '@mui/icons-material';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { toast } from "react-toastify";
 
 const TABLE_HEAD = ['Name', 'Email', 'Position', 'Delete', 'More Details'];
 
@@ -38,60 +37,6 @@ function StaffsTable() {
     }
     fetchStudents();
   }, [staffsList]);
-
-
-  const handleDelete = (email) => async () => {
-    try {
-      await axios.delete(
-        `http://localhost:8800/api/sportscoordinator/deletecoordinator/${email}`
-        , { withCredentials: true }
-      );
-      
-      toast.success("Sports Coordinator deleted successfully", {
-        position: "bottom-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        style: {
-          borderRadius: "8px",
-          boxShadow: "0px 4px 15px rgba(0, 0, 0, 0.1)",
-          padding: "16px",
-          fontSize: "16px",
-        },
-        iconTheme: {
-          primary: "#FFFFFF",
-          secondary: "#4CAF50",
-        },
-      });
-      setStaffsList(staffsList.filter((staff) => staff.email !== email));
-    } catch (error) {
-      console.error('Error deleting staff', error);
-      toast.error("Error deleting staff", {
-        position: "bottom-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        style: {
-          borderRadius: "8px",
-          boxShadow: "0px 4px 15px rgba(0, 0, 0, 0.1)",
-          padding: "16px",
-          fontSize: "16px",
-        },
-        iconTheme: {
-          primary: "#FFFFFF",
-          secondary: "#F87171",
-        },
-      });
-    }
-  };
-
-
   return (
     <Card className="h-full w-full mb-5 border border-gray-300 border-t-0 shadow-lg rounded-lg">
       <CardHeader floated={false} shadow={false} className="rounded-none">
@@ -177,7 +122,7 @@ function StaffsTable() {
                     </Typography>
                   </td>
                   <td className={classes}>
-                    <Button onClick={handleDelete(email)} className="bg-customRed2 border-customRed border-2">
+                    <Button className="bg-customRed2 border-customRed border-2">
                       <DeleteForever className="h-4 w-4 text-black" />
                     </Button>
                   </td>

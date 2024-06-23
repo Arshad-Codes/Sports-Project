@@ -1,8 +1,6 @@
 import Admin from '../models/admin.model.js';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
-import Excuse from '../models/excuse.model.js';
-import Student from '../models/student.model.js';
 
 export const register = async (req, res) => {
   try {
@@ -89,59 +87,4 @@ export const updateAdmin = async (req, res) => {
     res.status(500).send('Something went wrong');
   }
 };
-
-export const approveExcuse = async (req, res) => {
-  try {
-    const excuse = await Excuse.findByIdAndUpdate(req.body.excuseid, {
-      status: 'approved',
-    });
-    if (!excuse) {
-      return res.status(404).send('Excuse not found!');
-    }
-    const student = await Student.findById(excuse.studentId);
-
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: process.env.AUTH_EMAIL,
-        pass: process.env.AUTH_PASS,
-      },
-    });
-    transporter.verify((error, success) => {
-      if (error) {
-        console.log('Error verifying transporter:', error);
-      } else {
-        console.log('Transporter is ready to send emails', success);
-      }
-    });
-
-    const mailOptions = {
-      from: process.env.AUTH_EMAIL,
-      to: req.body.recieverEmail,
-      subject: excuse.subject,
-      text: `This is to inform that this excuse has been reccomended and forwarded to your consideration. 
-      student Name: ${student.firstName} ${student.lastName}
-      student ID: ${student.regNo}
-      Reason: ${excuse.reason}
-      Date: ${excuse.date}
-      `,
-    };
-
-    transporter.sendMail(mailOptions, (error, info) => {
-      if (error) {
-        res.status(500).send('Error sending email:', error);
-      } else {
-        res.status(200).send('Email sent:', info.response);
-      }
-    }
-    );
-    
-  }
-  catch (error) {
-    res.status(500).send('Something went wrong');
-  }
-}
-
-
-
 

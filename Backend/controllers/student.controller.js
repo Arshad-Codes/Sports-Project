@@ -5,7 +5,6 @@ import bcrypt from 'bcrypt';
 import StudentVerification from '../models/studentVerification.model.js';
 import nodemailer from 'nodemailer';
 import { v4 as uuidv4 } from 'uuid';
-import Excuse from '../models/excuse.model.js';
 
 export const register = async (req, res) => {
   try {
@@ -227,11 +226,6 @@ export const enrollToSport = async (req, res) => {
       _id: studentId,
     });
     if(!student) return res.status(404).send('Student not found!');
-    const sport = await Sport.findOne({
-      _id: sportId,
-    });
-    if(sport.enrolledStudents.includes(studentId)) return res.status(409).send('Already enrolled!');
-    if(student.enrolledSports.includes(sportId)) return res.status(409).send('Already enrolled!');
     student.enrolledSports.push(sportId);
     await student.save();
     await Sport.updateOne(
@@ -250,7 +244,7 @@ export const enrollToSport = async (req, res) => {
 
 export const getEnrolledSports = async (req, res) => {
   try {
-    const studentId = req.body.studentId;
+    const studentId = req.params.studentId;
     const student = await Student.findOne({
       _id: studentId});
     if(!student) return res.status(404).send('Student not found!');
@@ -264,32 +258,3 @@ export const getEnrolledSports = async (req, res) => {
   }
 }
 
-export const sendEmail = async (req, res) => {
-  try {
-    const studentId = req.body.studentId;
-    console.log(req.body);
-    const student = await Student.findOne({
-      _id: studentId,     
-    });
-    if(!student) return res.status(404).send('Student not found!');
-    const sportName = req.body.sportName;
-    const sport = await Sport.findOne({
-      name: sportName,
-    });
-    if(!sport) return res.status(404).send('Sport not found!');
-    const newexcuse = new Excuse({
-      studentId: studentId,
-      reciever: req.body.reciever,
-      reason: req.body.reason,
-      status: 'pending',
-      date: req.body.date,
-      subject: req.body.subject,
-    });
-    await newexcuse.save();
-    res.status(200).send('Excuse sent successfully');
-
-    }
-  catch (error) {
-    res.status(500).send('Something went wrong');
-  }
-}
