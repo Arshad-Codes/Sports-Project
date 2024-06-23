@@ -107,3 +107,18 @@ export const addaTeamMember = async (req, res) => {
   }
 }
 
+export const getEnrolledStudents = async (req, res) => {
+  try {
+    const sport = await Sport.findById(req.body.id);
+    if (!sport) {
+      return res.status(404).send('Sport not found');
+    }
+    res.status(200).send(sport.enrolledStudents);
+  } catch (error) {
+    res.status(500).send('Something went wrong');
+  }
+}
+
+
+
+

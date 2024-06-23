@@ -1,5 +1,6 @@
 import sportsCoordinator from "../models/sportsCoordinator.model.js";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 export const createCoordinator = async (req, res) => {
   try {
@@ -35,8 +36,8 @@ export const deleteCoordinator = async (req, res) => {
   try {
     if (req.role !== "admin")
       return res.status(403).send("Unautorized Access. You are not a admin");
-    const coordinator = await sportsCoordinator.findByIdAndDelete(
-      req.params.id
+    const coordinator = await sportsCoordinator.findOneAndDelete(
+      {email:req.params.email}
     );
     if (!coordinator) {
       return res.status(404).json({ message: "Coordinator not found" });
@@ -55,3 +56,35 @@ export const getCoordinators = async (req, res) => {
     res.status(500).send("Something went wrong");
   }
 };
+
+export const loginCoordinator = async (req, res) => { 
+  try {
+    const { email, password } = req.body;
+    const coordinator = await sportsCoordinator.findOne({ email: email });
+    if (!coordinator) {
+      return res.status(404).send("Coordinator not found!");
+    } else {
+      if (bcrypt.compareSync(password, coordinator.password)) {
+         const webtoken = jwt.sign(
+           {
+             id: coordinator._id,
+           },
+           process.env.TOKEN_KEY
+         );
+
+         const { password, ...info } = coordinator._doc;
+         const info2 = { ...info, role: "sportsCoordinator" };
+         res
+           .cookie("accessTokenCoodinator", webtoken, { httpOnly: true })
+           .status(200)
+           .send(info2);
+      } else {
+        res.status(401).send("Invalid credentials");
+      }
+
+    }
+  }
+  catch (error) {
+    res.status(500).send(error.message);
+  }
+}
