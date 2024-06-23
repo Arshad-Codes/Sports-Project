@@ -2,6 +2,8 @@ import React from "react";
 import { Typography, Input, Textarea } from "@material-tailwind/react";
 import { CustomButton } from "../../TailwindCustomComponents/CustomComponents";
 import { useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import axios from "axios";
 
 const AddAchievements = () =>{
 
@@ -11,13 +13,72 @@ const AddAchievements = () =>{
         imgUrl: '',
     });
      
-    const handleSubmit = ()=>{
-        console.log('Submited');
-    }
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+          await axios.post(
+            'http://localhost:8800/api/achievement/create',
+            {
+              ...achievement,
+            },
+            { withCredentials: true }
+          );
+          toast.success('Achievement added successfully!', {
+            position: 'bottom-right',
+            autoClose: 4000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            style: {
+              borderRadius: '8px',
+              boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.1)',
+              padding: '16px',
+              fontSize: '16px',
+            },
+            iconTheme: {
+              primary: '#FFFFFF',
+              secondary: '#4CAF50',
+            },
+          });
 
-    const handleChange =()=>{
+          //clear the fields
+          setAchievement({
+            title: '',
+            description: '',
+            imgUrl: '',
+          });
+        } catch (error) {
+          console.error(error);
+          toast.error('Failed to add Achievement. Please try again.', {
+            position: 'bottom-right',
+            autoClose: 4000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            style: {
+              borderRadius: '8px',
+              boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.1)',
+              padding: '16px',
+              fontSize: '16px',
+            },
+            iconTheme: {
+              primary: '#FFFFFF',
+              secondary: '#FF5252',
+            },
+          });
+        }
+      };
 
-    }
+
+      const handleChange = (e) => {
+        setAchievement((prev) => {
+          return { ...prev, [e.target.name]: e.target.value };
+        });
+      };
 
     return(
     <div>
@@ -69,9 +130,9 @@ const AddAchievements = () =>{
               </Typography>
               <Input
                 size="lg"
-                name="imageUrl"
+                name="imgUrl"
                 onChange={handleChange}
-                value={achievement.title}
+                value={achievement.imgUrl}
                 className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
                 labelProps={{
                   className: 'before:content-none after:content-none',
