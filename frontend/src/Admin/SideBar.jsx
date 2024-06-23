@@ -110,6 +110,18 @@ const Sidebar = ({ isSidebarOpen, onPageChange }) => {
 
         <button
           className={`rounded-lg h-10 p-3 flex flex-row gap-5 items-center ${
+            clickedButton === 'adminaddachievement'
+              ? 'bg-customGreen text-white'
+              : 'hover:bg-customGreen hover:text-white'
+          }`}
+          onClick={() => handlePageClick('adminaddachievement')}
+        >
+          <FaFutbol size={25} />
+          Achievement
+        </button>
+
+        <button
+          className={`rounded-lg h-10 p-3 flex flex-row gap-5 items-center ${
             clickedButton === 'adminaddteams'
               ? 'bg-customGreen text-white'
               : 'hover:bg-customGreen hover:text-white'
