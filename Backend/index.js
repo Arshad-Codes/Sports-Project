@@ -25,6 +25,7 @@ const connectiondb = async () => {
 app.use(
   cors({
     origin: 'http://localhost:5173',
+    // origin: 'https://eng-ruhuna-sports.netlify.app',
     credentials: true,
   })
 );
