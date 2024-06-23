@@ -56,8 +56,6 @@ export const getCoordinators = async (req, res) => {
     res.status(500).send('Something went wrong');
   }
 };
-<<<<<<< HEAD
-=======
 
 export const loginCoordinator = async (req, res) => {
   try {
@@ -88,4 +86,3 @@ export const loginCoordinator = async (req, res) => {
     res.status(500).send('Something went wrong');
   }
 };
->>>>>>> Infas_Final
