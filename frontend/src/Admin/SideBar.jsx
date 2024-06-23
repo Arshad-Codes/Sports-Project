@@ -9,6 +9,7 @@ import {
   FaUserEdit,
   FaMailBulk,
   FaPeopleArrows,
+  FaTrophy
 } from 'react-icons/fa';
 import { useState } from 'react';
 import axios from 'axios';
@@ -116,7 +117,7 @@ const Sidebar = ({ isSidebarOpen, onPageChange }) => {
           }`}
           onClick={() => handlePageClick('adminaddachievement')}
         >
-          <FaFutbol size={25} />
+          <FaTrophy size={25} />
           Achievement
         </button>
 
