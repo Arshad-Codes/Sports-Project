@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Footer from '../components/Footer';
 import NavBar from '../components/Navbar';
 import { useNavigate } from 'react-router-dom';
@@ -27,7 +27,7 @@ const LiveMainPage = () => {
     ) {
       console.log('Login successful');
       setShowModal(false);
-      navigate('/live');
+      navigate('/live', { state: { role: 'host' } });
     } else {
       alert('Invalid username or password');
     }
@@ -47,7 +47,7 @@ const LiveMainPage = () => {
           </button>
           <button
             className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-lg shadow-md"
-            onClick={() => navigate('/live')}
+            onClick={() => navigate('/live', { state: { role: 'user' } })}
           >
             Join Live Streaming
           </button>

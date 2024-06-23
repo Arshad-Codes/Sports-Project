@@ -1,6 +1,6 @@
 //Auth token we will use to generate a meeting and connect to it
 export const authToken =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlrZXkiOiJhOGQ4NTg2Mi0wZGRmLTQ4YWUtODc2MC0wYWRmMTJhMWUzY2YiLCJwZXJtaXNzaW9ucyI6WyJhbGxvd19qb2luIl0sImlhdCI6MTcxNjIzNDQxNSwiZXhwIjoxNzE2ODM5MjE1fQ.3LglHdpM1kPjhNvKbUvyJJs77S2wNZ7iLodca-9t9kI';
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlrZXkiOiJhOGQ4NTg2Mi0wZGRmLTQ4YWUtODc2MC0wYWRmMTJhMWUzY2YiLCJwZXJtaXNzaW9ucyI6WyJhbGxvd19qb2luIl0sImlhdCI6MTcxOTEzMjQ3OSwiZXhwIjoxNzIxNzI0NDc5fQ.ERpxDv5OPp9gta9ap28ING6kTisR6XjaSko5IJRPVVw';
 
 // API call to create meeting
 export const createLiveStreaming = async () => {
@@ -14,6 +14,6 @@ export const createLiveStreaming = async () => {
 
   //Destructuring the roomId from the response
   const { roomId } = await res.json();
-  console.log(roomId);
+  // console.log(roomId);
   return roomId;
 };
