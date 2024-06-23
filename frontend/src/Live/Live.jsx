@@ -3,14 +3,17 @@ import { authToken, createLiveStreaming } from './api.js';
 import { MeetingConsumer, MeetingProvider } from '@videosdk.live/react-sdk';
 import JoinScreen from './screens/JoinScreen';
 import Container from './Container';
+import { useLocation } from 'react-router-dom';
 
 function Live() {
   const [meetingId, setMeetingId] = useState(null);
-
-  //State to handle the mode of the participant i.e. CONFERENCE or VIEWER
+  // console.log(meetingId);
+  // State to handle the mode of the participant i.e. CONFERENCE or VIEWER
   const [mode, setMode] = useState('CONFERENCE');
-
-  //You have to get the MeetingId from the API created earlier
+  const location = useLocation();
+  const role = location.state?.role || '';
+  // console.log(role);
+  // we have to get the MeetingId from the API created earlier
   const getMeetingAndToken = async (id) => {
     const meetingId =
       id == null ? await createLiveStreaming({ token: authToken }) : id;
@@ -28,19 +31,22 @@ function Live() {
         micEnabled: true,
         webcamEnabled: true,
         name: 'infas_nm',
-        //This will be the mode of the participant CONFERENCE or VIEWER
-        mode: mode,
+        mode: mode, // This will be the mode of the participant CONFERENCE or VIEWER
       }}
       token={authToken}
     >
       <MeetingConsumer>
         {() => (
-          <Container meetingId={meetingId} onMeetingLeave={onMeetingLeave} />
+          <div className="flex flex-col items-center justify-center min-h-screen p-4">
+            <Container meetingId={meetingId} onMeetingLeave={onMeetingLeave} />
+          </div>
         )}
       </MeetingConsumer>
     </MeetingProvider>
   ) : (
-    <JoinScreen getMeetingAndToken={getMeetingAndToken} setMode={setMode} />
+    <div className="flex flex-col items-center justify-center min-h-screen p-4">
+      <JoinScreen getMeetingAndToken={getMeetingAndToken} setMode={setMode} />
+    </div>
   );
 }
 

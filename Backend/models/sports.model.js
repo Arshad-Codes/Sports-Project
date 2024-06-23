@@ -15,16 +15,15 @@ const sportSchema = new Schema({
     type: String,
     required: true,
   },
-  team:{
+  team: {
     type: [String],
   },
   enrolledStudents: {
     type: [String],
   },
-  announcements:{
+  announcements: {
     type: [String],
   },
-  }
-);
+});
 
 export default mongoose.model('Sport', sportSchema);

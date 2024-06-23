@@ -7,7 +7,6 @@ function Container(props) {
   const [joined, setJoined] = useState(null);
   const { join } = useMeeting();
   const role = props.role;
-  // console.log(role);
   const mMeeting = useMeeting({
     onMeetingJoined: () => {
       if (mMeetingRef.current.localParticipant.mode === 'CONFERENCE') {
@@ -34,24 +33,20 @@ function Container(props) {
   };
 
   return (
-    <>
-      {role === 'host' ? (
-        <div className="container">
-          <h3>Meeting Id: {props.meetingId}</h3>
-          {joined && joined === 'JOINED' ? (
-            mMeeting.localParticipant.mode === Constants.modes.CONFERENCE ? (
-              <SpeakerView />
-            ) : mMeeting.localParticipant.mode === Constants.modes.VIEWER ? (
-              <ViewerView />
-            ) : null
-          ) : joined && joined === 'JOINING' ? (
-            <p>Joining the meeting...</p>
-          ) : (
-            <button onClick={joinMeeting}>Join</button>
-          )}
-        </div>
-      ) : null}
-    </>
+    <div className="container">
+      <h3>Meeting Id: {props.meetingId}</h3>
+      {joined && joined === 'JOINED' ? (
+        mMeeting.localParticipant.mode === Constants.modes.CONFERENCE ? (
+          <SpeakerView />
+        ) : mMeeting.localParticipant.mode === Constants.modes.VIEWER ? (
+          <ViewerView />
+        ) : null
+      ) : joined && joined === 'JOINING' ? (
+        <p>Joining the meeting...</p>
+      ) : (
+        <button onClick={joinMeeting}>Join</button>
+      )}
+    </div>
   );
 }
 
