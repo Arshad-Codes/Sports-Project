@@ -1,8 +1,9 @@
 import React from "react";
-import { Typography, Input, Textarea } from "@material-tailwind/react";
+import { Typography, Input, Textarea, Button, Spinner } from "@material-tailwind/react";
 import { CustomButton } from "../../TailwindCustomComponents/CustomComponents";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toast, ToastContainer } from "react-toastify";
+import { DeleteForever, Edit } from '@mui/icons-material';
 import axios from "axios";
 
 const AddAchievements = () =>{
@@ -12,7 +13,24 @@ const AddAchievements = () =>{
         description: '',
         imgUrl: '',
     });
-     
+    const [achievementList, setAnnouncementsList] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+      async function fetchData() {
+        try {
+          const response = await axios.get(
+            'http://localhost:8800/api/achievement/'
+          );
+          setAnnouncementsList(response.data);
+          setLoading(false);
+        } catch (error) {
+          console.error('Error fetching achievements:', error);
+        }
+      }
+      fetchData();
+    }, [achievementList]);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -145,6 +163,60 @@ const AddAchievements = () =>{
           </form>
         </div>
       </div>
+
+      <div className="mx-5 py-5">
+        <h2 className="text-2xl font-bold mb-4">Achievements List</h2>
+        {loading ? (
+          <div className="flex justify-center">
+            <Spinner className="h-16 w-16 text-white" />
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 gap-4">
+            {achievementList.map((achievement) => (
+              <div
+                key={achievement._id}
+                className="bg-white rounded-lg shadow-md overflow-hidden flex h-auto"
+              >
+                <div className="p-4 w-full">
+                  <h3 className="text-xl font-bold mb-2">
+                    {achievement.title}
+                  </h3>
+                  <p className="text-gray-600">{achievement.description}</p>
+                </div>
+                <div className="flex items-center space-x-2 p-4">
+                  <Button
+                    color="green"
+                    size="sm"
+                    className="!min-h-[30px] !py-1 !px-3 flex items-center justify-center"
+                   // onClick={handleEdit}
+                  >
+                    <Edit className="h-4 w-4" />
+                  </Button>
+                  <Button
+                    color="red"
+                    size="sm"
+                    className="!min-h-[30px] !py-1 !px-3 flex items-center justify-center"
+                    //onClick={handleDelete(announcement)}
+                  >
+                    <DeleteForever className="h-4 w-4" />
+                  </Button>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={4000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
     )
 }
