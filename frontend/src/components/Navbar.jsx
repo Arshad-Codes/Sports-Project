@@ -30,13 +30,15 @@ import {
 import { styled } from '@mui/system';
 import LoginPopup from '../pages/Home/LoginPopup';
 import { useNavigate } from 'react-router-dom';
-import Profile from '../Student/Profile';
+import Profile from '../assests/profile.jpg';
+import logo from '../assests/carousel/logo.jpg'; // Add your logo path here
 
 const CustomButton = styled(Button)({
   color: 'white',
   backgroundColor: '#09473F',
   variant: 'gradient',
 });
+
 const navSportList = [
   {
     title: 'Cricket',
@@ -103,7 +105,7 @@ function NavListMenu() {
     ({ icon, title, description, slag }, key) => (
       <a href={`/sports/${slag}`} key={key}>
         <MenuItem className="flex items-center gap-3 rounded-lg">
-          <div className="flex items-center justify-center rounded-lg !bg-blue-gray-50 p-2 ">
+          <div className="flex items-center justify-center rounded-lg !bg-blue-gray-100 p-2 ">
             {' '}
             {React.createElement(icon, {
               strokeWidth: 2,
@@ -142,9 +144,10 @@ function NavListMenu() {
         <MenuHandler>
           <Typography as="div" variant="small" className="font-semibold ">
             <ListItem
-              className="flex items-center gap-2 py-2 pr-4 font-semiboldm text-gray-900"
+              className="flex items-center gap-2 py-2 pr-4 font-semibold text-gray-900"
               selected={isMenuOpen || isMobileMenuOpen}
               onClick={() => setIsMobileMenuOpen((cur) => !cur)}
+              style={{ fontSize: '1.1rem' }} // Increase font size here
             >
               Sports
               <ChevronDownIcon
@@ -194,6 +197,7 @@ function NavList() {
         variant="small"
         color="blue-gray"
         className="font-semibold"
+        style={{ fontSize: '1.1rem' }} // Increase font size here
       >
         <ListItem className="flex items-center gap-2 py-2 pr-4">Home</ListItem>
       </Typography>
@@ -204,10 +208,9 @@ function NavList() {
         variant="small"
         color="blue-gray"
         className="font-semibold"
+        style={{ fontSize: '1.1rem' }} // Increase font size here
       >
-        <ListItem className="flex items-center gap-2 py-2 pr-4">
-          Staffs
-        </ListItem>
+        <ListItem className="flex items-center gap-2 py-2 pr-4">Staffs</ListItem>
       </Typography>
       <Typography
         as="a"
@@ -215,10 +218,9 @@ function NavList() {
         variant="small"
         color="blue-gray"
         className="font-semibold"
+        style={{ fontSize: '1.1rem' }} // Increase font size here
       >
-        <ListItem className="flex items-center gap-2 py-2 pr-4">
-          Achievements
-        </ListItem>
+        <ListItem className="flex items-center gap-2 py-2 pr-4">Achievements</ListItem>
       </Typography>
       <Typography
         as="a"
@@ -226,6 +228,7 @@ function NavList() {
         variant="small"
         color="blue-gray"
         className="font-semibold"
+        style={{ fontSize: '1.1rem' }} // Increase font size here
       >
         <ListItem className="flex items-center gap-2 py-2 pr-4">Live</ListItem>
       </Typography>
@@ -263,18 +266,20 @@ function NavBar() {
     //localStorage.removeItem('token');
     navigate('/');
   };
+
   return (
-    <Navbar className="sticky top-0 z-50 shadow-md border border-white/80 bg-opacity-80 max-w-full px-4 py-2 rounded-none backdrop-blur-2xl backdrop-saturate-200">
+    <Navbar className="sticky top-0 z-50 shadow-md border border-white/80 bg-opacity-80 max-w-full px-4 py-1 rounded-none backdrop-blur-2xl backdrop-saturate-200">
       <div className="flex items-center justify-between text-blue-gray-900">
-        <Typography
-          as="a"
-          href="/"
-          variant="h6"
-          className="mr-4 cursor-pointer py-1.5 lg:ml-2 text-blue-900 text-xl"
-        >
-          {/* ℝ𝕦𝕙𝕦𝕟𝕒𝕊𝕡𝕠𝕣𝕥𝕤 */}
-          𝕽𝖚𝖍𝖚𝖓𝖆𝕾𝖕𝖔𝖗𝖙𝖘
-        </Typography>
+        <a href="/" className="flex items-center">
+          <img src={logo} alt="Logo" className="mr-2 h-16 w-16" />
+          <Typography
+            variant="h6"
+            className="mr-4 cursor-pointer py-1.5 lg:ml-2 text-[#5A3032]"
+            style={{ fontFamily: 'NewCustomFont, sans-serif', fontSize: '1.8rem' }}
+          >
+            𝕽𝖚𝖍𝖚𝖓𝖆 𝕾𝖕𝖔𝖗𝖙𝖘
+          </Typography>
+        </a>
         <div className="hidden lg:block">
           <NavList />
         </div>
@@ -302,9 +307,6 @@ function NavBar() {
             </div>
           )}
           <div className="flex gap-2 lg:hidden">
-            {/* <div>
-            <Profile logout={handleLogout} />
-          </div> */}
             <IconButton
               variant="text"
               color="blue-gray"
@@ -322,7 +324,6 @@ function NavBar() {
       </div>
       <Collapse open={openNav}>
         <NavList />
-
         {role?.toLowerCase() !== 'student' ? (
           <div className="flex w-full flex-nowrap items-center gap-2 lg:hidden">
             <Button
@@ -331,6 +332,7 @@ function NavBar() {
               size="sm"
               color="blue-gray"
               fullWidth
+              style={{ fontSize: '1.1rem' }} 
             >
               Log In
             </Button>
@@ -339,6 +341,7 @@ function NavBar() {
               onClick={() => handleSignupClick()}
               size="sm"
               fullWidth
+              style={{ fontSize: '1.1rem' }} 
             >
               Sign Up
             </CustomButton>

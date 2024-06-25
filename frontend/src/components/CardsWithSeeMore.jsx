@@ -48,9 +48,9 @@ function CardsWithSeeMore({ data }) {
           ref={scrollContainerRef}
           style={{ overflowX: 'scroll', scrollbarWidth: 'none' }}
         >
-          <div className="flex flex-nowrap">
+          <div className="flex flex-nowrap ">
             {data.map((item, index) => (
-              <div key={index} className="inline-block pr-10">
+              <div key={index} className="inline-block pr-10 transition-transform transform hover:shadow-lg hover:scale-105 ">
                 <Link to={`/sports/${item.name}`}>
                   <div className="w-64 h-64 max-w-xs overflow-hidden rounded-lg rounded-b-none shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out">
                     <img

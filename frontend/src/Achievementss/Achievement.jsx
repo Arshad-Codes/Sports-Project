@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import NavBar from '../components/Navbar';
 import chess1 from './chess.jpg';
 import volley1 from './volley.jpg';
@@ -7,6 +8,22 @@ import { homeData } from '../data';
 
 function Achievement() {
   const { achievementData } = homeData;
+  const [achievementList, setAchievementList] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await axios.get('http://localhost:8800/api/achievement/');
+        setAchievementList(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching achievements:', error);
+      }
+    }
+    fetchData();
+  }, []);
+
   return (
     <>
       <NavBar />
@@ -15,9 +32,7 @@ function Achievement() {
         Our Achievements
       </h1>
       <br></br>
-      {/* <div className="flex justify-center mt-6">
-        <img className="w-full h-120" src={pic2} alt="pic1" />
-      </div> */}
+
       <div className="mx-20 mt-5">
         <Carousel
           transition={{ duration: 1.5 }}
@@ -32,17 +47,6 @@ function Achievement() {
               className="rounded-xl h-full w-full object-fill"
             />
           ))}
-
-          {/* <img
-            src="https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80"
-            alt="image 2"
-            className="h-full w-full object-cover"
-          />
-          <img
-            src="https://images.unsplash.com/photo-1518623489648-a173ef7824f3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2762&q=80"
-            alt="image 3"
-            className="h-full w-full object-cover"
-          /> */}
         </Carousel>
       </div>
       <br></br>
@@ -68,8 +72,10 @@ function Achievement() {
           </h1>
           <div className="grid grid-cols-1">
             <br></br>
-            {/* Announcement Box 1 */}
-            <div className="border border-gray-600 rounded-xl p-4 flex items-center bg-gray-300 mx-10 mt-5">
+
+            
+               {/* Announcement Box 1 */}
+               <div className="border border-gray-600 rounded-xl p-4 flex items-center bg-gray-300 mx-10 mt-5">
               <img
                 className="w-45 h-40  mr-4 rounded-xl border border-gray-800"
                 src={volley1}
@@ -107,6 +113,8 @@ function Achievement() {
               </div>
             </div>
             <br></br>
+
+
             {/* Announcement Box 2 */}
             <div className="border border-gray-600 rounded-xl p-4 flex items-center bg-gray-300 mx-10">
               <img
@@ -145,46 +153,56 @@ function Achievement() {
                 </button>
               </div>
             </div>
+
+            
             <br></br>
 
-            {/* Announcement Box 3 */}
-            <div className="border border-gray-600 rounded-xl p-4 flex items-center bg-gray-300 mx-10">
-              <img
-                className="w-45 h-40  mr-4 rounded-xl border border-gray-800"
-                src={volley1}
-                alt="Volleyball tournament"
-              />
-              <div>
-                <h2 className="text-lg font-semibold mx-10 ">
-                  Volleyball tournament 2024 – asjdbjhbdh sjdwhdundn
-                  jnsjnjsnnsaj ajsnuw.
-                </h2>
+            {loading ? (
+              <p>Loading...</p>
+            ) : (
+              achievementList.map((achievement, index) => (
+                <div
+                  key={index}
+                  className="border border-gray-600 rounded-xl p-4 flex items-center bg-gray-300 mx-10 mt-5"
+                >
+                  <img
+                    className="w-45 h-40 mr-4 rounded-xl border border-gray-800"
+                    src={achievement.imgUrl}
+                    alt={achievement.title}
+                  />
+                  <div>
+                    <h2 className="text-lg font-semibold mx-10 ">
+                      {achievement.title}
+                    </h2>
 
-                <div className="flex items-center mb-2">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5 mx-10 mr-2 mt-4 mb-4 text-gray-800"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M10 2a8 8 0 100 16 8 8 0 000-16zM9 4a1 1 0 011-1h1a1 1 0 011 1v4a1 1 0 01-2 0V5a1 1 0 011-1zM8 12a1 1 0 012 0v3a1 1 0 11-2 0v-3zM10 14a1 1 0 100 2 1 1 0 000-2z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                  <p className="text-sm text-gray-800">March 10, 2024</p>
+                    <div className="flex items-center mb-2">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-5 w-5 mx-10 mr-2 mt-4 mb-4 text-gray-800"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M10 2a8 8 0 100 16 8 8 0 000-16zM9 4a1 1 0 011-1h1a1 1 0 011 1v4a1 1 0 01-2 0V5a1 1 0 011-1zM8 12a1 1 0 012 0v3a1 1 0 11-2 0v-3zM10 14a1 1 0 100 2 1 1 0 000-2z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                      <p className="text-sm text-gray-800">
+                        {achievement.createdAt}
+                      </p>
+                    </div>
+
+                    <p className="text-gray-900 mx-10">
+                      {achievement.description}
+                    </p>
+                    <button className="bg-customGreen hover:bg-red-800 text-white font-semibold py-1 px-3 rounded-full mt-4 mb-4 mx-10">
+                      See more...
+                    </button>
+                  </div>
                 </div>
-
-                <p className="text-gray-900 mx-10">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
-                  auctor sapien in porta varius.
-                </p>
-                <button className="bg-customGreen hover:bg-red-800 text-white font-semibold py-1 px-3 rounded-full mt-4 mb-4 mx-10">
-                  See more...
-                </button>
-              </div>
-            </div>
+              ))
+            )}
           </div>
           <br></br>
         </div>
