@@ -34,7 +34,9 @@ function SpecificSport() {
         for (let sport of response.data) {
           const teamDetails = await Promise.all(
             sport.team.map((studentId) =>
-              axios.get(`http://localhost:8800/api/student/${studentId}`)
+              axios.get(
+                `https://ruhunasports.onrender.com/api/student/${studentId}`
+              )
             )
           );
           sport.teamDetails = teamDetails.map((res) => res.data);
