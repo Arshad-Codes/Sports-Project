@@ -1,16 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { CustomButton } from '../TailwindCustomComponents/CustomComponents';
-import {
-  Input,
-  Textarea,
-  Typography,
-  Button,
-  Spinner,
-} from '@material-tailwind/react';
+import { Input, Textarea, Typography } from '@material-tailwind/react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { DeleteForever, Edit } from '@mui/icons-material';
 
 function AdminAnnouncement() {
   const [sportsList, setSportsList] = useState([]);
@@ -36,6 +29,7 @@ function AdminAnnouncement() {
         setLoading(false);
       } catch (error) {
         console.error('Error fetching announcements:', error);
+        setLoading(false);
       }
     }
     fetchData();
@@ -105,62 +99,6 @@ function AdminAnnouncement() {
       });
     }
   };
-  const handleDelete = (announcement) => async () => {
-    try {
-      await axios.post(
-        'http://localhost:8800/api/announcement/deleteAnnouncement',
-        { ...announcement }
-      );
-
-      toast.success('Announcement deleted successfully', {
-        position: 'bottom-right',
-        autoClose: 4000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        style: {
-          borderRadius: '8px',
-          boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.1)',
-          padding: '16px',
-          fontSize: '16px',
-        },
-        iconTheme: {
-          primary: '#FFFFFF',
-          secondary: '#4CAF50',
-        },
-      });
-      setAnnouncementsList(
-        announcementsList.filter(
-          (_announcement) => _announcement._id !== announcement._id
-        )
-      );
-    } catch (error) {
-      console.error('Error deleting announcement', error);
-      toast.error('Failed, Check your internet connection and try again', {
-        position: 'bottom-right',
-        autoClose: 4000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        style: {
-          borderRadius: '8px',
-          boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.1)',
-          padding: '16px',
-          fontSize: '16px',
-        },
-        iconTheme: {
-          primary: '#FFFFFF',
-          secondary: '#FF5252',
-        },
-      });
-    }
-  };
-
-  const handleEdit = () => {};
 
   return (
     <div>
@@ -233,9 +171,7 @@ function AdminAnnouncement() {
       <div className="mx-5 py-5">
         <h2 className="text-2xl font-bold mb-4">Announcements List</h2>
         {loading ? (
-          <div className="flex justify-center">
-            <Spinner className="h-16 w-16 text-white" />
-          </div>
+          <p className="text-gray-600">Loading...</p>
         ) : (
           <div className="grid grid-cols-1 gap-4">
             {announcementsList.map((announcement) => (
@@ -248,24 +184,6 @@ function AdminAnnouncement() {
                     {announcement.title}
                   </h3>
                   <p className="text-gray-600">{announcement.content}</p>
-                </div>
-                <div className="flex items-center space-x-2 p-4">
-                  <Button
-                    color="green"
-                    size="sm"
-                    className="!min-h-[30px] !py-1 !px-3 flex items-center justify-center"
-                    onClick={handleEdit}
-                  >
-                    <Edit className="h-4 w-4" />
-                  </Button>
-                  <Button
-                    color="red"
-                    size="sm"
-                    className="!min-h-[30px] !py-1 !px-3 flex items-center justify-center"
-                    onClick={handleDelete(announcement)}
-                  >
-                    <DeleteForever className="h-4 w-4" />
-                  </Button>
                 </div>
               </div>
             ))}

@@ -222,8 +222,31 @@ const AdminStaff = () => {
       </div>
       <div className="container mx-auto p-4">
         <h2 className="text-2xl font-bold mb-4">Sports Coordinators List</h2>
-
-        <StaffsTable />
+        {loading ? (
+          <p className="text-gray-600">Loading...</p>
+        ) : (
+          // <div className="grid grid-cols-1 gap-4">
+          //   {staffList.map((staff) => (
+          //     <div
+          //       key={staff._id}
+          //       className="bg-white rounded-lg shadow-md overflow-hidden flex h-72"
+          //     >
+          //       <img
+          //         src={staff.imageUrl}
+          //         alt={staff.name}
+          //         className="w-1/3 h-auto object-cover"
+          //       />
+          //       <div className="p-4 w-2/3">
+          //         <h3 className="text-xl font-bold mb-2">{staff.fullName}</h3>
+          //         <p className="text-gray-600">{staff.position}</p>
+          //         <p className="text-gray-600">{staff.email}</p>
+          //         <p className="text-gray-600">{staff.sport}</p>
+          //       </div>
+          //     </div>
+          //   ))}
+          // </div>
+          <StaffsTable />
+        )}
       </div>
       <ToastContainer
         position="bottom-right"

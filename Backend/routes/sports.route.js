@@ -3,7 +3,6 @@ import {
   createsport,
   getSports,
   deleteSport,
-  addaTeamMember,
 } from '../controllers/sports.controller.js';
 import { verifyTokenAdmin } from '../middleware.js';
 
@@ -14,6 +13,5 @@ const router = express.Router();
 router.post('/createsport', verifyTokenAdmin, createsport);
 router.get('/getSports', getSports);
 router.delete('/deleteSport/:id', verifyTokenAdmin, deleteSport);
-router.post('/addateammember', verifyTokenAdmin, addaTeamMember);
 
 export default router;

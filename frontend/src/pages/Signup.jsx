@@ -1,4 +1,4 @@
-import { Card, Input, Typography, Textarea } from '@material-tailwind/react';
+import { Card, Input, Checkbox, Typography } from '@material-tailwind/react';
 import axios from 'axios';
 import { useState } from 'react';
 import { CustomButton } from '../TailwindCustomComponents/CustomComponents';
@@ -182,7 +182,7 @@ function Signup() {
               <Typography variant="h6" color="blue-gray" className="-mb-3">
                 Achievements
               </Typography>
-              <Textarea
+              <Input
                 size="lg"
                 onChange={handleChange}
                 name="achievements"
@@ -194,6 +194,24 @@ function Signup() {
                 }}
               />
             </div>
+            <Checkbox
+              label={
+                <Typography
+                  variant="small"
+                  color="gray"
+                  className="flex items-center font-normal mt-2"
+                >
+                  I agree the Terms and Conditions
+                  {/* <a
+                    href="#"
+                    className="font-medium transition-colors hover:text-gray-900"
+                  >
+                    &nbsp;Terms and Conditions
+                  </a> */}
+                </Typography>
+              }
+              containerProps={{ className: '-ml-2.5' }}
+            />
             <CustomButton className="mt-6" fullWidth type="submit">
               sign up
             </CustomButton>

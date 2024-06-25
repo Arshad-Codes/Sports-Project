@@ -23,9 +23,12 @@ import {
   SportsBasketball as BasketballIcon,
   SportsVolleyball as VolleyballIcon,
   Pool as PoolIcon,
+  SportsKabaddi as KabaddiIcon,
   SportsBaseball as BaseballIcon,
   SportsHockey as HockeyIcon,
+  SportsRugby as RugbyIcon,
   SportsTennis as TennisIcon,
+  SportsMartialArts as MartialArtsIcon,
 } from '@mui/icons-material';
 import { styled } from '@mui/system';
 import LoginPopup from '../pages/Home/LoginPopup';
@@ -57,16 +60,22 @@ const navSportList = [
     icon: BasketballIcon,
   },
   {
-    title: 'Swimming',
-    slag: 'Swimming',
-    description: 'Dive in and make a splash.',
-    icon: PoolIcon,
-  },
-  {
     title: 'Volleyball',
     slag: 'Volleyball',
     description: 'Bump, set, spike!',
     icon: VolleyballIcon,
+  },
+  {
+    title: 'Pool',
+    slag: 'Pool',
+    description: 'Dive in and make a splash.',
+    icon: PoolIcon,
+  },
+  {
+    title: 'Kabaddi',
+    slag: 'Kabaddi',
+    description: 'Experience the thrill and strategy of Kabaddi.',
+    icon: KabaddiIcon,
   },
   {
     title: 'Baseball',
@@ -81,17 +90,22 @@ const navSportList = [
     icon: HockeyIcon,
   },
   {
+    title: 'Rugby',
+    slag: 'Rugby',
+    description: 'Hard-hitting rugby action.',
+    icon: RugbyIcon,
+  },
+  {
     title: 'Tennis',
     slag: 'Tennis',
     description: 'Grab your racket and hit the court.',
     icon: TennisIcon,
   },
-
   {
-    title: 'See More',
-    slag: '',
-    description: '',
-    icon: Bars3Icon,
+    title: 'Martial Arts',
+    slag: 'Martial Arts',
+    description: 'Discipline and skill in martial arts.',
+    icon: MartialArtsIcon,
   },
 ];
 
@@ -176,21 +190,11 @@ function NavListMenu() {
 }
 
 function NavList() {
-  const navigate = useNavigate();
-  const handleClick = (name) => {
-    if (name === 'staffs') {
-      navigate('/staffs');
-    } else if (name === 'achievement') {
-      navigate('/achievement');
-    } else if (name === 'live') {
-      navigate('/liveMain');
-    }
-  };
   return (
     <List className="mt-4 mb-6 p-0 lg:mt-0 lg:mb-0 lg:flex-row lg:p-1">
       <Typography
         as="a"
-        href="/"
+        href="/home"
         variant="small"
         color="blue-gray"
         className="font-semibold"
@@ -200,7 +204,7 @@ function NavList() {
       <NavListMenu />
       <Typography
         as="a"
-        onClick={() => handleClick('staffs')}
+        href="/staffs"
         variant="small"
         color="blue-gray"
         className="font-semibold"
@@ -211,35 +215,36 @@ function NavList() {
       </Typography>
       <Typography
         as="a"
-        onClick={() => handleClick('achievement')}
+        href="#"
         variant="small"
         color="blue-gray"
         className="font-semibold"
       >
         <ListItem className="flex items-center gap-2 py-2 pr-4">
-          Achievements
+          Contact
         </ListItem>
       </Typography>
       <Typography
         as="a"
-        onClick={() => handleClick('live')}
+        href="#"
         variant="small"
         color="blue-gray"
         className="font-semibold"
       >
-        <ListItem className="flex items-center gap-2 py-2 pr-4">Live</ListItem>
+        <ListItem className="flex items-center gap-2 py-2 pr-4">
+          About Us
+        </ListItem>
       </Typography>
     </List>
   );
 }
 
-function NavBar() {
+function NavBar({ role }) {
   const [openNav, setOpenNav] = React.useState(false);
   const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
-  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-  const role = currentUser?.role || '';
   const navigate = useNavigate();
   React.useEffect(() => {
+    //console.log({ role });
     window.addEventListener(
       'resize',
       () => window.innerWidth >= 960 && setOpenNav(false)
@@ -254,13 +259,12 @@ function NavBar() {
     setIsLoginPopupOpen(false);
   };
 
-  const handleSignupClick = () => {
+  const handleButtonClick = () => {
     navigate('/signup');
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('currentUser');
-    //localStorage.removeItem('token');
+    // Redirect to the home page after logout
     navigate('/');
   };
   return (
@@ -268,7 +272,7 @@ function NavBar() {
       <div className="flex items-center justify-between text-blue-gray-900">
         <Typography
           as="a"
-          href="/"
+          href="#"
           variant="h6"
           className="mr-4 cursor-pointer py-1.5 lg:ml-2 text-blue-900 text-xl"
         >
@@ -278,52 +282,50 @@ function NavBar() {
         <div className="hidden lg:block">
           <NavList />
         </div>
-        <div className="flex">
-          {role?.toLowerCase() === 'student' && (
-            <div className="lg:flex">
-              <Profile logout={handleLogout} />
-            </div>
-          )}
-          {role?.toLowerCase() !== 'student' && (
-            <div className="hidden lg:flex">
-              <Button
-                onClick={openLoginPopup}
-                variant="text"
-                size="sm"
-                color="blue-gray"
-              >
-                Log In
-              </Button>
-              {isLoginPopupOpen && <LoginPopup onClose={closeLoginPopup} />}
-
-              <CustomButton onClick={() => handleSignupClick()} size="sm">
-                Sign Up
-              </CustomButton>
-            </div>
-          )}
-          <div className="flex gap-2 lg:hidden">
-            {/* <div>
+        {role === 'Student' && (
+          <div className="hidden lg:flex">
             <Profile logout={handleLogout} />
-          </div> */}
-            <IconButton
-              variant="text"
-              color="blue-gray"
-              className="lg:hidden"
-              onClick={() => setOpenNav(!openNav)}
-            >
-              {openNav ? (
-                <XMarkIcon className="h-6 w-6" strokeWidth={2} />
-              ) : (
-                <Bars3Icon className="h-6 w-6" strokeWidth={2} />
-              )}
-            </IconButton>
           </div>
+        )}
+        {role !== 'Student' && (
+          <div className="hidden lg:flex">
+            <Button
+              onClick={openLoginPopup}
+              variant="text"
+              size="sm"
+              color="blue-gray"
+            >
+              Log In
+            </Button>
+            {isLoginPopupOpen && <LoginPopup onClose={closeLoginPopup} />}
+
+            <CustomButton onClick={() => handleButtonClick()} size="sm">
+              Sign Up
+            </CustomButton>
+          </div>
+        )}
+        <div className="flex gap-2 lg:hidden">
+          <div>
+            <Profile logout={handleLogout} />
+          </div>
+          <IconButton
+            variant="text"
+            color="blue-gray"
+            className="lg:hidden"
+            onClick={() => setOpenNav(!openNav)}
+          >
+            {openNav ? (
+              <XMarkIcon className="h-6 w-6" strokeWidth={2} />
+            ) : (
+              <Bars3Icon className="h-6 w-6" strokeWidth={2} />
+            )}
+          </IconButton>
         </div>
       </div>
       <Collapse open={openNav}>
         <NavList />
 
-        {role?.toLowerCase() !== 'student' ? (
+        {role !== 'Student' ? (
           <div className="flex w-full flex-nowrap items-center gap-2 lg:hidden">
             <Button
               onClick={openLoginPopup}
@@ -336,7 +338,7 @@ function NavBar() {
             </Button>
             {isLoginPopupOpen && <LoginPopup onClose={closeLoginPopup} />}
             <CustomButton
-              onClick={() => handleSignupClick()}
+              onClick={() => handleButtonClick()}
               size="sm"
               fullWidth
             >
