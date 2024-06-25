@@ -9,6 +9,7 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import sportsRoutes from './routes/sports.route.js';
 import announcementRoutes from './routes/announcement.route.js';
+import liveRoutes from './routes/live.route.js';
 
 const app = express();
 dotenv.config();
@@ -37,6 +38,7 @@ app.use('/api/sportscoordinator', sportsCoordinatorRoutes);
 app.use('/api/sport', sportsRoutes);
 app.use('/api/achievement', achievementRoutes);
 app.use('/api/announcement', announcementRoutes);
+app.use('/api/live', liveRoutes);
 
 app.listen(process.env.PORT, () => {
   connectiondb();

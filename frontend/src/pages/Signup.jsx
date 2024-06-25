@@ -10,13 +10,18 @@ function Signup() {
     lastName: '',
     regNo: '',
     email: '',
+    gender: 'Male',
     password: '',
+    imageUrl: '',
     dateofBirth: '',
     nicNo: '',
     achievements: '',
   });
   const [error, setError] = useState('');
+  console.log(user.gender);
   const navigate = useNavigate();
+  const [previewImageUrl, setPreviewImageUrl] = useState(null);
+  const [file, setFile] = useState(null);
 
   function handleChange(e) {
     setUser((prev) => {
@@ -24,15 +29,50 @@ function Signup() {
     });
   }
 
+  const handleFileChange = (e) => {
+    const selectedFile = e.target.files[0];
+    setFile(selectedFile);
+
+    // Preview the selected image
+    if (selectedFile) {
+      const imageUrl = URL.createObjectURL(selectedFile);
+      setPreviewImageUrl(imageUrl);
+    } else {
+      setPreviewImageUrl(null);
+    }
+  };
   const handleButtonClick = (role) => {
     navigate('/login', { state: { role } });
   };
 
   async function handleRegister(e) {
     e.preventDefault();
+    const upload = async (file) => {
+      const data = new FormData();
+      data.append('file', file);
+      data.append('upload_preset', 'sports');
+
+      try {
+        const res = await axios.post(
+          'https://api.cloudinary.com/v1_1/djalshksm/image/upload',
+          data
+        );
+
+        const { url } = res.data;
+        return url;
+      } catch (err) {
+        console.log(err);
+        // setError(err.response.data);
+      }
+    };
+
+    const imgUrl = await upload(file);
     try {
       await axios
-        .post('http://localhost:8800/api/student/register', user)
+        .post('http://localhost:8800/api/student/register', {
+          ...user,
+          imageUrl: imgUrl,
+        })
         .then((res) => {
           if (res.status === 200) {
             alert('Registration Successful! Please verify your email.');
@@ -41,6 +81,7 @@ function Signup() {
         });
     } catch (err) {
       setError(err.response.data);
+      console.log(err.response.data);
     }
   }
   return (
@@ -85,6 +126,28 @@ function Signup() {
             onSubmit={handleRegister}
           >
             <div className="mb-1 flex flex-col gap-6">
+              {previewImageUrl && ( // Show the preview image if available
+                <img
+                  src={previewImageUrl}
+                  alt="Preview"
+                  className="w-32 h-32 mx-auto mt-2 rounded-full"
+                />
+              )}
+              <Typography variant="h6" color="blue-gray" className="-mb-3">
+                Image
+              </Typography>
+              <Input
+                size="lg"
+                name="image"
+                type="file"
+                onChange={handleFileChange}
+                value={user.imageUrl}
+                className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+                labelProps={{
+                  className: 'before:content-none after:content-none',
+                }}
+              />
+
               <Typography variant="h6" color="blue-gray" className="-mb-3">
                 First Name
               </Typography>
@@ -138,6 +201,28 @@ function Signup() {
                 }}
               />
               <Typography variant="h6" color="blue-gray" className="-mb-3">
+                Gender
+              </Typography>
+              <select
+                name="gender"
+                onChange={handleChange}
+                value={user.gender}
+                className="appearance-none rounded-lg relative block w-full px-3 py-2 border !border-t-blue-gray-200 focus:!border-t-gray-900 placeholder-gray-500 text-gray-900 focus:outline-1 focus:outline-gray-600"
+              >
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+              </select>
+              {/* <Input
+                size="lg"
+                placeholder="Gender"
+                onChange={handleChange}
+                name="gender"
+                className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+                labelProps={{
+                  className: 'before:content-none after:content-none',
+                }}
+              /> */}
+              <Typography variant="h6" color="blue-gray" className="-mb-3">
                 Password
               </Typography>
               <Input
@@ -179,7 +264,7 @@ function Signup() {
                   className: 'before:content-none after:content-none',
                 }}
               />
-              <Typography variant="h6" color="blue-gray" className="-mb-3">
+              {/* <Typography variant="h6" color="blue-gray" className="-mb-3">
                 Achievements
               </Typography>
               <Input
@@ -192,7 +277,7 @@ function Signup() {
                 labelProps={{
                   className: 'before:content-none after:content-none',
                 }}
-              />
+              /> */}
             </div>
             <Checkbox
               label={
@@ -215,7 +300,7 @@ function Signup() {
             <CustomButton className="mt-6" fullWidth type="submit">
               sign up
             </CustomButton>
-            {error && <Typography color="red">{error}</Typography>}
+            {/* {error && <Typography color="red">{error}</Typography>} */}
             <Typography color="gray" className="mt-4 text-center font-normal">
               Already have an account?{' '}
               <button
