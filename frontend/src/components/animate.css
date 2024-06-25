@@ -1,0 +1,46 @@
+/* Import animate.css or include the CSS file in your project */
+@import 'animate.css';
+
+/* If you need custom animations, define them here */
+@keyframes customFadeInUp {
+  from {
+    transform: translate3d(0, 40px, 0);
+    opacity: 0;
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+}
+
+.custom-animate__fadeInUp {
+  animation-name: customFadeInUp;
+  animation-duration: 3s;
+  animation-fill-mode: both;
+}
+
+/* Apply additional styles if needed */
+.why-ruhunaspots {
+  background-color: #f7fafc; /* Custom light gray */
+  padding: 2rem; /* Padding */
+  border-radius: 0.5rem; /* Rounded corners */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow */
+}
+
+.text-customGreen {
+  color: #38a169; /* Custom green */
+}
+
+.text-gray-700 {
+  color: #4a5568; /* Custom gray for text */
+}
+
+/* Additional styles to ensure animations work well */
+.why-ruhunaspots,
+h2,
+ul,
+li {
+  /* Example of adding more animation control if needed */
+  will-change: opacity, transform;
+}

@@ -1,5 +1,13 @@
+import { DeleteForever, Edit } from '@mui/icons-material';
 import { CustomButton } from '../TailwindCustomComponents/CustomComponents';
-import { Card, Input, Textarea, Typography } from '@material-tailwind/react';
+import {
+  Button,
+  Card,
+  Input,
+  Spinner,
+  Textarea,
+  Typography,
+} from '@material-tailwind/react';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
@@ -133,6 +141,60 @@ function AdminSport() {
     }
   };
 
+  const handleDelete = (sport) => async () => {
+    try {
+      await axios.delete(
+        `http://localhost:8800/api/sport/deleteSport/${sport._id}`,
+
+        { withCredentials: true }
+      );
+
+      toast.success('Sport deleted successfully', {
+        position: 'bottom-right',
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        style: {
+          borderRadius: '8px',
+          boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.1)',
+          padding: '16px',
+          fontSize: '16px',
+        },
+        iconTheme: {
+          primary: '#FFFFFF',
+          secondary: '#4CAF50',
+        },
+      });
+      setSportsData(setSportsData.filter((_sport) => _sport._id !== sport._id));
+    } catch (error) {
+      console.error('Error deleting sport', error);
+      toast.error('Failed, Check your internet connection and try again', {
+        position: 'bottom-right',
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        style: {
+          borderRadius: '8px',
+          boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.1)',
+          padding: '16px',
+          fontSize: '16px',
+        },
+        iconTheme: {
+          primary: '#FFFFFF',
+          secondary: '#FF5252',
+        },
+      });
+    }
+  };
+
+  const handleEdit = () => {};
+
   return (
     <div>
       <div className="flex items-center justify-center h-3/4 my-10 mx-5">
@@ -213,7 +275,9 @@ function AdminSport() {
       <div className="container mx-auto p-4">
         <h2 className="text-2xl font-bold mb-4">Sports List</h2>
         {loading ? (
-          <p className="text-gray-600">Loading...</p>
+          <div className="flex justify-center">
+            <Spinner className="h-16 w-16 text-white" />
+          </div>
         ) : (
           <div className="grid grid-cols-1 gap-4">
             {sportsData.map((sport) => (
@@ -224,11 +288,29 @@ function AdminSport() {
                 <img
                   src={sport.imageUrl}
                   alt={sport.name}
-                  className="w-1/3 h-auto object-cover"
+                  className="w-2/6 h-auto object-cover"
                 />
-                <div className="p-4 w-2/3">
+                <div className="p-4 w-3/6">
                   <h3 className="text-xl font-bold mb-2">{sport.name}</h3>
                   <p className="text-gray-600">{sport.description}</p>
+                </div>
+                <div className="flex items-center space-x-2 p-4 w-1/6">
+                  <Button
+                    color="green"
+                    size="sm"
+                    className="!min-h-[30px] !py-1 !px-3 flex items-center justify-center"
+                    onClick={handleEdit}
+                  >
+                    <Edit className="h-4 w-4" />
+                  </Button>
+                  <Button
+                    color="red"
+                    size="sm"
+                    className="!min-h-[30px] !py-1 !px-3 flex items-center justify-center"
+                    onClick={handleDelete(sport)}
+                  >
+                    <DeleteForever className="h-4 w-4" />
+                  </Button>
                 </div>
               </div>
             ))}

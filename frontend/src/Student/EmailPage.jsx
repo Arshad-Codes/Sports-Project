@@ -1,143 +1,114 @@
-import React, { useState, useEffect } from "react";
-import { Button, Card, CardBody, Typography } from "@material-tailwind/react";
-import NavBar from "../components/Navbar";
-import DatePicker from "../components/DatePicker";
-import axios from "axios";
-
+import React, { useState } from 'react';
+import { Button, Card, CardBody, Typography } from '@material-tailwind/react';
+import NavBar from '../components/Navbar';
+import DatePicker from '../components/DatePicker';
 
 function EmailPage() {
-  const [role, setRole] = useState(location.state?.role || "");
-  const [currentUser, setCurrentUser] = useState(
-    JSON.parse(localStorage.getItem("currentUser") || "{}")
-  );
-  const [selectedOptions, setSelectedOptions] = useState({
-    option: "Male Hostel Warden",
-    option4: "",
+  const [role, setRole] = useState(location.state?.role || '');
+  const [formData, setFormData] = useState({
+    to: '',
+    sports: '',
+    subject: '',
+    reason: '',
+    date: '',
   });
-  const [selectedDate, setSelectedDate] = useState("");
-  const [sports, setSports] = useState([]);
 
-  useEffect(() => {
-    const fetchSports = async () => {
-      try {
-        const response = await axios.post(
-          "http://localhost:8800/api/student/getEnrolledSports",
-          {
-            studentId: currentUser._id,
-          }
-        );
-        setSports(response.data);
-        if (response.data.length > 0) {
-          setSelectedOptions((prevOptions) => ({
-            ...prevOptions,
-            option4: response.data[0].name,
-          }));
-        }
-      } catch (error) {
-        console.error("Failed to fetch sports", error);
-      }
-    };
-
-    fetchSports();
-  }, [currentUser._id]);
-
-  const handleOptionChange = (e) => {
+  const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setSelectedOptions((prevOptions) => ({
-      ...prevOptions,
+    setFormData((prevData) => ({
+      ...prevData,
       [name]: value,
     }));
   };
 
   const handleDateChange = (newDate) => {
-    setSelectedDate(newDate);
+    setFormData((prevData) => ({
+      ...prevData,
+      date: newDate,
+    }));
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent default form submission
-    try {
-      const receiver = selectedOptions.option;
-      const sportName = selectedOptions.option4;
-      const subject = e.target.Subject.value;
-      const reason = e.target.Reason.value;
-      const date = selectedDate;
-
-      const res = await axios.post(
-        "http://localhost:8800/api/student/sendEmail",
-        {
-          studentId: currentUser._id,
-          reciever: receiver,
-          sportName: sportName,
-          subject: subject,
-          reason: reason,
-          date: date,
-        }
-      );
-      if (res.status === 200) {
-        alert("Your Request sent successfully!");
-      }
-    } catch (error) {
-      console.error("Failed to send your request", error);
-    }
-    e.target.reset(); 
-    setSelectedDate("");
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log('Form submitted:', formData);
+    setFormData({
+      to: '',
+      sports: '',
+      subject: '',
+      reason: '',
+      date: '',
+    });
   };
 
   return (
     <>
       <NavBar role={role} />
       <div className="container mx-auto p-4">
-        <Card>
-          <CardBody>
+        <Card className="shadow-lg">
+          <CardBody className="p-6">
             <form onSubmit={handleSubmit}>
-              <Typography>To</Typography>
-              <select
-                name="option"
-                className="block w-full px-4 py-2 mb-4 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500"
-                value={selectedOptions.option}
-                onChange={handleOptionChange}
-              >
-                <option value="Male Hostel Warden">Male Hostel Warden</option>
-                <option value="Female Hostel Warden">
-                  Female Hostel Warden
-                </option>
-              </select>
+              <div className="mb-6">
+                <Typography className="text-lg font-medium">To</Typography>
+                <input
+                  type="text"
+                  name="to"
+                  className="block w-full px-4 py-2 mt-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500"
+                  value={formData.to}
+                  onChange={handleInputChange}
+                  placeholder="Recipient"
+                />
+              </div>
 
-              <Typography>Sports</Typography>
-              <select
-                name="option4"
-                className="block w-full px-4 py-2 mb-4 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500"
-                value={selectedOptions.option4}
-                onChange={handleOptionChange}
-              >
-                {sports.map((sport) => (
-                  <option key={sport._id} value={sport.name}>
-                    {sport.name}
-                  </option>
-                ))}
-              </select>
+              <div className="mb-6">
+                <Typography className="text-lg font-medium">Sports</Typography>
+                <input
+                  type="text"
+                  name="sports"
+                  className="block w-full px-4 py-2 mt-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500"
+                  value={formData.sports}
+                  onChange={handleInputChange}
+                  placeholder="Sport"
+                />
+              </div>
 
-              <Typography>Subject</Typography>
-              <input
-                name="Subject"
-                type="text"
-                className="w-full px-4 py-2 mb-4 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500"
-                placeholder="Subject"
-              />
+              <div className="mb-6">
+                <Typography className="text-lg font-medium">Subject</Typography>
+                <input
+                  type="text"
+                  name="subject"
+                  className="block w-full px-4 py-2 mt-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500"
+                  value={formData.subject}
+                  onChange={handleInputChange}
+                  placeholder="Subject"
+                />
+              </div>
 
-              <Typography>Reason</Typography>
-              <textarea
-                name="Reason"
-                className="w-full h-24 px-4 py-2 mb-4 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500"
-                placeholder="Reason"
-              />
+              <div className="mb-6">
+                <Typography className="text-lg font-medium">Reason</Typography>
+                <input
+                  type="text"
+                  name="reason"
+                  className="block w-full px-4 py-2 mt-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500"
+                  value={formData.reason}
+                  onChange={handleInputChange}
+                  placeholder="Reason"
+                />
+              </div>
 
-              <Typography>Date</Typography>
-              <DatePicker value={selectedDate} onChange={handleDateChange} />
+              <div className="mb-6">
+                <Typography className="text-lg font-medium">Date</Typography>
+                <DatePicker value={formData.date} onChange={handleDateChange} />
+              </div>
 
-              <Button type="submit" color="blue">
-                Submit
-              </Button>
+              <div className="flex justify-end">
+                <Button
+                  type="submit"
+                  color="blue"
+                  className="px-8 py-3 text-base"
+                >
+                  Submit
+                </Button>
+              </div>
             </form>
           </CardBody>
         </Card>

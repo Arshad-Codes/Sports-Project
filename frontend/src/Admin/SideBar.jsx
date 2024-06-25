@@ -144,6 +144,21 @@ const Sidebar = ({ isSidebarOpen, onPageChange }) => {
           <FaUserEdit size={25} />
           My Account
         </button> */}
+
+        <button
+          // requests from students
+
+          className={`rounded-lg h-10 p-3 flex flex-row gap-5 items-center ${
+            clickedButton === 'adminapprove'
+              ? 'bg-customGreen text-white'
+              : 'hover:bg-customGreen hover:text-white'
+          }`}
+          onClick={() => handlePageClick('adminapprove')}
+        >
+          <FaMailBulk size={25} />
+          Requests
+        </button>
+
         <button>
           <Link
             to="/home"
