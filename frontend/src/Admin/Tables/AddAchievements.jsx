@@ -1,13 +1,18 @@
-import React from "react";
-import { Typography, Input, Textarea, Button, Spinner } from "@material-tailwind/react";
-import { CustomButton } from "../../TailwindCustomComponents/CustomComponents";
-import { useState, useEffect } from "react";
-import { toast, ToastContainer } from "react-toastify";
+import React from 'react';
+import {
+  Typography,
+  Input,
+  Textarea,
+  Button,
+  Spinner,
+} from '@material-tailwind/react';
+import { CustomButton } from '../../TailwindCustomComponents/CustomComponents';
+import { useState, useEffect } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
 import { DeleteForever, Edit } from '@mui/icons-material';
-import axios from "axios";
+import axios from 'axios';
 
 const AddAchievements = () => {
-
   const [achievement, setAchievement] = useState({
     title: '',
     description: '',
@@ -20,7 +25,7 @@ const AddAchievements = () => {
     async function fetchData() {
       try {
         const response = await axios.get(
-          'http://localhost:8800/api/achievement/'
+          'https://ruhunasports.onrender.com/api/achievement/'
         );
         setAchievementList(response.data);
         setLoading(false);
@@ -35,7 +40,7 @@ const AddAchievements = () => {
     e.preventDefault();
     try {
       await axios.post(
-        'http://localhost:8800/api/achievement/create',
+        'https://ruhunasports.onrender.com/api/achievement/create',
         {
           ...achievement,
         },
@@ -101,7 +106,7 @@ const AddAchievements = () => {
     e.preventDefault();
     try {
       await axios.put(
-        `http://localhost:8800/api/achievement/${achievement.title}`,
+        `https://ruhunasports.onrender.com/api/achievement/${achievement.title}`,
         {
           ...achievement,
         },
@@ -160,7 +165,7 @@ const AddAchievements = () => {
   const handleDelete = (achievement) => async () => {
     try {
       await axios.delete(
-        `http://localhost:8800/api/achievement/${achievement.title}`,
+        `https://ruhunasports.onrender.com/api/achievement/${achievement.title}`,
         { withCredentials: true }
       );
 
@@ -332,7 +337,7 @@ const AddAchievements = () => {
         pauseOnHover
       />
     </div>
-  )
-}
+  );
+};
 
 export default AddAchievements;

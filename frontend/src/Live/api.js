@@ -19,7 +19,7 @@ export const createLiveStreaming = async () => {
 };
 
 // export const fetchLiveMeetings = async () => {
-//   const res = await fetch('http://localhost:8800/api/live/getlive', {
+//   const res = await fetch('https://ruhunasports.onrender.com/api/live/getlive', {
 //     method: 'GET',
 //   });
 //   return await res.json();

@@ -14,7 +14,9 @@ function Achievement() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await axios.get('http://localhost:8800/api/achievement/');
+        const response = await axios.get(
+          'https://ruhunasports.onrender.com/api/achievement/'
+        );
         setAchievementList(response.data);
         setLoading(false);
       } catch (error) {
@@ -73,9 +75,8 @@ function Achievement() {
           <div className="grid grid-cols-1">
             <br></br>
 
-            
-               {/* Announcement Box 1 */}
-               <div className="border border-gray-600 rounded-xl p-4 flex items-center bg-gray-300 mx-10 mt-5">
+            {/* Announcement Box 1 */}
+            <div className="border border-gray-600 rounded-xl p-4 flex items-center bg-gray-300 mx-10 mt-5">
               <img
                 className="w-45 h-40  mr-4 rounded-xl border border-gray-800"
                 src={volley1}
@@ -113,7 +114,6 @@ function Achievement() {
               </div>
             </div>
             <br></br>
-
 
             {/* Announcement Box 2 */}
             <div className="border border-gray-600 rounded-xl p-4 flex items-center bg-gray-300 mx-10">
@@ -154,7 +154,6 @@ function Achievement() {
               </div>
             </div>
 
-            
             <br></br>
 
             {loading ? (
