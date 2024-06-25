@@ -322,6 +322,7 @@ export const sendEmail = async (req, res) => {
   }
 };
 
+
 export const deleteStudent = async (req, res) => {
   try {
     const studentemail = req.params.email;
@@ -333,7 +334,10 @@ export const deleteStudent = async (req, res) => {
     }
     await Student.deleteOne({ email: studentemail });
     res.status(200).send('Student deleted successfully');
-  } catch (error) {
+  }
+  catch (error) {
     res.status(500).send('Something went wrong');
   }
+}
 };
+

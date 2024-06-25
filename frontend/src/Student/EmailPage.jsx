@@ -30,13 +30,31 @@ function EmailPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    setFormData({
-      to: '',
-      sports: '',
-      subject: '',
-      reason: '',
-      date: '',
+
+    try {
+      const res = await axios.post(
+        "http://localhost:8800/api/student/sendEmail",
+        {
+          studentId: currentUser._id,
+          reciever: selectedOptions.option,
+          sportName: selectedOptions.option4,
+          subject: e.target.Subject.value,
+          reason: e.target.Reason.value,
+          date: selectedDate,
+        }
+      );
+      if (res.status === 200) {
+        alert("Your Request sent successfully!");
+      }
+    } catch (error) {
+      console.error("Failed to send your request", error);
+    }
+
+    // Reset form
+    setSelectedOptions({
+      option: "",
+      option4: "",
+
     });
   };
 
