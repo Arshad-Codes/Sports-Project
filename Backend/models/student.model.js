@@ -28,6 +28,14 @@ const studentSchema = new Schema(
       required: true,
       unique: true,
     },
+    gender: {
+      type: String,
+      required: true,
+    },
+    imageUrl: {
+      type: String,
+      required: true,
+    },
     achievements: {
       type: String,
     },

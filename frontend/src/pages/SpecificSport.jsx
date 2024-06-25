@@ -1,16 +1,28 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import NavBar from '../components/Navbar';
 import { CustomButton } from '../TailwindCustomComponents/CustomComponents';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
-import { Spinner } from '@material-tailwind/react';
+import {
+  Avatar,
+  Card,
+  CardBody,
+  CardHeader,
+  Spinner,
+  Typography,
+} from '@material-tailwind/react';
+import Footer from '../components/Footer';
 
 function SpecificSport() {
   const { name } = useParams();
-  //console.log(name);
   const [sportsData, setSportsData] = useState([]);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
+  const printRef = useRef();
+  const [printable, setPrintable] = useState(false);
+
+  const TABLE_HEAD = ['First Name', 'Registration No'];
+  const TABLE_HEAD_PRINT = ['First Name', 'Registration No', 'NIC'];
 
   useEffect(() => {
     async function fetchSports() {
@@ -18,6 +30,15 @@ function SpecificSport() {
         const response = await axios.get(
           'https://ruhunasports.onrender.com/api/sport/getSports'
         );
+
+        for (let sport of response.data) {
+          const teamDetails = await Promise.all(
+            sport.team.map((studentId) =>
+              axios.get(`http://localhost:8800/api/student/${studentId}`)
+            )
+          );
+          sport.teamDetails = teamDetails.map((res) => res.data);
+        }
         setSportsData(response.data);
         setLoading(false);
       } catch (error) {
@@ -25,7 +46,7 @@ function SpecificSport() {
       }
     }
     fetchSports();
-  }, []);
+  }, [sportsData]);
 
   const handleEnroll = async () => {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -51,6 +72,19 @@ function SpecificSport() {
     }
   };
 
+  const handlePrintOpen = () => {
+    setPrintable(true);
+  };
+
+  const handlePrint = () => {
+    const printContent = printRef.current.innerHTML;
+    const originalContent = document.body.innerHTML;
+    document.body.innerHTML = printContent;
+    window.print();
+    document.body.innerHTML = originalContent;
+    window.location.reload();
+  };
+
   const sports = sportsData.find((sport) => sport.name.trim() === name.trim());
   if (!sports || loading) {
     return (
@@ -62,6 +96,13 @@ function SpecificSport() {
       </>
     );
   } else {
+    const boysTeam = sports.teamDetails.filter(
+      (member) => member.gender === 'Male'
+    );
+    const girlsTeam = sports.teamDetails.filter(
+      (member) => member.gender === 'Female'
+    );
+
     return (
       <>
         <NavBar />
@@ -87,24 +128,286 @@ function SpecificSport() {
             </div>
           </div>
         </div>
-        <div className="bg-customGreen mt-10">
-          <h1 className="text-white">Faculty Team</h1>
-          <div>
-            <div className="grid grid-cols-2">
-              <h1>Hiii</h1>
-              <h1>Hiii</h1>
-            </div>
+        <div ref={printRef} className="my-10">
+          <div className="flex bg-customGreen justify-between items-center">
+            {!printable && (
+              <h1 className="text-white p-2 text-2xl ">
+                Faculty Team - {sports.name}
+              </h1>
+            )}
+            {printable && (
+              <h1 className="text-gray-700 p-2 text-2xl ">
+                Faculty Team - {sports.name}
+              </h1>
+            )}
+            {!printable && (
+              <div className="flex justify-center">
+                <CustomButton
+                  onClick={handlePrintOpen}
+                  className="w-36 shadow-none"
+                >
+                  Print Team
+                </CustomButton>
+              </div>
+            )}
+            {printable && (
+              <div className="flex justify-center">
+                <CustomButton
+                  onClick={handlePrint}
+                  className="w-36 shadow-none"
+                >
+                  Confirm
+                </CustomButton>
+              </div>
+            )}
           </div>
+
+          <div className="w-full justify-between my-5 px-3 sm:px-10 md:px-20 lg:px-14 lg:gap-10 lg:flex">
+            <Card className="flex h-full w-full mb-10 border border-gray-300 rounded-lg">
+              <CardHeader
+                floated={false}
+                shadow={false}
+                className="rounded-none"
+              >
+                <div className="flex items-center justify-center">
+                  <Typography variant="h5" color="blue-gray">
+                    Boys Team
+                  </Typography>
+                </div>
+              </CardHeader>
+              <CardBody className="overflow-scroll sm:overflow-hidden mt-3 pl-0 pr-3 pb-3 pt-0">
+                <table className="mt-2 w-full min-w-max table-auto text-left">
+                  {loading ? (
+                    <div className="flex justify-center">
+                      <Spinner className="h-16 w-16 text-white" />
+                    </div>
+                  ) : (
+                    <>
+                      {printable && (
+                        <thead>
+                          <tr>
+                            {TABLE_HEAD_PRINT.map((head) => (
+                              <th
+                                key={head}
+                                className="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50"
+                              >
+                                <Typography
+                                  variant="small"
+                                  color="blue-gray"
+                                  className="flex items-center justify-between gap-2 font-normal leading-none opacity-70"
+                                >
+                                  {head}
+                                </Typography>
+                              </th>
+                            ))}
+                          </tr>
+                        </thead>
+                      )}
+                      {!printable && (
+                        <thead>
+                          <tr>
+                            {TABLE_HEAD.map((head) => (
+                              <th
+                                key={head}
+                                className="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50"
+                              >
+                                <Typography
+                                  variant="small"
+                                  color="blue-gray"
+                                  className="flex items-center justify-between gap-2 font-normal leading-none opacity-70"
+                                >
+                                  {head}
+                                </Typography>
+                              </th>
+                            ))}
+                          </tr>
+                        </thead>
+                      )}
+
+                      <tbody>
+                        {boysTeam.map((member, index) => {
+                          const isLast = index === boysTeam.length - 1;
+                          const classes = isLast
+                            ? 'p-4'
+                            : 'p-4 border-b border-blue-gray-50';
+
+                          return (
+                            <tr key={member._id}>
+                              <td className={classes}>
+                                <div className="flex items-center gap-3">
+                                  <Avatar src={''} alt={''} size="sm" />
+                                  <div className="flex flex-col">
+                                    <Typography
+                                      variant="small"
+                                      color="blue-gray"
+                                      className="font-normal"
+                                    >
+                                      {member.firstName}
+                                    </Typography>
+                                  </div>
+                                </div>
+                              </td>
+
+                              <td className={classes}>
+                                <div className="w-max">
+                                  <Typography
+                                    variant="small"
+                                    color="blue-gray"
+                                    className="font-normal"
+                                  >
+                                    {member.regNo}
+                                  </Typography>
+                                </div>
+                              </td>
+                              {printable && (
+                                <td className={classes}>
+                                  <Typography
+                                    variant="small"
+                                    color="blue-gray"
+                                    className="font-normal"
+                                  >
+                                    {member.nicNo}
+                                  </Typography>
+                                </td>
+                              )}
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </>
+                  )}
+                </table>
+              </CardBody>
+            </Card>
+            <Card className="flex h-full w-full mb-5 border border-gray-300 rounded-lg">
+              <CardHeader
+                floated={false}
+                shadow={false}
+                className="rounded-none"
+              >
+                <div className="flex items-center justify-center">
+                  <Typography variant="h5" color="blue-gray">
+                    Girls Team
+                  </Typography>
+                </div>
+              </CardHeader>
+              <CardBody className="overflow-scroll sm:overflow-hidden mt-3 pl-0 pr-3 pb-3 pt-0">
+                <table className="mt-2 w-full min-w-max table-auto text-left">
+                  {loading ? (
+                    <div className="flex justify-center">
+                      <Spinner className="h-16 w-16 text-white" />
+                    </div>
+                  ) : (
+                    <>
+                      {printable && (
+                        <thead>
+                          <tr>
+                            {TABLE_HEAD_PRINT.map((head) => (
+                              <th
+                                key={head}
+                                className="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50"
+                              >
+                                <Typography
+                                  variant="small"
+                                  color="blue-gray"
+                                  className="flex items-center justify-between gap-2 font-normal leading-none opacity-70"
+                                >
+                                  {head}
+                                </Typography>
+                              </th>
+                            ))}
+                          </tr>
+                        </thead>
+                      )}
+                      {!printable && (
+                        <thead>
+                          <tr>
+                            {TABLE_HEAD.map((head) => (
+                              <th
+                                key={head}
+                                className="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50"
+                              >
+                                <Typography
+                                  variant="small"
+                                  color="blue-gray"
+                                  className="flex items-center justify-between gap-2 font-normal leading-none opacity-70"
+                                >
+                                  {head}
+                                </Typography>
+                              </th>
+                            ))}
+                          </tr>
+                        </thead>
+                      )}
+
+                      <tbody>
+                        {girlsTeam.map((member, index) => {
+                          const isLast = index === girlsTeam.length - 1;
+                          const classes = isLast
+                            ? 'p-4'
+                            : 'p-4 border-b border-blue-gray-50';
+
+                          return (
+                            <tr key={member._id}>
+                              <td className={classes}>
+                                <div className="flex items-center gap-3">
+                                  <Avatar src={''} alt={''} size="sm" />
+                                  <div className="flex flex-col">
+                                    <Typography
+                                      variant="small"
+                                      color="blue-gray"
+                                      className="font-normal"
+                                    >
+                                      {member.firstName}
+                                    </Typography>
+                                  </div>
+                                </div>
+                              </td>
+
+                              <td className={classes}>
+                                <div className="w-max">
+                                  <Typography
+                                    variant="small"
+                                    color="blue-gray"
+                                    className="font-normal"
+                                  >
+                                    {member.regNo}
+                                  </Typography>
+                                </div>
+                              </td>
+                              {printable && (
+                                <td className={classes}>
+                                  <Typography
+                                    variant="small"
+                                    color="blue-gray"
+                                    className="font-normal"
+                                  >
+                                    {member.nicNo}
+                                  </Typography>
+                                </td>
+                              )}
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </>
+                  )}
+                </table>
+              </CardBody>
+            </Card>
+          </div>
+          {printable && (
+            <div className="px-5">
+              <Typography>...................</Typography>
+              <Typography>Signature</Typography>
+              <br></br>
+              <Typography className="flex justify-center items-center">
+                - Auto Generated By Ruhuna Sports Website -
+              </Typography>
+            </div>
+          )}
         </div>
-        {/* <div className="flex justify-center my-20">
-        <CustomButton
-          className="mr-2"
-          onClick={() => (window.location.href = '/achievement')}
-        >
-          Achievement
-        </CustomButton>
-        <CustomButton>Events</CustomButton>
-      </div> */}
+        <Footer />
       </>
     );
   }

@@ -10,7 +10,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import profile from '../assests/Profile.jpg';
+import profile from '../assests/profile.jpg';
 
 function Staff() {
   const [staffList, setStaffList] = useState([]);

@@ -6,6 +6,7 @@ import SpeakerView from './screens/SpeakerView';
 function Container(props) {
   const [joined, setJoined] = useState(null);
   const { join } = useMeeting();
+  const role = props.role;
   const mMeeting = useMeeting({
     onMeetingJoined: () => {
       if (mMeetingRef.current.localParticipant.mode === 'CONFERENCE') {
