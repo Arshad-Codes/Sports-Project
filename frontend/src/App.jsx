@@ -13,7 +13,11 @@ import StaffDashboard from './SportsCoordinator/StaffDashboard';
 import Achievement from './Achievementss/Achievement';
 import EmailPage from './Student/EmailPage';
 import ProfilePage from './Student/StudentProfile';
-
+import LiveMainPage from './Live/LiveMainPage';
+import Live from './Live/Live';
+import EditProfile from './Student/EditProfile';
+import SpeakerView from './Live/screens/SpeakerView';
+import ViewerView from './Live/screens/ViewerView';
 
 function App() {
   return (
@@ -36,7 +40,13 @@ function App() {
         <Route path="/staff/dashboard" element={<StaffDashboard />} />
         <Route path="/achievement" element={<Achievement />} />
         <Route path="/email" element={<EmailPage />} />
-        <Route path="/myprofile" element={<ProfilePage/>}/>
+        <Route path="/myprofile" element={<ProfilePage />} />
+        <Route path="/liveMain" element={<LiveMainPage />} />
+        <Route path="/live" element={<Live />} />
+        <Route path="/myprofile" element={<ProfilePage />} />
+        <Route path="/myprofile/edit" element={<EditProfile />} />
+        <Route path="/telecast" element={<SpeakerView />} />
+        <Route path="/streaming" element={<ViewerView />} />
       </Routes>
     </BrowserRouter>
   );

@@ -23,8 +23,15 @@ function SportsSlider() {
   return (
     <div className="bg-customGreen mt-5 text-white">
       <Typography className="mx-3 pt-2">SPORTS</Typography>
-      <CardsWithSeeMore data={sportsData} />
-      <div className="py-3 text-right pr-5">
+      {loading ? (
+        <div className="flex justify-center  ">
+          <Spinner className="h-16 w-16 text-white" />
+        </div>
+      ) : (
+        <CardsWithSeeMore data={sportsData} />
+      )}
+
+      <div className="py-3 text-right pr-5 ">
         <Link to="/sports" className="mr-3">
           SEE MORE
           <FormatIndentIncreaseOutlined className="ml-1" />

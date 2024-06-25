@@ -10,8 +10,6 @@ import { useState } from 'react';
 import Profile from '../Student/Profile';
 
 function Home() {
-  const location = useLocation();
-  const [role, setRole] = useState(location.state?.role || '');
   const { carouselData } = homeData;
 
   const handleLogout = () => {
@@ -20,9 +18,8 @@ function Home() {
 
   return (
     <>
-      <NavBar role={role} />
-      <div className="flex flex-col md:flex-row ml-3 mt-5 mr-3">
-        {' '}
+      <NavBar />
+      <div className="relative">
         <Carousel
           transition={{ duration: 1.5 }}
           navigation={({ setActiveIndex, activeIndex, length }) => (
@@ -38,60 +35,49 @@ function Home() {
               ))}
             </div>
           )}
-          style={{ height: '400px' }}
-          className="rounded-xl text-center w-full md:w-1/2"
+          // style={{ height: '600px' }}
+          className=" w-full relative"
           autoplay
           autoplayDelay={5000}
           loop={true}
         >
           {carouselData.map((item, index) => (
-            <img
-              key={index}
-              src={item.path}
-              alt={item.title}
-              className="h-full w-full object-fill"
-            />
+            <div key={index} className="relative">
+              <img
+                src={item.path}
+                alt={item.title}
+                className="h-full w-full object-cover "
+              />
+              <div className="absolute inset-0 bg-black/70 " />
+            </div>
           ))}
         </Carousel>
-        <div className="flex flex-col justify-center items-center md:w-1/2">
-          {' '}
-          <div className="flex m-5 text-4xl text-customGreen font-bold font-serif ">
-            <div className="flex items-center">
-              <span>Welcome to </span>
-              <div className="ml-3">
-                <Typewriter
-                  options={{
-                    loop: true,
-                    cursor: '|',
-                    deleteSpeed: 0.3,
-                  }}
-                  onInit={(typewriter) => {
-                    typewriter
-                      .typeString('RuhunaSports!')
-                      .pauseFor(3000)
-                      .deleteAll()
-                      .start();
-                  }}
-                />
-              </div>
-            </div>
+        <div className="absolute top-28 sm:top-1/3 md:top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-white font-bold z-30">
+          <span className="text-xl sm:text-2xl  md:text-4xl lg:text-6xl">
+            Faculty Of Engineering University Of Ruhuna{' '}
+          </span>
+          <div className="mt-5 text:2xl sm:text-3xl md:text-4xl ">
+            <Typewriter
+              options={{
+                loop: true,
+                cursor: '|',
+                deleteSpeed: 0.3,
+              }}
+              onInit={(typewriter) => {
+                typewriter
+                  .typeString(' 𝕽𝖚𝖍𝖚𝖓𝖆 𝕾𝖕𝖔𝖗𝖙𝖘!')
+                  .pauseFor(3000)
+                  .deleteAll()
+                  .start();
+              }}
+            />
           </div>
         </div>
       </div>
-      <UpcomingEvent />
-      <div className="bg-green-300 mt-5">
-        <div className=" ml-3">
-          <h1>ANNOUNCEMENTS</h1>
-          <div className="grid grid-cols-1">
-            <div>
-              <h1></h1>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <AnnouncementsCom />
+      <WhyRuhunaSport />
       <SportsSlider />
+      <AboutUs />
+      <Footer />
     </>
   );
 }
