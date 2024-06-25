@@ -3,7 +3,7 @@ import React from "react";
 const AboutUs = () => {
   return (
     <div className="flex justify-center items-center w-full animate__animated animate__fadeIn">
-      <div className="bg-gray-100 rounded-lg shadow-md mt-10 text-center px-5 sm:px-32 py-10 ">
+      <div className="bg-gray-100 rounded-lg shadow-md mt-10 text-start px-5 sm:px-32 py-10 ">
         <h2 className="text-2xl font-bold text-customGreen mb-4">About Us</h2>
         <p className="text-gray-700 mb-4">
           The students of the Faculty of Engineering take actively take part in
@@ -37,6 +37,10 @@ const AboutUs = () => {
           within the faculty.
         </p>
       </div>
+      <script
+        src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs"
+        type="module"
+      ></script>
     </div>
   );
 };

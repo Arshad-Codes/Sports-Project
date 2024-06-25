@@ -48,7 +48,7 @@ function Home() {
         </Carousel>
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-white font-bold  z-30">
       
-          <span className='text-6xl'>Faculty Of Engineering University Of..  </span>
+          <span className='text-6xl'>Faculty Of Engineering University Of Ruhuna  </span>
           <div className="mt-5 text-4xl ">
             <Typewriter
               options={{
