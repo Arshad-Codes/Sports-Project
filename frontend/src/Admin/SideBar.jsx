@@ -9,6 +9,7 @@ import {
   FaUserEdit,
   FaMailBulk,
   FaPeopleArrows,
+  FaTrophy
 } from 'react-icons/fa';
 import { useState } from 'react';
 import axios from 'axios';
@@ -106,6 +107,18 @@ const Sidebar = ({ isSidebarOpen, onPageChange }) => {
         >
           <FaRegCalendar size={25} />
           Announcement
+        </button>
+
+        <button
+          className={`rounded-lg h-10 p-3 flex flex-row gap-5 items-center ${
+            clickedButton === 'adminaddachievement'
+              ? 'bg-customGreen text-white'
+              : 'hover:bg-customGreen hover:text-white'
+          }`}
+          onClick={() => handlePageClick('adminaddachievement')}
+        >
+          <FaTrophy size={25} />
+          Achievement
         </button>
 
         <button
