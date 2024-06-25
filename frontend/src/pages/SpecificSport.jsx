@@ -71,9 +71,11 @@ function SpecificSport() {
       console.error('Error enrolling:', error);
     }
   };
+
   const handlePrintOpen = () => {
     setPrintable(true);
   };
+
   const handlePrint = () => {
     const printContent = printRef.current.innerHTML;
     const originalContent = document.body.innerHTML;
@@ -94,6 +96,13 @@ function SpecificSport() {
       </>
     );
   } else {
+    const boysTeam = sports.teamDetails.filter(
+      (member) => member.gender === 'Male'
+    );
+    const girlsTeam = sports.teamDetails.filter(
+      (member) => member.gender === 'Female'
+    );
+
     return (
       <>
         <NavBar />
@@ -153,46 +162,6 @@ function SpecificSport() {
             )}
           </div>
 
-          {/* <div className="flex justify-between px-3 my-5 sm:px-14 md:px-36">
-            <div>
-              <Typography className="flex justify-center items-center">
-                Boys Team
-              </Typography>
-              {sports.teamDetails.map((member, index) => {
-                return (
-                  <div className="flex gap-1" key={member._id}>
-                    <h1>{index + 1}. </h1>
-                    <div>
-                      <h1>
-                        {member.firstName} {member.lastName}
-                      </h1>
-                      <h1>{member.regNo}</h1>
-                      {printable && <h1>{member.nicNo}</h1>}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-            <div>
-              <Typography className="flex justify-center items-center">
-                Girls Team
-              </Typography>
-              {sports.teamDetails.map((member, index) => {
-                return (
-                  <div className="flex gap-1" key={member._id}>
-                    <h1>{index + 1}. </h1>
-                    <div>
-                      <h1>
-                        {member.firstName} {member.lastName}
-                      </h1>
-                      <h1>{member.regNo}</h1>
-                      {printable && <h1>{member.nicNo}</h1>}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div> */}
           <div className="w-full justify-between my-5 px-3 sm:px-10 md:px-20 lg:px-14 lg:gap-10 lg:flex">
             <Card className="flex h-full w-full mb-10 border border-gray-300 rounded-lg">
               <CardHeader
@@ -256,9 +225,8 @@ function SpecificSport() {
                       )}
 
                       <tbody>
-                        {sports.teamDetails.map((member, index) => {
-                          const isLast =
-                            index === sports.teamDetails.length - 1;
+                        {boysTeam.map((member, index) => {
+                          const isLast = index === boysTeam.length - 1;
                           const classes = isLast
                             ? 'p-4'
                             : 'p-4 border-b border-blue-gray-50';
@@ -373,9 +341,8 @@ function SpecificSport() {
                       )}
 
                       <tbody>
-                        {sports.teamDetails.map((member, index) => {
-                          const isLast =
-                            index === sports.teamDetails.length - 1;
+                        {girlsTeam.map((member, index) => {
+                          const isLast = index === girlsTeam.length - 1;
                           const classes = isLast
                             ? 'p-4'
                             : 'p-4 border-b border-blue-gray-50';
