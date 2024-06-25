@@ -29,7 +29,7 @@ function Home() {
               ))}
             </div>
           )}
-          style={{ height: '600px' }}
+          // style={{ height: '600px' }}
           className=" w-full relative"
           autoplay
           autoplayDelay={5000}
@@ -46,10 +46,11 @@ function Home() {
             </div>
           ))}
         </Carousel>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-white font-bold  z-30">
-      
-          <span className='text-6xl'>Faculty Of Engineering University Of Ruhuna  </span>
-          <div className="mt-5 text-4xl ">
+        <div className="absolute top-28 sm:top-1/3 md:top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-white font-bold z-30">
+          <span className="text-xl sm:text-2xl  md:text-4xl lg:text-6xl">
+            Faculty Of Engineering University Of Ruhuna{' '}
+          </span>
+          <div className="mt-5 text:2xl sm:text-3xl md:text-4xl ">
             <Typewriter
               options={{
                 loop: true,
@@ -64,7 +65,6 @@ function Home() {
                   .start();
               }}
             />
-      
           </div>
         </div>
       </div>
