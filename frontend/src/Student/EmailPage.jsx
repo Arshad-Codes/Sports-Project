@@ -3,6 +3,7 @@ import { Button, Card, CardBody, Typography } from "@material-tailwind/react";
 import NavBar from "../components/Navbar";
 import DatePicker from "../components/DatePicker";
 import axios from "axios";
+import { set } from "mongoose";
 
 function EmailPage() {
   const [role, setRole] = useState(location.state?.role || "");
@@ -10,7 +11,7 @@ function EmailPage() {
     JSON.parse(localStorage.getItem("currentUser") || "{}")
   );
   const [selectedOptions, setSelectedOptions] = useState({
-    option: "",
+    option: "Male Hostel Warden",
     option4: "",
   });
   const [selectedDate, setSelectedDate] = useState("");
@@ -26,6 +27,12 @@ function EmailPage() {
           }
         );
         setSports(response.data);
+        if (response.data.length > 0) {
+          setSelectedOptions((prevOptions) => ({
+            ...prevOptions,
+            option4: response.data[0].name,
+          }));
+        }
       } catch (error) {
         console.error("Failed to fetch sports", error);
       }
@@ -47,17 +54,23 @@ function EmailPage() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Prevent default form submission
     try {
+      const receiver = selectedOptions.option;
+      const sportName = selectedOptions.option4;
+      const subject = e.target.Subject.value;
+      const reason = e.target.Reason.value;
+      const date = selectedDate;
+
       const res = await axios.post(
         "http://localhost:8800/api/student/sendEmail",
         {
           studentId: currentUser._id,
-          reciever: selectedOptions.option,
-          sportName: selectedOptions.option4,
-          subject: e.target.Subject.value,
-          reason: e.target.Reason.value,
-          date: selectedDate,
+          reciever: receiver,
+          sportName: sportName,
+          subject: subject,
+          reason: reason,
+          date: date,
         }
       );
       if (res.status === 200) {
@@ -66,12 +79,7 @@ function EmailPage() {
     } catch (error) {
       console.error("Failed to send your request", error);
     }
-
-    // Reset form
-    setSelectedOptions({
-      option: "",
-      option4: "",
-    });
+    e.target.reset(); 
     setSelectedDate("");
   };
 
@@ -125,10 +133,7 @@ function EmailPage() {
               />
 
               <Typography>Date</Typography>
-              <DatePicker
-                value={selectedDate}
-                onChange={handleDateChange}
-              />
+              <DatePicker value={selectedDate} onChange={handleDateChange} />
 
               <Button type="submit" color="blue">
                 Submit
