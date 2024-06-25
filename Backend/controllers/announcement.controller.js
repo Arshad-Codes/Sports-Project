@@ -1,6 +1,6 @@
+import e from 'express';
 import Announcement from '../models/announcement.model.js';
 import Sport from '../models/sports.model.js';
-import e from 'express';
 
 export const createAnnouncement = async (req, res) => {
   try {
@@ -18,10 +18,9 @@ export const createAnnouncement = async (req, res) => {
 };
 
 export const getAnnouncementsforSport = async (req, res) => {
-  //console.log(req.body);
   try {
     const announcement_list = await Announcement.find({
-      sport: req.params.sport,
+      sport: req.body.sport,
     });
     res.status(200).send(announcement_list);
   } catch (error) {
@@ -41,15 +40,17 @@ export const getAnnouncements = async (req, res) => {
 
 export const deleteAnnouncement = async (req, res) => {
   try {
-    const announcement = await Announcement.findById(req.body._id);
+    const announcement = await Announcement.findById(req.body.announcementId);
     await Sport.updateOne(
       { name: announcement.sport },
       { $pull: { announcements: announcement._id } }
     );
-    await Announcement.deleteOne({ _id: req.body._id });
+    await Announcement.deleteOne({ _id: req.body.announcementId });
     res.status(200).send('Announcement has been deleted.');
-  } catch (error) {
+  }
+  catch (error) {
     console.error(error);
     res.status(500).send('Something went wrong');
   }
-};
+}
+

@@ -11,7 +11,7 @@ function LoginPopup({ onClose }) {
 
   return (
     <div className="fixed inset-0 flex flex-col items-center justify-center bg-black bg-opacity-80 z-50 w-screen h-screen">
-      <div className="bg-white w-1/2 sm:w-2/6 px-2 py-5 sm:p-8 rounded-lg shadow-lg">
+      <div className="bg-white w-2/6 p-8 rounded-lg shadow-lg">
         <div className="flex items-center justify-end">
           <button
             onClick={onClose}

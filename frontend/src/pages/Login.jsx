@@ -20,7 +20,7 @@ function Login() {
     e.preventDefault();
     try {
       let res;
-      if (role === 'Student' || role === '') {
+      if (role === 'Student') {
         res = await axios.post(
           'http://localhost:8800/api/student/login',
           {
@@ -42,7 +42,7 @@ function Login() {
         res = await axios.post(
           'http://localhost:8800/api/Staff/login',
           {
-            email,
+            username,
             password,
           },
           { withCredentials: true }
@@ -52,7 +52,7 @@ function Login() {
       if (res.status === 200) {
         localStorage.setItem('currentUser', JSON.stringify(res.data));
 
-        if (role === 'Student' || role === '') {
+        if (role === 'Student') {
           navigate('/home', { state: { role } });
         } else if (role === 'Admin') {
           navigate('/admin/dashboard', role);
@@ -73,7 +73,7 @@ function Login() {
         <button
           type="button"
           className=" text-black px-10 py-5 hover:text-blue-700 hover:scale-105 transition-transform"
-          onClick={() => (window.location.href = '/')}
+          onClick={() => (window.location.href = '/home')}
         >
           <div className="flex flex-row align-middle">
             <svg
@@ -113,12 +113,10 @@ function Login() {
             className="mt-8 mb-2 w-100 max-w-screen-lg sm:w-50"
           >
             <div className="mb-1 flex flex-col gap-6">
-              {role === 'Student' ||
-              role === 'Sport Coordinator' ||
-              role === '' ? (
+              {role === 'Student' ? (
                 <>
                   <Typography variant="h6" color="blue-gray" className="-mb-3">
-                    Email
+                    Student Email
                   </Typography>
                   <Input
                     type="email"
@@ -163,11 +161,24 @@ function Login() {
                 }}
               />
             </div>
+
+            {/* <Checkbox
+              label={
+                <Typography
+                  variant="small"
+                  color="gray"
+                  className="flex items-center font-normal"
+                >
+                  Remember me
+                </Typography>
+              }
+              containerProps={{ className: '-ml-2.5' }}
+            /> */}
             <CustomButton type="submit" className="mt-6" fullWidth>
               Log In
             </CustomButton>
             {error && <Typography color="red">{error}</Typography>}
-            {role === 'Student' || role === '' ? (
+            {role === 'Student' ? (
               <Typography color="gray" className="mt-4 text-center font-normal">
                 Don&apos;t have an account?{' '}
                 <button

@@ -1,3 +1,4 @@
+import React from 'react';
 import StudentsTable from './Tables/StudentsTable';
 
 function AdminStudent() {

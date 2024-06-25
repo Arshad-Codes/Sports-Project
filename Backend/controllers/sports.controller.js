@@ -42,6 +42,7 @@ export const deleteSport = async (req, res) => {
   }
 };
 
+
 export const addTeamMembers = async (req, res) => {
   try {
     if (req.role !== 'admin') {
@@ -54,7 +55,7 @@ export const addTeamMembers = async (req, res) => {
     for (let i = 0; i < req.body.studentId.length; i++) {
       if (Sport.team.includes(req.body.studentId[i])) {
         return res.status(400).json({ message: 'Member already exists' });
-      } else {
+      }else{
         Sport.team.push(req.body.studentId[i]);
       }
     }
@@ -63,7 +64,7 @@ export const addTeamMembers = async (req, res) => {
   } catch (error) {
     res.status(500).send('Something went wrong');
   }
-};
+}
 
 export const removeTeamMember = async (req, res) => {
   try {
@@ -83,28 +84,28 @@ export const removeTeamMember = async (req, res) => {
   } catch (error) {
     res.status(500).send('Something went wrong');
   }
-};
+}
 
 export const addaTeamMember = async (req, res) => {
   try {
     if (req.role !== 'admin') {
       return res.status(403).send('Unautorized Access. You are not a admin');
     }
-    const sport = await Sport.findById(req.body.data.selectedSport);
+    const sport = await Sport.findById(req.params.id);
     if (!sport) {
       return res.status(404).json({ message: 'Sport not found' });
     }
-    if (sport.team.includes(req.body.data.selectedStudent._id)) {
+    if (Sport.team.includes(req.params.studentId)) {
       return res.status(400).json({ message: 'Member already exists' });
-    } else {
-      sport.team.push(req.body.data.selectedStudent._id);
+    }else{
+      Sport.team.push(req.params.studentId);
     }
-    await sport.save();
-    res.status(200).json({ message: 'Team member added successfully' });
+    await Sport.save();
+    res.status(200).json({ message: 'Team added successfully' });
   } catch (error) {
     res.status(500).send('Something went wrong');
   }
-};
+}
 
 export const getEnrolledStudents = async (req, res) => {
   try {
@@ -116,4 +117,8 @@ export const getEnrolledStudents = async (req, res) => {
   } catch (error) {
     res.status(500).send('Something went wrong');
   }
-};
+}
+
+
+
+

@@ -15,7 +15,7 @@ export const register = async (req, res) => {
     await newAdmin.save();
     res.status(201).send('Admin has been created.');
   } catch (err) {
-    console.error(err);
+    
     res
       .status(500)
       .send('something went wrong. try again with valid username, password ');
@@ -41,7 +41,7 @@ export const login = async (req, res) => {
     );
 
     const { password, ...info } = admin._doc;
-    const info2 = { ...info, role: 'admin' };
+    const info2 = { ...info, role: 'admin'};
     res
       .cookie('accessToken', webtoken, { httpOnly: true })
       .status(200)
@@ -133,8 +133,15 @@ export const approveExcuse = async (req, res) => {
       } else {
         res.status(200).send('Email sent:', info.response);
       }
-    });
-  } catch (error) {
+    }
+    );
+    
+  }
+  catch (error) {
     res.status(500).send('Something went wrong');
   }
-};
+}
+
+
+
+

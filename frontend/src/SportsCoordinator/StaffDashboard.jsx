@@ -7,12 +7,9 @@ import StaffTopBar from './StaffTopBar';
 import StaffSideBar from './StaffSidebar';
 import AddStaff from '../Admin/AdminStaff';
 import AdminSport from '../Admin/AdminSport';
-import AdminAnnouncement from '../Admin/AdminAnnouncement';
-import EnrolledStudents from './EnrolledStudents';
-import StaffAnnouncement from './StaffAnnouncement';
 
 function StaffDashboard() {
-  const [currentPage, setCurrentPage] = useState('students');
+  const [currentPage, setCurrentPage] = useState('staffs');
   const [isSidebarOpen, setSidebarOpen] = useState(true);
 
   const toggleSidebar = () => {
@@ -37,15 +34,13 @@ function StaffDashboard() {
               Welcome Staff!
             </p>
           </div>
-          {/* {currentPage === 'staff_dashboard' && <AddStaff />} */}
-          {/* {currentPage === 'sports' && <AdminSport />} */}
+          {currentPage === 'staff_dashboard' && <AddStaff />}
+          {currentPage === 'sports' && <AdminSport />}
           {currentPage === 'students' && <AdminStudent />}
-          {currentPage === 'announcement' && <StaffAnnouncement />}
-          {currentPage === 'enrolled_students' && <EnrolledStudents />}
-          {/* {currentPage === 'events' && <Events />} */}
-          {/* {currentPage === 'enrolled_student' && <EnrolledStudent />} */}
-          {/* {currentPage === 'common' && <Common />} */}
-          {/* {currentPage === 'profile' && <Common />} */}
+          {currentPage === 'events' && <Events />}
+          {currentPage === 'enrolled_student' && <EnrolledStudent />}
+          {currentPage === 'common' && <Common />}
+          {currentPage === 'profile' && <Common />}
         </main>
       </div>
     </div>
