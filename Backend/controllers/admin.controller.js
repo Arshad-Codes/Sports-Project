@@ -145,3 +145,29 @@ export const approveExcuse = async (req, res) => {
 
 
 
+
+export const getExcuses = async (req, res) => {
+  try {
+    const excuses = await Excuse.find();
+
+    // Map over each excuse to fetch the corresponding student details
+    const excusesWithStudentInfo = await Promise.all(
+      excuses.map(async (excuse) => {
+        const student = await Student.findById(excuse.studentId).exec();
+        // Combine the excuse object with student details
+        return {
+          ...excuse.toObject(), // Convert Mongoose document to plain JavaScript object
+          studentName: student
+            ? `${student.firstName} ${student.lastName}`
+            : "Unknown",
+          regNo: student ? student.regNo : "Unknown",
+        };
+      })
+    );
+
+    res.status(200).send(excusesWithStudentInfo);
+
+  } catch (error) {
+    res.status(500).send('Something went wrong');
+  }
+}
