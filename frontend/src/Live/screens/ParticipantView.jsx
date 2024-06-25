@@ -25,7 +25,7 @@ function ParticipantView(props) {
         micRef.current
           .play()
           .catch((error) =>
-            console.error('videoElem.current.play() failed', error)
+            console.error('micRef.current.play() failed', error)
           );
       } else {
         micRef.current.srcObject = null;
@@ -34,38 +34,28 @@ function ParticipantView(props) {
   }, [micStream, micOn]);
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-4">
-      <p className="font-semibold text-gray-800 mb-2">
-        Participant: {displayName}
+    <div className="p-4 border rounded-lg shadow-sm space-y-2 bg-white">
+      <p className="font-medium text-center">
+        {displayName} | Webcam: {webcamOn ? 'ON' : 'OFF'} | Mic:{' '}
+        {micOn ? 'ON' : 'OFF'}
       </p>
-      <p className="text-sm text-gray-600">
-        Webcam: {webcamOn ? 'ON' : 'OFF'} | Mic: {micOn ? 'ON' : 'OFF'}
-      </p>
-      <audio
-        ref={micRef}
-        autoPlay
-        playsInline
-        muted={isLocal}
-        className="hidden"
-      />
+      <audio ref={micRef} autoPlay playsInline muted={isLocal} />
       {webcamOn && (
-        <div className="mt-4">
-          <ReactPlayer
-            playsinline
-            pip={false}
-            light={false}
-            controls={false}
-            muted={true}
-            playing={true}
-            url={videoStream}
-            height="300px"
-            width="100%"
-            className="rounded-lg overflow-hidden"
-            onError={(err) => {
-              console.log(err, 'participant video error');
-            }}
-          />
-        </div>
+        <ReactPlayer
+          playsinline
+          pip={false}
+          light={false}
+          controls={false}
+          muted={true}
+          playing={true}
+          url={videoStream}
+          // height="200px"
+          // width="250px"
+          onError={(err) => {
+            console.log(err, 'participant video error');
+          }}
+          className="m-5"
+        />
       )}
     </div>
   );

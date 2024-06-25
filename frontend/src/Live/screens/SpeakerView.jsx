@@ -17,22 +17,15 @@ function SpeakerView() {
   }, [participants]);
 
   return (
-    <div className="p-6 md:p-8 lg:p-10 bg-gray-100 rounded-lg shadow-lg">
-      <p className="text-lg font-semibold mb-4 text-center text-gray-800">
-        Current HLS State: {hlsState}
-      </p>
-      <div className="mb-4">
-        <Controls />
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div className="space-y-4 p-4 w-full">
+      <p className="text-gray-700">Current HLS State: {hlsState}</p>
+      <Controls />
+      <div>
         {speakers.map((participant) => (
-          <div
+          <ParticipantView
+            participantId={participant.id}
             key={participant.id}
-            className="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow"
-          >
-            <ParticipantView participantId={participant.id} />
-          </div>
+          />
         ))}
       </div>
     </div>

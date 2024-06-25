@@ -17,6 +17,7 @@ import LiveMainPage from './Live/LiveMainPage';
 import Live from './Live/Live';
 import EditProfile from './Student/EditProfile';
 import SpeakerView from './Live/screens/SpeakerView';
+import ViewerView from './Live/screens/ViewerView';
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
         <Route path="/myprofile" element={<ProfilePage />} />
         <Route path="/myprofile/edit" element={<EditProfile />} />
         <Route path="/telecast" element={<SpeakerView />} />
+        <Route path="/streaming" element={<ViewerView />} />
       </Routes>
     </BrowserRouter>
   );
