@@ -12,17 +12,22 @@ function SpeakerView() {
         return participant.mode === Constants.modes.CONFERENCE;
       }
     );
-    
+
     return speakerParticipants;
   }, [participants]);
-  return (
-    <div>
-      <p>Current HLS State: {hlsState}</p>
-      <Controls />
 
-      {speakers.map((participant) => (
-        <ParticipantView participantId={participant.id} key={participant.id} />
-      ))}
+  return (
+    <div className="space-y-4 p-4 w-full">
+      <p className="text-gray-700">Current HLS State: {hlsState}</p>
+      <Controls />
+      <div>
+        {speakers.map((participant) => (
+          <ParticipantView
+            participantId={participant.id}
+            key={participant.id}
+          />
+        ))}
+      </div>
     </div>
   );
 }

@@ -15,7 +15,6 @@ function ParticipantView(props) {
     }
   }, [webcamStream, webcamOn]);
 
-  //Playing the audio in the <audio>
   useEffect(() => {
     if (micRef.current) {
       if (micOn && micStream) {
@@ -26,7 +25,7 @@ function ParticipantView(props) {
         micRef.current
           .play()
           .catch((error) =>
-            console.error('videoElem.current.play() failed', error)
+            console.error('micRef.current.play() failed', error)
           );
       } else {
         micRef.current.srcObject = null;
@@ -35,29 +34,27 @@ function ParticipantView(props) {
   }, [micStream, micOn]);
 
   return (
-    <div>
-      <p>
-        Participant: {displayName} | Webcam: {webcamOn ? 'ON' : 'OFF'} | Mic:{' '}
+    <div className="p-4 border rounded-lg shadow-sm space-y-2 bg-white">
+      <p className="font-medium text-center">
+        {displayName} | Webcam: {webcamOn ? 'ON' : 'OFF'} | Mic:{' '}
         {micOn ? 'ON' : 'OFF'}
       </p>
       <audio ref={micRef} autoPlay playsInline muted={isLocal} />
       {webcamOn && (
         <ReactPlayer
-          //
-          playsinline // extremely crucial prop
+          playsinline
           pip={false}
           light={false}
           controls={false}
           muted={true}
           playing={true}
-          //
           url={videoStream}
-          //
-          height={'300px'}
-          width={'300px'}
+          // height="200px"
+          // width="250px"
           onError={(err) => {
             console.log(err, 'participant video error');
           }}
+          className="m-5"
         />
       )}
     </div>
