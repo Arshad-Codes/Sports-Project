@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useState } from "react";
 import {
   MagnifyingGlassIcon,
   CheckIcon,
@@ -13,14 +14,38 @@ import {
   CardBody,
   CardFooter,
 } from '@material-tailwind/react';
+import axios from "axios";
 
-const emails = [
-  { id: 1, sender: "john@gmail.com", subject: "Practice Schedule", date: "2024-05-30" },
-  { id: 2, sender: "jane@gmail.com", subject: "Project Update", date: "2024-05-29" },
-  { id: 3, sender: "tim@gmail.com", subject: "Inter Faculty Football Match", date: "2024-05-28" },
-];
+
+
+
 
 function EmailApproval() {
+
+  const [excuses, setExcuses] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchExcuses() {
+      try {
+        const response = await axios.get(
+          'http://localhost:8800/api/admin/getexcuses',
+          {
+            withCredentials:true
+          }
+        );
+        setExcuses(response.data);
+        setLoading(false);
+      } catch (error) {
+        setLoading(false);
+      }
+    }
+    fetchExcuses();
+  }, []);
+
+        
+
+
   const handleApprove = (id) => {
     console.log(`Email ${id} approved.`);
   };
@@ -29,7 +54,9 @@ function EmailApproval() {
     console.log(`Email ${id} disapproved.`);
   };
 
-  return (
+  return loading ? (
+    <p>Loading...</p>
+  ) : (
     <Card className="h-full w-full mb-5 border border-gray-300 border-t-0 shadow-lg rounded-lg">
       <CardHeader floated={false} shadow={false} className="rounded-none">
         <div className="flex items-center justify-between gap-8">
@@ -48,24 +75,52 @@ function EmailApproval() {
         <table className="mt-2 w-full min-w-max table-auto text-left">
           <thead>
             <tr>
-              <th className="border-b border-blue-gray-100 p-4 pb-3 text-left">Sender</th>
-              <th className="border-b border-blue-gray-100 p-4 pb-3 text-left">Subject</th>
-              <th className="border-b border-blue-gray-100 p-4 pb-3 text-left">Date</th>
-              <th className="border-b border-blue-gray-100 p-4 pb-3 text-left">Actions</th>
+              <th className="border-b border-blue-gray-100 p-4 pb-3 text-left">
+                Reg No
+              </th>
+              <th className="border-b border-blue-gray-100 p-4 pb-3 text-left">
+                Student Name
+              </th>
+              <th className="border-b border-blue-gray-100 p-4 pb-3 text-left">
+                Subject
+              </th>
+              <th className="border-b border-blue-gray-100 p-4 pb-3 text-left">
+                Date & Time
+              </th>
+              <th className="border-b border-blue-gray-100 p-4 pb-3 text-left">
+                Actions
+              </th>
             </tr>
           </thead>
           <tbody>
-            {emails.map((email) => (
+            {excuses.map((email) => (
               <tr key={email.id}>
-                <td className="border-b border-blue-gray-50 p-4">{email.sender}</td>
-                <td className="border-b border-blue-gray-50 p-4">{email.subject}</td>
-                <td className="border-b border-blue-gray-50 p-4">{email.date}</td>
+                <td className="border-b border-blue-gray-50 p-4">
+                  {email.regNo}
+                </td>
+                <td className="border-b border-blue-gray-50 p-4">
+                  {email.studentName}
+                </td>
+                <td className="border-b border-blue-gray-50 p-4">
+                  {email.subject}
+                </td>
+                <td className="border-b border-blue-gray-50 p-4">
+                  {email.date}
+                </td>
                 <td className="border-b border-blue-gray-50 p-4">
                   <div className="flex space-x-2">
-                    <Button color="green" size="sm" onClick={() => handleApprove(email.id)}>
+                    <Button
+                      color="green"
+                      size="sm"
+                      onClick={() => handleApprove(email.id)}
+                    >
                       <CheckIcon className="h-5 w-5" />
                     </Button>
-                    <Button color="red" size="sm" onClick={() => handleDisapprove(email.id)}>
+                    <Button
+                      color="red"
+                      size="sm"
+                      onClick={() => handleDisapprove(email.id)}
+                    >
                       <XMarkIcon className="h-5 w-5" />
                     </Button>
                   </div>
