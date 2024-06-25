@@ -64,7 +64,7 @@ function EmailPage() {
         alert("Your Request sent successfully!");
       }
     } catch (error) {
-      console.error("Failed to send email", error);
+      console.error("Failed to send your request", error);
     }
 
     // Reset form
