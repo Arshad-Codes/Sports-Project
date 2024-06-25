@@ -15,9 +15,8 @@ import EmailPage from './Student/EmailPage';
 import ProfilePage from './Student/StudentProfile';
 import LiveMainPage from './Live/LiveMainPage';
 import Live from './Live/Live';
-import LiveCopy from './Live/LiveCopy';
 import EditProfile from './Student/EditProfile';
-
+import SpeakerView from './Live/screens/SpeakerView';
 
 function App() {
   return (
@@ -43,9 +42,9 @@ function App() {
         <Route path="/myprofile" element={<ProfilePage />} />
         <Route path="/liveMain" element={<LiveMainPage />} />
         <Route path="/live" element={<Live />} />
-        <Route path="/liveNew" element={<LiveCopy />} />
         <Route path="/myprofile" element={<ProfilePage />} />
         <Route path="/myprofile/edit" element={<EditProfile />} />
+        <Route path="/telecast" element={<SpeakerView />} />
       </Routes>
     </BrowserRouter>
   );

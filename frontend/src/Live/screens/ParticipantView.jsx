@@ -15,7 +15,6 @@ function ParticipantView(props) {
     }
   }, [webcamStream, webcamOn]);
 
-  //Playing the audio in the <audio>
   useEffect(() => {
     if (micRef.current) {
       if (micOn && micStream) {
@@ -35,30 +34,38 @@ function ParticipantView(props) {
   }, [micStream, micOn]);
 
   return (
-    <div>
-      <p>
-        Participant: {displayName} | Webcam: {webcamOn ? 'ON' : 'OFF'} | Mic:{' '}
-        {micOn ? 'ON' : 'OFF'}
+    <div className="bg-white rounded-lg shadow-md p-4">
+      <p className="font-semibold text-gray-800 mb-2">
+        Participant: {displayName}
       </p>
-      <audio ref={micRef} autoPlay playsInline muted={isLocal} />
+      <p className="text-sm text-gray-600">
+        Webcam: {webcamOn ? 'ON' : 'OFF'} | Mic: {micOn ? 'ON' : 'OFF'}
+      </p>
+      <audio
+        ref={micRef}
+        autoPlay
+        playsInline
+        muted={isLocal}
+        className="hidden"
+      />
       {webcamOn && (
-        <ReactPlayer
-          //
-          playsinline // extremely crucial prop
-          pip={false}
-          light={false}
-          controls={false}
-          muted={true}
-          playing={true}
-          //
-          url={videoStream}
-          //
-          height={'300px'}
-          width={'300px'}
-          onError={(err) => {
-            console.log(err, 'participant video error');
-          }}
-        />
+        <div className="mt-4">
+          <ReactPlayer
+            playsinline
+            pip={false}
+            light={false}
+            controls={false}
+            muted={true}
+            playing={true}
+            url={videoStream}
+            height="300px"
+            width="100%"
+            className="rounded-lg overflow-hidden"
+            onError={(err) => {
+              console.log(err, 'participant video error');
+            }}
+          />
+        </div>
       )}
     </div>
   );

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { authToken, createLiveStreaming } from './api.js';
 import { MeetingConsumer, MeetingProvider } from '@videosdk.live/react-sdk';
 import JoinScreen from './screens/JoinScreen';
@@ -7,13 +7,17 @@ import { useLocation } from 'react-router-dom';
 
 function Live() {
   const [meetingId, setMeetingId] = useState(null);
-  // console.log(meetingId);
-  // State to handle the mode of the participant i.e. CONFERENCE or VIEWER
   const [mode, setMode] = useState('CONFERENCE');
   const location = useLocation();
   const role = location.state?.role || '';
-  // console.log(role);
-  // we have to get the MeetingId from the API created earlier
+  const meetingIdFromState = location.state?.meetingId || '';
+
+  useEffect(() => {
+    if (role === 'host' && meetingIdFromState) {
+      setMeetingId(meetingIdFromState);
+    }
+  }, [role, meetingIdFromState]);
+
   const getMeetingAndToken = async (id) => {
     const meetingId =
       id == null ? await createLiveStreaming({ token: authToken }) : id;
@@ -31,21 +35,27 @@ function Live() {
         micEnabled: true,
         webcamEnabled: true,
         name: 'infas_nm',
-        mode: mode, // This will be the mode of the participant CONFERENCE or VIEWER
+        mode: mode,
       }}
       token={authToken}
     >
       <MeetingConsumer>
         {() => (
-          <div className="flex flex-col items-center justify-center min-h-screen p-4">
-            <Container meetingId={meetingId} onMeetingLeave={onMeetingLeave} />
-          </div>
+          <Container
+            role={role}
+            meetingId={meetingId}
+            onMeetingLeave={onMeetingLeave}
+          />
         )}
       </MeetingConsumer>
     </MeetingProvider>
   ) : (
-    <div className="flex flex-col items-center justify-center min-h-screen p-4">
-      <JoinScreen getMeetingAndToken={getMeetingAndToken} setMode={setMode} />
+    <div className="flex flex-col items-center justify-center min-h-screen p-4 md:p-6 lg:p-8">
+      <JoinScreen
+        role={role}
+        getMeetingAndToken={getMeetingAndToken}
+        setMode={setMode}
+      />
     </div>
   );
 }
