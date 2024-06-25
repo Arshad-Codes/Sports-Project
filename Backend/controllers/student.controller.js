@@ -5,7 +5,6 @@ import bcrypt from 'bcrypt';
 import StudentVerification from '../models/studentVerification.model.js';
 import nodemailer from 'nodemailer';
 import { v4 as uuidv4 } from 'uuid';
-import Excuse from '../models/excuse.model.js';
 
 export const register = async (req, res) => {
   try {
@@ -49,15 +48,16 @@ export const register = async (req, res) => {
     try {
       newStudent.save().then((result, res) => {
         const currenturl = `http://localhost:${process.env.PORT}/`;
+        // const currenturl = `https://ruhunasports.onrender.com/`;
         const uniqueString = uuidv4();
 
         const mailOptions = {
           from: process.env.AUTH_EMAIL,
           to: result.email,
-          subject: 'Verification email for Ruhuna E-Faculty Sports Website',
-          html: `<p>Please click here to verify your email address. This link will expire in 2 hours.</p> <p> <a href= ${
+          subject: 'Verification Email for Ruhuna E-Faculty Sports Website',
+          html: `<p>Please click on the link below to verify your email address. Note that this link will expire in <strong>2 hours</strong>.</p> <p> <a href= ${
             currenturl + 'api/student/verify/' + result._id + '/' + uniqueString
-          }> click here to verify </a></p>`,
+          }> click here to verify </a></p> <p>If you did not receive the verification link, you can download it as a file by selecting the <strong>"Download this as a file"</strong> option from the <strong>Options</strong> menu. This file will contain the verification link.</p>`,
         };
 
         const hashedString = bcrypt.hashSync(uniqueString, 7);
@@ -150,7 +150,7 @@ export const login = async (req, res) => {
     );
 
     const { password, ...info } = student._doc;
-    const info2 = { ...info, role: "student" };
+    const info2 = { ...info, role: 'student' };
     res
       .cookie('accessTokenStudent', webtoken, { httpOnly: true })
       .status(200)
@@ -180,43 +180,59 @@ export const getStudents = async (req, res) => {
   }
 };
 
-export const editDetails = async (req,res)=>{
+export const updateStudent = async (req, res) => {
   try {
-    const student = await Student.findOne({
-      _id: req.params.studentId,
-    });
-
+    const student = await Student.findById(req.params.studentId);
     if (!student) {
-      return res.status(404).send('Student not found!');
-    }
-    const isRegNoAvailable = await Student.findOne({ regNo: student.regNo });
-    const isNicNoAvailable = await Student.findOne({ nicNo: student.nicNo });
-
-    if (isEmailAvailable) {
-      return res.status(409).send("Email already exists.");
-    }
-    if (isRegNoAvailable) {
-      return res.status(409).send("Registration number already exists.");
-    }
-    if (isNicNoAvailable) {
-      return res.status(409).send("NIC number already exists.");
+      return res.status(404).json({ message: 'Student not found' });
     }
 
-    student.firstName = req.body.firstName || student.firstName;
-    student.lastName = req.bodylastName || student.lastName;
-    student.dateofBirth = req.body.dateofBirth || student.dateofBirth;
-    student.achievements = req.body.achievements || student.achievements;
-    student.regNo = req.body.regNo || student.regNo;
-    student.nicNo = req.body.nicNo || student.nicNo;
+    const { firstName, lastName, dateOfBirth, regNo, nicNo, achievements } =
+      req.body;
+
+    student.firstName = firstName || student.firstName;
+    student.lastName = lastName || student.lastName;
+    student.dateofBirth = dateOfBirth || student.dateofBirth;
+    student.regNo = regNo || student.regNo;
+    student.nicNo = nicNo || student.nicNo;
+    student.achievements = achievements || student.achievements;
 
     await student.save();
-
-    res.status(200).send('Student details updated successfully');
+    // res.status(200).json({ message: 'Student details updated successfully' });
+    res.status(200).send(student);
   } catch (error) {
-    
+    res.status(500).json({ message: 'Server error', error });
   }
-}
+};
 
+// export const editDetails = async (req, res) => {
+//   try {
+//     const student = await Student.findOne({
+//       _id: req.params.studentId,
+//     });
+
+//     if (isEmailAvailable) {
+//       return res.status(409).send('Email already exists.');
+//     }
+//     if (isRegNoAvailable) {
+//       return res.status(409).send('Registration number already exists.');
+//     }
+//     if (isNicNoAvailable) {
+//       return res.status(409).send('NIC number already exists.');
+//     }
+
+//         const { firstName, lastName, dateOfBirth, regNo, nicNo, achievements } = req.body;
+
+//         student.firstName = firstName || student.firstName;
+//         student.lastName = lastName || student.lastName;
+//         student.dateofBirth = dateOfBirth || student.dateofBirth;
+//         student.regNo = regNo || student.regNo;
+//         student.nicNo = nicNo || student.nicNo;
+//         student.achievements = achievements || student.achievements;
+
+//     res.status(200).send('Student details updated successfully');
+//   } catch (error) {}
+// };
 
 export const enrollToSport = async (req, res) => {
   try {
@@ -226,12 +242,14 @@ export const enrollToSport = async (req, res) => {
     const student = await Student.findOne({
       _id: studentId,
     });
-    if(!student) return res.status(404).send('Student not found!');
+    if (!student) return res.status(404).send('Student not found!');
     const sport = await Sport.findOne({
       _id: sportId,
     });
-    if(sport.enrolledStudents.includes(studentId)) return res.status(409).send('Already enrolled!');
-    if(student.enrolledSports.includes(sportId)) return res.status(409).send('Already enrolled!');
+    if (sport.enrolledStudents.includes(studentId))
+      return res.status(409).send('Already enrolled!');
+    if (student.enrolledSports.includes(sportId))
+      return res.status(409).send('Already enrolled!');
     student.enrolledSports.push(sportId);
     await student.save();
     await Sport.updateOne(
@@ -240,43 +258,55 @@ export const enrollToSport = async (req, res) => {
         $push: { enrolledStudents: studentId },
       }
     );
-    
+
     res.status(200).send('Enrolled successfully');
   } catch (error) {
     res.status(500).send('Something went wrong');
   }
-
-}
+};
 
 export const getEnrolledSports = async (req, res) => {
   try {
-    const studentId = req.body.studentId;
+    const studentId = req.params.studentId;
     const student = await Student.findOne({
-      _id: studentId});
-    if(!student) return res.status(404).send('Student not found!');
+      _id: studentId,
+    });
+    if (!student) return res.status(404).send('Student not found!');
     const sports = await Sport.find({
-      _id: { $in: student.enrolledSports }
+      _id: { $in: student.enrolledSports },
     });
     res.status(200).send(sports);
-  }
-  catch (error) {
+  } catch (error) {
     res.status(500).send('Something went wrong');
   }
-}
+};
+
+// get a student by ID
+export const getStudentById = async (req, res) => {
+  try {
+    const student = await Student.findById(req.params.studentId);
+    if (!student) {
+      return res.status(404).json({ message: 'Student not found' });
+    }
+    res.status(200).json(student);
+  } catch (error) {
+    res.status(500).json({ message: 'Server error', error });
+  }
+};
 
 export const sendEmail = async (req, res) => {
   try {
     const studentId = req.body.studentId;
     console.log(req.body);
     const student = await Student.findOne({
-      _id: studentId,     
+      _id: studentId,
     });
-    if(!student) return res.status(404).send('Student not found!');
+    if (!student) return res.status(404).send('Student not found!');
     const sportName = req.body.sportName;
     const sport = await Sport.findOne({
       name: sportName,
     });
-    if(!sport) return res.status(404).send('Sport not found!');
+    if (!sport) return res.status(404).send('Sport not found!');
     const newexcuse = new Excuse({
       studentId: studentId,
       reciever: req.body.reciever,
@@ -287,12 +317,11 @@ export const sendEmail = async (req, res) => {
     });
     await newexcuse.save();
     res.status(200).send('Excuse sent successfully');
-
-    }
-  catch (error) {
+  } catch (error) {
     res.status(500).send('Something went wrong');
   }
-}
+};
+
 
 export const deleteStudent = async (req, res) => {
   try {
@@ -310,5 +339,5 @@ export const deleteStudent = async (req, res) => {
     res.status(500).send('Something went wrong');
   }
 }
+};
 
-    

@@ -1,26 +1,20 @@
-import { Button, Carousel } from '@material-tailwind/react';
+import { Carousel } from '@material-tailwind/react';
 import NavBar from '../components/Navbar';
 import { homeData } from '../data';
-import AnnouncementsCom from '../components/AnnouncemetsCom';
-import UpcomingEvent from './Home/UpcomingEvent';
 import SportsSlider from './Home/SportsSlider';
 import Typewriter from 'typewriter-effect';
-import { useLocation } from 'react-router-dom';
-import { useState } from 'react';
-import Profile from '../Student/Profile';
+import WhyRuhunaSport from '../components/WhyRuhunaSport';
+import Footer from '../components/Footer';
+import AboutUs from '../components/AboutUs';
 
 function Home() {
-  const location = useLocation();
-  const [role, setRole] = useState(location.state?.role || '');
+  // const location = useLocation();
+  // const [role, setRole] = useState(location.state?.role || '');
   const { carouselData } = homeData;
-
-  const handleLogout = () => {
-    setRole('');
-  };
 
   return (
     <>
-      <NavBar role={role} />
+      <NavBar />
       <div className="flex flex-col md:flex-row ml-3 mt-5 mr-3">
         {' '}
         <Carousel
@@ -56,9 +50,9 @@ function Home() {
         <div className="flex flex-col justify-center items-center md:w-1/2">
           {' '}
           <div className="flex m-5 text-4xl text-customGreen font-bold font-serif ">
-            <div className="flex items-center">
+            <div className="flex-col items-center ">
               <span>Welcome to </span>
-              <div className="ml-3">
+              <div className="ml-10">
                 <Typewriter
                   options={{
                     loop: true,
@@ -78,8 +72,10 @@ function Home() {
           </div>
         </div>
       </div>
-      <UpcomingEvent />
-      <div className="bg-green-300 mt-5">
+      <WhyRuhunaSport />
+      <SportsSlider />
+
+      {/* <div className="bg-green-300 mt-5">
         <div className=" ml-3">
           <h1>ANNOUNCEMENTS</h1>
           <div className="grid grid-cols-1">
@@ -88,10 +84,13 @@ function Home() {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
-      <AnnouncementsCom />
-      <SportsSlider />
+      {/* <AnnouncementsCom /> */}
+
+      {/* <UpcomingEvent /> */}
+      <AboutUs />
+      <Footer />
     </>
   );
 }

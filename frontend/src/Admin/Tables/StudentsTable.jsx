@@ -11,16 +11,21 @@ import {
   CardBody,
   CardFooter,
   Avatar,
+  Spinner,
 } from '@material-tailwind/react';
 import { DeleteForever } from '@mui/icons-material';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { toast, ToastContainer } from "react-toastify";
+
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const TABLE_HEAD = [
   'First Name',
   'Registration No',
   'NIC',
+  'Email',
   'Delete',
   'More Details',
 ];
@@ -39,23 +44,24 @@ function StudentsTable() {
         setLoading(false);
       } catch (error) {
         console.error('Error fetching students', error);
-        setLoading(false);
       }
     }
     fetchStudents();
   }, [studentList]);
 
-const handleDelete = (email) => async () => {
+
+  const handleDelete = (email) => async () => {
     try {
-       await axios.delete(
-        `http://localhost:8800/api/student/deleteStudent/${email}`
-        , {
+      await axios.delete(
+        `http://localhost:8800/api/student/deleteStudent/${email}`,
+        {
           withCredentials: true,
         }
       );
       toast.success('Student Deleted successfully!', {
         position: 'bottom-right',
-        autoClose: 3000,
+
+        autoClose: 4000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -72,30 +78,48 @@ const handleDelete = (email) => async () => {
           secondary: '#4CAF50',
         },
       });
-
-      
-      
-      
     } catch (error) {
       console.error('Error deleting student', error);
+      toast.error('Failed, Check your internet connection and try again', {
+        position: 'bottom-right',
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        style: {
+          borderRadius: '8px',
+          boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.1)',
+          padding: '16px',
+          fontSize: '16px',
+        },
+        iconTheme: {
+          primary: '#FFFFFF',
+          secondary: '#FF5252',
+        },
+      });
     }
   };
 
   return (
-    <Card className="h-full w-full mb-5 border border-gray-300 border-t-0 shadow-lg rounded-lg">
-      <CardHeader floated={false} shadow={false} className="rounded-none">
-        <div className="flex items-center justify-between gap-8">
-          <div>
-            <Typography variant="h5" color="blue-gray">
-              Students
-            </Typography>
+    <>
+      <Card className="h-full w-full mb-5 border border-gray-300 border-t-0 shadow-lg rounded-lg">
+        <CardHeader floated={false} shadow={false} className="rounded-none">
+          <div className="flex items-center justify-between gap-8">
+            <div>
+              <Typography variant="h5" color="blue-gray">
+                Students
+              </Typography>
+            </div>
+            <div className="w-full md:w-72">
+              <Input
+                label="Search"
+                icon={<MagnifyingGlassIcon className="h-5 w-5" />}
+              />
+            </div>
           </div>
-          <div className="w-full md:w-72">
-            <Input
-              label="Search"
-              icon={<MagnifyingGlassIcon className="h-5 w-5" />}
-            />
-          </div>
+
         </div>
       </CardHeader>
       <CardBody className="overflow-scroll mt-3 pl-0 pr-3 pb-3 pt-0">
@@ -137,14 +161,27 @@ const handleDelete = (email) => async () => {
                         <Typography
                           variant="small"
                           color="blue-gray"
-                          className="font-normal"
+                          className="flex items-center justify-between gap-2 font-normal leading-none opacity-70"
                         >
-                          {firstName}
+                          {head}{' '}
+                          {index == TABLE_HEAD.length - 3 && (
+                            <ChevronUpDownIcon
+                              strokeWidth={2}
+                              className="h-4 w-4"
+                            />
+                          )}
                         </Typography>
-                      </div>
-                    </div>
-                  </td>
-
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {studentList.map(
+                    ({ firstName, regNo, nicNo, email }, index) => {
+                      const isLast = index === studentList.length - 1;
+                      const classes = isLast
+                        ? 'p-4'
+                        : 'p-4 border-b border-blue-gray-50';
                   <td className={classes}>
                     <div className="w-max">
                       <Typography

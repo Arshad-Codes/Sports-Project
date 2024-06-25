@@ -11,6 +11,6 @@ const router = express.Router();
 router.post('/createAnnouncement', createAnnouncement);
 router.post('/getAnnouncementforSport', getAnnouncementsforSport);
 router.get('/getAnnouncement', getAnnouncements);
-router.delete('/deleteAnnouncement', deleteAnnouncement);
+router.post('/deleteAnnouncement', deleteAnnouncement);
 
 export default router;

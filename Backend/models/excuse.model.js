@@ -1,28 +1,30 @@
-import mongoose from "mongoose";
-import { Schema } from "mongoose";
+import mongoose from 'mongoose';
+import { Schema } from 'mongoose';
 
-const excuseSchema = new Schema({
-  studentId: {
-    type: String,
-  },
-  reciever: {
-    type: String,
-  },
-  reason: {
-    type: String,
+const excuseSchema = new Schema(
+  {
+    studentId: {
+      type: String,
+    },
+    reciever: {
+      type: String,
+    },
+    reason: {
+      type: String,
     },
     status: {
-        type: String,
+      type: String,
     },
     date: {
-        type: Date,     
+      type: Date,
     },
     subject: {
-        type: String,
-    },  
-}, {
+      type: String,
+    },
+  },
+  {
     timestamps: true,
-}
+  }
 );
 
-export default mongoose.model("Excuse", excuseSchema);
+export default mongoose.model('Excuse', excuseSchema);
