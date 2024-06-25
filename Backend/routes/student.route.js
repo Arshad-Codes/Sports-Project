@@ -12,7 +12,9 @@ import {
   getEnrolledSports,
   deleteStudent,
 } from '../controllers/student.controller.js';
-import { verifyTokenAdmin } from '../middleware.js';
+
+import { verifyTokenAdmin } from "../middleware.js";
+
 
 const router = express.Router();
 
@@ -26,6 +28,8 @@ router.post('/sendEmail', sendEmail);
 router.get('/:studentId', getStudentById);
 router.put('/:studentId', updateStudent);
 router.post('/getEnrolledSports', getEnrolledSports);
+
 router.delete('/deleteStudent/:email', verifyTokenAdmin, deleteStudent);
+
 
 export default router;
