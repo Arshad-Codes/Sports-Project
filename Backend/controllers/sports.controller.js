@@ -120,5 +120,16 @@ export const getEnrolledStudents = async (req, res) => {
 }
 
 
-
+export const getEnrolledStudentsbyname = async (req, res) => {
+  try {
+    const sport = await Sport.find({name: req.body.name});
+    if (!sport) {
+      return res.status(404).send("Sport not found");
+    }
+    
+    res.status(200).send(sport[0].enrolledStudents);
+  } catch (error) {
+    res.status(500).send("Something went wrong");
+  }
+};
 

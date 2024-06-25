@@ -8,6 +8,7 @@ function SpecificSport() {
   const { name } = useParams();
   //console.log(name);
   const [sportsData, setSportsData] = useState([]);
+  const [enrolledSports, setenrolledSports] = useState([]);
 
   useEffect(() => {
     async function fetchSports() {
@@ -16,6 +17,14 @@ function SpecificSport() {
           'http://localhost:8800/api/sport/getSports'
         );
         setSportsData(response.data);
+        const resp = await axios.post(
+          "http://localhost:8800/api/sport/getenrolledstudentsbyname",
+          {
+            name: name,
+          }
+        );
+        setenrolledSports(resp.data);
+        
       } catch (error) {
         console.error('Error fetching sports:', error);
       }
@@ -44,11 +53,17 @@ function SpecificSport() {
         },
         { withCredentials: true}
       );
-      console.log(response);
+      return alert("Enrolled successfully");
     } catch (error) {
       console.error('Error enrolling:', error);
   }
 }
+  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+  const isEnrolled =
+    currentUser &&
+    currentUser.role === "student" &&
+    enrolledSports.includes(currentUser._id);
+
   return (
     <>
       <NavBar />
@@ -67,8 +82,8 @@ function SpecificSport() {
           <div className="basis-3/4 flex items-center justify-center">
             <div className="text-center">
               <h1 className="p-10 font-medium">{sports.description}</h1>
-              <CustomButton onClick={handleEnroll} className="mt-5 w-36">
-                Enrol
+              <CustomButton onClick={handleEnroll} className="mt-5 w-36" disabled={isEnrolled}>
+                {isEnrolled ? "Already Enrolled" : "Enroll"}
               </CustomButton>
             </div>
           </div>
