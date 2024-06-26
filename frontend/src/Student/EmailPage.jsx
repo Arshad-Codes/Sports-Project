@@ -1,25 +1,25 @@
-import React, { useState, useEffect } from "react";
-import { Button, Card, CardBody, Typography } from "@material-tailwind/react";
-import NavBar from "../components/Navbar";
-import DatePicker from "../components/DatePicker";
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import { Button, Card, CardBody, Typography } from '@material-tailwind/react';
+import NavBar from '../components/Navbar';
+import DatePicker from '../components/DatePicker';
+import axios from 'axios';
 
 function EmailPage() {
-  const [role, setRole] = useState(location.state?.role || "");
+  const [role, setRole] = useState(location.state?.role || '');
   const [currentUser, setCurrentUser] = useState(
-    JSON.parse(localStorage.getItem("currentUser") || "{}")
+    JSON.parse(localStorage.getItem('currentUser') || '{}')
   );
   const [selectedOptions, setSelectedOptions] = useState({
-    option4: "",
+    option4: '',
   });
-  const [selectedDate, setSelectedDate] = useState("");
+  const [selectedDate, setSelectedDate] = useState('');
   const [sports, setSports] = useState([]);
 
   useEffect(() => {
     const fetchSports = async () => {
       try {
         const response = await axios.post(
-          "http://localhost:8800/api/student/getEnrolledSports",
+          'https://ruhunasports.onrender.com/api/student/getEnrolledSports',
           {
             studentId: currentUser._id,
           }
@@ -32,7 +32,7 @@ function EmailPage() {
           }));
         }
       } catch (error) {
-        console.error("Failed to fetch sports", error);
+        console.error('Failed to fetch sports', error);
       }
     };
 
@@ -61,7 +61,7 @@ function EmailPage() {
       const date = selectedDate;
 
       const res = await axios.post(
-        "http://localhost:8800/api/student/sendEmail",
+        'https://ruhunasports.onrender.com/api/student/sendEmail',
         {
           studentId: currentUser._id,
           reciever: receiver,
@@ -72,14 +72,14 @@ function EmailPage() {
         }
       );
       if (res.status === 200) {
-        alert("Your Request sent successfully!");
+        alert('Your Request sent successfully!');
       }
     } catch (error) {
-      console.error("Failed to send your request", error);
+      console.error('Failed to send your request', error);
     }
 
     e.target.reset(); // Clear form fields
-    setSelectedDate(""); // Clear selected date
+    setSelectedDate(''); // Clear selected date
   };
 
   return (

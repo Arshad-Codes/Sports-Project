@@ -153,7 +153,7 @@ function AddToTeams() {
   const handleDelete = (studentId, sportId) => async () => {
     try {
       await axios.post(
-        'http://localhost:8800/api/sport/deleteteammember',
+        'https://ruhunasports.onrender.com/api/sport/deleteteammember',
         {
           studentId: studentId,
           sportId: sportId,

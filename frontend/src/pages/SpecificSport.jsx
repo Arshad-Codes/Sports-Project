@@ -29,7 +29,7 @@ function SpecificSport() {
         }
         setSportsData(response.data);
         const resp = await axios.post(
-          'http://localhost:8800/api/sport/getenrolledstudentsbyname',
+          'https://ruhunasports.onrender.com/api/sport/getenrolledstudentsbyname',
           {
             name: name,
           }

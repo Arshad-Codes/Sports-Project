@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 import {
   MagnifyingGlassIcon,
   CheckIcon,
   XMarkIcon,
   InformationCircleIcon,
-} from "@heroicons/react/24/outline";
+} from '@heroicons/react/24/outline';
 import {
   Card,
   CardHeader,
@@ -18,10 +18,10 @@ import {
   DialogBody,
   DialogFooter,
   Chip,
-} from "@material-tailwind/react";
-import axios from "axios";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+} from '@material-tailwind/react';
+import axios from 'axios';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function EmailApproval() {
   const [excuses, setExcuses] = useState([]);
@@ -33,7 +33,7 @@ function EmailApproval() {
     async function fetchExcuses() {
       try {
         const response = await axios.get(
-          "http://localhost:8800/api/admin/getexcuses",
+          'https://ruhunasports.onrender.com/api/admin/getexcuses',
           {
             withCredentials: true,
           }
@@ -50,20 +50,20 @@ function EmailApproval() {
   const handleApprove = async (email) => {
     try {
       await axios.post(
-        'http://localhost:8800/api/admin/approveExcuse',
+        'https://ruhunasports.onrender.com/api/admin/approveExcuse',
         {
           excuseid: email._id,
-        }, 
+        },
         { withCredentials: true }
       );
-      
+
       setExcuses((prevExcuses) =>
         prevExcuses.map((excuse) =>
-          excuse.id === email.id ? { ...excuse, status: "approved" } : excuse
+          excuse.id === email.id ? { ...excuse, status: 'approved' } : excuse
         )
       );
-      toast.success("Email sent successfully. APPROVED", {
-        position: "bottom-right",
+      toast.success('Email sent successfully. APPROVED', {
+        position: 'bottom-right',
         autoClose: 4000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -71,38 +71,37 @@ function EmailApproval() {
         draggable: true,
         progress: undefined,
         style: {
-          borderRadius: "8px",
-          boxShadow: "0px 4px 15px rgba(0, 0, 0, 0.1)",
-          padding: "16px",
-          fontSize: "16px",
+          borderRadius: '8px',
+          boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.1)',
+          padding: '16px',
+          fontSize: '16px',
         },
         iconTheme: {
-          primary: "#FFFFFF",
-          secondary: "#4CAF50",
+          primary: '#FFFFFF',
+          secondary: '#4CAF50',
         },
       });
     } catch (error) {
-      console.error("Failed to approve excuse", error);
+      console.error('Failed to approve excuse', error);
     }
   };
 
   const handleDisapprove = async (email) => {
     try {
       await axios.post(
-        'http://localhost:8800/api/admin/disapproveExcuse',
+        'https://ruhunasports.onrender.com/api/admin/disapproveExcuse',
         {
           excuseid: email._id,
-
         },
         { withCredentials: true }
       );
       setExcuses((prevExcuses) =>
         prevExcuses.map((excuse) =>
-          excuse.id === email.id ? { ...excuse, status: "disapproved" } : excuse
+          excuse.id === email.id ? { ...excuse, status: 'disapproved' } : excuse
         )
       );
-      toast.success("Successfully DISAPPROVED", {
-        position: "bottom-right",
+      toast.success('Successfully DISAPPROVED', {
+        position: 'bottom-right',
         autoClose: 4000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -110,19 +109,19 @@ function EmailApproval() {
         draggable: true,
         progress: undefined,
         style: {
-          borderRadius: "8px",
-          boxShadow: "0px 4px 15px rgba(0, 0, 0, 0.1)",
-          padding: "16px",
-          fontSize: "16px",
+          borderRadius: '8px',
+          boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.1)',
+          padding: '16px',
+          fontSize: '16px',
         },
         iconTheme: {
-          primary: "#FFFFFF",
-          secondary: "#4CAF50",
+          primary: '#FFFFFF',
+          secondary: '#4CAF50',
         },
       });
     } catch (error) {
-      toast.error("Something went wrong", {
-        position: "bottom-right",
+      toast.error('Something went wrong', {
+        position: 'bottom-right',
         autoClose: 4000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -130,14 +129,14 @@ function EmailApproval() {
         draggable: true,
         progress: undefined,
         style: {
-          borderRadius: "8px",
-          boxShadow: "0px 4px 15px rgba(0, 0, 0, 0.1)",
-          padding: "16px",
-          fontSize: "16px",
+          borderRadius: '8px',
+          boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.1)',
+          padding: '16px',
+          fontSize: '16px',
         },
         iconTheme: {
-          primary: "#FFFFFF",
-          secondary: "#FF5252",
+          primary: '#FFFFFF',
+          secondary: '#FF5252',
         },
       });
     }
@@ -213,18 +212,18 @@ function EmailApproval() {
                       <Chip
                         variant="outlined"
                         color={
-                          email.status === "pending"
-                            ? "blue"
-                            : email.status === "Approved"
-                            ? "green"
-                            : "red"
+                          email.status === 'pending'
+                            ? 'blue'
+                            : email.status === 'Approved'
+                            ? 'green'
+                            : 'red'
                         }
                         value={email.status}
                       />
                     </td>
                     <td className="border-b border-blue-gray-50 p-4">
                       <div className="flex space-x-2">
-                        {email.status === "pending" ? (
+                        {email.status === 'pending' ? (
                           <>
                             <Button
                               color="green"
