@@ -1,7 +1,7 @@
 import {
   MagnifyingGlassIcon,
   ChevronUpDownIcon,
-} from '@heroicons/react/24/outline';
+} from "@heroicons/react/24/outline";
 import {
   Card,
   CardHeader,
@@ -12,13 +12,14 @@ import {
   CardFooter,
   Avatar,
   Spinner,
-} from '@material-tailwind/react';
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+} from "@material-tailwind/react";
+import { DeleteForever } from "@mui/icons-material";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-const TABLE_HEAD = ['First Name', 'Registration No', 'NIC', 'Add Teams'];
+const TABLE_HEAD = ["First Name", "Registration No", "NIC", "Add Teams"];
 
 function AddToTeams() {
   const [studentList, setStudentList] = useState([]);
@@ -31,12 +32,12 @@ function AddToTeams() {
     async function fetchStudents() {
       try {
         const response = await axios.get(
-          'http://localhost:8800/api/student/getStudents'
+          "http://localhost:8800/api/student/getStudents"
         );
         setStudentList(response.data);
         setLoading(false);
       } catch (error) {
-        console.error('Error fetching students', error);
+        console.error("Error fetching students", error);
       }
     }
     fetchStudents();
@@ -46,7 +47,7 @@ function AddToTeams() {
     async function fetchSports() {
       try {
         const response = await axios.get(
-          'http://localhost:8800/api/sport/getSports'
+          "http://localhost:8800/api/sport/getSports"
         );
 
         for (let sport of response.data) {
@@ -61,7 +62,7 @@ function AddToTeams() {
         setSportsData(response.data);
         setLoading(false);
       } catch (error) {
-        console.error('Error fetching sports:', error);
+        console.error("Error fetching sports:", error);
       }
     }
     fetchSports();
@@ -93,7 +94,7 @@ function AddToTeams() {
     e.preventDefault();
     try {
       await axios.post(
-        'http://localhost:8800/api/sport/addateammember',
+        "http://localhost:8800/api/sport/addateammember",
         {
           data: { selectedSport, selectedStudent },
         },
@@ -102,8 +103,8 @@ function AddToTeams() {
       setSelectedStudent(null);
       setSelectedSport(null);
 
-      toast.success('Team member added successfully!', {
-        position: 'bottom-right',
+      toast.success("Team member added successfully!", {
+        position: "bottom-right",
         autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -111,14 +112,14 @@ function AddToTeams() {
         draggable: true,
         progress: undefined,
         style: {
-          borderRadius: '8px',
-          boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.1)',
-          padding: '16px',
-          fontSize: '16px',
+          borderRadius: "8px",
+          boxShadow: "0px 4px 15px rgba(0, 0, 0, 0.1)",
+          padding: "16px",
+          fontSize: "16px",
         },
         iconTheme: {
-          primary: '#FFFFFF',
-          secondary: '#4CAF50',
+          primary: "#FFFFFF",
+          secondary: "#4CAF50",
         },
       });
     } catch (err) {
@@ -126,7 +127,7 @@ function AddToTeams() {
       setSelectedStudent(null);
       setSelectedSport(null);
       toast.error(error.message, {
-        position: 'bottom-right',
+        position: "bottom-right",
         autoClose: 4000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -134,18 +135,75 @@ function AddToTeams() {
         draggable: true,
         progress: undefined,
         style: {
-          borderRadius: '8px',
-          boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.1)',
-          padding: '16px',
-          fontSize: '16px',
+          borderRadius: "8px",
+          boxShadow: "0px 4px 15px rgba(0, 0, 0, 0.1)",
+          padding: "16px",
+          fontSize: "16px",
         },
         iconTheme: {
-          primary: '#FFFFFF',
-          secondary: '#FF5252',
+          primary: "#FFFFFF",
+          secondary: "#FF5252",
         },
       });
     }
   }
+
+  const handleDelete = (studentId,sportId) => async () => {
+    try {
+      
+      await axios.post(
+        "http://localhost:8800/api/sport/deleteteammember",
+        {
+          studentId:studentId,
+          sportId:sportId,
+        },
+        { withCredentials: true }
+      );
+
+      toast.success("Member removed successfully", {
+        position: "bottom-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        style: {
+          borderRadius: "8px",
+          boxShadow: "0px 4px 15px rgba(0, 0, 0, 0.1)",
+          padding: "16px",
+          fontSize: "16px",
+        },
+        iconTheme: {
+          primary: "#FFFFFF",
+          secondary: "#4CAF50",
+        },
+      });
+    } catch (error) {
+      
+      toast.error(error, {
+        position: "bottom-right",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        style: {
+          borderRadius: "8px",
+          boxShadow: "0px 4px 15px rgba(0, 0, 0, 0.1)",
+          padding: "16px",
+          fontSize: "16px",
+        },
+        iconTheme: {
+          primary: "#FFFFFF",
+          secondary: "#FF5252",
+        },
+      });
+    }
+  }
+    
+
 
   return (
     <div>
@@ -195,14 +253,14 @@ function AddToTeams() {
                   {studentList.map((student, index) => {
                     const isLast = index === studentList.length - 1;
                     const classes = isLast
-                      ? 'p-4'
-                      : 'p-4 border-b border-blue-gray-50';
+                      ? "p-4"
+                      : "p-4 border-b border-blue-gray-50";
 
                     return (
                       <tr key={student.nicNo}>
                         <td className={classes}>
                           <div className="flex items-center gap-3">
-                            <Avatar src={''} alt={''} size="sm" />
+                            <Avatar src={""} alt={""} size="sm" />
                             <div className="flex flex-col">
                               <Typography
                                 variant="small"
@@ -329,14 +387,23 @@ function AddToTeams() {
                       Registration No
                     </Typography>
                   </th>
+                  <th className="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50">
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="flex items-center justify-between gap-2 font-normal leading-none opacity-70"
+                    >
+                      Delete
+                    </Typography>
+                  </th>
                 </tr>
               </thead>
               <tbody>
                 {sport.teamDetails.map((member, index) => {
                   const isLast = index === sport.teamDetails.length - 1;
                   const classes = isLast
-                    ? 'p-4'
-                    : 'p-4 border-b border-blue-gray-50';
+                    ? "p-4"
+                    : "p-4 border-b border-blue-gray-50";
 
                   return (
                     <tr key={member._id}>
@@ -357,6 +424,11 @@ function AddToTeams() {
                         >
                           {member.nicNo}
                         </Typography>
+                      </td>
+                      <td className={classes}>
+                        <Button className="p-1 bg-white focus:bg-customRed2 border-customRed border-2" onClick= {handleDelete(member._id, sport._id)}>
+                          <DeleteForever className="h-4 w-4 text-black" />
+                        </Button>
                       </td>
                     </tr>
                   );

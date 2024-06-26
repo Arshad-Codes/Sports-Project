@@ -65,26 +65,6 @@ export const addTeamMembers = async (req, res) => {
   }
 };
 
-export const removeTeamMember = async (req, res) => {
-  try {
-    if (req.role !== 'admin') {
-      return res.status(403).send('Unautorized Access. You are not a admin');
-    }
-    const sport = await Sport.findById(req.params.id);
-    if (!sport) {
-      return res.status(404).json({ message: 'Sport not found' });
-    }
-    const index = Sport.team.indexOf(req.params.studentId);
-    if (index > -1) {
-      Sport.team.splice(index, 1);
-    }
-    await Sport.save();
-    res.status(200).json({ message: 'Member removed successfully' });
-  } catch (error) {
-    res.status(500).send('Something went wrong');
-  }
-};
-
 export const addaTeamMember = async (req, res) => {
   try {
     if (req.role !== 'admin') {
@@ -105,6 +85,26 @@ export const addaTeamMember = async (req, res) => {
     res.status(500).send('Something went wrong');
   }
 };
+
+export const removeaTeamMember = async (req, res) => {
+  try {
+    console.log(req.body);
+    const sport = await Sport.findById(req.body.sportId);
+    if (!sport) {
+      return res.status(404).json({ message: 'Sport not found' });
+    }
+    const index = sport.team.indexOf(req.body.studentId);
+    if (index > -1) {
+      sport.team.splice(index, 1);
+    }
+    await sport.save();
+    res.status(200).json({ message: 'Member removed successfully' });
+  }
+  catch (error) {
+    res.status(500).send('Something went wrong',error);
+  }
+}
+
 
 export const getEnrolledStudents = async (req, res) => {
   try {
