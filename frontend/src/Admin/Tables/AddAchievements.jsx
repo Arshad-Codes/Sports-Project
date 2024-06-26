@@ -40,7 +40,7 @@ const AddAchievements = () => {
   const handleSubmitEdit = async (updatedData) => {
     try {
       await axios.put(
-        `http://localhost:8800/api/achievement/${updatedData._id}`,
+        `https://ruhunasports.onrender.com/api/achievement/${updatedData._id}`,
         updatedData,
         {
           withCredentials: true,
@@ -99,7 +99,7 @@ const AddAchievements = () => {
     async function fetchData() {
       try {
         const response = await axios.get(
-          'http://localhost:8800/api/achievement/'
+          'https://ruhunasports.onrender.com/api/achievement/'
         );
         setAchievementList(response.data);
         setLoading(false);
@@ -135,7 +135,7 @@ const AddAchievements = () => {
     try {
       const imgUrl = await upload(file);
       await axios.post(
-        'http://localhost:8800/api/achievement/create',
+        'https://ruhunasports.onrender.com/api/achievement/create',
         {
           ...achievement,
           imgUrl,
@@ -216,7 +216,7 @@ const AddAchievements = () => {
   const handleDelete = (achievement) => async () => {
     try {
       await axios.delete(
-        `http://localhost:8800/api/achievement/${achievement.title}`,
+        `https://ruhunasports.onrender.com/api/achievement/${achievement.title}`,
         { withCredentials: true }
       );
 

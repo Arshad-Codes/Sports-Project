@@ -12,11 +12,6 @@ import {
   Typography,
 } from '@material-tailwind/react';
 import Footer from '../components/Footer';
-import { useParams } from 'react-router-dom';
-import NavBar from '../components/Navbar';
-import { CustomButton } from '../TailwindCustomComponents/CustomComponents';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
 
 function SpecificSport() {
   const { name } = useParams();
@@ -35,13 +30,15 @@ function SpecificSport() {
     async function fetchSports() {
       try {
         const response = await axios.get(
-          'http://localhost:8800/api/sport/getSports'
+          'https://ruhunasports.onrender.com/api/sport/getSports'
         );
 
         for (let sport of response.data) {
           const teamDetails = await Promise.all(
             sport.team.map((studentId) =>
-              axios.get(`http://localhost:8800/api/student/${studentId}`)
+              axios.get(
+                `https://ruhunasports.onrender.com/api/student/${studentId}`
+              )
             )
           );
           sport.teamDetails = teamDetails.map((res) => res.data);
@@ -49,7 +46,7 @@ function SpecificSport() {
         setSportsData(response.data);
         setLoading(false);
         const resp = await axios.post(
-          'http://localhost:8800/api/sport/getenrolledstudentsbyname',
+          'https://ruhunasports.onrender.com/api/sport/getenrolledstudentsbyname',
           {
             name: name,
           }
@@ -71,7 +68,7 @@ function SpecificSport() {
     }
     try {
       const response = await axios.post(
-        'http://localhost:8800/api/student/enroll',
+        'https://ruhunasports.onrender.com/api/student/enroll',
         {
           sportId: sports._id,
           studentId: currentUser._id,

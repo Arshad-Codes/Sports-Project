@@ -33,7 +33,7 @@ function EmailApproval() {
     async function fetchExcuses() {
       try {
         const response = await axios.get(
-          'http://localhost:8800/api/admin/getexcuses',
+          'https://ruhunasports.onrender.com/api/admin/getexcuses',
           {
             withCredentials: true,
           }
@@ -50,7 +50,7 @@ function EmailApproval() {
   const handleApprove = async (email) => {
     try {
       await axios.post(
-        'http://localhost:8800/api/admin/approveExcuse',
+        'https://ruhunasports.onrender.com/api/admin/approveExcuse',
         {
           excuseid: email._id,
         },
@@ -89,7 +89,7 @@ function EmailApproval() {
   const handleDisapprove = async (email) => {
     try {
       await axios.post(
-        'http://localhost:8800/api/admin/disapproveExcuse',
+        'https://ruhunasports.onrender.com/api/admin/disapproveExcuse',
         {
           excuseid: email._id,
         },

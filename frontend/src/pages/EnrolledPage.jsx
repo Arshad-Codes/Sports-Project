@@ -14,7 +14,7 @@ function EnrolledPage() {
     const fetchEnrolledSports = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8800/api/student/getEnrolledSports/${currentUser._id}`
+          `https://ruhunasports.onrender.com/api/student/getEnrolledSports/${currentUser._id}`
         );
         setEnrolledSports(response.data);
       } catch (error) {
@@ -28,7 +28,7 @@ function EnrolledPage() {
   const handleSportClick = async (sportId) => {
     try {
       const response = await axios.get(
-        `http://localhost:8800/api/announcement/getAnnouncementforSport/${sportId}`
+        `https://ruhunasports.onrender.com/api/announcement/getAnnouncementforSport/${sportId}`
       );
       console.log('Fetched announcement:', response.data);
       setAnnouncement(response.data);

@@ -32,7 +32,7 @@ function AddToTeams() {
     async function fetchStudents() {
       try {
         const response = await axios.get(
-          'http://localhost:8800/api/student/getStudents'
+          'https://ruhunasports.onrender.com/api/student/getStudents'
         );
         setStudentList(response.data);
         setLoading(false);
@@ -47,13 +47,15 @@ function AddToTeams() {
     async function fetchSports() {
       try {
         const response = await axios.get(
-          'http://localhost:8800/api/sport/getSports'
+          'https://ruhunasports.onrender.com/api/sport/getSports'
         );
 
         for (let sport of response.data) {
           const teamDetails = await Promise.all(
             sport.team.map((studentId) =>
-              axios.get(`http://localhost:8800/api/student/${studentId}`)
+              axios.get(
+                `https://ruhunasports.onrender.com/api/student/${studentId}`
+              )
             )
           );
           sport.teamDetails = teamDetails.map((res) => res.data);
@@ -94,7 +96,7 @@ function AddToTeams() {
     e.preventDefault();
     try {
       await axios.post(
-        'http://localhost:8800/api/sport/addateammember',
+        'https://ruhunasports.onrender.com/api/sport/addateammember',
         {
           data: { selectedSport, selectedStudent },
         },
@@ -151,7 +153,7 @@ function AddToTeams() {
   const handleDelete = (studentId, sportId) => async () => {
     try {
       await axios.post(
-        'http://localhost:8800/api/sport/deleteteammember',
+        'https://ruhunasports.onrender.com/api/sport/deleteteammember',
         {
           studentId: studentId,
           sportId: sportId,

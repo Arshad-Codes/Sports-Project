@@ -69,7 +69,7 @@ function Signup() {
     const imgUrl = await upload(file);
     try {
       await axios
-        .post('http://localhost:8800/api/student/register', {
+        .post('https://ruhunasports.onrender.com/api/student/register', {
           ...user,
           imageUrl: imgUrl,
         })
