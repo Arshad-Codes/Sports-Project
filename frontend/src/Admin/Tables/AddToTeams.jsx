@@ -13,6 +13,7 @@ import {
   Avatar,
   Spinner,
 } from '@material-tailwind/react';
+import { DeleteForever } from '@mui/icons-material';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
@@ -148,6 +149,59 @@ function AddToTeams() {
       });
     }
   }
+
+  const handleDelete = (studentId, sportId) => async () => {
+    try {
+      await axios.post(
+        'http://localhost:8800/api/sport/deleteteammember',
+        {
+          studentId: studentId,
+          sportId: sportId,
+        },
+        { withCredentials: true }
+      );
+
+      toast.success('Member removed successfully', {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        style: {
+          borderRadius: '8px',
+          boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.1)',
+          padding: '16px',
+          fontSize: '16px',
+        },
+        iconTheme: {
+          primary: '#FFFFFF',
+          secondary: '#4CAF50',
+        },
+      });
+    } catch (error) {
+      toast.error(error, {
+        position: 'bottom-right',
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        style: {
+          borderRadius: '8px',
+          boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.1)',
+          padding: '16px',
+          fontSize: '16px',
+        },
+        iconTheme: {
+          primary: '#FFFFFF',
+          secondary: '#FF5252',
+        },
+      });
+    }
+  };
 
   return (
     <div>
@@ -331,6 +385,15 @@ function AddToTeams() {
                       Registration No
                     </Typography>
                   </th>
+                  <th className="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50">
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="flex items-center justify-between gap-2 font-normal leading-none opacity-70"
+                    >
+                      Delete
+                    </Typography>
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -359,6 +422,14 @@ function AddToTeams() {
                         >
                           {member.nicNo}
                         </Typography>
+                      </td>
+                      <td className={classes}>
+                        <Button
+                          className="p-1 bg-white focus:bg-customRed2 border-customRed border-2"
+                          onClick={handleDelete(member._id, sport._id)}
+                        >
+                          <DeleteForever className="h-4 w-4 text-black" />
+                        </Button>
                       </td>
                     </tr>
                   );

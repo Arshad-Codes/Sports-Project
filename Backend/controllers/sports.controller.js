@@ -65,26 +65,6 @@ export const addTeamMembers = async (req, res) => {
   }
 };
 
-export const removeTeamMember = async (req, res) => {
-  try {
-    if (req.role !== 'admin') {
-      return res.status(403).send('Unautorized Access. You are not a admin');
-    }
-    const sport = await Sport.findById(req.params.id);
-    if (!sport) {
-      return res.status(404).json({ message: 'Sport not found' });
-    }
-    const index = Sport.team.indexOf(req.params.studentId);
-    if (index > -1) {
-      Sport.team.splice(index, 1);
-    }
-    await Sport.save();
-    res.status(200).json({ message: 'Member removed successfully' });
-  } catch (error) {
-    res.status(500).send('Something went wrong');
-  }
-};
-
 export const addaTeamMember = async (req, res) => {
   try {
     if (req.role !== 'admin') {
@@ -103,6 +83,24 @@ export const addaTeamMember = async (req, res) => {
     res.status(200).json({ message: 'Team member added successfully' });
   } catch (error) {
     res.status(500).send('Something went wrong');
+  }
+};
+
+export const removeaTeamMember = async (req, res) => {
+  try {
+    console.log(req.body);
+    const sport = await Sport.findById(req.body.sportId);
+    if (!sport) {
+      return res.status(404).json({ message: 'Sport not found' });
+    }
+    const index = sport.team.indexOf(req.body.studentId);
+    if (index > -1) {
+      sport.team.splice(index, 1);
+    }
+    await sport.save();
+    res.status(200).json({ message: 'Member removed successfully' });
+  } catch (error) {
+    res.status(500).send('Something went wrong', error);
   }
 };
 
@@ -125,10 +123,9 @@ export const updateSports = async (req, res) => {
       return res.status(404).json({ message: 'Sport not found' });
     }
 
-    const { name, description } =
-      req.body;
+    const { name, description } = req.body;
 
-    sport.name  =  name || sport.name;
+    sport.name = name || sport.name;
     sport.description = description || sport.description;
 
     await sport.save();
@@ -136,5 +133,29 @@ export const updateSports = async (req, res) => {
     res.status(200).send(sport);
   } catch (error) {
     res.status(500).json({ message: 'Server error', error });
+  }
+};
+export const getEnrolledStudentsbyname = async (req, res) => {
+  try {
+    const sport = await Sport.find({ name: req.body.name });
+    if (!sport) {
+      return res.status(404).send('Sport not found');
+    }
+
+    res.status(200).send(sport[0].enrolledStudents);
+  } catch (error) {
+    res.status(500).send('Something went wrong');
+  }
+};
+
+// Get announcements for a specific sport
+export const getSportAnnouncements = async (req, res) => {
+  try {
+    const sportId = req.params.sportId;
+    const sport = await Sport.findById(sportId).select('announcements');
+    if (!sport) return res.status(404).send('Sport not found!');
+    res.status(200).send(sport.announcements);
+  } catch (error) {
+    res.status(500).send('Something went wrong');
   }
 };

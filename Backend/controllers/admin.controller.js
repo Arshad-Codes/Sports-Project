@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import Excuse from '../models/excuse.model.js';
 import Student from '../models/student.model.js';
+import nodemailer from 'nodemailer';
 
 export const register = async (req, res) => {
   try {
@@ -15,7 +16,7 @@ export const register = async (req, res) => {
     await newAdmin.save();
     res.status(201).send('Admin has been created.');
   } catch (err) {
-    console.error(err);
+    
     res
       .status(500)
       .send('something went wrong. try again with valid username, password ');
@@ -41,7 +42,7 @@ export const login = async (req, res) => {
     );
 
     const { password, ...info } = admin._doc;
-    const info2 = { ...info, role: 'admin' };
+    const info2 = { ...info, role: 'admin'};
     res
       .cookie('accessToken', webtoken, { httpOnly: true })
       .status(200)
@@ -95,18 +96,18 @@ export const approveExcuse = async (req, res) => {
     const excuse = await Excuse.findByIdAndUpdate(req.body.excuseid, {
       status: 'approved',
     });
-    if (!excuse) {
+    if (!excuse) { 
       return res.status(404).send('Excuse not found!');
     }
     const student = await Student.findById(excuse.studentId);
-
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
         user: process.env.AUTH_EMAIL,
         pass: process.env.AUTH_PASS,
-      },
+      }, 
     });
+    
     transporter.verify((error, success) => {
       if (error) {
         console.log('Error verifying transporter:', error);
@@ -117,7 +118,7 @@ export const approveExcuse = async (req, res) => {
 
     const mailOptions = {
       from: process.env.AUTH_EMAIL,
-      to: req.body.recieverEmail,
+      to: excuse.reciever,
       subject: excuse.subject,
       text: `This is to inform that this excuse has been reccomended and forwarded to your consideration. 
       student Name: ${student.firstName} ${student.lastName}
@@ -129,11 +130,61 @@ export const approveExcuse = async (req, res) => {
 
     transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
-        res.status(500).send('Error sending email:', error);
+        return res.status(500).send('Error sending email:', error);
       } else {
-        res.status(200).send('Email sent:', info.response);
+        return res.status(200).send('Email sent successfully');
       }
+    } 
+    );
+    
+  }
+  catch (error) {
+    return res.status(500).send('Something went wrong',error);
+  }
+};
+
+
+export const disapproveExcuse = async (req, res) => {
+  try {
+    const excuse = await Excuse.findByIdAndUpdate(req.body.excuseid, {
+      status: 'disapproved',
     });
+    if (!excuse) {
+      return res.status(404).send('Excuse not found!');
+    }
+    return res.status(200).send('Excuse disapproved successfully');
+  }
+  catch (error) {
+    return res.status(500).send('Something went wrong');
+  }
+}
+    
+
+
+
+
+
+export const getExcuses = async (req, res) => {
+  try {
+    const excuses = await Excuse.find();
+
+    // Map over each excuse to fetch the corresponding student details
+    const excusesWithStudentInfo = await Promise.all(
+      excuses.map(async (excuse) => {
+        const student = await Student.findById(excuse.studentId).exec();
+        // Combine the excuse object with student details
+        return {
+          ...excuse.toObject(), // Convert Mongoose document to plain JavaScript object
+          studentName: student
+            ? `${student.firstName} ${student.lastName}`
+            : "Unknown",
+          regNo: student ? student.regNo : "Unknown",
+        };
+      })
+    );
+
+    res.status(200).send(excusesWithStudentInfo);
+
   } catch (error) {
     res.status(500).send('Something went wrong');
   }

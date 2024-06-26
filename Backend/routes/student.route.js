@@ -25,7 +25,7 @@ router.post('/enroll', enrollToSport);
 router.post('/sendEmail', sendEmail);
 router.get('/:studentId', getStudentById);
 router.put('/:studentId', updateStudent);
-router.post('/getEnrolledSports', getEnrolledSports);
+router.get('/getEnrolledSports/:studentId', getEnrolledSports);
 router.delete('/deleteStudent/:email', verifyTokenAdmin, deleteStudent);
 
 export default router;

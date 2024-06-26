@@ -1,6 +1,6 @@
+import e from 'express';
 import Announcement from '../models/announcement.model.js';
 import Sport from '../models/sports.model.js';
-import e from 'express';
 
 export const createAnnouncement = async (req, res) => {
   try {
@@ -17,6 +17,18 @@ export const createAnnouncement = async (req, res) => {
   }
 };
 
+// export const getAnnouncementsforSport = async (req, res) => {
+//   //console.log(req.body);
+//   try {
+//     const announcement_list = await Announcement.find({
+//       sport: req.params.sport,
+//     });
+//     res.status(200).send(announcement_list);
+//   } catch (error) {
+//     res.status(500).send('Something went wrong');
+//   }
+// };
+
 export const getAnnouncementsforSport = async (req, res) => {
   // console.log(req.body);
   try {
@@ -25,9 +37,11 @@ export const getAnnouncementsforSport = async (req, res) => {
     });
     res.status(200).send(announcement_list);
   } catch (error) {
+    console.error(error);
     res.status(500).send('Something went wrong');
   }
 };
+
 
 export const getAnnouncements = async (req, res) => {
   try {
@@ -61,8 +75,7 @@ export const updateAnnouncement = async (req, res) => {
       return res.status(404).json({ message: 'Announcement not found' });
     }
 
-    const { title, content, sport } =
-      req.body;
+    const { title, content, sport } = req.body;
 
     announcement.title = title || announcement.title;
     announcement.content = content || announcement.content;
