@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 function Login() {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
@@ -81,7 +82,7 @@ function Login() {
       });
     } catch (err) {
       setError(err.response.data);
-      toast.error(error.message, {
+      toast.error(err.response.data, {
         position: 'bottom-right',
         autoClose: 4000,
         hideProgressBar: false,
