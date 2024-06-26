@@ -10,7 +10,6 @@ function EmailPage() {
     JSON.parse(localStorage.getItem("currentUser") || "{}")
   );
   const [selectedOptions, setSelectedOptions] = useState({
-    option: "Male Hostel Warden",
     option4: "",
   });
   const [selectedDate, setSelectedDate] = useState("");
@@ -55,7 +54,7 @@ function EmailPage() {
   const handleSubmit = async (e) => {
     e.preventDefault(); // Prevent default form submission
     try {
-      const receiver = selectedOptions.option;
+      const receiver = e.target.reciever.value;
       const sportName = selectedOptions.option4;
       const subject = e.target.Subject.value;
       const reason = e.target.Reason.value;
@@ -91,17 +90,12 @@ function EmailPage() {
           <CardBody>
             <form onSubmit={handleSubmit}>
               <Typography>To</Typography>
-              <select
-                name="option"
-                className="block w-full px-4 py-2 mb-4 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500"
-                value={selectedOptions.option}
-                onChange={handleOptionChange}
-              >
-                <option value="Male Hostel Warden">Male Hostel Warden</option>
-                <option value="Female Hostel Warden">
-                  Female Hostel Warden
-                </option>
-              </select>
+              <input
+                name="reciever"
+                type="text"
+                className="w-full px-4 py-2 mb-4 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500"
+                placeholder="Email Address of Warden"
+              />
 
               <Typography>Sports</Typography>
               <select

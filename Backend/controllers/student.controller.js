@@ -331,16 +331,19 @@ export const deleteStudent = async (req, res) => {
     if (!student) {
       return res.status(404).send("Student not found!");
     }
-    await Student.deleteOne({ email: studentemail });
     await Sport.updateMany(
-      { team: req.params.studentId },
-      { $pull: { team: req.params.studentId } }
+      { team: student._id },
+      { $pull: { team: student._id } }
     );
     await Sport.updateMany(
-      { enrolledStudents: req.params.studentId },
-      { $pull: { enrolledStudents: req.params.studentId } }
+      { enrolledStudents: student._id },
+      { $pull: { enrolledStudents: student._id } }
     );
+    await Excuse.deleteMany({ studentId: student._id });
+
     
+    
+    await Student.deleteOne({ email: studentemail });
     res.status(200).send("Student deleted successfully");
   } catch (error) {
     res.status(500).send("Something went wrong");
