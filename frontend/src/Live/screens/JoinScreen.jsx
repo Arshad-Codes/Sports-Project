@@ -16,7 +16,7 @@ function JoinScreen({ role, getMeetingAndToken, setMode }) {
     async function fetchData() {
       try {
         const response = await axios.get(
-          'http://localhost:8800/api/live/getlive'
+          'https://ruhunasports.onrender.com/api/live/getlive'
         );
         setLiveList(response.data);
         setLoading(false);
