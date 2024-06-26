@@ -1,3 +1,4 @@
+// EnrolledPage.js
 import './EnrolledPage.css';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
@@ -6,9 +7,11 @@ import PopupEnrolled from '../components/PopupEnrolled';
 
 function EnrolledPage() {
   const [enrolledSports, setEnrolledSports] = useState([]);
-  const [announcements, setAnnouncements] = useState([]);
+  const [announcement, setAnnouncement] = useState(null);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+  console.log(announcement);
 
   useEffect(() => {
     const fetchEnrolledSports = async () => {
@@ -25,17 +28,18 @@ function EnrolledPage() {
 
   const handleSportClick = async (sportId) => {
     try {
-      const response = await axios.get(`http://localhost:8800/api/sport/getSportAnnouncements/${sportId}`);
-      setAnnouncements(response.data);
-      setIsPopupOpen(true);
+      const response = await axios.get(`http://localhost:8800/api/announcement/getAnnouncement/${sportId}`);
+      console.log('Fetched announcement:', response.data);
+      setAnnouncement(response.data);
+      setIsPopupOpen(true); // Ensure popup is opened here
     } catch (error) {
-      console.error('Failed to fetch announcements', error);
+      console.error('Failed to fetch announcement', error);
     }
   };
 
   const closePopup = () => {
     setIsPopupOpen(false);
-    setAnnouncements([]);
+    setAnnouncement(null);
   };
 
   return (
@@ -62,7 +66,7 @@ function EnrolledPage() {
         </div>
         <PopupEnrolled 
           isOpen={isPopupOpen} 
-          data={announcements} 
+          data={announcement} 
           onClose={closePopup} 
         />
       </div>

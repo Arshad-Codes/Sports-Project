@@ -3,18 +3,21 @@ import './Popup.css';
 
 const PopupEnrolled = ({ isOpen, data, onClose }) => {
   useEffect(() => {
-    if (data) {
-        console.log(data);
+    if (data && data.length > 0) {
+      console.log('Announcement data:', data[0]);
+      console.log('Title:', data[0].title);
     }
   }, [data]);
 
-  if (!isOpen) return null;
+  if (!isOpen || !data || data.length === 0) return null;
+
+  const announcement = data[0]; // Assuming data has only one element
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-800 bg-opacity-75">
       <div className="bg-white rounded-lg shadow-lg w-2/3 p-6">
         <div className="flex justify-between items-center mb-4">
-          <h3 className="text-xl font-bold">Announcements</h3>
+          <h3 className="text-xl font-bold">Announcement</h3>
           <button
             type="button"
             onClick={onClose}
@@ -23,19 +26,14 @@ const PopupEnrolled = ({ isOpen, data, onClose }) => {
             Close
           </button>
         </div>
-        {data.length > 0 ? (
-          data.map((announcement, index) => (
-            <div className="announcement mb-4" key={index}>
-              <div className="announcement-content">
-                <h1 className="text-lg font-semibold">{announcement.heading}</h1>
-                <p className="date text-sm text-gray-500">Posted on: {new Date(announcement.date).toLocaleString()}</p>
-                <p>{announcement.details}</p>
-              </div>
-            </div>
-          ))
-        ) : (
-          <p>No announcements for this sport.</p>
-        )}
+        <div className="announcement mb-4">
+          <div className="announcement-content">
+            <h1 className="text-lg font-semibold">{announcement.title}</h1>
+            <p className="date text-sm text-gray-500">Posted on: {new Date(announcement.createdAt).toLocaleString()}</p>
+            <p className="font-medium">Sport: {announcement.sport}</p>
+            <p>{announcement.content}</p>
+          </div>
+        </div>
       </div>
     </div>
   );
