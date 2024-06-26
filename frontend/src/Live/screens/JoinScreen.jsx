@@ -1,10 +1,41 @@
-import { useState } from 'react';
+import { Spinner, Typography } from '@material-tailwind/react';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 
 function JoinScreen({ role, getMeetingAndToken, setMode }) {
   const [meetingId, setMeetingId] = useState(null);
+  const [liveList, setLiveList] = useState();
+  const [loading, setLoading] = useState(true);
+  // console.log(liveList);
   const onClick = async (mode) => {
     setMode(mode);
     await getMeetingAndToken(meetingId);
+  };
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await axios.get(
+          'http://localhost:8800/api/live/getlive'
+        );
+        setLiveList(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching live list', error);
+      }
+    }
+    fetchData();
+  }, [liveList]);
+
+  const copyToClipboard = (text) => {
+    navigator.clipboard.writeText(text).then(
+      () => {
+        alert('Copied to clipboard');
+      },
+      (err) => {
+        console.error('Could not copy text: ', err);
+      }
+    );
   };
 
   return (
@@ -23,6 +54,39 @@ function JoinScreen({ role, getMeetingAndToken, setMode }) {
         )}
         {role === 'user' && (
           <>
+            {loading ? (
+              <div className="flex justify-center">
+                <Spinner className="h-16 w-16 text-white" />
+              </div>
+            ) : (
+              <div>
+                {liveList.map((live, index) => (
+                  <div key={index} className="mb-4 p-4 border rounded shadow">
+                    <>
+                      <p className="text-lg font-semibold">{live.name}</p>
+                      <p className="text-sm text-gray-600">
+                        Meeting ID: {live.meetingId}
+                      </p>
+                      <button
+                        onClick={() => copyToClipboard(live.meetingId)}
+                        className="mt-2 py-1 px-2 bg-green-500 text-white rounded hover:bg-green-700"
+                      >
+                        Copy Meeting ID
+                      </button>
+                    </>
+                  </div>
+                ))}
+                {liveList && (
+                  <Typography
+                    color="red"
+                    variant="h3"
+                    className="text-center my-2"
+                  >
+                    No Live Availables
+                  </Typography>
+                )}
+              </div>
+            )}
             <input
               type="text"
               placeholder="Enter Meeting Id"

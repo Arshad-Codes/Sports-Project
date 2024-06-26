@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import Controls from '../Controls';
 import ParticipantView from './ParticipantView';
 
-function SpeakerView() {
+function SpeakerView(props) {
   const { participants, hlsState } = useMeeting();
 
   const speakers = useMemo(() => {
@@ -19,7 +19,7 @@ function SpeakerView() {
   return (
     <div className="space-y-4 p-4 w-full">
       <p className="text-gray-700">Current HLS State: {hlsState}</p>
-      <Controls />
+      <Controls onDeleteMeeting={props.onDeleteMeeting} />
       <div>
         {speakers.map((participant) => (
           <ParticipantView
