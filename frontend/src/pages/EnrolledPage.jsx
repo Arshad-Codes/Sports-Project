@@ -28,7 +28,7 @@ function EnrolledPage() {
 
   const handleSportClick = async (sportId) => {
     try {
-      const response = await axios.get(`http://localhost:8800/api/announcement/getAnnouncement/${sportId}`);
+      const response = await axios.get(`http://localhost:8800/api/announcement/getAnnouncementforSport/${sportId}`);
       console.log('Fetched announcement:', response.data);
       setAnnouncement(response.data);
       setIsPopupOpen(true); // Ensure popup is opened here
