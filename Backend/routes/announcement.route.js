@@ -4,6 +4,7 @@ import {
   getAnnouncements,
   getAnnouncementsforSport,
   deleteAnnouncement,
+  updateAnnouncement
 } from '../controllers/announcement.controller.js';
 
 const router = express.Router();
@@ -12,5 +13,6 @@ router.post('/createAnnouncement', createAnnouncement);
 router.post('/getAnnouncementforSport', getAnnouncementsforSport);
 router.get('/getAnnouncement', getAnnouncements);
 router.post('/deleteAnnouncement', deleteAnnouncement);
+router.put("/:_id", updateAnnouncement);
 
 export default router;
