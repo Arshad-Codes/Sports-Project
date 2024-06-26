@@ -9,7 +9,7 @@ import {
 const router = express.Router();
 
 router.post('/createAnnouncement', createAnnouncement);
-router.post('/getAnnouncementforSport', getAnnouncementsforSport);
+router.post('/getAnnouncementsforSport', getAnnouncementsforSport);
 router.get('/getAnnouncement', getAnnouncements);
 router.post('/deleteAnnouncement', deleteAnnouncement);
 

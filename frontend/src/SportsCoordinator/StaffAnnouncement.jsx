@@ -25,12 +25,11 @@ function StaffAnnouncement() {
         // const currentUser = JSON.parse(localStorage.getItem('currentUser'));
         // console.log(currentUser.sport);
         //console.log(sportRole);
-        const response = await axios.get(
-          'http://localhost:8800/api/announcement/getAnnouncementforSport',
-          {
-            sportRole,
-            withCredentials: true,
-          }
+        const response = await axios.post(
+          'http://localhost:8800/api/announcement/getAnnouncementsforSport',
+
+          { sportRole },
+          { withCredentials: true }
         );
         setAnnouncementsList(response.data);
         const Sportsresponse = await axios.get(

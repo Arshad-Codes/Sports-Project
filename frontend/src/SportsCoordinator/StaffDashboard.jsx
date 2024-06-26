@@ -10,6 +10,7 @@ import AdminSport from '../Admin/AdminSport';
 import AdminAnnouncement from '../Admin/AdminAnnouncement';
 import EnrolledStudents from './EnrolledStudents';
 import StaffAnnouncement from './StaffAnnouncement';
+import AdminAddAchievement from '../Admin/AdminAddAchievement';
 
 function StaffDashboard() {
   const [currentPage, setCurrentPage] = useState('students');
@@ -42,6 +43,9 @@ function StaffDashboard() {
           {currentPage === 'students' && <AdminStudent />}
           {currentPage === 'announcement' && <StaffAnnouncement />}
           {currentPage === 'enrolled_students' && <EnrolledStudents />}
+
+          {/* {currentPage === 'adminaddteams' && <AdminAddTeams />} */}
+          {currentPage === 'adminaddachievement' && <AdminAddAchievement />}
           {/* {currentPage === 'events' && <Events />} */}
           {/* {currentPage === 'enrolled_student' && <EnrolledStudent />} */}
           {/* {currentPage === 'common' && <Common />} */}
