@@ -2,9 +2,9 @@ import { Card, Input, Typography } from '@material-tailwind/react';
 import { CustomButton } from '../TailwindCustomComponents/CustomComponents';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import axios from 'axios';
-
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function Login() {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
@@ -40,7 +40,7 @@ function Login() {
         );
       } else if (role === 'Sport Coordinator') {
         res = await axios.post(
-          'https://ruhunasports.onrender.com/api/Staff/login',
+          'https://ruhunasports.onrender.com/api/sportscoordinator/logincoordinator',
           {
             email,
             password,
@@ -59,11 +59,47 @@ function Login() {
         } else if (role === 'Sport Coordinator') {
           navigate('/staff/dashboard', role);
         }
-
-        toast.success('Login successful!');
       }
+      toast.success('Login Successful!', {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        style: {
+          borderRadius: '8px',
+          boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.1)',
+          padding: '16px',
+          fontSize: '16px',
+        },
+        iconTheme: {
+          primary: '#FFFFFF',
+          secondary: '#4CAF50',
+        },
+      });
     } catch (err) {
       setError(err.response.data);
+      toast.error(error.message, {
+        position: 'bottom-right',
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        style: {
+          borderRadius: '8px',
+          boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.1)',
+          padding: '16px',
+          fontSize: '16px',
+        },
+        iconTheme: {
+          primary: '#FFFFFF',
+          secondary: '#FF5252',
+        },
+      });
     }
   };
 
@@ -181,6 +217,17 @@ function Login() {
           </form>
         </Card>
       </div>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={4000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   );
 }
