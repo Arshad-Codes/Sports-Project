@@ -27,222 +27,162 @@ const AddAchievements = () => {
     setIsPopupOpen(true);
   };
 
-const handleClosePopup = () => {
-  setIsPopupOpen(false);
-  setCurrentAchievement(null);
-};
+  const handleClosePopup = () => {
+    setIsPopupOpen(false);
+    setCurrentAchievement(null);
+  };
 
-const handleSubmitEdit = async (updatedData) => {
-  try {
-    await axios.put(`http://localhost:8800/api/achievement/${updatedData._id}`, updatedData, {
-      withCredentials: true,
-    });
-    setAchievementList((prevData) => prevData.map((achievement) => (achievement._id === updatedData._id ? updatedData : achievement)));
-    toast.success('Achievement updated successfully', {
-      position: 'bottom-right',
-      autoClose: 4000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      style: {
-        borderRadius: '8px',
-        boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.1)',
-        padding: '16px',
-        fontSize: '16px',
-      },
-      iconTheme: {
-        primary: '#FFFFFF',
-        secondary: '#4CAF50',
-      },
-    });
-    handleClosePopup();
-  } catch (error) {
-    console.error('Error updating achievement', error);
-    toast.error('Failed to update achievement. Please try again', {
-      position: 'bottom-right',
-      autoClose: 4000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      style: {
-        borderRadius: '8px',
-        boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.1)',
-        padding: '16px',
-        fontSize: '16px',
-      },
-      iconTheme: {
-        primary: '#FFFFFF',
-        secondary: '#FF5252',
-      },
-    });
-  }
-};
-
-
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await axios.get(
-          'http://localhost:8800/api/achievement/'
-        );
-        setAchievementList(response.data);
-        setLoading(false);
-      } catch (error) {
-        console.error('Error fetching achievements:', error);
-      }
-    }
-    fetchData();
-  }, [achievementList]);
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     await axios.post(
-  //       'http://localhost:8800/api/achievement/create',
-  //       {
-  //         ...achievement,
-  //       },
-  //       { withCredentials: true }
-  //     );
-  //     toast.success('Achievement added successfully!', {
-  //       position: 'bottom-right',
-  //       autoClose: 4000,
-  //       hideProgressBar: false,
-  //       closeOnClick: true,
-  //       pauseOnHover: true,
-  //       draggable: true,
-  //       progress: undefined,
-  //       style: {
-  //         borderRadius: '8px',
-  //         boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.1)',
-  //         padding: '16px',
-  //         fontSize: '16px',
-  //       },
-  //       iconTheme: {
-  //         primary: '#FFFFFF',
-  //         secondary: '#4CAF50',
-  //       },
-  //     });
-
-  //     //clear the fields
-  //     setAchievement({
-  //       title: '',
-  //       description: '',
-  //       imgUrl: '',
-  //     });
-  //   } catch (error) {
-  //     console.error(error);
-  //     toast.error('Failed to add Achievement. Please try again.', {
-  //       position: 'bottom-right',
-  //       autoClose: 4000,
-  //       hideProgressBar: false,
-  //       closeOnClick: true,
-  //       pauseOnHover: true,
-  //       draggable: true,
-  //       progress: undefined,
-  //       style: {
-  //         borderRadius: '8px',
-  //         boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.1)',
-  //         padding: '16px',
-  //         fontSize: '16px',
-  //       },
-  //       iconTheme: {
-  //         primary: '#FFFFFF',
-  //         secondary: '#FF5252',
-  //       },
-  //     });
-  //   }
-  // };
-
-const handleSubmit = async (e) => {
-  e.preventDefault();
-
-  const upload = async (file) => {
-    const data = new FormData();
-    data.append('file', file);
-    data.append('upload_preset', 'sports'); // Replace 'sports' with your Cloudinary preset
-
+  const handleSubmitEdit = async (updatedData) => {
     try {
-      const res = await axios.post(
-        'https://api.cloudinary.com/v1_1/djalshksm/image/upload',
-        data
-      );
-
-      const { url } = res.data;
-      return url;
-    } catch (err) {
-      console.log(err);
-      throw new Error('Failed to upload image');
+      await axios.put(`http://localhost:8800/api/achievement/${updatedData._id}`, updatedData, {
+        withCredentials: true,
+      });
+      setAchievementList((prevData) => prevData.map((achievement) => (achievement._id === updatedData._id ? updatedData : achievement)));
+      toast.success('Achievement updated successfully', {
+        position: 'bottom-right',
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        style: {
+          borderRadius: '8px',
+          boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.1)',
+          padding: '16px',
+          fontSize: '16px',
+        },
+        iconTheme: {
+          primary: '#FFFFFF',
+          secondary: '#4CAF50',
+        },
+      });
+      handleClosePopup();
+    } catch (error) {
+      console.error('Error updating achievement', error);
+      toast.error('Failed to update achievement. Please try again', {
+        position: 'bottom-right',
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        style: {
+          borderRadius: '8px',
+          boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.1)',
+          padding: '16px',
+          fontSize: '16px',
+        },
+        iconTheme: {
+          primary: '#FFFFFF',
+          secondary: '#FF5252',
+        },
+      });
     }
   };
 
-  try {
-    const imgUrl = await upload(file); // Assuming `file` is the image file from your state or props
 
-    await axios.post(
-      'http://localhost:8800/api/achievement/create',
-      {
-        ...achievement,
-        imgUrl, // Add the imageUrl to the request body
-      },
-      { withCredentials: true }
-    );
+    useEffect(() => {
+      async function fetchData() {
+        try {
+          const response = await axios.get(
+            'http://localhost:8800/api/achievement/'
+          );
+          setAchievementList(response.data);
+          setLoading(false);
+        } catch (error) {
+          console.error('Error fetching achievements:', error);
+        }
+      }
+      fetchData();
+    }, [achievementList]);
 
-    toast.success('Achievement added successfully!', {
-      position: 'bottom-right',
-      autoClose: 4000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      style: {
-        borderRadius: '8px',
-        boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.1)',
-        padding: '16px',
-        fontSize: '16px',
-      },
-      iconTheme: {
-        primary: '#FFFFFF',
-        secondary: '#4CAF50',
-      },
-    });
 
-    // Clear the fields
-    setAchievement({
-      title: '',
-      description: '',
-      imgUrl: '',
-    });
-    setFile(null); // Clear the file state if you have one
-    setPreviewImageUrl(null); // Clear the preview image if you have one
-  } catch (error) {
-    console.error(error);
-    toast.error('Failed to add Achievement. Please try again.', {
-      position: 'bottom-right',
-      autoClose: 4000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      style: {
-        borderRadius: '8px',
-        boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.1)',
-        padding: '16px',
-        fontSize: '16px',
-      },
-      iconTheme: {
-        primary: '#FFFFFF',
-        secondary: '#FF5252',
-      },
-    });
-  }
-};
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const upload = async (file) => {
+      const data = new FormData();
+      data.append('file', file);
+      data.append('upload_preset', 'sports'); // Replace 'sports' with your Cloudinary preset
+
+      try {
+        const res = await axios.post(
+          'https://api.cloudinary.com/v1_1/djalshksm/image/upload',
+          data
+        );
+
+        const { url } = res.data;
+        return url;
+      } catch (err) {
+        console.log(err);
+        throw new Error('Failed to upload image');
+      }
+    };
+
+    try {
+      const imgUrl = await upload(file); // Assuming `file` is the image file from your state or props
+
+      await axios.post(
+        'http://localhost:8800/api/achievement/create',
+        {
+          ...achievement,
+          imgUrl, // Add the imageUrl to the request body
+        },
+        { withCredentials: true }
+      );
+
+      toast.success('Achievement added successfully!', {
+        position: 'bottom-right',
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        style: {
+          borderRadius: '8px',
+          boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.1)',
+          padding: '16px',
+          fontSize: '16px',
+        },
+        iconTheme: {
+          primary: '#FFFFFF',
+          secondary: '#4CAF50',
+        },
+      });
+      // Clear the fields
+      setAchievement({
+        title: '',
+        description: '',
+        imgUrl: '',
+      });
+      setFile(null); 
+      setPreviewImageUrl(null); 
+    } catch (error) {
+      console.error(error);
+      toast.error('Failed to add Achievement. Please try again.', {
+        position: 'bottom-right',
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        style: {
+          borderRadius: '8px',
+          boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.1)',
+          padding: '16px',
+          fontSize: '16px',
+        },
+        iconTheme: {
+          primary: '#FFFFFF',
+          secondary: '#FF5252',
+        },
+      });
+    }
+  };
 
 
   const handleChange = (e) => {
