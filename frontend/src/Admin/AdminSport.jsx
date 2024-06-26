@@ -12,6 +12,8 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Popup from '../components/PopUp';
+
 
 function AdminSport() {
   const [file, setFile] = useState(null);
@@ -23,6 +25,71 @@ function AdminSport() {
   const [previewImageUrl, setPreviewImageUrl] = useState(null);
   const [sportsData, setSportsData] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [currentSport, setCurrentSport] = useState(null);
+
+  const handleEdit = (sport) => () => {
+    setCurrentSport(sport);
+    setIsPopupOpen(true);
+  };
+
+  const handleClosePopup = () => {
+    setIsPopupOpen(false);
+    setCurrentSport(null);
+  };
+
+const handleSubmit = async (updatedData) => {
+  try {
+    await axios.put(`http://localhost:8800/api/sport/${updatedData._id}`, updatedData, {
+      withCredentials: true,
+    });
+    setSportsData((prevData) => prevData.map((sport) => (sport._id === updatedData._id ? updatedData : sport)));
+    toast.success('Sport updated successfully', {
+      position: 'bottom-right',
+      autoClose: 4000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      style: {
+        borderRadius: '8px',
+        boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.1)',
+        padding: '16px',
+        fontSize: '16px',
+      },
+      iconTheme: {
+        primary: '#FFFFFF',
+        secondary: '#4CAF50',
+      },
+    });
+    handleClosePopup();
+  } catch (error) {
+    console.error('Error updating sport', error);
+    toast.error('Failed to update sport. Please try again', {
+      position: 'bottom-right',
+      autoClose: 4000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      style: {
+        borderRadius: '8px',
+        boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.1)',
+        padding: '16px',
+        fontSize: '16px',
+      },
+      iconTheme: {
+        primary: '#FFFFFF',
+        secondary: '#FF5252',
+      },
+    });
+  }
+};
+
+
   useEffect(() => {
     async function fetchSports() {
       try {
@@ -193,7 +260,7 @@ function AdminSport() {
     }
   };
 
-  const handleEdit = () => {};
+  //const handleEdit = () => {};
 
   return (
     <div>
@@ -295,14 +362,15 @@ function AdminSport() {
                   <p className="text-gray-600">{sport.description}</p>
                 </div>
                 <div className="flex items-center space-x-2 p-4 w-1/6">
-                  <Button
-                    color="green"
-                    size="sm"
-                    className="!min-h-[30px] !py-1 !px-3 flex items-center justify-center"
-                    onClick={handleEdit}
-                  >
-                    <Edit className="h-4 w-4" />
-                  </Button>
+                <Button
+                  color="green"
+                  size="sm"
+                  className="!min-h-[30px] !py-1 !px-3 flex items-center justify-center"
+                  onClick={handleEdit(sport)} // This is the correct way to pass the sport object
+                >
+                  <Edit className="h-4 w-4" />
+                </Button>
+
                   <Button
                     color="red"
                     size="sm"
@@ -317,6 +385,12 @@ function AdminSport() {
           </div>
         )}
       </div>
+        <Popup
+          isOpen={isPopupOpen}
+          data={currentSport}
+          onClose={handleClosePopup}
+          onSubmit={handleSubmit}
+        />
       <ToastContainer
         position="bottom-right"
         autoClose={4000}

@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import { DeleteForever, Edit } from '@mui/icons-material';
 import axios from "axios";
+import PopupAchievement from "../../components/PopUpacievements";
 
 const AddAchievements = () => {
 
@@ -15,32 +16,123 @@ const AddAchievements = () => {
   });
   const [achievementList, setAchievementList] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [previewImageUrl, setPreviewImageUrl] = useState(null);
+  const [file, setFile] = useState(null);
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await axios.get(
-          'http://localhost:8800/api/achievement/'
-        );
-        setAchievementList(response.data);
-        setLoading(false);
-      } catch (error) {
-        console.error('Error fetching achievements:', error);
-      }
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [currentAchievement, setCurrentAchievement] = useState(null);
+
+  const handleEdit = (achievement) => () => {
+    setCurrentAchievement(achievement);
+    setIsPopupOpen(true);
+  };
+
+  const handleClosePopup = () => {
+    setIsPopupOpen(false);
+    setCurrentAchievement(null);
+  };
+
+  const handleSubmitEdit = async (updatedData) => {
+    try {
+      await axios.put(`http://localhost:8800/api/achievement/${updatedData._id}`, updatedData, {
+        withCredentials: true,
+      });
+      setAchievementList((prevData) => prevData.map((achievement) => (achievement._id === updatedData._id ? updatedData : achievement)));
+      toast.success('Achievement updated successfully', {
+        position: 'bottom-right',
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        style: {
+          borderRadius: '8px',
+          boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.1)',
+          padding: '16px',
+          fontSize: '16px',
+        },
+        iconTheme: {
+          primary: '#FFFFFF',
+          secondary: '#4CAF50',
+        },
+      });
+      handleClosePopup();
+    } catch (error) {
+      console.error('Error updating achievement', error);
+      toast.error('Failed to update achievement. Please try again', {
+        position: 'bottom-right',
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        style: {
+          borderRadius: '8px',
+          boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.1)',
+          padding: '16px',
+          fontSize: '16px',
+        },
+        iconTheme: {
+          primary: '#FFFFFF',
+          secondary: '#FF5252',
+        },
+      });
     }
-    fetchData();
-  }, [achievementList]);
+  };
+
+
+    useEffect(() => {
+      async function fetchData() {
+        try {
+          const response = await axios.get(
+            'http://localhost:8800/api/achievement/'
+          );
+          setAchievementList(response.data);
+          setLoading(false);
+        } catch (error) {
+          console.error('Error fetching achievements:', error);
+        }
+      }
+      fetchData();
+    }, [achievementList]);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const upload = async (file) => {
+      const data = new FormData();
+      data.append('file', file);
+      data.append('upload_preset', 'sports'); // Replace 'sports' with your Cloudinary preset
+
+      try {
+        const res = await axios.post(
+          'https://api.cloudinary.com/v1_1/djalshksm/image/upload',
+          data
+        );
+
+        const { url } = res.data;
+        return url;
+      } catch (err) {
+        console.log(err);
+        throw new Error('Failed to upload image');
+      }
+    };
+
     try {
+      const imgUrl = await upload(file); // Assuming `file` is the image file from your state or props
+
       await axios.post(
         'http://localhost:8800/api/achievement/create',
         {
           ...achievement,
+          imgUrl, // Add the imageUrl to the request body
         },
         { withCredentials: true }
       );
+
       toast.success('Achievement added successfully!', {
         position: 'bottom-right',
         autoClose: 4000,
@@ -60,13 +152,14 @@ const AddAchievements = () => {
           secondary: '#4CAF50',
         },
       });
-
-      //clear the fields
+      // Clear the fields
       setAchievement({
         title: '',
         description: '',
         imgUrl: '',
       });
+      setFile(null); 
+      setPreviewImageUrl(null); 
     } catch (error) {
       console.error(error);
       toast.error('Failed to add Achievement. Please try again.', {
@@ -90,6 +183,7 @@ const AddAchievements = () => {
       });
     }
   };
+
 
   const handleChange = (e) => {
     setAchievement((prev) => {
@@ -97,63 +191,16 @@ const AddAchievements = () => {
     });
   };
 
-  const handleEdit = async (e) => {
-    e.preventDefault();
-    try {
-      await axios.put(
-        `http://localhost:8800/api/achievement/${achievement.title}`,
-        {
-          ...achievement,
-        },
-        { withCredentials: true }
-      );
-      toast.success('Achievement added successfully!', {
-        position: 'bottom-right',
-        autoClose: 4000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        style: {
-          borderRadius: '8px',
-          boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.1)',
-          padding: '16px',
-          fontSize: '16px',
-        },
-        iconTheme: {
-          primary: '#FFFFFF',
-          secondary: '#4CAF50',
-        },
-      });
+  const handleFileChange = (e) => {
+    const selectedFile = e.target.files[0];
+    setFile(selectedFile);
 
-      // Clear the fields
-      setAchievement({
-        title: '',
-        description: '',
-        imgUrl: '',
-      });
-    } catch (error) {
-      console.error(error);
-      toast.error('Failed to add Achievement. Please try again.', {
-        position: 'bottom-right',
-        autoClose: 4000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        style: {
-          borderRadius: '8px',
-          boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.1)',
-          padding: '16px',
-          fontSize: '16px',
-        },
-        iconTheme: {
-          primary: '#FFFFFF',
-          secondary: '#FF5252',
-        },
-      });
+    // Preview the selected image
+    if (selectedFile) {
+      const imageUrl = URL.createObjectURL(selectedFile);
+      setPreviewImageUrl(imageUrl);
+    } else {
+      setPreviewImageUrl(null);
     }
   };
 
@@ -256,7 +303,7 @@ const AddAchievements = () => {
                 }}
               ></Textarea>
             </div>
-            <div className="mb-1 flex flex-col gap-6">
+            {/* <div className="mb-1 flex flex-col gap-6">
               <Typography variant="h6" color="blue-gray" className="-mb-3">
                 ImageUrl
               </Typography>
@@ -270,7 +317,32 @@ const AddAchievements = () => {
                   className: 'before:content-none after:content-none',
                 }}
               />
+            </div> */}
+
+          <div className="mb-1 flex flex-col gap-6">
+              <Typography variant="h6" color="blue-gray" className="-mb-3">
+                Image
+              </Typography>
+              <Input
+                size="lg"
+                name="image"
+                type="file"
+                onChange={handleFileChange}
+                value={achievement.imgUrl}
+                className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+                labelProps={{
+                  className: 'before:content-none after:content-none',
+                }}
+              />
             </div>
+            {previewImageUrl && ( // Show the preview image if available
+              <img
+                src={previewImageUrl}
+                alt="Preview"
+                className="w-32 h-32 mx-auto mt-2"
+              />
+            )}
+
             <CustomButton className="mt-6" fullWidth type="submit">
               Create Achievement
             </CustomButton>
@@ -298,14 +370,14 @@ const AddAchievements = () => {
                   <p className="text-gray-600">{achievement.description}</p>
                 </div>
                 <div className="flex items-center space-x-2 p-4">
-                  <Button
-                    color="green"
-                    size="sm"
-                    className="!min-h-[30px] !py-1 !px-3 flex items-center justify-center"
-                    onClick={handleEdit}
-                  >
-                    <Edit className="h-4 w-4" />
-                  </Button>
+                <Button
+                  color="green"
+                  size="sm"
+                  className="!min-h-[30px] !py-1 !px-3 flex items-center justify-center"
+                  onClick={handleEdit(achievement)} // Fix applied here
+                >
+                  <Edit className="h-4 w-4" />
+                </Button>
                   <Button
                     color="red"
                     size="sm"
@@ -320,6 +392,12 @@ const AddAchievements = () => {
           </div>
         )}
       </div>
+      <PopupAchievement
+        isOpen={isPopupOpen}
+        data={currentAchievement}
+        onClose={handleClosePopup}
+        onSubmit={handleSubmitEdit}
+      />
       <ToastContainer
         position="bottom-right"
         autoClose={4000}

@@ -53,3 +53,25 @@ export const deleteAnnouncement = async (req, res) => {
     res.status(500).send('Something went wrong');
   }
 };
+
+export const updateAnnouncement = async (req, res) => {
+  try {
+    const announcement = await Announcement.findById(req.params._id);
+    if (!announcement) {
+      return res.status(404).json({ message: 'Announcement not found' });
+    }
+
+    const { title, content, sport } =
+      req.body;
+
+    announcement.title = title || announcement.title;
+    announcement.content = content || announcement.content;
+    announcement.sport = sport || announcement.sport;
+
+    await announcement.save();
+    // res.status(200).json({ message: 'announcement details updated successfully' });
+    res.status(200).send(announcement);
+  } catch (error) {
+    res.status(500).json({ message: 'Server error', error });
+  }
+};
