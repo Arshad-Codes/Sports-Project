@@ -10,8 +10,6 @@ function EnrolledPage() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
-  console.log(announcement);
-
   useEffect(() => {
     const fetchEnrolledSports = async () => {
       try {
@@ -29,8 +27,8 @@ function EnrolledPage() {
     try {
       const response = await axios.get(`http://localhost:8800/api/announcement/getAnnouncementforSport/${sportId}`);
       console.log('Fetched announcement:', response.data);
-      setAnnouncement(response.data);
-      setIsPopupOpen(true); 
+      setAnnouncement(response.data); 
+      setIsPopupOpen(true);
     } catch (error) {
       console.error('Failed to fetch announcement', error);
     }
