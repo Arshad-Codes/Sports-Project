@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import Excuse from '../models/excuse.model.js';
 import Student from '../models/student.model.js';
+import nodemailer from 'nodemailer';
 
 export const register = async (req, res) => {
   try {
@@ -95,18 +96,18 @@ export const approveExcuse = async (req, res) => {
     const excuse = await Excuse.findByIdAndUpdate(req.body.excuseid, {
       status: 'approved',
     });
-    if (!excuse) {
+    if (!excuse) { 
       return res.status(404).send('Excuse not found!');
     }
     const student = await Student.findById(excuse.studentId);
-
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
         user: process.env.AUTH_EMAIL,
         pass: process.env.AUTH_PASS,
-      },
+      }, 
     });
+    
     transporter.verify((error, success) => {
       if (error) {
         console.log('Error verifying transporter:', error);
@@ -117,7 +118,7 @@ export const approveExcuse = async (req, res) => {
 
     const mailOptions = {
       from: process.env.AUTH_EMAIL,
-      to: req.body.recieverEmail,
+      to: excuse.reciever,
       subject: excuse.subject,
       text: `This is to inform that this excuse has been reccomended and forwarded to your consideration. 
       student Name: ${student.firstName} ${student.lastName}
@@ -129,18 +130,35 @@ export const approveExcuse = async (req, res) => {
 
     transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
-        res.status(500).send('Error sending email:', error);
+        return res.status(500).send('Error sending email:', error);
       } else {
-        res.status(200).send('Email sent:', info.response);
+        return res.status(200).send('Email sent successfully');
       }
-    }
+    } 
     );
     
   }
   catch (error) {
-    res.status(500).send('Something went wrong');
+    return res.status(500).send('Something went wrong',error);
+  }
+};
+
+
+export const disapproveExcuse = async (req, res) => {
+  try {
+    const excuse = await Excuse.findByIdAndUpdate(req.body.excuseid, {
+      status: 'disapproved',
+    });
+    if (!excuse) {
+      return res.status(404).send('Excuse not found!');
+    }
+    return res.status(200).send('Excuse disapproved successfully');
+  }
+  catch (error) {
+    return res.status(500).send('Something went wrong');
   }
 }
+    
 
 
 
@@ -170,4 +188,4 @@ export const getExcuses = async (req, res) => {
   } catch (error) {
     res.status(500).send('Something went wrong');
   }
-}
+};
