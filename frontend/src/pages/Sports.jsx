@@ -21,7 +21,7 @@ function Sports() {
     async function fetchSports() {
       try {
         const response = await axios.get(
-          'https://ruhunasports.onrender.com/api/sport/getSports'
+          'http://localhost:8800/api/sport/getSports'
         );
         setSportsData(response.data);
         setLoading(false);

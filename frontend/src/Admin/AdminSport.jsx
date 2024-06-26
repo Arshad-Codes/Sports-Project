@@ -41,7 +41,7 @@ function AdminSport() {
   const handleSubmit = async (updatedData) => {
     try {
       await axios.put(
-        `https://ruhunasports.onrender.com/api/sport/${updatedData._id}`,
+        `http://localhost:8800/api/sport/${updatedData._id}`,
         updatedData,
         {
           withCredentials: true,
@@ -100,7 +100,7 @@ function AdminSport() {
     async function fetchSports() {
       try {
         const response = await axios.get(
-          'https://ruhunasports.onrender.com/api/sport/getSports'
+          'http://localhost:8800/api/sport/getSports'
         );
         setSportsData(response.data);
         setLoading(false);
@@ -155,7 +155,7 @@ function AdminSport() {
 
     try {
       await axios.post(
-        'https://ruhunasports.onrender.com/api/sport/createsport',
+        'http://localhost:8800/api/sport/createsport',
         {
           ...user,
           imageUrl: imgUrl,
@@ -217,7 +217,7 @@ function AdminSport() {
   const handleDelete = (sport) => async () => {
     try {
       await axios.delete(
-        `https://ruhunasports.onrender.com/api/sport/deleteSport/${sport._id}`,
+        `http://localhost:8800/api/sport/deleteSport/${sport._id}`,
 
         { withCredentials: true }
       );

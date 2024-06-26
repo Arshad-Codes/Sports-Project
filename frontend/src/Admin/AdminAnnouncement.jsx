@@ -39,7 +39,7 @@ function AdminAnnouncement() {
   const handleSubmitUpdate = async (updatedData) => {
     try {
       await axios.put(
-        `https://ruhunasports.onrender.com/api/announcement/${updatedData._id}`,
+        `http://localhost:8800/api/announcement/${updatedData._id}`,
         updatedData,
         {
           withCredentials: true,
@@ -98,11 +98,11 @@ function AdminAnnouncement() {
     async function fetchData() {
       try {
         const response = await axios.get(
-          'https://ruhunasports.onrender.com/api/announcement/getAnnouncement'
+          'http://localhost:8800/api/announcement/getAnnouncement'
         );
         setAnnouncementsList(response.data);
         const Sportsresponse = await axios.get(
-          'https://ruhunasports.onrender.com/api/sport/getSports'
+          'http://localhost:8800/api/sport/getSports'
         );
         setSportsList(Sportsresponse.data);
         setLoading(false);
@@ -123,7 +123,7 @@ function AdminAnnouncement() {
     e.preventDefault();
     try {
       await axios.post(
-        'https://ruhunasports.onrender.com/api/announcement/createAnnouncement',
+        'http://localhost:8800/api/announcement/createAnnouncement',
         {
           ...announcement,
         },
@@ -180,7 +180,7 @@ function AdminAnnouncement() {
   const handleDelete = (announcement) => async () => {
     try {
       await axios.post(
-        'https://ruhunasports.onrender.com/api/announcement/deleteAnnouncement',
+        'http://localhost:8800/api/announcement/deleteAnnouncement',
         { ...announcement }
       );
 

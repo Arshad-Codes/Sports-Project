@@ -23,7 +23,7 @@ function Login() {
       let res;
       if (role === 'Student' || role === '') {
         res = await axios.post(
-          'https://ruhunasports.onrender.com/api/student/login',
+          'http://localhost:8800/api/student/login',
           {
             email,
             password,
@@ -32,7 +32,7 @@ function Login() {
         );
       } else if (role === 'Admin') {
         res = await axios.post(
-          'https://ruhunasports.onrender.com/api/admin/login',
+          'http://localhost:8800/api/admin/login',
           {
             username,
             password,
@@ -41,7 +41,7 @@ function Login() {
         );
       } else if (role === 'Sport Coordinator') {
         res = await axios.post(
-          'https://ruhunasports.onrender.com/api/sportscoordinator/logincoordinator',
+          'http://localhost:8800/api/sportscoordinator/logincoordinator',
           {
             email,
             password,

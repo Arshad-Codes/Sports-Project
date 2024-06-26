@@ -26,7 +26,7 @@ function StaffAnnouncement() {
         // console.log(currentUser.sport);
         //console.log(sportRole);
         const response = await axios.get(
-          'https://ruhunasports.onrender.com/api/announcement/getAnnouncementforSport',
+          'http://localhost:8800/api/announcement/getAnnouncementforSport',
           {
             sportRole,
             withCredentials: true,
@@ -34,7 +34,7 @@ function StaffAnnouncement() {
         );
         setAnnouncementsList(response.data);
         const Sportsresponse = await axios.get(
-          'https://ruhunasports.onrender.com/api/sport/getSports'
+          'http://localhost:8800/api/sport/getSports'
         );
         setSportsList(Sportsresponse.data);
         setLoading(false);
@@ -57,7 +57,7 @@ function StaffAnnouncement() {
     e.preventDefault();
     try {
       await axios.post(
-        'https://ruhunasports.onrender.com/api/announcement/createAnnouncement',
+        'http://localhost:8800/api/announcement/createAnnouncement',
         {
           ...announcement,
         },

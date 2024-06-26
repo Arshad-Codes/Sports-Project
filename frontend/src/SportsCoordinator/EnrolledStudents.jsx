@@ -26,7 +26,7 @@ function EnrolledStudent() {
     async function fetchStudents() {
       try {
         const response = await axios.get(
-          'https://ruhunasports.onrender.com/api/student/getStudents'
+          'http://localhost:8800/api/student/getStudents'
         );
         setStudentList(response.data);
         setLoading(false);

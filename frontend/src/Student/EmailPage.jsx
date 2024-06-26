@@ -19,7 +19,7 @@ function EmailPage() {
     const fetchSports = async () => {
       try {
         const response = await axios.post(
-          'https://ruhunasports.onrender.com/api/student/getEnrolledSports',
+          'http://localhost:8800/api/student/getEnrolledSports',
           {
             studentId: currentUser._id,
           }
@@ -61,7 +61,7 @@ function EmailPage() {
       const date = selectedDate;
 
       const res = await axios.post(
-        'https://ruhunasports.onrender.com/api/student/sendEmail',
+        'http://localhost:8800/api/student/sendEmail',
         {
           studentId: currentUser._id,
           reciever: receiver,

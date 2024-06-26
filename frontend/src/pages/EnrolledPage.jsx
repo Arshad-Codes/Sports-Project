@@ -13,7 +13,9 @@ function EnrolledPage() {
   useEffect(() => {
     const fetchEnrolledSports = async () => {
       try {
-        const response = await axios.get(`https://ruhunasports.onrender.com/api/student/getEnrolledSports/${currentUser._id}`);
+        const response = await axios.get(
+          `http://localhost:8800/api/student/getEnrolledSports/${currentUser._id}`
+        );
         setEnrolledSports(response.data);
       } catch (error) {
         console.error('Failed to fetch enrolled sports', error);
@@ -25,9 +27,11 @@ function EnrolledPage() {
 
   const handleSportClick = async (sportId) => {
     try {
-      const response = await axios.get(`https://ruhunasports.onrender.com/api/announcement/getAnnouncementforSport/${sportId}`);
+      const response = await axios.get(
+        `http://localhost:8800/api/announcement/getAnnouncementforSport/${sportId}`
+      );
       console.log('Fetched announcement:', response.data);
-      setAnnouncement(response.data); 
+      setAnnouncement(response.data);
       setIsPopupOpen(true);
     } catch (error) {
       console.error('Failed to fetch announcement', error);
@@ -44,27 +48,31 @@ function EnrolledPage() {
       <NavBar />
       <div>
         <h1 className="welcome-text">
-          Welcome {currentUser.firstName + " " + currentUser.lastName} !!!
+          Welcome {currentUser.firstName + ' ' + currentUser.lastName} !!!
         </h1>
         <div className="main-sports">
           {enrolledSports.map((sport) => (
-            <div 
-              className="sport" 
-              key={sport._id} 
+            <div
+              className="sport"
+              key={sport._id}
               onClick={() => handleSportClick(sport._id)}
               style={{ cursor: 'pointer' }}
             >
               <div className="sport-content">
-                <img src={sport.imageUrl} alt={sport.name} className="sport-image" />
+                <img
+                  src={sport.imageUrl}
+                  alt={sport.name}
+                  className="sport-image"
+                />
                 <h1>{sport.name}</h1>
               </div>
             </div>
           ))}
         </div>
-        <PopupEnrolled 
-          isOpen={isPopupOpen} 
-          data={announcement} 
-          onClose={closePopup} 
+        <PopupEnrolled
+          isOpen={isPopupOpen}
+          data={announcement}
+          onClose={closePopup}
         />
       </div>
     </>
