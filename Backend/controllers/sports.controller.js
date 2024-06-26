@@ -154,7 +154,6 @@ export const getSportAnnouncements = async (req, res) => {
     const sportId = req.params.sportId;
     const sport = await Sport.findById(sportId).select('announcements');
     if (!sport) return res.status(404).send('Sport not found!');
-
     res.status(200).send(sport.announcements);
   } catch (error) {
     res.status(500).send('Something went wrong');

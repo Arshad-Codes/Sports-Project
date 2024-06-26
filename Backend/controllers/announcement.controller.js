@@ -17,6 +17,18 @@ export const createAnnouncement = async (req, res) => {
   }
 };
 
+// export const getAnnouncementsforSport = async (req, res) => {
+//   //console.log(req.body);
+//   try {
+//     const announcement_list = await Announcement.find({
+//       sport: req.params.sport,
+//     });
+//     res.status(200).send(announcement_list);
+//   } catch (error) {
+//     res.status(500).send('Something went wrong');
+//   }
+// };
+
 export const getAnnouncementsforSport = async (req, res) => {
   // console.log(req.body);
   try {
@@ -25,9 +37,11 @@ export const getAnnouncementsforSport = async (req, res) => {
     });
     res.status(200).send(announcement_list);
   } catch (error) {
+    console.error(error);
     res.status(500).send('Something went wrong');
   }
 };
+
 
 export const getAnnouncements = async (req, res) => {
   try {
