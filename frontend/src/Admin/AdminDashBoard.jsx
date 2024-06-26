@@ -51,9 +51,9 @@ function AdminDashBoard() {
           {currentPage === 'students' && <StudentsPage />}
           {currentPage === 'announcement' && <AdminAnnouncement />}
           {currentPage === 'my_account' && <MyAccount />}
-          {currentPage === 'adminapprove'  && <AdminApprove/>}
-          {currentPage === 'adminaddteams' && <AdminAddTeams/>}
-          {currentPage === 'adminaddachievement' && <AdminAddAchievement/>}
+          {currentPage === 'adminapprove' && <AdminApprove />}
+          {currentPage === 'adminaddteams' && <AdminAddTeams />}
+          {currentPage === 'adminaddachievement' && <AdminAddAchievement />}
         </main>
       </div>
     </div>
