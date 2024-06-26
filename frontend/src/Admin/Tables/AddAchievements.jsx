@@ -122,13 +122,12 @@ const AddAchievements = () => {
     };
 
     try {
-      const imgUrl = await upload(file); // Assuming `file` is the image file from your state or props
-
+      const imgUrl = await upload(file); 
       await axios.post(
         'http://localhost:8800/api/achievement/create',
         {
           ...achievement,
-          imgUrl, // Add the imageUrl to the request body
+          imgUrl, 
         },
         { withCredentials: true }
       );
@@ -303,22 +302,6 @@ const AddAchievements = () => {
                 }}
               ></Textarea>
             </div>
-            {/* <div className="mb-1 flex flex-col gap-6">
-              <Typography variant="h6" color="blue-gray" className="-mb-3">
-                ImageUrl
-              </Typography>
-              <Input
-                size="lg"
-                name="imgUrl"
-                onChange={handleChange}
-                value={achievement.imgUrl}
-                className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-                labelProps={{
-                  className: 'before:content-none after:content-none',
-                }}
-              />
-            </div> */}
-
           <div className="mb-1 flex flex-col gap-6">
               <Typography variant="h6" color="blue-gray" className="-mb-3">
                 Image
