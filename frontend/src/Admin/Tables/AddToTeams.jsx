@@ -307,7 +307,7 @@ function AddToTeams() {
             )}
           </table>
         </CardBody>
-        <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
+        {/* <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
           <Typography variant="small" color="blue-gray" className="font-normal">
             Page 1 of 10
           </Typography>
@@ -319,7 +319,7 @@ function AddToTeams() {
               Next
             </Button>
           </div>
-        </CardFooter>
+        </CardFooter> */}
       </Card>
 
       {selectedStudent && (
