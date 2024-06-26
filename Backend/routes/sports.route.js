@@ -6,6 +6,7 @@ import {
   getEnrolledStudents,
   getEnrolledStudentsbyname,
   addaTeamMember,
+  removeaTeamMember
 } from '../controllers/sports.controller.js';
 import { verifyTokenAdmin } from '../middleware.js';
 
@@ -19,5 +20,5 @@ router.delete('/deleteSport/:id', verifyTokenAdmin, deleteSport);
 router.post('/getenrolledstudents', getEnrolledStudents);
 router.post("/getenrolledstudentsbyname", getEnrolledStudentsbyname);
 router.post("/addateammember", verifyTokenAdmin, addaTeamMember);
-
+router.post("/deleteteammember", verifyTokenAdmin, removeaTeamMember);
 export default router;
