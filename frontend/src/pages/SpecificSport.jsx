@@ -146,15 +146,6 @@ function SpecificSport() {
             </div>
           </div>
         </div>
-        <div className="bg-customGreen mt-10">
-          <h1 className="text-white">Faculty Team</h1>
-          <div>
-            <div className="grid grid-cols-2">
-              <h1>Hiii</h1>
-              <h1>Hiii</h1>
-            </div>
-          </div>
-        </div>
         <div ref={printRef} className="my-10">
           <div className="flex bg-customGreen justify-between items-center">
             {!printable && (
