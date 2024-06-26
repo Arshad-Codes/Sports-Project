@@ -38,10 +38,18 @@ function AdminAnnouncement() {
 
   const handleSubmitUpdate = async (updatedData) => {
     try {
-      await axios.put(`http://localhost:8800/api/announcement/${updatedData._id}`, updatedData, {
-        withCredentials: true,
-      });
-      setAnnouncementsList((prevData) => prevData.map((announcement) => (announcement._id === updatedData._id ? updatedData : announcement)));
+      await axios.put(
+        `https://ruhunasports.onrender.com/api/announcement/${updatedData._id}`,
+        updatedData,
+        {
+          withCredentials: true,
+        }
+      );
+      setAnnouncementsList((prevData) =>
+        prevData.map((announcement) =>
+          announcement._id === updatedData._id ? updatedData : announcement
+        )
+      );
       toast.success('Announcement updated successfully', {
         position: 'bottom-right',
         autoClose: 4000,
@@ -85,9 +93,6 @@ function AdminAnnouncement() {
       });
     }
   };
-
-
-
 
   useEffect(() => {
     async function fetchData() {
@@ -317,14 +322,14 @@ function AdminAnnouncement() {
                   <p className="text-gray-600">{announcement.content}</p>
                 </div>
                 <div className="flex items-center space-x-2 p-4">
-                <Button
-                  color="green"
-                  size="sm"
-                  className="!min-h-[30px] !py-1 !px-3 flex items-center justify-center"
-                  onClick={handleEdit(announcement)}
-                >
-                  <Edit className="h-4 w-4" />
-                </Button>
+                  <Button
+                    color="green"
+                    size="sm"
+                    className="!min-h-[30px] !py-1 !px-3 flex items-center justify-center"
+                    onClick={handleEdit(announcement)}
+                  >
+                    <Edit className="h-4 w-4" />
+                  </Button>
                   <Button
                     color="red"
                     size="sm"

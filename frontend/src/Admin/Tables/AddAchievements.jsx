@@ -10,8 +10,8 @@ import { CustomButton } from '../../TailwindCustomComponents/CustomComponents';
 import { useState, useEffect } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import { DeleteForever, Edit } from '@mui/icons-material';
-import axios from "axios";
-import PopupAchievement from "../../components/PopUpacievements";
+import axios from 'axios';
+import PopupAchievement from '../../components/PopUpacievements';
 
 const AddAchievements = () => {
   const [achievement, setAchievement] = useState({
@@ -39,10 +39,18 @@ const AddAchievements = () => {
 
   const handleSubmitEdit = async (updatedData) => {
     try {
-      await axios.put(`http://localhost:8800/api/achievement/${updatedData._id}`, updatedData, {
-        withCredentials: true,
-      });
-      setAchievementList((prevData) => prevData.map((achievement) => (achievement._id === updatedData._id ? updatedData : achievement)));
+      await axios.put(
+        `https://ruhunasports.onrender.com/api/achievement/${updatedData._id}`,
+        updatedData,
+        {
+          withCredentials: true,
+        }
+      );
+      setAchievementList((prevData) =>
+        prevData.map((achievement) =>
+          achievement._id === updatedData._id ? updatedData : achievement
+        )
+      );
       toast.success('Achievement updated successfully', {
         position: 'bottom-right',
         autoClose: 4000,
@@ -87,22 +95,20 @@ const AddAchievements = () => {
     }
   };
 
-
-    useEffect(() => {
-      async function fetchData() {
-        try {
-          const response = await axios.get(
-            'http://localhost:8800/api/achievement/'
-          );
-          setAchievementList(response.data);
-          setLoading(false);
-        } catch (error) {
-          console.error('Error fetching achievements:', error);
-        }
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await axios.get(
+          'https://ruhunasports.onrender.com/api/achievement/'
+        );
+        setAchievementList(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching achievements:', error);
       }
-      fetchData();
-    }, [achievementList]);
-
+    }
+    fetchData();
+  }, [achievementList]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -127,12 +133,12 @@ const AddAchievements = () => {
     };
 
     try {
-      const imgUrl = await upload(file); 
+      const imgUrl = await upload(file);
       await axios.post(
         'https://ruhunasports.onrender.com/api/achievement/create',
         {
           ...achievement,
-          imgUrl, 
+          imgUrl,
         },
         { withCredentials: true }
       );
@@ -162,8 +168,8 @@ const AddAchievements = () => {
         description: '',
         imgUrl: '',
       });
-      setFile(null); 
-      setPreviewImageUrl(null); 
+      setFile(null);
+      setPreviewImageUrl(null);
     } catch (error) {
       console.error(error);
       toast.error('Failed to add Achievement. Please try again.', {
@@ -187,7 +193,6 @@ const AddAchievements = () => {
       });
     }
   };
-
 
   const handleChange = (e) => {
     setAchievement((prev) => {
@@ -307,7 +312,7 @@ const AddAchievements = () => {
                 }}
               ></Textarea>
             </div>
-          <div className="mb-1 flex flex-col gap-6">
+            <div className="mb-1 flex flex-col gap-6">
               <Typography variant="h6" color="blue-gray" className="-mb-3">
                 Image
               </Typography>
@@ -358,14 +363,14 @@ const AddAchievements = () => {
                   <p className="text-gray-600">{achievement.description}</p>
                 </div>
                 <div className="flex items-center space-x-2 p-4">
-                <Button
-                  color="green"
-                  size="sm"
-                  className="!min-h-[30px] !py-1 !px-3 flex items-center justify-center"
-                  onClick={handleEdit(achievement)} // Fix applied here
-                >
-                  <Edit className="h-4 w-4" />
-                </Button>
+                  <Button
+                    color="green"
+                    size="sm"
+                    className="!min-h-[30px] !py-1 !px-3 flex items-center justify-center"
+                    onClick={handleEdit(achievement)} // Fix applied here
+                  >
+                    <Edit className="h-4 w-4" />
+                  </Button>
                   <Button
                     color="red"
                     size="sm"
