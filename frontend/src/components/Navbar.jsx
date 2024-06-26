@@ -30,7 +30,7 @@ import {
 import { styled } from '@mui/system';
 import LoginPopup from '../pages/Home/LoginPopup';
 import { useNavigate } from 'react-router-dom';
-import Profile from '../assests/profile.jpg';
+import Profile from '../Student/Profile';
 import logo from '../assests/carousel/logo.jpg'; // Add your logo path here
 
 const CustomButton = styled(Button)({
@@ -210,7 +210,9 @@ function NavList() {
         className="font-semibold"
         style={{ fontSize: '1.1rem' }} // Increase font size here
       >
-        <ListItem className="flex items-center gap-2 py-2 pr-4">Staffs</ListItem>
+        <ListItem className="flex items-center gap-2 py-2 pr-4">
+          Staffs
+        </ListItem>
       </Typography>
       <Typography
         as="a"
@@ -220,7 +222,9 @@ function NavList() {
         className="font-semibold"
         style={{ fontSize: '1.1rem' }} // Increase font size here
       >
-        <ListItem className="flex items-center gap-2 py-2 pr-4">Achievements</ListItem>
+        <ListItem className="flex items-center gap-2 py-2 pr-4">
+          Achievements
+        </ListItem>
       </Typography>
       <Typography
         as="a"
@@ -275,7 +279,10 @@ function NavBar() {
           <Typography
             variant="h6"
             className="mr-4 cursor-pointer py-1.5 lg:ml-2 text-[#5A3032]"
-            style={{ fontFamily: 'NewCustomFont, sans-serif', fontSize: '1.8rem' }}
+            style={{
+              fontFamily: 'NewCustomFont, sans-serif',
+              fontSize: '1.8rem',
+            }}
           >
             𝕽𝖚𝖍𝖚𝖓𝖆 𝕾𝖕𝖔𝖗𝖙𝖘
           </Typography>
@@ -332,7 +339,7 @@ function NavBar() {
               size="sm"
               color="blue-gray"
               fullWidth
-              style={{ fontSize: '1.1rem' }} 
+              style={{ fontSize: '1.1rem' }}
             >
               Log In
             </Button>
@@ -341,7 +348,7 @@ function NavBar() {
               onClick={() => handleSignupClick()}
               size="sm"
               fullWidth
-              style={{ fontSize: '1.1rem' }} 
+              style={{ fontSize: '1.1rem' }}
             >
               Sign Up
             </CustomButton>
