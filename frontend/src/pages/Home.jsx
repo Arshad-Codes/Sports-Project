@@ -6,7 +6,7 @@ import Typewriter from 'typewriter-effect';
 import WhyRuhunaSport from '../components/WhyRuhunaSport';
 import Footer from '../components/Footer';
 import AboutUs from '../components/AboutUs';
-
+import './common.css';
 function Home() {
   const { carouselData } = homeData;
 
@@ -29,8 +29,8 @@ function Home() {
               ))}
             </div>
           )}
-          // style={{ height: '600px' }}
-          className=" w-full relative"
+          // style={{ height: '100%' }}
+          className=" w-full relative carousel-large"
           autoplay
           autoplayDelay={5000}
           loop={true}

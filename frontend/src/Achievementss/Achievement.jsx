@@ -5,6 +5,7 @@ import chess1 from './chess.jpg';
 import volley1 from './volley.jpg';
 import { Carousel } from '@material-tailwind/react';
 import { homeData } from '../data';
+import '../pages/common.css';
 
 function Achievement() {
   const { achievementData } = homeData;
@@ -14,7 +15,9 @@ function Achievement() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await axios.get('http://localhost:8800/api/achievement/');
+        const response = await axios.get(
+          'http://localhost:8800/api/achievement/'
+        );
         setAchievementList(response.data);
         setLoading(false);
       } catch (error) {
@@ -33,11 +36,13 @@ function Achievement() {
       </h1>
       <br></br>
 
-      <div className="mx-20 mt-5">
+      <div className="">
         <Carousel
           transition={{ duration: 1.5 }}
-          style={{ height: '600px' }}
-          className="rounded-xl text-center"
+          className="w-full relative carousel-large"
+          autoplay
+          autoplayDelay={5000}
+          loop={true}
         >
           {achievementData.map((item, index) => (
             <img
@@ -66,21 +71,23 @@ function Achievement() {
       <div className="">
         <hr className="border-gray-400 my-10 " />
 
-        <div className=" ml-3 mt-4">
+        <div className=" mx-3 my-4">
           <h1 className="text-red-700 mt-3 text-2xl font-Inika font-bold mx-6">
             Explore our achievements here...
           </h1>
           <div className="grid grid-cols-1">
             <br></br>
 
-            
-               {/* Announcement Box 1 */}
-               <div className="border border-gray-600 rounded-xl p-4 flex items-center bg-gray-300 mx-10 mt-5">
-              <img
-                className="w-45 h-40  mr-4 rounded-xl border border-gray-800"
-                src={volley1}
-                alt="Volleyball tournament"
-              />
+            {/* Announcement Box 1 */}
+            <div className="border border-gray-600 rounded-xl p-4 md:flex items-center bg-gray-300 md:mx-10 mt-5">
+              <div className="flex justify-center items-center">
+                <img
+                  className="w-45 h-40 mr-4 mb-2 rounded-xl border border-gray-800"
+                  src={volley1}
+                  alt="Volleyball tournament"
+                />
+              </div>
+
               <div>
                 <h2 className="text-lg font-semibold mx-10 ">
                   Volleyball tournament 2024 – asjdbjhbdh sjdwhdundn
@@ -114,14 +121,16 @@ function Achievement() {
             </div>
             <br></br>
 
-
             {/* Announcement Box 2 */}
-            <div className="border border-gray-600 rounded-xl p-4 flex items-center bg-gray-300 mx-10">
-              <img
-                className="w-45 h-40 mr-4 rounded-xl border border-gray-800"
-                src={chess1}
-                alt="Chess tournament"
-              />
+            <div className="border border-gray-600 rounded-xl p-4 md:flex items-center bg-gray-300 md:mx-10">
+              <div className="flex justify-center items-center">
+                <img
+                  className="w-45 h-40 mr-4 rounded-xl border border-gray-800"
+                  src={chess1}
+                  alt="Chess tournament"
+                />
+              </div>
+
               <div>
                 <h2 className="text-lg font-semibold mx-10">
                   Chess tournament 2024 – asjdbjhbdh sjdwhdundn jnsjnjsnnsaj
@@ -154,7 +163,6 @@ function Achievement() {
               </div>
             </div>
 
-            
             <br></br>
 
             {loading ? (
@@ -163,13 +171,16 @@ function Achievement() {
               achievementList.map((achievement, index) => (
                 <div
                   key={index}
-                  className="border border-gray-600 rounded-xl p-4 flex items-center bg-gray-300 mx-10 mt-5"
+                  className="border border-gray-600 rounded-xl p-4 md:flex items-center bg-gray-300 md:mx-10 mt-5"
                 >
-                  <img
-                    className="w-45 h-40 mr-4 rounded-xl border border-gray-800"
-                    src={achievement.imgUrl}
-                    alt={achievement.title}
-                  />
+                  <div className="flex justify-center items-center">
+                    <img
+                      className="w-45 h-40 mr-4 rounded-xl border border-gray-800"
+                      src={achievement.imgUrl}
+                      alt={achievement.title}
+                    />
+                  </div>
+
                   <div>
                     <h2 className="text-lg font-semibold mx-10 ">
                       {achievement.title}
