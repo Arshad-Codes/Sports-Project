@@ -1,4 +1,3 @@
-// EnrolledPage.js
 import './EnrolledPage.css';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
@@ -31,7 +30,7 @@ function EnrolledPage() {
       const response = await axios.get(`http://localhost:8800/api/announcement/getAnnouncementforSport/${sportId}`);
       console.log('Fetched announcement:', response.data);
       setAnnouncement(response.data);
-      setIsPopupOpen(true); // Ensure popup is opened here
+      setIsPopupOpen(true); 
     } catch (error) {
       console.error('Failed to fetch announcement', error);
     }
