@@ -1,0 +1,10 @@
+/* Add this CSS to your styles */
+.carousel-large {
+  height: 600px;
+}
+
+@media (max-width: 768px) {
+  .carousel-large {
+    height: 350px;
+  }
+}

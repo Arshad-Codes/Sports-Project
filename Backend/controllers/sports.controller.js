@@ -117,3 +117,24 @@ export const getEnrolledStudents = async (req, res) => {
     res.status(500).send('Something went wrong');
   }
 };
+
+export const updateSports = async (req, res) => {
+  try {
+    const sport = await Sport.findById(req.params._id);
+    if (!sport) {
+      return res.status(404).json({ message: 'Sport not found' });
+    }
+
+    const { name, description } =
+      req.body;
+
+    sport.name  =  name || sport.name;
+    sport.description = description || sport.description;
+
+    await sport.save();
+    // res.status(200).json({ message: 'Sport details updated successfully' });
+    res.status(200).send(sport);
+  } catch (error) {
+    res.status(500).json({ message: 'Server error', error });
+  }
+};

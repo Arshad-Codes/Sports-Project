@@ -166,7 +166,7 @@ function Login() {
             <CustomButton type="submit" className="mt-6" fullWidth>
               Log In
             </CustomButton>
-            {error && <Typography color="red">{error}</Typography>}
+            {/* {error && <Typography color="red">{error}</Typography>} */}
             {role === 'Student' || role === '' ? (
               <Typography color="gray" className="mt-4 text-center font-normal">
                 Don&apos;t have an account?{' '}

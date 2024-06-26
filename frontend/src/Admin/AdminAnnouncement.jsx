@@ -11,6 +11,7 @@ import {
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { DeleteForever, Edit } from '@mui/icons-material';
+import PopupAnnouncement from '../components/PopUpAnnouncement';
 
 function AdminAnnouncement() {
   const [sportsList, setSportsList] = useState([]);
@@ -21,6 +22,72 @@ function AdminAnnouncement() {
   });
   const [announcementsList, setAnnouncementsList] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [currentAnnouncement, setCurrentAnnouncement] = useState(null);
+
+  const handleEdit = (announcement) => () => {
+    setCurrentAnnouncement(announcement);
+    setIsPopupOpen(true);
+  };
+
+  const handleClosePopup = () => {
+    setIsPopupOpen(false);
+    setCurrentAnnouncement(null);
+  };
+
+  const handleSubmitUpdate = async (updatedData) => {
+    try {
+      await axios.put(`http://localhost:8800/api/announcement/${updatedData._id}`, updatedData, {
+        withCredentials: true,
+      });
+      setAnnouncementsList((prevData) => prevData.map((announcement) => (announcement._id === updatedData._id ? updatedData : announcement)));
+      toast.success('Announcement updated successfully', {
+        position: 'bottom-right',
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        style: {
+          borderRadius: '8px',
+          boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.1)',
+          padding: '16px',
+          fontSize: '16px',
+        },
+        iconTheme: {
+          primary: '#FFFFFF',
+          secondary: '#4CAF50',
+        },
+      });
+      handleClosePopup();
+    } catch (error) {
+      console.error('Error updating announcement', error);
+      toast.error('Failed to update announcement. Please try again', {
+        position: 'bottom-right',
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        style: {
+          borderRadius: '8px',
+          boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.1)',
+          padding: '16px',
+          fontSize: '16px',
+        },
+        iconTheme: {
+          primary: '#FFFFFF',
+          secondary: '#FF5252',
+        },
+      });
+    }
+  };
+
+
+
 
   useEffect(() => {
     async function fetchData() {
@@ -160,7 +227,7 @@ function AdminAnnouncement() {
     }
   };
 
-  const handleEdit = () => {};
+  //const handleEdit = () => {};
 
   return (
     <div>
@@ -250,14 +317,14 @@ function AdminAnnouncement() {
                   <p className="text-gray-600">{announcement.content}</p>
                 </div>
                 <div className="flex items-center space-x-2 p-4">
-                  <Button
-                    color="green"
-                    size="sm"
-                    className="!min-h-[30px] !py-1 !px-3 flex items-center justify-center"
-                    onClick={handleEdit}
-                  >
-                    <Edit className="h-4 w-4" />
-                  </Button>
+                <Button
+                  color="green"
+                  size="sm"
+                  className="!min-h-[30px] !py-1 !px-3 flex items-center justify-center"
+                  onClick={handleEdit(announcement)}
+                >
+                  <Edit className="h-4 w-4" />
+                </Button>
                   <Button
                     color="red"
                     size="sm"
@@ -272,6 +339,12 @@ function AdminAnnouncement() {
           </div>
         )}
       </div>
+      <PopupAnnouncement
+        isOpen={isPopupOpen}
+        data={currentAnnouncement}
+        onClose={handleClosePopup}
+        onSubmit={handleSubmitUpdate}
+      />
       <ToastContainer
         position="bottom-right"
         autoClose={4000}

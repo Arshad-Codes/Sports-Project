@@ -68,3 +68,26 @@ export const updateAchievement = async (req, res) => {
     res.status(500).send('Something went wrong');
   }
 };
+
+export const updateAchievements = async (req, res) => {
+  try {
+    const achievement = await Achievements.findById(req.params._id);
+    if (!achievement) {
+      return res.status(404).json({ message: 'Achievement not found' });
+    }
+
+    const { title, description, imgUrl } =
+      req.body;
+
+    achievement.title = title || achievement.title;
+    achievement.description = description || achievement.description;
+    achievement.imgUrl = imgUrl || achievement.imgUrl;
+
+    await achievement.save();
+    // res.status(200).json({ message: 'Achievement details updated successfully' });
+    res.status(200).send(achievement);
+  } catch (error) {
+    res.status(500).json({ message: 'Server error', error });
+  }
+};
+

@@ -18,10 +18,10 @@ export const createAnnouncement = async (req, res) => {
 };
 
 export const getAnnouncementsforSport = async (req, res) => {
-  //console.log(req.body);
+  // console.log(req.body);
   try {
     const announcement_list = await Announcement.find({
-      sport: req.params.sport,
+      sport: req.body.sportRole,
     });
     res.status(200).send(announcement_list);
   } catch (error) {
@@ -51,5 +51,27 @@ export const deleteAnnouncement = async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).send('Something went wrong');
+  }
+};
+
+export const updateAnnouncement = async (req, res) => {
+  try {
+    const announcement = await Announcement.findById(req.params._id);
+    if (!announcement) {
+      return res.status(404).json({ message: 'Announcement not found' });
+    }
+
+    const { title, content, sport } =
+      req.body;
+
+    announcement.title = title || announcement.title;
+    announcement.content = content || announcement.content;
+    announcement.sport = sport || announcement.sport;
+
+    await announcement.save();
+    // res.status(200).json({ message: 'announcement details updated successfully' });
+    res.status(200).send(announcement);
+  } catch (error) {
+    res.status(500).json({ message: 'Server error', error });
   }
 };
