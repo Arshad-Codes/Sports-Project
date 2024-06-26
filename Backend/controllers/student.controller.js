@@ -332,6 +332,15 @@ export const deleteStudent = async (req, res) => {
       return res.status(404).send("Student not found!");
     }
     await Student.deleteOne({ email: studentemail });
+    await Sport.updateMany(
+      { team: req.params.studentId },
+      { $pull: { team: req.params.studentId } }
+    );
+    await Sport.updateMany(
+      { enrolledStudents: req.params.studentId },
+      { $pull: { enrolledStudents: req.params.studentId } }
+    );
+    
     res.status(200).send("Student deleted successfully");
   } catch (error) {
     res.status(500).send("Something went wrong");
