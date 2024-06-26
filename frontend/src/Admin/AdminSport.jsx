@@ -41,7 +41,7 @@ function AdminSport() {
 
 const handleSubmit = async (updatedData) => {
   try {
-    await axios.post(`*`, updatedData, {
+    await axios.put(`http://localhost:8800/api/sport/${updatedData._id}`, updatedData, {
       withCredentials: true,
     });
     setSportsData((prevData) => prevData.map((sport) => (sport._id === updatedData._id ? updatedData : sport)));
