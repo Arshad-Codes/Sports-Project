@@ -17,10 +17,3 @@ export const createLiveStreaming = async () => {
   // console.log(roomId);
   return roomId;
 };
-
-// export const fetchLiveMeetings = async () => {
-//   const res = await fetch('http://localhost:8800/api/live/getlive', {
-//     method: 'GET',
-//   });
-//   return await res.json();
-// };

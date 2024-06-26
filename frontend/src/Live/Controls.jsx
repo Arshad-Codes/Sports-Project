@@ -1,12 +1,15 @@
 import { useMeeting } from '@videosdk.live/react-sdk';
 
-function Controls() {
+function Controls({ onDeleteMeeting }) {
   const { leave, toggleMic, toggleWebcam, startHls, stopHls } = useMeeting();
-
+  const handleLeave = async () => {
+    await onDeleteMeeting(); // Call the delete meeting function
+    leave();
+  };
   return (
     <div className="space-x-4 space-y-3">
       <button
-        onClick={() => leave()}
+        onClick={handleLeave}
         className="ml-4 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
       >
         Leave

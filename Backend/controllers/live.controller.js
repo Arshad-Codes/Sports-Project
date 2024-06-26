@@ -1,7 +1,6 @@
 import Lives from '../models/live.model.js';
 
 export const createLive = async (req, res) => {
-  console.log(req.body);
   const newLive = new Lives({
     ...req.body,
   });
@@ -14,6 +13,8 @@ export const createLive = async (req, res) => {
 };
 
 export const deleteLive = async (req, res) => {
+  console.log(req.params);
+
   try {
     const live = await Lives.findOneAndDelete({
       meetingId: req.params.meetingId,
