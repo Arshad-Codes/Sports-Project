@@ -8,7 +8,7 @@ import {
 } from "@material-tailwind/react";
 import { DayPicker } from "react-day-picker";
 import { ChevronRightIcon, ChevronLeftIcon } from "@heroicons/react/24/outline";
- 
+
 export default function DatePicker({ value, onChange }) {
   const [date, setDate] = useState(value);
 

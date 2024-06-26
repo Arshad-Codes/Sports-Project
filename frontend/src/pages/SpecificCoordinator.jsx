@@ -1,28 +1,39 @@
 import NavBar from '../components/Navbar';
-import { sportCoordinatorsData } from '../data';
 import { useParams } from 'react-router-dom';
-import {
-  Card,
-  CardBody,
-  Typography,
-} from '@material-tailwind/react';
+import { Card, CardBody, Spinner, Typography } from '@material-tailwind/react';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 function SpecificCoordinator() {
-  const { staffs } = sportCoordinatorsData;
-
+  const [staffList, setStaffList] = useState([]);
   const { position } = useParams();
-
-  const coordinator = staffs.find(
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    async function fetchSports() {
+      try {
+        const response = await axios.get(
+          'http://localhost:8800/api/sportscoordinator/getcoordinators'
+        );
+        setStaffList(response.data);
+        setLoading(false);
+        // console.log(staffList);
+      } catch (error) {
+        console.error('Error fetching sports:', error);
+      }
+    }
+    fetchSports();
+  }, []);
+  const coordinator = staffList.find(
     (staff) => staff.position.trim() === position.trim()
   );
 
   //also add something idk maybe for not found or something
-  if (!coordinator) {
+  if (!coordinator || loading) {
     return (
       <>
         <NavBar />
-        <div>
-          <h1>Coordinator Not Found</h1>
+        <div className="mt-5 flex justify-center items-center h-">
+          <Spinner className="h-14 w-14" color="green" />
         </div>
       </>
     );

@@ -1,3 +1,4 @@
+import { Typography } from '@material-tailwind/react';
 import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -59,8 +60,10 @@ function CardsWithSeeMore({ data }) {
                     />
                   </div>
                   <div>
-                    <div className="h-10 bg-white text-black text-start rounded-b-lg">
-                      {item.name}
+                    <div className="flex items-center justify-center h-10 bg-white text-black text-center rounded-b-lg">
+                      <Typography className="font-semibold text-lg">
+                        {item.name}
+                      </Typography>
                     </div>
                   </div>
                 </Link>

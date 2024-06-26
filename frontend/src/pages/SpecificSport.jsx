@@ -1,8 +1,8 @@
-import { useParams } from 'react-router-dom';
-import NavBar from '../components/Navbar';
-import { CustomButton } from '../TailwindCustomComponents/CustomComponents';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { useParams } from "react-router-dom";
+import NavBar from "../components/Navbar";
+import { CustomButton } from "../TailwindCustomComponents/CustomComponents";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 function SpecificSport() {
   const { name } = useParams();
@@ -14,7 +14,7 @@ function SpecificSport() {
     async function fetchSports() {
       try {
         const response = await axios.get(
-          'http://localhost:8800/api/sport/getSports'
+          "http://localhost:8800/api/sport/getSports"
         );
         setSportsData(response.data);
         const resp = await axios.post(
@@ -24,9 +24,8 @@ function SpecificSport() {
           }
         );
         setenrolledSports(resp.data);
-        
       } catch (error) {
-        console.error('Error fetching sports:', error);
+        console.error("Error fetching sports:", error);
       }
     }
     fetchSports();
@@ -38,27 +37,27 @@ function SpecificSport() {
   }
 
   const handleEnroll = async () => {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
     if (!currentUser) {
-      return alert('Please login to enroll');
-    }else if(currentUser.role !== "student"){
-      return alert('Only students can enroll');
+      return alert("Please login to enroll");
+    } else if (currentUser.role !== "student") {
+      return alert("Only students can enroll");
     }
     try {
       const response = await axios.post(
-        'http://localhost:8800/api/student/enroll',
+        "http://localhost:8800/api/student/enroll",
         {
           sportId: sports._id,
           studentId: currentUser._id,
         },
-        { withCredentials: true}
+        { withCredentials: true }
       );
       return alert("Enrolled successfully");
     } catch (error) {
-      console.error('Error enrolling:', error);
-  }
-}
-  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+      console.error("Error enrolling:", error);
+    }
+  };
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
   const isEnrolled =
     currentUser &&
     currentUser.role === "student" &&
@@ -82,7 +81,11 @@ function SpecificSport() {
           <div className="basis-3/4 flex items-center justify-center">
             <div className="text-center">
               <h1 className="p-10 font-medium">{sports.description}</h1>
-              <CustomButton onClick={handleEnroll} className="mt-5 w-36" disabled={isEnrolled}>
+              <CustomButton
+                onClick={handleEnroll}
+                className="mt-5 w-36"
+                disabled={isEnrolled}
+              >
                 {isEnrolled ? "Already Enrolled" : "Enroll"}
               </CustomButton>
             </div>

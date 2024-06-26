@@ -40,17 +40,15 @@ export const getAnnouncements = async (req, res) => {
 
 export const deleteAnnouncement = async (req, res) => {
   try {
-    const announcement = await Announcement.findById(req.body.announcementId);
+    const announcement = await Announcement.findById(req.body._id);
     await Sport.updateOne(
       { name: announcement.sport },
       { $pull: { announcements: announcement._id } }
     );
-    await Announcement.deleteOne({ _id: req.body.announcementId });
+    await Announcement.deleteOne({ _id: req.body._id });
     res.status(200).send('Announcement has been deleted.');
-  }
-  catch (error) {
+  } catch (error) {
     console.error(error);
     res.status(500).send('Something went wrong');
   }
-}
-
+};
