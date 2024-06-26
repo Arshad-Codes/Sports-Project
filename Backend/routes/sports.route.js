@@ -4,7 +4,8 @@ import {
   getSports,
   deleteSport,
   addaTeamMember,
-  updateSports
+  updateSports,
+  getSportAnnouncements
 } from '../controllers/sports.controller.js';
 import { verifyTokenAdmin } from '../middleware.js';
 
@@ -17,5 +18,6 @@ router.get('/getSports', getSports);
 router.delete('/deleteSport/:id', verifyTokenAdmin, deleteSport);
 router.post('/addateammember', verifyTokenAdmin, addaTeamMember);
 router.put("/:_id",verifyTokenAdmin, updateSports);
+router.get('/getSportAnnouncements/:sportId', getSportAnnouncements);
 
 export default router;

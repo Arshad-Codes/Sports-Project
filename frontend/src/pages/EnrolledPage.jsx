@@ -1,29 +1,70 @@
 import './EnrolledPage.css';
-import { Announcements } from '../data';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 import NavBar from '../components/Navbar';
+import PopupEnrolled from '../components/PopupEnrolled';
 
 function EnrolledPage() {
-
+  const [enrolledSports, setEnrolledSports] = useState([]);
+  const [announcements, setAnnouncements] = useState([]);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
   const currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
-  const { announcementsData } = Announcements;
+  useEffect(() => {
+    const fetchEnrolledSports = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8800/api/student/getEnrolledSports/${currentUser._id}`);
+        setEnrolledSports(response.data);
+      } catch (error) {
+        console.error('Failed to fetch enrolled sports', error);
+      }
+    };
+
+    fetchEnrolledSports();
+  }, [currentUser._id]);
+
+  const handleSportClick = async (sportId) => {
+    try {
+      const response = await axios.get(`http://localhost:8800/api/sport/getSportAnnouncements/${sportId}`);
+      setAnnouncements(response.data);
+      setIsPopupOpen(true);
+    } catch (error) {
+      console.error('Failed to fetch announcements', error);
+    }
+  };
+
+  const closePopup = () => {
+    setIsPopupOpen(false);
+    setAnnouncements([]);
+  };
+
   return (
     <>
+      <NavBar />
       <div>
-      <h1 className="w-full text-left my-4 sm:mx-4 xs:pl-4 text-gray-800 dark:text-white 
-                      lg:text-4xl md:text-3xl sm:text-3xl xs:text-xl font-serif">
-                     Welcome {currentUser.firstName +" "+ currentUser.lastName} !!! </h1>
-        <div className="main-announcement">
-          {announcementsData.map((item, index) => (
-            <div className="announcement" key={index}>
-              <div className="announcement-content">
-                <h1>{item.heading}</h1>
-                <p className="date">Posted on: {item.date.toLocaleString()}</p>
-                <p>{item.details}</p>
+        <h1 className="welcome-text">
+          Welcome {currentUser.firstName + " " + currentUser.lastName} !!!
+        </h1>
+        <div className="main-sports">
+          {enrolledSports.map((sport) => (
+            <div 
+              className="sport" 
+              key={sport._id} 
+              onClick={() => handleSportClick(sport._id)}
+              style={{ cursor: 'pointer' }}
+            >
+              <div className="sport-content">
+                <img src={sport.imageUrl} alt={sport.name} className="sport-image" />
+                <h1>{sport.name}</h1>
               </div>
             </div>
           ))}
         </div>
+        <PopupEnrolled 
+          isOpen={isPopupOpen} 
+          data={announcements} 
+          onClose={closePopup} 
+        />
       </div>
     </>
   );
