@@ -16,6 +16,8 @@ const AddAchievements = () => {
   });
   const [achievementList, setAchievementList] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [previewImageUrl, setPreviewImageUrl] = useState(null);
+  const [file, setFile] = useState(null);
 
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [currentAchievement, setCurrentAchievement] = useState(null);
@@ -96,70 +98,170 @@ const handleSubmitEdit = async (updatedData) => {
     fetchData();
   }, [achievementList]);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      await axios.post(
-        'http://localhost:8800/api/achievement/create',
-        {
-          ...achievement,
-        },
-        { withCredentials: true }
-      );
-      toast.success('Achievement added successfully!', {
-        position: 'bottom-right',
-        autoClose: 4000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        style: {
-          borderRadius: '8px',
-          boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.1)',
-          padding: '16px',
-          fontSize: '16px',
-        },
-        iconTheme: {
-          primary: '#FFFFFF',
-          secondary: '#4CAF50',
-        },
-      });
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     await axios.post(
+  //       'http://localhost:8800/api/achievement/create',
+  //       {
+  //         ...achievement,
+  //       },
+  //       { withCredentials: true }
+  //     );
+  //     toast.success('Achievement added successfully!', {
+  //       position: 'bottom-right',
+  //       autoClose: 4000,
+  //       hideProgressBar: false,
+  //       closeOnClick: true,
+  //       pauseOnHover: true,
+  //       draggable: true,
+  //       progress: undefined,
+  //       style: {
+  //         borderRadius: '8px',
+  //         boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.1)',
+  //         padding: '16px',
+  //         fontSize: '16px',
+  //       },
+  //       iconTheme: {
+  //         primary: '#FFFFFF',
+  //         secondary: '#4CAF50',
+  //       },
+  //     });
 
-      //clear the fields
-      setAchievement({
-        title: '',
-        description: '',
-        imgUrl: '',
-      });
-    } catch (error) {
-      console.error(error);
-      toast.error('Failed to add Achievement. Please try again.', {
-        position: 'bottom-right',
-        autoClose: 4000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        style: {
-          borderRadius: '8px',
-          boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.1)',
-          padding: '16px',
-          fontSize: '16px',
-        },
-        iconTheme: {
-          primary: '#FFFFFF',
-          secondary: '#FF5252',
-        },
-      });
+  //     //clear the fields
+  //     setAchievement({
+  //       title: '',
+  //       description: '',
+  //       imgUrl: '',
+  //     });
+  //   } catch (error) {
+  //     console.error(error);
+  //     toast.error('Failed to add Achievement. Please try again.', {
+  //       position: 'bottom-right',
+  //       autoClose: 4000,
+  //       hideProgressBar: false,
+  //       closeOnClick: true,
+  //       pauseOnHover: true,
+  //       draggable: true,
+  //       progress: undefined,
+  //       style: {
+  //         borderRadius: '8px',
+  //         boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.1)',
+  //         padding: '16px',
+  //         fontSize: '16px',
+  //       },
+  //       iconTheme: {
+  //         primary: '#FFFFFF',
+  //         secondary: '#FF5252',
+  //       },
+  //     });
+  //   }
+  // };
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  const upload = async (file) => {
+    const data = new FormData();
+    data.append('file', file);
+    data.append('upload_preset', 'sports'); // Replace 'sports' with your Cloudinary preset
+
+    try {
+      const res = await axios.post(
+        'https://api.cloudinary.com/v1_1/djalshksm/image/upload',
+        data
+      );
+
+      const { url } = res.data;
+      return url;
+    } catch (err) {
+      console.log(err);
+      throw new Error('Failed to upload image');
     }
   };
+
+  try {
+    const imgUrl = await upload(file); // Assuming `file` is the image file from your state or props
+
+    await axios.post(
+      'http://localhost:8800/api/achievement/create',
+      {
+        ...achievement,
+        imgUrl, // Add the imageUrl to the request body
+      },
+      { withCredentials: true }
+    );
+
+    toast.success('Achievement added successfully!', {
+      position: 'bottom-right',
+      autoClose: 4000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      style: {
+        borderRadius: '8px',
+        boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.1)',
+        padding: '16px',
+        fontSize: '16px',
+      },
+      iconTheme: {
+        primary: '#FFFFFF',
+        secondary: '#4CAF50',
+      },
+    });
+
+    // Clear the fields
+    setAchievement({
+      title: '',
+      description: '',
+      imgUrl: '',
+    });
+    setFile(null); // Clear the file state if you have one
+    setPreviewImageUrl(null); // Clear the preview image if you have one
+  } catch (error) {
+    console.error(error);
+    toast.error('Failed to add Achievement. Please try again.', {
+      position: 'bottom-right',
+      autoClose: 4000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      style: {
+        borderRadius: '8px',
+        boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.1)',
+        padding: '16px',
+        fontSize: '16px',
+      },
+      iconTheme: {
+        primary: '#FFFFFF',
+        secondary: '#FF5252',
+      },
+    });
+  }
+};
+
 
   const handleChange = (e) => {
     setAchievement((prev) => {
       return { ...prev, [e.target.name]: e.target.value };
     });
+  };
+
+  const handleFileChange = (e) => {
+    const selectedFile = e.target.files[0];
+    setFile(selectedFile);
+
+    // Preview the selected image
+    if (selectedFile) {
+      const imageUrl = URL.createObjectURL(selectedFile);
+      setPreviewImageUrl(imageUrl);
+    } else {
+      setPreviewImageUrl(null);
+    }
   };
 
   const handleDelete = (achievement) => async () => {
@@ -261,7 +363,7 @@ const handleSubmitEdit = async (updatedData) => {
                 }}
               ></Textarea>
             </div>
-            <div className="mb-1 flex flex-col gap-6">
+            {/* <div className="mb-1 flex flex-col gap-6">
               <Typography variant="h6" color="blue-gray" className="-mb-3">
                 ImageUrl
               </Typography>
@@ -275,7 +377,32 @@ const handleSubmitEdit = async (updatedData) => {
                   className: 'before:content-none after:content-none',
                 }}
               />
+            </div> */}
+
+          <div className="mb-1 flex flex-col gap-6">
+              <Typography variant="h6" color="blue-gray" className="-mb-3">
+                Image
+              </Typography>
+              <Input
+                size="lg"
+                name="image"
+                type="file"
+                onChange={handleFileChange}
+                value={achievement.imgUrl}
+                className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+                labelProps={{
+                  className: 'before:content-none after:content-none',
+                }}
+              />
             </div>
+            {previewImageUrl && ( // Show the preview image if available
+              <img
+                src={previewImageUrl}
+                alt="Preview"
+                className="w-32 h-32 mx-auto mt-2"
+              />
+            )}
+
             <CustomButton className="mt-6" fullWidth type="submit">
               Create Achievement
             </CustomButton>
