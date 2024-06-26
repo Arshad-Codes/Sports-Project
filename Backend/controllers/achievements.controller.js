@@ -76,8 +76,7 @@ export const updateAchievements = async (req, res) => {
       return res.status(404).json({ message: 'Achievement not found' });
     }
 
-    const { title, description, imgUrl } =
-      req.body;
+    const { title, description, imgUrl } = req.body;
 
     achievement.title = title || achievement.title;
     achievement.description = description || achievement.description;
@@ -90,4 +89,3 @@ export const updateAchievements = async (req, res) => {
     res.status(500).json({ message: 'Server error', error });
   }
 };
-

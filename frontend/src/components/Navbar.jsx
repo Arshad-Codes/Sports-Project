@@ -30,7 +30,7 @@ import {
 import { styled } from '@mui/system';
 import LoginPopup from '../pages/Home/LoginPopup';
 import { useNavigate } from 'react-router-dom';
-import Profile from '../assests/profile.jpg';
+import Profile from '../Student/Profile';
 import logo from '../assests/carousel/logo.jpg';
 
 const CustomButton = styled(Button)({

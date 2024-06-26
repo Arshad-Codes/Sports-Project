@@ -1,6 +1,6 @@
+import e from 'express';
 import Announcement from '../models/announcement.model.js';
 import Sport from '../models/sports.model.js';
-import e from 'express';
 
 export const createAnnouncement = async (req, res) => {
   try {
@@ -61,8 +61,7 @@ export const updateAnnouncement = async (req, res) => {
       return res.status(404).json({ message: 'Announcement not found' });
     }
 
-    const { title, content, sport } =
-      req.body;
+    const { title, content, sport } = req.body;
 
     announcement.title = title || announcement.title;
     announcement.content = content || announcement.content;

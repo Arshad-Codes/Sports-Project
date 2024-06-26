@@ -9,7 +9,6 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import sportsRoutes from './routes/sports.route.js';
 import announcementRoutes from './routes/announcement.route.js';
-import liveRoutes from './routes/live.route.js';
 
 const app = express();
 dotenv.config();
@@ -26,7 +25,6 @@ const connectiondb = async () => {
 app.use(
   cors({
     origin: 'http://localhost:5173',
-    // origin: 'https://eng-ruhuna-sports.netlify.app',
     credentials: true,
   })
 );
@@ -39,7 +37,6 @@ app.use('/api/sportscoordinator', sportsCoordinatorRoutes);
 app.use('/api/sport', sportsRoutes);
 app.use('/api/achievement', achievementRoutes);
 app.use('/api/announcement', announcementRoutes);
-app.use('/api/live', liveRoutes);
 
 app.listen(process.env.PORT, () => {
   connectiondb();
