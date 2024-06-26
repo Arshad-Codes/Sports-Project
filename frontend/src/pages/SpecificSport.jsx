@@ -14,22 +14,20 @@ function SpecificSport() {
     async function fetchSports() {
       try {
         const response = await axios.get(
-          'https://ruhunasports.onrender.com/api/sport/getSports'
+          'http://localhost:8800/api/sport/getSports'
         );
 
         for (let sport of response.data) {
           const teamDetails = await Promise.all(
             sport.team.map((studentId) =>
-              axios.get(
-                `https://ruhunasports.onrender.com/api/student/${studentId}`
-              )
+              axios.get(`http://localhost:8800/api/student/${studentId}`)
             )
           );
           sport.teamDetails = teamDetails.map((res) => res.data);
         }
         setSportsData(response.data);
         const resp = await axios.post(
-          'https://ruhunasports.onrender.com/api/sport/getenrolledstudentsbyname',
+          'http://localhost:8800/api/sport/getenrolledstudentsbyname',
           {
             name: name,
           }
@@ -56,7 +54,7 @@ function SpecificSport() {
     }
     try {
       const response = await axios.post(
-        'https://ruhunasports.onrender.com/api/student/enroll',
+        'http://localhost:8800/api/student/enroll',
         {
           sportId: sports._id,
           studentId: currentUser._id,

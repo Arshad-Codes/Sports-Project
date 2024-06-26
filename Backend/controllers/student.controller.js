@@ -1,11 +1,11 @@
-import Student from "../models/student.model.js";
-import Sport from "../models/sports.model.js";
-import jwt from "jsonwebtoken";
-import bcrypt from "bcrypt";
-import StudentVerification from "../models/studentVerification.model.js";
-import nodemailer from "nodemailer";
-import { v4 as uuidv4 } from "uuid";
-import Excuse from "../models/excuse.model.js";
+import Student from '../models/student.model.js';
+import Sport from '../models/sports.model.js';
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
+import StudentVerification from '../models/studentVerification.model.js';
+import nodemailer from 'nodemailer';
+import { v4 as uuidv4 } from 'uuid';
+import Excuse from '../models/excuse.model.js';
 
 export const register = async (req, res) => {
   try {
@@ -20,18 +20,18 @@ export const register = async (req, res) => {
     const isNicNoAvailable = await Student.findOne({ nicNo: newStudent.nicNo });
 
     if (isEmailAvailable) {
-      return res.status(409).send("Email already exists.");
+      return res.status(409).send('Email already exists.');
     }
     if (isRegNoAvailable) {
-      return res.status(409).send("Registration number already exists.");
+      return res.status(409).send('Registration number already exists.');
     }
     if (isNicNoAvailable) {
-      return res.status(409).send("NIC number already exists.");
+      return res.status(409).send('NIC number already exists.');
     }
 
     //nodemailer
     const transporter = nodemailer.createTransport({
-      service: "gmail",
+      service: 'gmail',
       auth: {
         user: process.env.AUTH_EMAIL,
         pass: process.env.AUTH_PASS,
@@ -40,9 +40,9 @@ export const register = async (req, res) => {
 
     transporter.verify((error, success) => {
       if (error) {
-        console.log("Error verifying transporter:", error);
+        console.log('Error verifying transporter:', error);
       } else {
-        console.log("Transporter is ready to send emails", success);
+        console.log('Transporter is ready to send emails', success);
       }
     });
 
@@ -55,9 +55,9 @@ export const register = async (req, res) => {
         const mailOptions = {
           from: process.env.AUTH_EMAIL,
           to: result.email,
-          subject: "Verification Email for Ruhuna E-Faculty Sports Website",
+          subject: 'Verification Email for Ruhuna E-Faculty Sports Website',
           html: `<p>Please click on the link below to verify your email address. Note that this link will expire in <strong>2 hours</strong>.</p> <p> <a href= ${
-            currenturl + "api/student/verify/" + result._id + "/" + uniqueString
+            currenturl + 'api/student/verify/' + result._id + '/' + uniqueString
           }> click here to verify </a></p> <p>If you did not receive the verification link, you can download it as a file by selecting the <strong>"Download this as a file"</strong> option from the <strong>Options</strong> menu. This file will contain the verification link.</p>`,
         };
 
@@ -77,7 +77,7 @@ export const register = async (req, res) => {
             } else {
               return res
                 .status(200)
-                .send("Email sent to the student for verification.");
+                .send('Email sent to the student for verification.');
             }
           });
         });
@@ -85,7 +85,7 @@ export const register = async (req, res) => {
       return res
         .status(200)
         .send(
-          "Student registered successfully. Please check your email for verification."
+          'Student registered successfully. Please check your email for verification.'
         );
     } catch (err) {
       res.status(500).send(err.message);
@@ -104,14 +104,14 @@ export const verify = async (req, res) => {
       userId: studentId,
     });
 
-    if (!student) return res.status(404).send("Student not found!");
+    if (!student) return res.status(404).send('Student not found!');
 
     const isCorrect = bcrypt.compareSync(uniqueString, student.uniqueString);
 
-    if (!isCorrect) return res.status(400).send("Invalid URL");
+    if (!isCorrect) return res.status(400).send('Invalid URL');
 
     if (student.expiredAt < new Date()) {
-      return res.status(400).send("Link expired");
+      return res.status(400).send('Link expired');
     }
 
     await StudentVerification.deleteOne({
@@ -125,10 +125,10 @@ export const verify = async (req, res) => {
       }
     );
 
-    res.status(200).send("Email verified successfully");
+    res.status(200).send('Email verified successfully');
   } catch (err) {
     console.log(err);
-    res.status(500).send("something went wrong");
+    res.status(500).send('something went wrong');
   }
 };
 
@@ -138,10 +138,10 @@ export const login = async (req, res) => {
       email: req.body.email,
     });
 
-    if (!student) return res.status(404).send("Student not found!");
+    if (!student) return res.status(404).send('Student not found!');
     const isCorrect = bcrypt.compareSync(req.body.password, student.password);
 
-    if (!isCorrect) return res.status(400).send("Wrong Username or Password");
+    if (!isCorrect) return res.status(400).send('Wrong Username or Password');
 
     const webtoken = jwt.sign(
       {
@@ -151,25 +151,25 @@ export const login = async (req, res) => {
     );
 
     const { password, ...info } = student._doc;
-    const info2 = { ...info, role: "student" };
+    const info2 = { ...info, role: 'student' };
     res
-      .cookie("accessTokenStudent", webtoken, { httpOnly: true })
+      .cookie('accessTokenStudent', webtoken, { httpOnly: true })
       .status(200)
       .send(info2);
   } catch (err) {
-    res.status(500).send("something went wrong");
+    res.status(500).send('something went wrong');
     //console.log(err);
   }
 };
 
 export const logout = async (req, res) => {
   res
-    .clearCookie("accessTokenStudent", {
-      sameSite: "none",
+    .clearCookie('accessTokenStudent', {
+      sameSite: 'none',
       secure: true,
     })
     .status(200)
-    .send("User has been logged out successfuly.");
+    .send('User has been logged out successfuly.');
 };
 
 export const getStudents = async (req, res) => {
@@ -177,7 +177,7 @@ export const getStudents = async (req, res) => {
     const student_list = await Student.find({});
     res.status(200).send(student_list);
   } catch (error) {
-    res.status(500).send("Something went wrong");
+    res.status(500).send('Something went wrong');
   }
 };
 
@@ -185,7 +185,7 @@ export const updateStudent = async (req, res) => {
   try {
     const student = await Student.findById(req.params.studentId);
     if (!student) {
-      return res.status(404).json({ message: "Student not found" });
+      return res.status(404).json({ message: 'Student not found' });
     }
 
     const { firstName, lastName, dateOfBirth, regNo, nicNo, achievements } =
@@ -202,7 +202,7 @@ export const updateStudent = async (req, res) => {
     // res.status(200).json({ message: 'Student details updated successfully' });
     res.status(200).send(student);
   } catch (error) {
-    res.status(500).json({ message: "Server error", error });
+    res.status(500).json({ message: 'Server error', error });
   }
 };
 
@@ -243,14 +243,14 @@ export const enrollToSport = async (req, res) => {
     const student = await Student.findOne({
       _id: studentId,
     });
-    if (!student) return res.status(404).send("Student not found!");
+    if (!student) return res.status(404).send('Student not found!');
     const sport = await Sport.findOne({
       _id: sportId,
     });
     if (sport.enrolledStudents.includes(studentId))
-      return res.status(409).send("Already enrolled!");
+      return res.status(409).send('Already enrolled!');
     if (student.enrolledSports.includes(sportId))
-      return res.status(409).send("Already enrolled!");
+      return res.status(409).send('Already enrolled!');
     student.enrolledSports.push(sportId);
     await student.save();
     await Sport.updateOne(
@@ -260,9 +260,9 @@ export const enrollToSport = async (req, res) => {
       }
     );
 
-    res.status(200).send("Enrolled successfully");
+    res.status(200).send('Enrolled successfully');
   } catch (error) {
-    res.status(500).send("Something went wrong");
+    res.status(500).send('Something went wrong');
   }
 };
 
@@ -272,13 +272,13 @@ export const getEnrolledSports = async (req, res) => {
     const student = await Student.findOne({
       _id: studentId,
     });
-    if (!student) return res.status(404).send("Student not found!");
+    if (!student) return res.status(404).send('Student not found!');
     const sports = await Sport.find({
       _id: { $in: student.enrolledSports },
     });
     res.status(200).send(sports);
   } catch (error) {
-    res.status(500).send("Something went wrong");
+    res.status(500).send('Something went wrong');
   }
 };
 
@@ -287,11 +287,11 @@ export const getStudentById = async (req, res) => {
   try {
     const student = await Student.findById(req.params.studentId);
     if (!student) {
-      return res.status(404).json({ message: "Student not found" });
+      return res.status(404).json({ message: 'Student not found' });
     }
     res.status(200).json(student);
   } catch (error) {
-    res.status(500).json({ message: "Server error", error });
+    res.status(500).json({ message: 'Server error', error });
   }
 };
 
@@ -301,22 +301,22 @@ export const sendEmail = async (req, res) => {
     const student = await Student.findOne({
       _id: studentId,
     });
-    if (!student) return res.status(404).send("Student not found!");
+    if (!student) return res.status(404).send('Student not found!');
     const sportName = req.body.sportName;
     const sport = await Sport.findOne({
       name: sportName,
     });
-    if (!sport) return res.status(404).send("Sport not found!");
+    if (!sport) return res.status(404).send('Sport not found!');
     const newexcuse = new Excuse({
       studentId: studentId,
       reciever: req.body.reciever,
       reason: req.body.reason,
-      status: "pending",
+      status: 'pending',
       date: req.body.date,
       subject: req.body.subject,
     });
     await newexcuse.save();
-    res.status(200).send("Excuse sent successfully");
+    res.status(200).send('Excuse sent successfully');
   } catch (error) {
     res.status(500).send(error.message);
   }
@@ -329,7 +329,7 @@ export const deleteStudent = async (req, res) => {
       email: studentemail,
     });
     if (!student) {
-      return res.status(404).send("Student not found!");
+      return res.status(404).send('Student not found!');
     }
     await Sport.updateMany(
       { team: student._id },
@@ -341,11 +341,9 @@ export const deleteStudent = async (req, res) => {
     );
     await Excuse.deleteMany({ studentId: student._id });
 
-    
-    
     await Student.deleteOne({ email: studentemail });
-    res.status(200).send("Student deleted successfully");
+    res.status(200).send('Student deleted successfully');
   } catch (error) {
-    res.status(500).send("Something went wrong");
+    res.status(500).send('Something went wrong');
   }
 };

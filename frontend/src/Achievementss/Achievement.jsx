@@ -16,7 +16,7 @@ function Achievement() {
     async function fetchData() {
       try {
         const response = await axios.get(
-          'https://ruhunasports.onrender.com/api/achievement/'
+          'http://localhost:8800/api/achievement/'
         );
         setAchievementList(response.data);
         setLoading(false);

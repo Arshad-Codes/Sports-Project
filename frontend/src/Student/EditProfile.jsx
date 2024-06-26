@@ -21,7 +21,7 @@ const EditProfile = () => {
 
   useEffect(() => {
     axios
-      .get(`https://ruhunasports.onrender.com/api/student/${userID}`)
+      .get(`http://localhost:8800/api/student/${userID}`)
       .then((response) => {
         setUserData({
           ...response.data,
@@ -42,7 +42,7 @@ const EditProfile = () => {
   const HandleClick = (event) => {
     event.preventDefault();
     axios
-      .put(`https://ruhunasports.onrender.com/api/student/${userID}`, userData)
+      .put(`http://localhost:8800/api/student/${userID}`, userData)
       .then((response) => {
         console.log(response.data);
         localStorage.setItem('currentUser', JSON.stringify(response.data));

@@ -15,7 +15,7 @@ function AdminLogin() {
     e.preventDefault();
     try {
       const res = await axios.post(
-        'https://ruhunasports.onrender.com/api/admin/login',
+        'http://localhost:8800/api/admin/login',
         {
           username,
           password,

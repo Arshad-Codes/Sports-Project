@@ -24,10 +24,10 @@ const AdminStaff = () => {
     async function fetchData() {
       try {
         const Sportsresponse = await axios.get(
-          'https://ruhunasports.onrender.com/api/sport/getSports'
+          'http://localhost:8800/api/sport/getSports'
         );
         const Staffsresponse = await axios.get(
-          'https://ruhunasports.onrender.com/api/sportscoordinator/getcoordinators'
+          'http://localhost:8800/api/sportscoordinator/getcoordinators'
         );
         setSportsList(Sportsresponse.data);
         setStaffList(Staffsresponse.data);
@@ -52,7 +52,7 @@ const AdminStaff = () => {
     try {
       //console.log(user);
       await axios.post(
-        'https://ruhunasports.onrender.com/api/sportscoordinator/registercoordinator',
+        'http://localhost:8800/api/sportscoordinator/registercoordinator',
         {
           user,
         },
