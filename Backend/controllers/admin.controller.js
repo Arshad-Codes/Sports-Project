@@ -16,7 +16,6 @@ export const register = async (req, res) => {
     await newAdmin.save();
     res.status(201).send('Admin has been created.');
   } catch (err) {
-    
     res
       .status(500)
       .send('something went wrong. try again with valid username, password ');
@@ -42,9 +41,9 @@ export const login = async (req, res) => {
     );
 
     const { password, ...info } = admin._doc;
-    const info2 = { ...info, role: 'admin'};
+    const info2 = { ...info, role: 'admin' };
     res
-      .cookie('accessToken', webtoken, { httpOnly: true })
+      .cookie('accessToken', webtoken, { httpOnly: true, sameSite: 'None' })
       .status(200)
       .send(info2);
   } catch (err) {
@@ -96,7 +95,7 @@ export const approveExcuse = async (req, res) => {
     const excuse = await Excuse.findByIdAndUpdate(req.body.excuseid, {
       status: 'approved',
     });
-    if (!excuse) { 
+    if (!excuse) {
       return res.status(404).send('Excuse not found!');
     }
     const student = await Student.findById(excuse.studentId);
@@ -105,9 +104,9 @@ export const approveExcuse = async (req, res) => {
       auth: {
         user: process.env.AUTH_EMAIL,
         pass: process.env.AUTH_PASS,
-      }, 
+      },
     });
-    
+
     transporter.verify((error, success) => {
       if (error) {
         console.log('Error verifying transporter:', error);
@@ -134,15 +133,11 @@ export const approveExcuse = async (req, res) => {
       } else {
         return res.status(200).send('Email sent successfully');
       }
-    } 
-    );
-    
-  }
-  catch (error) {
-    return res.status(500).send('Something went wrong',error);
+    });
+  } catch (error) {
+    return res.status(500).send('Something went wrong', error);
   }
 };
-
 
 export const disapproveExcuse = async (req, res) => {
   try {
@@ -153,16 +148,10 @@ export const disapproveExcuse = async (req, res) => {
       return res.status(404).send('Excuse not found!');
     }
     return res.status(200).send('Excuse disapproved successfully');
-  }
-  catch (error) {
+  } catch (error) {
     return res.status(500).send('Something went wrong');
   }
-}
-    
-
-
-
-
+};
 
 export const getExcuses = async (req, res) => {
   try {
@@ -177,14 +166,13 @@ export const getExcuses = async (req, res) => {
           ...excuse.toObject(), // Convert Mongoose document to plain JavaScript object
           studentName: student
             ? `${student.firstName} ${student.lastName}`
-            : "Unknown",
-          regNo: student ? student.regNo : "Unknown",
+            : 'Unknown',
+          regNo: student ? student.regNo : 'Unknown',
         };
       })
     );
 
     res.status(200).send(excusesWithStudentInfo);
-
   } catch (error) {
     res.status(500).send('Something went wrong');
   }
