@@ -67,9 +67,9 @@ export const addTeamMembers = async (req, res) => {
 
 export const addaTeamMember = async (req, res) => {
   try {
-    if (req.role !== 'admin') {
-      return res.status(403).send('Unautorized Access. You are not a admin');
-    }
+    // if (req.role !== 'admin') {
+    //   return res.status(403).send('Unautorized Access. You are not a admin');
+    // }
     const sport = await Sport.findById(req.body.data.selectedSport);
     if (!sport) {
       return res.status(404).json({ message: 'Sport not found' });

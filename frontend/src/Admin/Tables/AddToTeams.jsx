@@ -99,8 +99,7 @@ function AddToTeams() {
         'https://ruhunasports.onrender.com/api/sport/addateammember',
         {
           data: { selectedSport, selectedStudent },
-        },
-        { withCredentials: true }
+        }
       );
       setSelectedStudent(null);
       setSelectedSport(null);

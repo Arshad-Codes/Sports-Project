@@ -19,7 +19,7 @@ const router = express.Router();
 router.post('/createsport', verifyTokenAdmin, createsport);
 router.get('/getSports', getSports);
 router.delete('/deleteSport/:id', verifyTokenAdmin, deleteSport);
-router.post('/addateammember', verifyTokenAdmin, addaTeamMember);
+router.post('/addateammember', addaTeamMember);
 router.put('/:_id', verifyTokenAdmin, updateSports);
 router.get('/getSportAnnouncements/:sportId', getSportAnnouncements);
 router.post('/getenrolledstudents', getEnrolledStudents);
