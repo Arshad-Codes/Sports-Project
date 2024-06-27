@@ -138,3 +138,16 @@ export const updateSports = async (req, res) => {
     res.status(500).json({ message: 'Server error', error });
   }
 };
+
+// Get announcements for a specific sport
+export const getSportAnnouncements = async (req, res) => {
+  try {
+    const sportId = req.params.sportId;
+    const sport = await Sport.findById(sportId).select('announcements');
+    if (!sport) return res.status(404).send('Sport not found!');
+    
+    res.status(200).send(sport.announcements);
+  } catch (error) {
+    res.status(500).send('Something went wrong');
+  }
+};
