@@ -15,7 +15,9 @@ import Footer from '../components/Footer';
 
 function SpecificSport() {
   const { name } = useParams();
+  //console.log(name);
   const [sportsData, setSportsData] = useState([]);
+  const [enrolledSports, setenrolledSports] = useState([]);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const printRef = useRef();
@@ -43,6 +45,13 @@ function SpecificSport() {
         }
         setSportsData(response.data);
         setLoading(false);
+        const resp = await axios.post(
+          'https://ruhunasports.onrender.com/api/sport/getenrolledstudentsbyname',
+          {
+            name: name,
+          }
+        );
+        setenrolledSports(resp.data);
       } catch (error) {
         console.error('Error fetching sports:', error);
       }
@@ -66,9 +75,7 @@ function SpecificSport() {
         },
         { withCredentials: true }
       );
-      console.log(response);
-      alert('Enrolled successfully');
-      navigate('/');
+      return alert('Enrolled successfully');
     } catch (error) {
       console.error('Error enrolling:', error);
     }
@@ -87,6 +94,12 @@ function SpecificSport() {
     window.location.reload();
   };
 
+  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+  const isEnrolled =
+    currentUser &&
+    currentUser.role === 'student' &&
+    enrolledSports.includes(currentUser._id);
+
   const sports = sportsData.find((sport) => sport.name.trim() === name.trim());
   if (!sports || loading) {
     return (
@@ -104,7 +117,6 @@ function SpecificSport() {
     const girlsTeam = sports.teamDetails.filter(
       (member) => member.gender === 'Female'
     );
-
     return (
       <>
         <NavBar />
@@ -123,8 +135,12 @@ function SpecificSport() {
             <div className="basis-3/4 flex items-center justify-center">
               <div className="text-center">
                 <h1 className="p-10 font-medium">{sports.description}</h1>
-                <CustomButton onClick={handleEnroll} className="mt-5 w-36">
-                  Enrol
+                <CustomButton
+                  onClick={handleEnroll}
+                  className="mt-5 w-36"
+                  disabled={isEnrolled}
+                >
+                  {isEnrolled ? 'Already Enrolled' : 'Enroll'}
                 </CustomButton>
               </div>
             </div>

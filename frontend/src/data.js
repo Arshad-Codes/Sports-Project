@@ -1,7 +1,8 @@
 import imgHome_1 from './assests/carousel/Home_1.jpg';
 import imgHome_2 from './assests/carousel/Home_2.jpg';
 import imgHome_3 from './assests/carousel/Home_3.jpg';
-
+import achievement_1 from './Achievementss/pic2.jpg';
+import achievement_2 from './Achievementss/pic1.jpeg';
 export const homeData = {
   carouselData: [
     {
@@ -20,15 +21,15 @@ export const homeData = {
   achievementData: [
     {
       title: 'Image 1',
-      path: '/src/Achievementss/pic2.jpg',
+      path: achievement_1,
     },
     {
       title: 'Image 2',
-      path: '/src/Achievementss/pic1.jpeg',
+      path: achievement_2,
     },
     {
       title: 'Image 3',
-      path: '/src/assests/carousel/Home_3.jpg',
+      path: imgHome_3,
     },
   ],
 };

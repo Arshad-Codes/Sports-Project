@@ -5,6 +5,7 @@ import bcrypt from 'bcrypt';
 import StudentVerification from '../models/studentVerification.model.js';
 import nodemailer from 'nodemailer';
 import { v4 as uuidv4 } from 'uuid';
+import Excuse from '../models/excuse.model.js';
 
 export const register = async (req, res) => {
   try {
@@ -267,7 +268,7 @@ export const enrollToSport = async (req, res) => {
 
 export const getEnrolledSports = async (req, res) => {
   try {
-    const studentId = req.params.studentId;
+    const studentId = req.body.studentId;
     const student = await Student.findOne({
       _id: studentId,
     });
@@ -297,7 +298,6 @@ export const getStudentById = async (req, res) => {
 export const sendEmail = async (req, res) => {
   try {
     const studentId = req.body.studentId;
-    console.log(req.body);
     const student = await Student.findOne({
       _id: studentId,
     });
@@ -318,7 +318,7 @@ export const sendEmail = async (req, res) => {
     await newexcuse.save();
     res.status(200).send('Excuse sent successfully');
   } catch (error) {
-    res.status(500).send('Something went wrong');
+    res.status(500).send(error.message);
   }
 };
 
@@ -331,6 +331,16 @@ export const deleteStudent = async (req, res) => {
     if (!student) {
       return res.status(404).send('Student not found!');
     }
+    await Sport.updateMany(
+      { team: student._id },
+      { $pull: { team: student._id } }
+    );
+    await Sport.updateMany(
+      { enrolledStudents: student._id },
+      { $pull: { enrolledStudents: student._id } }
+    );
+    await Excuse.deleteMany({ studentId: student._id });
+
     await Student.deleteOne({ email: studentemail });
     res.status(200).send('Student deleted successfully');
   } catch (error) {

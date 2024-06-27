@@ -19,7 +19,7 @@ import { useEffect, useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const TABLE_HEAD = ['Name', 'Email', 'Position', 'Delete', 'More Details'];
+const TABLE_HEAD = ['Name', 'Email', 'Position', 'Delete'];
 
 function StaffsTable() {
   const [staffsList, setStaffsList] = useState([]);
@@ -195,11 +195,11 @@ function StaffsTable() {
                               <DeleteForever className="h-4 w-4 text-black" />
                             </Button>
                           </td>
-                          <td className={classes}>
+                          {/* <td className={classes}>
                             <Button className="text-customGreen1 font-bold bg-customGreen3 border-customGreen2 border-2">
                               See More..
                             </Button>
-                          </td>
+                          </td> */}
                         </tr>
                       );
                     }
@@ -209,7 +209,7 @@ function StaffsTable() {
             )}
           </table>
         </CardBody>
-        <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
+        {/* <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
           <Typography variant="small" color="blue-gray" className="font-normal">
             Page 1 of 10
           </Typography>
@@ -221,7 +221,7 @@ function StaffsTable() {
               Next
             </Button>
           </div>
-        </CardFooter>
+        </CardFooter> */}
       </Card>
       <ToastContainer
         position="bottom-right"

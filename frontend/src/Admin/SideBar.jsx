@@ -9,7 +9,7 @@ import {
   FaUserEdit,
   FaMailBulk,
   FaPeopleArrows,
-  FaTrophy
+  FaTrophy,
 } from 'react-icons/fa';
 import { useState } from 'react';
 import axios from 'axios';

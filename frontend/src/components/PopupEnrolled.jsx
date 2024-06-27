@@ -29,7 +29,9 @@ const PopupEnrolled = ({ isOpen, data, onClose }) => {
         <div className="announcement mb-4">
           <div className="announcement-content">
             <h1 className="text-lg font-semibold">{announcement.title}</h1>
-            <p className="date text-sm text-gray-500">Posted on: {new Date(announcement.createdAt).toLocaleString()}</p>
+            <p className="date text-sm text-gray-500">
+              Posted on: {new Date(announcement.createdAt).toLocaleString()}
+            </p>
             <p className="font-medium">Sport: {announcement.sport}</p>
             <p>{announcement.content}</p>
           </div>
