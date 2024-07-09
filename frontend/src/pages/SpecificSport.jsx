@@ -12,11 +12,6 @@ import {
   Typography,
 } from '@material-tailwind/react';
 import Footer from '../components/Footer';
-import { useParams } from 'react-router-dom';
-import NavBar from '../components/Navbar';
-import { CustomButton } from '../TailwindCustomComponents/CustomComponents';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
 
 function SpecificSport() {
   const { name } = useParams();
@@ -146,15 +141,6 @@ function SpecificSport() {
                   {isEnrolled ? 'Already Enrolled' : 'Enroll'}
                 </CustomButton>
               </div>
-            </div>
-          </div>
-        </div>
-        <div className="bg-customGreen mt-10">
-          <h1 className="text-white">Faculty Team</h1>
-          <div>
-            <div className="grid grid-cols-2">
-              <h1>Hiii</h1>
-              <h1>Hiii</h1>
             </div>
           </div>
         </div>
