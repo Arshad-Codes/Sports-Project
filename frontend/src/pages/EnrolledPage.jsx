@@ -13,8 +13,11 @@ function EnrolledPage() {
   useEffect(() => {
     const fetchEnrolledSports = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:8800/api/student/getEnrolledSports/${currentUser._id}`
+        const response = await axios.post(
+          'http://localhost:8800/api/student/getEnrolledSports',
+          {
+            studentId: currentUser._id,
+          }
         );
         setEnrolledSports(response.data);
       } catch (error) {
@@ -30,7 +33,6 @@ function EnrolledPage() {
       const response = await axios.get(
         `http://localhost:8800/api/announcement/getAnnouncementforSport/${sportId}`
       );
-      console.log('Fetched announcement:', response.data);
       setAnnouncement(response.data);
       setIsPopupOpen(true);
     } catch (error) {
@@ -55,7 +57,7 @@ function EnrolledPage() {
             <div
               className="sport"
               key={sport._id}
-              onClick={() => handleSportClick(sport._id)}
+              onClick={() => handleSportClick(sport.name)}
               style={{ cursor: 'pointer' }}
             >
               <div className="sport-content">
