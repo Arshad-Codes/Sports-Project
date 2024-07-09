@@ -14,7 +14,7 @@ function EnrolledPage() {
     const fetchEnrolledSports = async () => {
       try {
         const response = await axios.post(
-          'http://localhost:8800/api/student/getEnrolledSports',
+          'https://ruhunasports.onrender.com/api/student/getEnrolledSports',
           {
             studentId: currentUser._id,
           }
