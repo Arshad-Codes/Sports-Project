@@ -11,7 +11,7 @@ const PopupEnrolled = ({ isOpen, data, onClose }) => {
 
   if (!isOpen || !data || data.length === 0) return null;
 
-  const announcement = data[0];
+  const announcement = data;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-800 bg-opacity-75">

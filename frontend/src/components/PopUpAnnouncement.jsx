@@ -1,4 +1,3 @@
-// src/components/Popup.js
 import React, { useState, useEffect } from 'react';
 
 const PopupAnnouncement = ({ isOpen, data, onClose, onSubmit }) => {
