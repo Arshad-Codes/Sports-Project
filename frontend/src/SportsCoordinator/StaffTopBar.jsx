@@ -17,7 +17,7 @@ const StaffTopBar = ({ toggleSidebar }) => {
       >
         {isSidebarOpen ? <FaBars size={20} /> : <FaTimes size={20} />}
       </button>
-      <div className="text-black text-2xl font-bold">Admin</div>
+      <div className="text-black text-2xl font-bold"></div>
     </Navbar>
   );
 };

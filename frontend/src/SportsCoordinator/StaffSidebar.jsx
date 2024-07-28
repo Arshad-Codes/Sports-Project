@@ -37,11 +37,13 @@ const StaffSidebar = ({ isSidebarOpen, onPageChange }) => {
           <p className="h-14 w-14 bg-blue-gray-600 rounded-lg"></p>
         </div>
         <div className="flex flex-col mt-3">
-          <p className="ml-5 text-2xl font-extrabold text-customGreen">Admin</p>
+          <p className="ml-5 text-2xl font-extrabold text-customGreen">
+            Sport Coordinator
+          </p>
           <p className="ml-5 text-base font-bold text-customGreen">Dashboard</p>
         </div>
       </div>
-      <div className="flex flex-col gap-5 ml-3 mt-5 mr-5">
+      <div className="flex flex-col gap-5 ml-3 mt-14 mr-5">
         {/* <button
           className={`rounded-lg h-10 p-3 flex flex-row gap-5 items-center ${
             clickedButton === 'admin_dashboard'
