@@ -39,7 +39,7 @@ app.use('/api/sportscoordinator', sportsCoordinatorRoutes);
 app.use('/api/sport', sportsRoutes);
 app.use('/api/achievement', achievementRoutes);
 app.use('/api/announcement', announcementRoutes);
-app.use('./api/live', liveRoutes);
+app.use('/api/live', liveRoutes);
 
 app.listen(process.env.PORT, () => {
   connectiondb();

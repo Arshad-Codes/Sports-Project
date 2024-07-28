@@ -88,7 +88,7 @@ const AdminStaff = () => {
       });
     } catch (err) {
       setError(err.response.data);
-      toast.error('Failed to add sports coordinator. Please try again later.', {
+      toast.error(err.response.data, {
         position: 'bottom-right',
         autoClose: 4000,
         hideProgressBar: false,

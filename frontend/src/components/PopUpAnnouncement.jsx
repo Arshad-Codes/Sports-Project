@@ -2,7 +2,11 @@
 import React, { useState, useEffect } from 'react';
 
 const PopupAnnouncement = ({ isOpen, data, onClose, onSubmit }) => {
-  const [formData, setFormData] = useState({ title: '', content: '', sport: '' });
+  const [formData, setFormData] = useState({
+    title: '',
+    content: '',
+    sport: '',
+  });
 
   useEffect(() => {
     if (data) {
@@ -44,7 +48,7 @@ const PopupAnnouncement = ({ isOpen, data, onClose, onSubmit }) => {
             <label className="block text-gray-700 text-sm font-bold mb-2">
               Content:
             </label>
-            <input
+            <textarea
               type="text"
               name="content"
               value={formData.content}
