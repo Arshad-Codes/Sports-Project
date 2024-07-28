@@ -1,4 +1,3 @@
-
 function StaffAccount() {
   return <div>StaffAccount</div>;
 }

@@ -1,10 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { CustomButton } from '../TailwindCustomComponents/CustomComponents';
-import { Input, Textarea, Typography } from '@material-tailwind/react';
+import {
+  Input,
+  Textarea,
+  Typography,
+  Button,
+  Spinner,
+} from '@material-tailwind/react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import { DeleteForever, Edit } from '@mui/icons-material';
+import PopupAnnouncement from '../components/PopUpAnnouncement';
 function StaffAnnouncement() {
   const [sportsList, setSportsList] = useState([]);
   const [announcement, setAnnouncement] = useState({
@@ -19,6 +26,77 @@ function StaffAnnouncement() {
   //   localStorage.getItem('currentUser')
   // );
   const sportRole = currentUser?.sport || '';
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [currentAnnouncement, setCurrentAnnouncement] = useState(null);
+
+  const handleEdit = (announcement) => () => {
+    setCurrentAnnouncement(announcement);
+    setIsPopupOpen(true);
+  };
+
+  const handleClosePopup = () => {
+    setIsPopupOpen(false);
+    setCurrentAnnouncement(null);
+  };
+
+  const handleSubmitUpdate = async (updatedData) => {
+    try {
+      await axios.put(
+        `http://localhost:8800/api/announcement/${updatedData._id}`,
+        updatedData,
+        {
+          withCredentials: true,
+        }
+      );
+      setAnnouncementsList((prevData) =>
+        prevData.map((announcement) =>
+          announcement._id === updatedData._id ? updatedData : announcement
+        )
+      );
+      toast.success('Announcement updated successfully', {
+        position: 'bottom-right',
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        style: {
+          borderRadius: '8px',
+          boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.1)',
+          padding: '16px',
+          fontSize: '16px',
+        },
+        iconTheme: {
+          primary: '#FFFFFF',
+          secondary: '#4CAF50',
+        },
+      });
+      handleClosePopup();
+    } catch (error) {
+      console.error('Error updating announcement', error);
+      toast.error('Failed to update announcement. Please try again', {
+        position: 'bottom-right',
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        style: {
+          borderRadius: '8px',
+          boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.1)',
+          padding: '16px',
+          fontSize: '16px',
+        },
+        iconTheme: {
+          primary: '#FFFFFF',
+          secondary: '#FF5252',
+        },
+      });
+    }
+  };
+
   useEffect(() => {
     async function fetchData() {
       try {
@@ -26,11 +104,7 @@ function StaffAnnouncement() {
         // console.log(currentUser.sport);
         //console.log(sportRole);
         const response = await axios.get(
-          'http://localhost:8800/api/announcement/getAnnouncementforSport',
-          {
-            sportRole,
-            withCredentials: true,
-          }
+          'http://localhost:8800/api/announcement/getAnnouncement'
         );
         setAnnouncementsList(response.data);
         const Sportsresponse = await axios.get(
@@ -40,12 +114,10 @@ function StaffAnnouncement() {
         setLoading(false);
       } catch (error) {
         console.error('Error fetching announcements:', error);
-        setLoading(false);
       }
     }
     fetchData();
-    setAnnouncement((prev) => ({ ...prev, sport: sportRole }));
-  }, [announcementsList, sportRole]);
+  }, [announcementsList]);
 
   const handleChange = (e) => {
     setAnnouncement((prev) => {
@@ -91,6 +163,61 @@ function StaffAnnouncement() {
     } catch (error) {
       console.error(error);
       toast.error('Failed to add announcement. Please try again.', {
+        position: 'bottom-right',
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        style: {
+          borderRadius: '8px',
+          boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.1)',
+          padding: '16px',
+          fontSize: '16px',
+        },
+        iconTheme: {
+          primary: '#FFFFFF',
+          secondary: '#FF5252',
+        },
+      });
+    }
+  };
+
+  const handleDelete = (announcement) => async () => {
+    try {
+      await axios.post(
+        'http://localhost:8800/api/announcement/deleteAnnouncement',
+        { ...announcement }
+      );
+
+      toast.success('Announcement deleted successfully', {
+        position: 'bottom-right',
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        style: {
+          borderRadius: '8px',
+          boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.1)',
+          padding: '16px',
+          fontSize: '16px',
+        },
+        iconTheme: {
+          primary: '#FFFFFF',
+          secondary: '#4CAF50',
+        },
+      });
+      setAnnouncementsList(
+        announcementsList.filter(
+          (_announcement) => _announcement._id !== announcement._id
+        )
+      );
+    } catch (error) {
+      console.error('Error deleting announcement', error);
+      toast.error('Failed, Check your internet connection and try again', {
         position: 'bottom-right',
         autoClose: 4000,
         hideProgressBar: false,
@@ -194,7 +321,9 @@ function StaffAnnouncement() {
       <div className="mx-5 py-5">
         <h2 className="text-2xl font-bold mb-4">Announcements List</h2>
         {loading ? (
-          <p className="text-gray-600">Loading...</p>
+          <div className="flex justify-center">
+            <Spinner className="h-16 w-16 text-white" />
+          </div>
         ) : (
           <div className="grid grid-cols-1 gap-4">
             {announcementsList.map((announcement) => (
@@ -208,11 +337,35 @@ function StaffAnnouncement() {
                   </h3>
                   <p className="text-gray-600">{announcement.content}</p>
                 </div>
+                <div className="flex items-center space-x-2 p-4">
+                  <Button
+                    color="green"
+                    size="sm"
+                    className="!min-h-[30px] !py-1 !px-3 flex items-center justify-center"
+                    onClick={handleEdit(announcement)}
+                  >
+                    <Edit className="h-4 w-4" />
+                  </Button>
+                  <Button
+                    color="red"
+                    size="sm"
+                    className="!min-h-[30px] !py-1 !px-3 flex items-center justify-center"
+                    onClick={handleDelete(announcement)}
+                  >
+                    <DeleteForever className="h-4 w-4" />
+                  </Button>
+                </div>
               </div>
             ))}
           </div>
         )}
       </div>
+      <PopupAnnouncement
+        isOpen={isPopupOpen}
+        data={currentAnnouncement}
+        onClose={handleClosePopup}
+        onSubmit={handleSubmitUpdate}
+      />
       <ToastContainer
         position="bottom-right"
         autoClose={4000}
