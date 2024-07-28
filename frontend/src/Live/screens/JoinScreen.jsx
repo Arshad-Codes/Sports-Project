@@ -76,7 +76,7 @@ function JoinScreen({ role, getMeetingAndToken, setMode }) {
                     </>
                   </div>
                 ))}
-                {liveList && (
+                {liveList.length == 0 && (
                   <Typography
                     color="red"
                     variant="h3"
